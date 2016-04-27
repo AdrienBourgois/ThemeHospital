@@ -16,7 +16,6 @@ func _ready():
 
 func _process(delta):
 	if (client_states.is_connected):
-		print("Je balance le packet monsieur")
 		peer_stream.put_var("Bonsoir monsieur")
 		set_process(false)
 
@@ -31,7 +30,7 @@ func connect_to_server(ip_address, port):
 		peer_stream.set_stream_peer(socket)
 		print("Connected to server")
 	else:
-		print("couldn't connect to server")
+		print("Couldn't connect to server")
 	
 	pass
 
