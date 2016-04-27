@@ -1,0 +1,22 @@
+
+extends Control
+onready var port_label_node = get_tree().get_current_scene().get_node("./panel/combo_box/port_line_edit")
+onready var nickname_line_edit_node = get_tree().get_current_scene().get_node("./panel/combo_box/nickname_line_edit")
+
+func _ready():
+
+	pass
+
+
+func _on_launch_server_button_pressed():
+	if (port_label_node != null):
+		if (get_node("/root/GlobalServer").startServer(port_label_node.get_text().to_int())):
+			get_node("/root/GlobalServer").setHostName(nickname_line_edit_node.get_text())
+			get_tree().get_current_scene().queue_free()
+			get_tree().change_scene("res://scenes/network/server/ServerLobby.scn")
+
+
+func _on_back_to_main_menu_button_pressed():
+	get_tree().get_current_scene().queue_free()
+	get_tree().change_scene("res://scenes/network/MultiplayerSelectMenu.scn")
+	pass # replace with function body

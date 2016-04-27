@@ -56,8 +56,7 @@ func getHostName():
 
 func startServer(port):
 	if (socket != null):
-		return
-		print("Server already running")
+		return false
 	
 	socket = TCP_Server.new()
 	
@@ -65,10 +64,10 @@ func startServer(port):
 		print("server is listening")
 		server_states.server_connected = true
 		server_states.looking_for_players = true
+		return true
 	else:
 		socket = null
-	
-	pass
+		return false
 
 
 func stopServer():
