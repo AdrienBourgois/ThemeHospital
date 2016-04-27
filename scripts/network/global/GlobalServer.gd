@@ -2,8 +2,6 @@
 extends Node
 
 var socket = null setget ,getSocket
-var host_name = null setget setHostName,getHostName
-var messages_list = Array() setget addMessage,getMessagesList
 var player_data = Array()
 var packet_list = Array() setget addPacket,getPacketList
 var current_packet_number = 0
@@ -28,14 +26,6 @@ func _process(delta):
 func getSocket():
 	return socket
 
-
-func addMessage(message):
-	messages_list.push_back(message)
-
-func getMessagesList():
-	return messages_list
-
-
 func addPacket(packet):
 	packet_list.push_back(packet)
 
@@ -43,28 +33,23 @@ func getPacketList():
 	return packet_list
 
 
-func setHostName(nickname):
-	if (!nickname.empty() && host_name == null):
-		host_name = nickname
-		print("host name: ", host_name)
-	else:
-		print("nope")
-
-func getHostName():
-	return host_name
-
-
 func startServer(port):
 	if (socket != null):
 		return false
 	
 	socket = TCP_Server.new()
+	var global_client = get_node("/root/GlobalClient")
 	
 	if (socket.listen(port) == 0):
 		print("server is listening")
 		server_states.server_connected = true
 		server_states.looking_for_players = true
-		return true
+		global_client.set_host_client(true)
+		if (global_client.connect_to_server("127.0.0.1", port)):
+			return true
+		else:
+			stopServer()
+			return false
 	else:
 		socket = null
 		return false
@@ -76,7 +61,6 @@ func stopServer():
 	
 	socket.stop()
 	player_data.clear()
-	messages_list.clear()
 	
 	socket = null
 
@@ -85,14 +69,16 @@ func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
 			print("client disconnected")
-			player_data[player].remove()
+#			player_data[player].remove()
 			checkLookingForPlayers()
 
 
 func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
-			messages_list.push_back(player_data[player][1].get_var())
+			var message = player_data[player][1].get_var()
+			print("Message from a client: ", message)
+#			sendPacket(message)
 			#Make Packet Interpreter script to parse messages received
 
 
@@ -108,7 +94,7 @@ func checkForIncomingConnection():
 
 func createClientData(clientObject, clientPeerstream):
 	var player = Array()
-	var player_id = player_data.size() + 1
+	var player_id = player_data.size()
 	
 	player.push_back(clientObject)
 	player.push_back(clientPeerstream)
@@ -120,7 +106,7 @@ func createClientData(clientObject, clientPeerstream):
 
 
 func checkLookingForPlayers():
-	var current_player_number = player_data.size() + 1
+	var current_player_number = player_data.size()
 	if (current_player_number >= 4):
 		server_states.looking_for_players = false
 	else:

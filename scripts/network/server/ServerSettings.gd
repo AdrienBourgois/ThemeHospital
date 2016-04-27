@@ -11,7 +11,6 @@ func _ready():
 func _on_launch_server_button_pressed():
 	if (port_label_node != null):
 		if (get_node("/root/GlobalServer").startServer(port_label_node.get_text().to_int())):
-			get_node("/root/GlobalServer").setHostName(nickname_line_edit_node.get_text())
 			get_tree().get_current_scene().queue_free()
 			get_tree().change_scene("res://scenes/network/server/ServerLobby.scn")
 
