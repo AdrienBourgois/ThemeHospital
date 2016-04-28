@@ -14,7 +14,6 @@ var server_states = {
 
 func _ready():
 	set_process(true)
-	pass
 
 func _process(delta):
 	if (server_states.server_connected):
@@ -38,22 +37,26 @@ func startServer(port):
 		return false
 	
 	socket = TCP_Server.new()
-	var global_client = get_node("/root/GlobalClient")
 	
 	if (socket.listen(port) == 0):
-		print("server is listening")
-		server_states.server_connected = true
-		server_states.looking_for_players = true
-		global_client.setHostClient(true)
-		if (global_client.connectToServer("127.0.0.1", port)):
-			return true
-		else:
-			stopServer()
-			return false
+		return initializeServer(port)
 	else:
 		socket = null
 		return false
 
+func initializeServer(port):
+	var global_client = get_node("/root/GlobalClient")
+	
+	server_states.server_connected = true
+	server_states.looking_for_players = true
+	global_client.setHostClient(true)
+	
+	if (global_client.connectToServer("127.0.0.1", port)):
+		return true
+	else:
+		stopServer()
+		return false
+	
 
 func stopServer():
 	server_states.server_connected = false

@@ -7,7 +7,7 @@ var last_messages_list_size = 0
 
 func _ready():
 	checkHostClient()
-	get_node("panel/chat_box/messages_list_label").set_scroll_follow(true)
+	setScrollFollow()
 	set_process(true)
 
 func _process(delta):
@@ -36,3 +36,10 @@ func checkHostClient():
 	else:
 		get_node("panel/clients_information_box").set_hidden(true)
 	pass
+
+func setScrollFollow():
+	get_node("panel/chat_box/messages_list_label").set_scroll_follow(true)
+
+func _on_message_line_edit_input_event( ev ):
+	if (ev.is_action_pressed("send_message")):
+		_on_send_message_button_pressed()

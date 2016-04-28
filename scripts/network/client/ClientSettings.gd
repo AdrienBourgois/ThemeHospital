@@ -11,7 +11,7 @@ func _on_join_server_button_pressed():
 	
 	if (get_node("/root/GlobalClient").connectToServer(ip_address_node.get_text(), port_node.get_value())):
 		get_tree().get_current_scene().queue_free()
-		get_tree().change_scene("res://scenes/network/client/ClientLobby.scn")
+		get_tree().change_scene("res://scenes/network/Lobby.scn")
 
 
 func _on_back_to_main_menu_button_pressed():
