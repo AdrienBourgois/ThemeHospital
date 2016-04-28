@@ -9,7 +9,7 @@ func _on_join_server_button_pressed():
 	if (port_node == null || ip_address_node == null):
 		return
 	
-	if (get_node("/root/GlobalClient").connect_to_server(ip_address_node.get_text(), port_node.get_value())):
+	if (get_node("/root/GlobalClient").connectToServer(ip_address_node.get_text(), port_node.get_value())):
 		get_tree().get_current_scene().queue_free()
 		get_tree().change_scene("res://scenes/network/client/ClientLobby.scn")
 

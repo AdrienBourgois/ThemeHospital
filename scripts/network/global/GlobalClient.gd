@@ -9,7 +9,7 @@ var client_states = {
 	is_connected = false,
 	is_connecting = false,
 	is_host = false
-}
+} setget ,getClientStates
 
 func _ready():
 	set_process(true)
@@ -64,3 +64,6 @@ func getMessagesList():
 
 func setHostClient(boolean):
 	client_states.is_host = boolean
+
+func getClientStates():
+	return client_states

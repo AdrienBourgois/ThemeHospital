@@ -12,7 +12,7 @@ func _on_launch_server_button_pressed():
 	if (port_label_node != null):
 		if (get_node("/root/GlobalServer").startServer(port_label_node.get_text().to_int())):
 			get_tree().get_current_scene().queue_free()
-			get_tree().change_scene("res://scenes/network/server/ServerLobby.scn")
+			get_tree().change_scene("res://scenes/network/client/ClientLobby.scn")
 
 
 func _on_back_to_main_menu_button_pressed():
