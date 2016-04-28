@@ -58,14 +58,21 @@ func initializeServer(port):
 		return false
 	
 
-func stopServer():
+func resetServerStates():
 	server_states.server_connected = false
 	server_states.looking_for_players = false
+	server_states.game_started = false
+
+func stopServer():
+	resetServerStates()
 	
 	socket.stop()
 	player_data.clear()
+	packet_list.clear()
+	current_packet_number = 0
 	
 	socket = null
+	print("Server stopped")
 
 
 func checkForDisconnection():

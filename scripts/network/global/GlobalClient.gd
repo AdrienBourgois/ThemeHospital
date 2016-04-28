@@ -66,3 +66,24 @@ func setHostClient(boolean):
 
 func getClientStates():
 	return client_states
+
+func disconnectServer():
+	if (client_states.is_host):
+		var global_server = get_node("/root/GlobalServer").stopServer()
+
+func resetClientStates():
+	client_states.is_connected = false
+	client_states.is_connecting = false
+	client_states.is_host = false
+
+func disconnectFromServer():
+	socket.disconnect()
+	messages_list.clear()
+	
+	disconnectServer()
+	resetClientStates()
+	
+	peer_stream = null
+	socket = null
+	
+	print("Disconnected from server")

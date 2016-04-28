@@ -41,5 +41,12 @@ func setScrollFollow():
 	get_node("panel/chat_box/messages_list_label").set_scroll_follow(true)
 
 func _on_message_line_edit_input_event( ev ):
-	if (ev.is_action_pressed("send_message")):
+	if (ev.is_action_pressed("accept")):
 		_on_send_message_button_pressed()
+
+
+func _on_disconnect_button_pressed():
+	global_client.disconnectFromServer()
+	get_tree().get_current_scene().queue_free()
+	get_tree().change_scene("res://scenes/network/MultiplayerSelectMenu.scn")
+	pass # replace with function body

@@ -16,5 +16,5 @@ func _on_back_to_main_menu_button_pressed():
 	get_tree().change_scene("res://scenes/network/MultiplayerSelectMenu.scn")
 
 func checkInputEvent( ev ):
-	if (ev.is_action_pressed("ui_accept")):
+	if (ev.is_action_pressed("accept")):
 		_on_launch_server_button_pressed()

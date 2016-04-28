@@ -17,3 +17,9 @@ func _on_join_server_button_pressed():
 func _on_back_to_main_menu_button_pressed():
 	get_tree().get_current_scene().queue_free()
 	get_tree().change_scene("res://scenes/network/MultiplayerSelectMenu.scn")
+
+
+func checkInputEvent( ev ):
+	if (ev.is_action_pressed("accept")):
+		_on_join_server_button_pressed()
+	pass # replace with function body
