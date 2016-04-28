@@ -44,8 +44,8 @@ func startServer(port):
 		print("server is listening")
 		server_states.server_connected = true
 		server_states.looking_for_players = true
-		global_client.set_host_client(true)
-		if (global_client.connect_to_server("127.0.0.1", port)):
+		global_client.setHostClient(true)
+		if (global_client.connectToServer("127.0.0.1", port)):
 			return true
 		else:
 			stopServer()
@@ -77,8 +77,8 @@ func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			print("Message from a client: ", message)
-#			sendPacket(message)
+			var new_message = player_data[player][2]
+			sendPacket(message)
 			#Make Packet Interpreter script to parse messages received
 
 
