@@ -79,7 +79,7 @@ func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
 			print("client disconnected")
-#			player_data[player].remove()
+			player_data.remove(player)
 			checkLookingForPlayers()
 
 
