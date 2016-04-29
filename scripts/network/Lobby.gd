@@ -33,8 +33,6 @@ func update_chat():
 		messagesListLabel.clear()
 		for message in range (messagesList.size()):
 			messagesListLabel.add_text(messagesList[message])
-	
-	pass
 
 
 func checkHostClient():

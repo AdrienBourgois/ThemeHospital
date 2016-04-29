@@ -87,8 +87,9 @@ func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			var new_message = player_data[player][2] + ": " + message + "\n"
-			sendPacket(new_message)
+			get_node("/root/PacketInterpreter").parsePacket(message)
+##			var new_message = player_data[player][2] + ": " + message + "\n"
+#			sendPacket(new_message)
 			#Make Packet Interpreter script to parse messages received
 
 

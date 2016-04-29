@@ -1,13 +1,25 @@
 
 extends Node
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
+var tmpData = Array()
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	pass
 
+func parsePacket(packet):
+	storeData(packet)
+	pass
 
+func storeData(packet):
+	tmpData.clear()
+	var data = ""
+	
+	for character in range (packet.length()):
+		if (packet[character] != ' '):
+			data += packet[character]
+		else:
+			if (!data.empty()):
+				tmpData.push_back(data)
+				data = ""
+	
+	tmpData.push_back(data)
