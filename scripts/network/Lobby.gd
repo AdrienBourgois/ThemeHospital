@@ -17,7 +17,7 @@ func _process(delta):
 
 
 func _on_send_message_button_pressed():
-	var message = message_line_edit.get_text()
+	var message = "/chat " + message_line_edit.get_text()
 	
 	if (!checkForEmptyMessage(message)):
 		global_client.sendPacket(parseSpaces(message))

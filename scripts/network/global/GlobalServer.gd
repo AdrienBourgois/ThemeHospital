@@ -87,7 +87,7 @@ func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			get_node("/root/PacketInterpreter").parsePacket(message)
+			get_node("/root/PacketInterpreter").addServerPacket(message)
 ##			var new_message = player_data[player][2] + ": " + message + "\n"
 #			sendPacket(new_message)
 			#Make Packet Interpreter script to parse messages received
@@ -128,3 +128,18 @@ func sendPacket(packet):
 	for player in range (player_data.size()):
 		player_data[player][1].put_var(packet)
 	pass
+
+func setNickname(player_id, nickname):
+	for player in range (player_data.size()):
+		if (player_data[player][3] == player_id):
+			player_data[player][2] = nickname
+
+func sendMessageToAll(client_id, message):
+	var new_message = "/chat "
+	
+	for player in range(player_data.size()):
+		if (player_data[player][3] == client_id):
+			new_message += player_data[player][2] + ": " + message
+	
+	sendPacket(new_message)
+	

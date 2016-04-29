@@ -3,7 +3,8 @@ extends Node
 
 var socket = null
 var peer_stream = null
-var messages_list = Array() setget ,getMessagesList
+var messages_list = Array() setget addMessage,getMessagesList
+#var packet_list = Array()
 
 var client_states = {
 	is_connected = false,
@@ -16,6 +17,7 @@ func _ready():
 
 func _process(delta):
 	checkForMessage()
+#	checkForMessageToSend()
 
 func connectToServer(ip_address, port):
 	socket = StreamPeerTCP.new()
@@ -52,11 +54,16 @@ func checkSocketStatus():
 func checkForMessage():
 	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
 		var message = peer_stream.get_var()
-		messages_list.push_back(message)
+		get_node("/root/PacketInterpreter").addClientPacket(message)
+#		messages_list.push_back(message)
 
 func sendPacket(packet):
 	if (client_states.is_connected):
+		print("Bonjour monsieur, attention, je balance le packet: ", packet)
 		peer_stream.put_var(packet)
+
+func addMessage(message):
+	messages_list.push_back(message)
 
 func getMessagesList():
 	return messages_list
