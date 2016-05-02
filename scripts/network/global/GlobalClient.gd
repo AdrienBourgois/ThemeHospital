@@ -2,9 +2,10 @@
 extends Node
 
 var socket = null
-var peer_stream = null
+var peer_stream = null 
+var client_id = null setget setClientId,getClientId
 var messages_list = Array() setget addMessage,getMessagesList
-#var packet_list = Array()
+var packet_list = Array() setget addPacket
 
 var client_states = {
 	is_connected = false,
@@ -17,7 +18,7 @@ func _ready():
 
 func _process(delta):
 	checkForMessage()
-#	checkForMessageToSend()
+	checkForPacketToSend()
 
 func connectToServer(ip_address, port):
 	socket = StreamPeerTCP.new()
@@ -36,11 +37,7 @@ func checkSocketStatus():
 	var connection_status = socket.get_status()
 	
 	if (connection_status == 0 || connection_status == 2):
-		client_states.is_connected = true
-		client_states.is_connecting = false
-		peer_stream = PacketPeerStream.new()
-		peer_stream.set_stream_peer(socket)
-		print("Connected to server")
+		initializeConnection()
 		return true
 	elif (connection_status == 1):
 		print("Still connecting to server ...")
@@ -51,15 +48,24 @@ func checkSocketStatus():
 	else:
 		return false
 
+func initializeConnection():
+	client_states.is_connected = true
+	client_states.is_connecting = false
+	peer_stream = PacketPeerStream.new()
+	peer_stream.set_stream_peer(socket)
+
 func checkForMessage():
 	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
 		var message = peer_stream.get_var()
 		get_node("/root/PacketInterpreter").addClientPacket(message)
-#		messages_list.push_back(message)
+
+func checkForPacketToSend():
+	if (packet_list.size() > 0):
+		sendPacket(packet_list[0])
+		packet_list.remove(0)
 
 func sendPacket(packet):
 	if (client_states.is_connected):
-		print("Bonjour monsieur, attention, je balance le packet: ", packet)
 		peer_stream.put_var(packet)
 
 func addMessage(message):
@@ -94,3 +100,16 @@ func disconnectFromServer():
 	socket = null
 	
 	print("Disconnected from server")
+
+
+func setClientId(id):
+	if (client_id == null):
+		client_id = id
+
+func getClientId():
+	return client_id
+
+
+func addPacket(packet):
+	packet_list.push_back(packet)
+	print("Packet added: ", packet)

@@ -3,8 +3,6 @@ extends Node
 
 var socket = null setget ,getSocket
 var player_data = Array()
-var packet_list = Array() setget addPacket,getPacketList
-var current_packet_number = 0
 
 var server_states = {
 	server_connected = false,
@@ -24,12 +22,6 @@ func _process(delta):
 
 func getSocket():
 	return socket
-
-func addPacket(packet):
-	packet_list.push_back(packet)
-
-func getPacketList():
-	return packet_list
 
 
 func startServer(port):
@@ -68,8 +60,6 @@ func stopServer():
 	
 	socket.stop()
 	player_data.clear()
-	packet_list.clear()
-	current_packet_number = 0
 	
 	socket = null
 	print("Server stopped")
@@ -78,7 +68,7 @@ func stopServer():
 func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
-			print("client disconnected")
+			sendMessageToAll(-1, player_data[player][2] + " disconnected")
 			player_data.remove(player)
 			checkLookingForPlayers()
 
@@ -87,10 +77,7 @@ func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			get_node("/root/PacketInterpreter").addServerPacket(message)
-##			var new_message = player_data[player][2] + ": " + message + "\n"
-#			sendPacket(new_message)
-			#Make Packet Interpreter script to parse messages received
+			get_node("/root/PacketInterpreter").addServerPacket(message, player_data[player][3])
 
 
 func checkForIncomingConnection():
@@ -112,8 +99,9 @@ func createClientData(clientObject, clientPeerstream):
 	player.push_back("Client " + str(player_id))
 	player.push_back(player_id)
 	player.push_back(false)
-	player.push_back(false)
 	player_data.push_back(player)
+	
+	clientPeerstream.put_var("/game 0 " + str(player_id))
 
 
 func checkLookingForPlayers():
@@ -129,10 +117,51 @@ func sendPacket(packet):
 		player_data[player][1].put_var(packet)
 	pass
 
+
 func setNickname(player_id, nickname):
+	if checkNicknameAlreadyTaken(nickname):
+		#sendPacket
+		return
+	
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
+			sendMessageToAll(-1, nickname + " joined the server\n")
+
+
+func checkNicknameAlreadyTaken(nickname):
+	for player in range (player_data.size()):
+		if (player_data[player][2] == nickname):
+			return true
+	
+	return false
+
+
+func setPlayerReady(player_id, boolean):
+	for player in range (player_data.size()):
+		if (player_data[player][3] == player_id):
+			player_data[player][4] = boolean
+			if (boolean):
+				sendMessageToAll(-1, player_data[player][2] + " is ready to play\n")
+			else:
+				sendMessageToAll(-1, player_data[player][2] + " is no longer ready\n")
+		checkPlayersReady()
+
+
+func checkPlayersReady():
+	var player_ready = 0
+	
+	for player in range (player_data.size()):
+		if (player_data[player][4]):
+			player_ready += 1
+	
+	var start_game_button = get_tree().get_current_scene().get_node("./panel/clients_information_box/start_game_button")
+	
+	if ((player_ready == player_data.size() - 1) && start_game_button != null):
+		start_game_button.set_disabled(false)
+	elif (start_game_button != null):
+		start_game_button.set_disabled(true)
+
 
 func sendMessageToAll(client_id, message):
 	var new_message = "/chat "
@@ -140,6 +169,9 @@ func sendMessageToAll(client_id, message):
 	for player in range(player_data.size()):
 		if (player_data[player][3] == client_id):
 			new_message += player_data[player][2] + ": " + message
+			sendPacket(new_message)
 	
-	sendPacket(new_message)
+	if (client_id == -1):
+		new_message += message
+		sendPacket(new_message)
 	

@@ -17,7 +17,7 @@ func _process(delta):
 
 
 func _on_send_message_button_pressed():
-	var message = "/chat " + message_line_edit.get_text()
+	var message = "/chat " + message_line_edit.get_text() + "\n"
 	
 	if (!checkForEmptyMessage(message)):
 		global_client.sendPacket(parseSpaces(message))
@@ -74,3 +74,8 @@ func parseSpaces(message):
 	for character in range (message.length()):
 		if (message[character] != ' '):
 			return message.substr(character, message.length())
+
+
+func _on_ready_button_toggled( pressed ):
+	global_client.addPacket("/game 1 " + str(int(pressed)))
+	pass # replace with function body
