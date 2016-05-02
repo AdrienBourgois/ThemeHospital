@@ -3,6 +3,17 @@ extends Node
 var speed = 1 setget set_speed, get_speed
 var scene setget ,get_scene
 
+onready var init_path = "res://init.cfg"
+onready var file = File.new() 
+onready var config = {}
+onready var default_config = {
+res_x = 1024,
+res_y = 600,
+fullscreen = false,
+sound = false,
+online_mode = false
+}
+
 var SPEED = {
 	SLOWEST = 0.25,
 	SLOWER = 0.5,
