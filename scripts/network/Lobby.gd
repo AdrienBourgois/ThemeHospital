@@ -4,6 +4,9 @@ extends Control
 onready var message_line_edit = get_node("./panel/chat_box/message_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
 onready var global_server = get_node("/root/GlobalServer")
+onready var connected_clients_label = get_node("./panel/clients_information_box/connected_clients_list")
+onready var ready_players_label = get_node("./panel/clients_information_box/ready_players_label")
+onready var kick_list = get_node("./panel/clients_information_box/kick_list_box")
 var last_messages_list_size = 0
 
 
@@ -18,10 +21,11 @@ func _process(delta):
 
 
 func _on_send_message_button_pressed():
-	var message = "/chat " + message_line_edit.get_text() + "\n"
+	var message = message_line_edit.get_text()
 	
 	if (!checkForEmptyMessage(message)):
-		global_client.sendPacket(parseSpaces(message))
+		var new_message = "/chat " + parseSpaces(message) + "\n"
+		global_client.sendPacket(new_message)
 		message_line_edit.clear()
 
 
@@ -69,6 +73,27 @@ func checkForEmptyMessage(message):
 			return false
 	
 	return true
+
+
+func clearConnectedClientsLabel():
+	connected_clients_label.clear()
+
+func addConnectedClient(client_nickname):
+	connected_clients_label.add_text(client_nickname)
+
+
+func clearReadyPlayersLabel():
+	ready_players_label.clear()
+
+func addReadyPlayer(player_nickname):
+	ready_players_label.add_text(player_nickname)
+
+
+func clearKickList():
+	kick_list.clear()
+
+func addPlayerKickList(player_nickname, player_id):
+	kick_list.add_item(player_nickname, player_id)
 
 
 func parseSpaces(message):

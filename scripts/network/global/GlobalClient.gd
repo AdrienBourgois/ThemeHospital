@@ -98,8 +98,6 @@ func disconnectFromServer():
 	
 	peer_stream = null
 	socket = null
-	
-	print("Disconnected from server")
 
 
 func setClientId(id):
@@ -112,4 +110,3 @@ func getClientId():
 
 func addPacket(packet):
 	packet_list.push_back(packet)
-	print("Packet added: ", packet)

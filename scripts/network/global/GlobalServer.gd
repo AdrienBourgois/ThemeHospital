@@ -72,6 +72,10 @@ func checkForDisconnection():
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
 			sendMessageToAll(-1, player_data[player][2] + " disconnected\n")
 			player_data.remove(player)
+			
+			updateClientsData()
+			updateReadyPlayers()
+			checkPlayersReady()
 			checkLookingForPlayers()
 
 
@@ -135,6 +139,7 @@ func setNickname(player_id, nickname):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
 			sendMessageToAll(-1, nickname + " joined the server\n")
+			updateClientsData()
 
 
 func checkNicknameAlreadyTaken(nickname):
@@ -146,6 +151,8 @@ func checkNicknameAlreadyTaken(nickname):
 
 
 func setPlayerReady(player_id, boolean):
+	var root = get_tree().get_current_scene()
+	
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][4] = boolean
@@ -154,6 +161,7 @@ func setPlayerReady(player_id, boolean):
 			else:
 				sendMessageToAll(-1, player_data[player][2] + " is no longer ready\n")
 		checkPlayersReady()
+		updateReadyPlayers()
 
 
 func checkPlayersReady():
@@ -186,8 +194,28 @@ func sendMessageToAll(from_client_id, message):
 
 func sendTargetedPacket(to_client_id, packet):
 	for player in range (player_data.size()):
-		if (player_data[player][3] == to_client_id):
+		if ( player_data[player][3] == to_client_id ):
 			player_data[player][1].put_var(packet)
 
 func addPacket(packet):
 	packet_list.push_back(packet)
+
+func updateClientsData():
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "lobby" ):
+		root.clearConnectedClientsLabel()
+		root.clearKickList()
+		for player in range ( player_data.size() ):
+			root.addConnectedClient("- " + player_data[player][2] + "\n")
+			if (player_data[player][3] != 0):
+				root.addPlayerKickList(player_data[player][2], player_data[player][3])
+
+func updateReadyPlayers():
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "lobby"):
+		root.clearReadyPlayersLabel()
+		for player in range ( player_data.size() ):
+			if (player_data[player][4]):
+				root.addReadyPlayer("- " + player_data[player][2] + "\n")
