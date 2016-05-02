@@ -3,6 +3,7 @@ extends Control
 
 onready var message_line_edit = get_node("./panel/chat_box/message_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
+onready var global_server = get_node("/root/GlobalServer")
 var last_messages_list_size = 0
 
 
@@ -78,4 +79,9 @@ func parseSpaces(message):
 
 func _on_ready_button_toggled( pressed ):
 	global_client.addPacket("/game 1 " + str(int(pressed)))
+	pass # replace with function body
+
+
+func _on_start_game_button_pressed():
+	global_server.addPacket("/game 2")
 	pass # replace with function body

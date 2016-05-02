@@ -75,6 +75,9 @@ func parseGame():
 		global_client.setClientId(tmpData[2].to_int())
 	elif (packet_id == "1"):
 		global_server.setPlayerReady(current_player_id, bool(tmpData[2].to_int()))
+	elif (packet_id == "2"):
+		get_tree().get_current_scene().queue_free()
+		get_tree().change_scene("res://scenes/gamescn.scn")
 
 func setNickname():
 	if (current_parsing.server):

@@ -3,6 +3,7 @@ extends Node
 
 var socket = null setget ,getSocket
 var player_data = Array()
+var packet_list = Array() setget addPacket
 
 var server_states = {
 	server_connected = false,
@@ -18,6 +19,7 @@ func _process(delta):
 		checkForDisconnection()
 		checkForIncomingConnection()
 		checkForMessage()
+		checkForPacketToSend()
 
 
 func getSocket():
@@ -55,6 +57,7 @@ func resetServerStates():
 	server_states.looking_for_players = false
 	server_states.game_started = false
 
+
 func stopServer():
 	resetServerStates()
 	
@@ -62,13 +65,12 @@ func stopServer():
 	player_data.clear()
 	
 	socket = null
-	print("Server stopped")
 
 
 func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
-			sendMessageToAll(-1, player_data[player][2] + " disconnected")
+			sendMessageToAll(-1, player_data[player][2] + " disconnected\n")
 			player_data.remove(player)
 			checkLookingForPlayers()
 
@@ -88,6 +90,12 @@ func checkForIncomingConnection():
 		
 		createClientData(clientObject, clientPeerstream)
 		checkLookingForPlayers()
+
+
+func checkForPacketToSend():
+	if (packet_list.size() > 0 ):
+		sendPacket(packet_list[0])
+		packet_list.remove(0)
 
 
 func createClientData(clientObject, clientPeerstream):
@@ -163,15 +171,23 @@ func checkPlayersReady():
 		start_game_button.set_disabled(true)
 
 
-func sendMessageToAll(client_id, message):
+func sendMessageToAll(from_client_id, message):
 	var new_message = "/chat "
 	
 	for player in range(player_data.size()):
-		if (player_data[player][3] == client_id):
+		if (player_data[player][3] == from_client_id):
 			new_message += player_data[player][2] + ": " + message
 			sendPacket(new_message)
 	
-	if (client_id == -1):
+	if (from_client_id == -1):
 		new_message += message
 		sendPacket(new_message)
-	
+
+
+func sendTargetedPacket(to_client_id, packet):
+	for player in range (player_data.size()):
+		if (player_data[player][3] == to_client_id):
+			player_data[player][1].put_var(packet)
+
+func addPacket(packet):
+	packet_list.push_back(packet)
