@@ -13,6 +13,7 @@ var last_messages_list_size = 0
 func _ready():
 	checkHostClient()
 	setScrollFollow()
+	message_line_edit.grab_focus()
 	set_process(true)
 
 
@@ -110,5 +111,7 @@ func _on_start_game_button_pressed():
 
 
 func _on_kick_button_pressed():
-	var client_id = get_node("panel/clients_information_box/kick_list_box").get_selected_ID()
-	global_server.kickPlayer(client_id)
+	var kick_list_node = get_node("panel/clients_information_box/kick_list_box")
+	
+	if (kick_list_node.get_item_count() > 0):
+		global_server.kickPlayer(kick_list_node.get_selected_ID())

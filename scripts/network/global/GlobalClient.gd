@@ -9,7 +9,6 @@ var packet_list = Array() setget addPacket
 
 var client_states = {
 	is_connected = false,
-	is_connecting = false,
 	is_host = false
 } setget ,getClientStates
 
@@ -26,14 +25,13 @@ func connectToServer(ip_address, port):
 	socket = StreamPeerTCP.new()
 	var status_connection = socket.connect(ip_address, port)
 	
-	client_states.is_connecting = true
-	
 	return checkSocketStatus()
 	
 	pass
 
+
 func checkSocketStatus():
-	if (socket == null || !client_states.is_connecting):
+	if (socket == null):
 		return false
 	
 	var connection_status = socket.get_status()
@@ -41,18 +39,17 @@ func checkSocketStatus():
 	if (connection_status == 0 || connection_status == 2):
 		initializeConnection()
 		return true
-	elif (connection_status == 1):
-		print("Still connecting to server ...")
-		return false
-	elif (connection_status == 3):
-		print("there was an error while connecting to server")
-		return false
 	else:
+		var dialog = get_tree().get_current_scene().get_node("./panel/AcceptDialog")
+		
+		if ( dialog != null ):
+			dialog.set_hidden(false)
+		
 		return false
+
 
 func initializeConnection():
 	client_states.is_connected = true
-	client_states.is_connecting = false
 	peer_stream = PacketPeerStream.new()
 	peer_stream.set_stream_peer(socket)
 
@@ -96,11 +93,11 @@ func disconnectServer():
 
 func resetClientStates():
 	client_states.is_connected = false
-	client_states.is_connecting = false
 	client_states.is_host = false
 
 func disconnectFromServer():
-	socket.disconnect()
+	if (socket != null):
+		socket.disconnect()
 	messages_list.clear()
 	
 	disconnectServer()

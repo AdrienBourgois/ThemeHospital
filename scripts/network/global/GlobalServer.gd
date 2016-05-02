@@ -203,8 +203,10 @@ func sendTargetedPacket(to_client_id, packet):
 		if ( player_data[player][3] == to_client_id ):
 			player_data[player][1].put_var(packet)
 
+
 func addPacket(packet):
 	packet_list.push_back(packet)
+
 
 func updateClientsData():
 	var root = get_tree().get_current_scene()
@@ -216,6 +218,7 @@ func updateClientsData():
 			root.addConnectedClient("- " + player_data[player][2] + "\n")
 			if (player_data[player][3] != 0):
 				root.addPlayerKickList(player_data[player][2], player_data[player][3])
+
 
 func updateReadyPlayers():
 	var root = get_tree().get_current_scene()
