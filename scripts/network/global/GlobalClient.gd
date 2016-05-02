@@ -17,8 +17,10 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	checkForMessage()
-	checkForPacketToSend()
+	if (client_states.is_connected):
+		checkForMessage()
+		checkForDisconnection()
+		checkForPacketToSend()
 
 func connectToServer(ip_address, port):
 	socket = StreamPeerTCP.new()
@@ -58,6 +60,14 @@ func checkForMessage():
 	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
 		var message = peer_stream.get_var()
 		get_node("/root/PacketInterpreter").addClientPacket(message)
+
+
+func checkForDisconnection():
+	if (!socket.is_connected()):
+		client_states.is_connected = false
+		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
+		get_tree().get_current_scene().add_child(scene, true)
+
 
 func checkForPacketToSend():
 	if (packet_list.size() > 0):

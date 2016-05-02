@@ -67,16 +67,22 @@ func stopServer():
 	socket = null
 
 
+func kickPlayer(player_id):
+	for player in range ( player_data.size() ):
+		if (player_id == player_data[player][3]):
+			sendMessageToAll(-1, player_data[player][2] + " has been kicked from server\n") 
+			player_data.remove(player)
+			
+			updateServerData()
+
+
 func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
 			sendMessageToAll(-1, player_data[player][2] + " disconnected\n")
 			player_data.remove(player)
 			
-			updateClientsData()
-			updateReadyPlayers()
-			checkPlayersReady()
-			checkLookingForPlayers()
+			updateServerData()
 
 
 func checkForMessage():
@@ -118,7 +124,7 @@ func createClientData(clientObject, clientPeerstream):
 
 func checkLookingForPlayers():
 	var current_player_number = player_data.size()
-	if (current_player_number >= 4):
+	if ( current_player_number >= 4 ):
 		server_states.looking_for_players = false
 	else:
 		server_states.looking_for_players = true
@@ -219,3 +225,10 @@ func updateReadyPlayers():
 		for player in range ( player_data.size() ):
 			if (player_data[player][4]):
 				root.addReadyPlayer("- " + player_data[player][2] + "\n")
+
+
+func updateServerData():
+	updateClientsData()
+	updateReadyPlayers()
+	checkPlayersReady()
+	checkLookingForPlayers()
