@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.get_scene()
+onready var gamescn = game.scene
 onready var save = get_node("/root/Save")
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
@@ -28,15 +28,7 @@ func loadPlayerData():
 	while (!game.file.eof_reached()):
 		gamescn.player.stats.parse_json(game.file.get_line())
 	game.file.close()
-	gamescn.player.name = gamescn.player.stats.NAME
-	gamescn.player.money = gamescn.player.stats.MONEY
-	gamescn.player.expense = gamescn.player.stats.EXPENSE
-	gamescn.player.heal_patients = gamescn.player.stats.HEAL_PATIENTS
-	gamescn.player.total_patients = gamescn.player.stats.TOTAL_PATIENTS
-	gamescn.player.heal_patients_percent = gamescn.player.stats.HEAL_PATIENTS_PERCENT
-	gamescn.player.reputation = gamescn.player.stats.REPUTATION
-	gamescn.player.hospital_value = gamescn.player.stats.HOSPITAL_VALUE
-	gamescn.player.resetStatsDict()
+	gamescn.player.loadData()
 
 func setFilename(save_number):
 	if (save_number == 0):
