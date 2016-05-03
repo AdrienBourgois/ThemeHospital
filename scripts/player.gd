@@ -11,6 +11,16 @@ export var heal_patients_percent = 0.0 setget ,get_heal_patients_percent
 export var reputation = 0 setget set_reputation,get_reputation
 export var hospital_value = 0 setget set_hospital_value,get_hospital_value
 
+var stats = {
+NAME = "MAZUC",
+MONEY = money,
+EXPENSE = expense,
+HEAL_PATIENTS = heal_patients,
+TOTAL_PATIENTS = total_patients,
+REPUTATION = reputation,
+HOSPITAL_VALUE = hospital_value
+}
+
 signal reputation_change(reputation)
 
 func _ready():
