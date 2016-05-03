@@ -19,6 +19,9 @@ signal reputation_change(reputation)
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
 
+func reset():
+	stats.clear()
+
 func increase_money(val):
 	stats.MONEY += val
 
