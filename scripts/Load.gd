@@ -12,48 +12,48 @@ onready var folder_path
 func _ready():
 	pass
 
-func load_player(save_number):
-	if (!check_player_folder()):
+func loadPlayer(save_number):
+	if (!checkPlayerFolder()):
 		print("Player not found")
 		return false
 	else:
-		set_filename(save_number)
-		load_player_data()
+		setFilename(save_number)
+		loadPlayerData()
 		print("Player founded and loaded")
 		return true
 
-func load_player_data():
+func loadPlayerData():
 	game.file.open(folder_path + filename, game.file.READ)
 	while (!game.file.eof_reached()):
 		gamescn.player.stats.parse_json(game.file.get_line())
 	game.file.close()
 
-func set_filename(save_number):
+func setFilename(save_number):
 	if (save_number == 0):
 		filename = "Quicksave"
 	else:
 		filename = "save_" + str(save_number)
 
-func check_player_folder():
+func checkPlayerFolder():
 	folder_path = saves_path + gamescn.player.stats.NAME + '/'
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
 
-func load_init():
-	save.check_saves()
+func loadInit():
+	save.checkSaves()
 	if (!game.file.file_exists(game.init_path)):
 		print("Init file not found, create a new one")
-		save.set_init()
+		save.setInit()
 		game.config = game.default_config
 	else:
 		game.file.open(game.init_path, game.file.READ)
 		while (!game.file.eof_reached()):
 			game.config.parse_json(game.file.get_line())
 		game.file.close()
-	apply_config()
+	applyConfig()
 
-func apply_config():
+func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
 
