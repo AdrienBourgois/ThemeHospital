@@ -74,6 +74,16 @@ func checkForEmptyMessage(message):
 	
 	return true
 
+func checkValidNickname(nickname):
+	if (nickname.empty()):
+		return false
+	
+	for character in range ( nickname.length() ):
+		if (nickname[character] != ' '):
+			return true
+	
+	return false
+
 
 func clearConnectedClientsLabel():
 	connected_clients_label.clear()
@@ -127,6 +137,11 @@ func _on_control_visibility_changed():
 
 func _on_send_nickname_button_pressed():
 	var nickname = get_node("panel/control/nickname_information_box/nickname_line_edit").get_text()
+	
+	if ( !checkValidNickname(nickname) ):
+		var node = ResourceLoader.load("res://scenes/network/InvalidNickname.scn").instance()
+		get_tree().get_current_scene().add_child(node)
+		return
 	
 	global_client.addPacket("/nickname " + nickname) 
 
