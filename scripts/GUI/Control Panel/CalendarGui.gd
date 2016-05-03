@@ -12,5 +12,5 @@ func _ready():
 
 func _fixed_process(delta):
 	day_label.set_text(str(calendar.day))
-	month_label.set_text(calendar.month)
+	month_label.set_text(str(calendar.month))
 	year_label.set_text(str(calendar.year))
