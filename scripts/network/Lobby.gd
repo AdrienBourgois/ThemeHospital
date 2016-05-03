@@ -85,27 +85,6 @@ func checkValidNickname(nickname):
 	return false
 
 
-func clearConnectedClientsLabel():
-	connected_clients_label.clear()
-
-func addConnectedClient(client_nickname):
-	connected_clients_label.add_text(client_nickname)
-
-
-func clearReadyPlayersLabel():
-	ready_players_label.clear()
-
-func addReadyPlayer(player_nickname):
-	ready_players_label.add_text(player_nickname)
-
-
-func clearKickList():
-	kick_list.clear()
-
-func addPlayerKickList(player_nickname, player_id):
-	kick_list.add_item(player_nickname, player_id)
-
-
 func parseSpaces(message):
 	for character in range (message.length()):
 		if (message[character] != ' '):
@@ -144,8 +123,28 @@ func _on_send_nickname_button_pressed():
 		return
 	
 	global_client.addPacket("/nickname " + nickname) 
-
+	
 
 func _on_nickname_line_edit_input_event( ev ):
 	if (ev.is_action_pressed("accept")):
 		_on_send_nickname_button_pressed()
+
+func clearConnectedClientsLabel():
+	connected_clients_label.clear()
+
+func addConnectedClient(client_nickname):
+	connected_clients_label.add_text(client_nickname)
+
+
+func clearReadyPlayersLabel():
+	ready_players_label.clear()
+
+func addReadyPlayer(player_nickname):
+	ready_players_label.add_text(player_nickname)
+
+
+func clearKickList():
+	kick_list.clear()
+
+func addPlayerKickList(player_nickname, player_id):
+	kick_list.add_item(player_nickname, player_id)

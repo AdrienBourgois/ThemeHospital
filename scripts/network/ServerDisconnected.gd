@@ -6,7 +6,7 @@ extends Control
 # var b="textvar"
 
 func _ready():
-	get_node("AcceptDialog").set_hidden(false)
+	get_node("warning_dialog_box").set_hidden(false)
 
 
 func _on_AcceptDialog_confirmed():

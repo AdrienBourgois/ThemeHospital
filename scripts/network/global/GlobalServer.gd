@@ -70,7 +70,7 @@ func stopServer():
 func kickPlayer(player_id):
 	for player in range ( player_data.size() ):
 		if (player_id == player_data[player][3]):
-			sendMessageToAll(-1, player_data[player][2] + " has been kicked from server\n") 
+			sendMessageToAll(-1, player_data[player][2] + tr("MSG_KICKED") + "\n") 
 			player_data.remove(player)
 			
 			updateServerData()
@@ -79,7 +79,7 @@ func kickPlayer(player_id):
 func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
-			sendMessageToAll(-1, player_data[player][2] + " disconnected\n")
+			sendMessageToAll(-1, player_data[player][2] + tr("MSG_LEFT") + "\n")
 			player_data.remove(player)
 			
 			updateServerData()
@@ -144,7 +144,7 @@ func setNickname(player_id, nickname):
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
-			sendMessageToAll(-1, nickname + " joined the server\n")
+			sendMessageToAll(-1, nickname + tr("MSG_JOINED") + "\n")
 			sendTargetedPacket(player_id, "/game 3 1")
 			updateClientsData()
 
@@ -164,9 +164,9 @@ func setPlayerReady(player_id, boolean):
 		if (player_data[player][3] == player_id):
 			player_data[player][4] = boolean
 			if (boolean):
-				sendMessageToAll(-1, player_data[player][2] + " is ready to play\n")
+				sendMessageToAll(-1, player_data[player][2] + tr("MSG_READY") + "\n")
 			else:
-				sendMessageToAll(-1, player_data[player][2] + " is no longer ready\n")
+				sendMessageToAll(-1, player_data[player][2] + tr("MSG_NOT_READY") + "\n")
 		checkPlayersReady()
 		updateReadyPlayers()
 

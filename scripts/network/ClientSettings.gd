@@ -5,7 +5,7 @@ onready var port_node = get_node("./panel/combo_box/port_spin_box")
 onready var ip_address_node = get_node("./panel/combo_box/ip_address_line_edit")
 onready var nickname_node = get_node("./panel/combo_box/nickname_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
-onready var invalid_server = get_node("panel/invalid_server")
+onready var control_node = get_node("panel/Control")
 
 func _on_join_server_button_pressed():
 	if (port_node == null || ip_address_node == null):
@@ -34,7 +34,7 @@ func checkValidIpAddress():
 	var count = 0
 	
 	if ( ip_address_node.get_text().empty() ):
-		invalid_server.set_hidden(false)
+		control_node.set_hidden(false)
 		return false
 	
 	for character in range ( ip_address_node.get_text().length() ):
@@ -42,7 +42,7 @@ func checkValidIpAddress():
 			count += 1
 	
 	if (count != 3):
-		invalid_server.set_hidden(false)
+		control_node.set_hidden(false)
 		return false
 	
 	return true
@@ -66,5 +66,11 @@ func displayInvalidNickname():
 	var node = ResourceLoader.load("res://scenes/network/InvalidNickname.scn").instance()
 	get_tree().get_current_scene().add_child(node)
 
-func _on_invalid_server_visibility_changed():
+func _on_Control_visibility_changed():
+	var invalid_server = control_node.get_node("invalid_server")
+	invalid_server.set_hidden(false)
 	invalid_server.get_ok().grab_focus()
+
+
+func _on_invalid_server_confirmed():
+	control_node.set_hidden(true)
