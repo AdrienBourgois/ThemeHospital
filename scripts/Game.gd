@@ -19,7 +19,7 @@ var feedback setget ,get_feedback
 
 var SPEED = {
 	SLOWEST = 0.25,
-	SLOWER = 0.5,
+	SLOWER = 0.25,
 	NORMAL = 1.0,
 	MAX = 2.0,
 	AND_THEN_SOME_MORE = 4.0}

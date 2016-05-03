@@ -3,22 +3,15 @@ extends Node
 
 onready var game = get_node("/root/Game")
 
-export var money = 0 setget set_money,get_money
-export var expense = 0 setget set_expense,get_expense
-export var heal_patients = 0.0 setget set_heal_patients,get_heal_patients
-export var total_patients = 0.0 setget set_total_patients,get_total_patients
-export var heal_patients_percent = 0.0 setget ,get_heal_patients_percent
-export var reputation = 0 setget set_reputation,get_reputation
-export var hospital_value = 0 setget set_hospital_value,get_hospital_value
-
 var stats = {
 NAME = "MAZUC",
-MONEY = money,
-EXPENSE = expense,
-HEAL_PATIENTS = heal_patients,
-TOTAL_PATIENTS = total_patients,
-REPUTATION = reputation,
-HOSPITAL_VALUE = hospital_value
+MONEY = 0,
+EXPENSE = 0,
+HEAL_PATIENTS = 0.0,
+TOTAL_PATIENTS = 0.0,
+HEAL_PATIENTS_PERCENT = 0.0,
+REPUTATION = 0,
+HOSPITAL_VALUE = 0
 }
 
 signal reputation_change(reputation)
@@ -26,87 +19,47 @@ signal reputation_change(reputation)
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
 
-func set_money(val):
-	money = val
-
-func get_money():
-	return money
-
 func increase_money(val):
-	money += val
+	stats.MONEY += val
 
 func decrease_money(val):
-	money -= val
-
-func set_expense(val):
-	expense = val
-
-func get_expense():
-	return expense
+	stats.MONEY -= val
 
 func increase_expense(val):
-	expense += val
+	stats.EXPENSE += val
 
 func decrease_expense(val):
-	expense -= val
-
-func set_heal_patients(val):
-	heal_patients = val
-
-func get_heal_patients():
-	return heal_patients
+	stats.EXPENSE -= val
 
 func increase_heal_patients(val):
-	heal_patients += val
+	stats.HEAL_PATIENTS += val
 
 func decrease_heal_patients(val):
-	heal_patients -= val
-
-func set_total_patients(val):
-	total_patients = val
-
-func get_total_patients():
-	return total_patients
+	stats.HEAL_PATIENTS -= val
 
 func increase_total_patients(val):
-	total_patients += val
+	stats.TOTAL_PATIENTS += val
 
 func decrease_total_patients(val):
-	total_patients -= val
-
-func get_heal_patients_percent():
-	return heal_patients_percent
+	stats.TOTAL_PATIENTS -= val
 
 func calculate_heal_patients_percent():
-	if total_patients > 0:
-		heal_patients_percent = 100 * (heal_patients/total_patients)
-
-func set_reputation(val):
-	reputation = val
-	emit_signal("reputation_change", reputation)
-
-func get_reputation():
-	return reputation
+	if stats.TOTAL_PATIENTS > 0:
+		stats.HEAL_PATIENTS_PERCENT = 100 * (stats.HEAL_PATIENTS/stats.TOTAL_PATIENTS)
 
 func increase_reputation(val):
-	reputation += val
-	emit_signal("reputation_change", reputation)
+	stats.REPUTATION += val
+	emit_signal("reputation_change", stats.REPUTATION)
 
 func decrease_reputation(val):
-	reputation -= val
-	emit_signal("reputation_change", reputation)
-
-func set_hospital_value(val):
-	hospital_value = val
-
-func get_hospital_value():
-	return hospital_value
+	stats.REPUTATION -= val
+	emit_signal("reputation_change", stats.REPUTATION)
 
 func increase_hospital_value(val):
-	hospital_value += val
+	stats.HOSPITAL_VALUE += val
 
 func decrease_hospital_value(val):
-	hospital_value -= val
+	stats.HOSPITAL_VALUE -= val
 
 func _on_end_month():
-	decrease_money(expense)
+	decrease_money(stats.EXPENSE)
