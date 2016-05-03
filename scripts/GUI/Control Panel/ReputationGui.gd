@@ -8,9 +8,9 @@ onready var control_panel = get_parent()
 func _ready():
 	control_panel.init_connect(self)
 	
-	set_value(player.reputation)
+	set_value(player.stats.REPUTATION)
 	player.connect("reputation_change", self, "_on_reputation_change")
-	set_tooltip("Reputation : " + str(player.reputation))
+	set_tooltip("Reputation : " + str(player.stats.REPUTATION))
 
 func _on_reputation_change(reputation):
 	set_value(reputation)
