@@ -8,6 +8,7 @@ onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var filename
 onready var folder_path
+onready var load_dict = {}
 
 func _ready():
 	pass
@@ -24,11 +25,16 @@ func loadPlayer(save_number):
 
 func loadPlayerData():
 	gamescn.player.resetStatsDict()
-	game.file.open_encrypted_with_pass(folder_path + filename, game.file.READ, "PASS")
+	game.file.open(folder_path + filename, game.file.READ)
 	while (!game.file.eof_reached()):
-		gamescn.player.stats.parse_json(game.file.get_line())
-	game.file.close()
+		load_dict.parse_json(game.file.get_line())
+	gamescn.player.stats = load_dict.PLAYER
 	gamescn.player.loadData()
+	resetStatsDict()
+	game.file.close()
+
+func resetStatsDict():
+	load_dict.clear()
 
 func setFilename(save_number):
 	if (save_number == 0):

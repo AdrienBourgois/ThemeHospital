@@ -8,6 +8,7 @@ onready var saves_path = "res://saves/"
 onready var path = "res://saves/"
 onready var filename
 onready var file_path
+onready var save_dict = {}
 
 func _ready():
 	pass
@@ -28,11 +29,17 @@ func savePlayer(ID):
 	storeData()
 
 func storeData():
-	gamescn.player.createStatsDict()
-	game.file.open_encrypted_with_pass(file_path, game.file.WRITE, "PASS") 
-	game.file.store_string(gamescn.player.stats.to_json())
+	createSaveDict()
+	game.file.open(file_path, game.file.WRITE)
+	game.file.store_string(save_dict.to_json())
 	game.file.close()
 	gamescn.player.resetStatsDict()
+
+func createSaveDict():
+	gamescn.player.createStatsDict()
+	save_dict = {
+	PLAYER = gamescn.player.stats
+	}
 
 func checkSaves():
 	if (!dir.dir_exists("res://saves")):
