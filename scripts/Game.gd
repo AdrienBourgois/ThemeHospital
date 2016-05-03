@@ -27,8 +27,6 @@ signal speed_change
 signal end_month
 
 func _ready():
-	for idx in speed_array:
-		print(idx)
 	pass
 
 func set_speed(new_speed):

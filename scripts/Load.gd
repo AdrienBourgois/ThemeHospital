@@ -20,7 +20,6 @@ func load_init():
 	apply_config()
 
 func apply_config():
-	OS.set_window_resizable(false)
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
 
