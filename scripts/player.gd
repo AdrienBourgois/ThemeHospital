@@ -3,63 +3,136 @@ extends Node
 
 onready var game = get_node("/root/Game")
 
-var stats = {
-NAME = "MAZUC",
-MONEY = 0,
-EXPENSE = 0,
-HEAL_PATIENTS = 0.0,
-TOTAL_PATIENTS = 0.0,
-HEAL_PATIENTS_PERCENT = 0.0,
-REPUTATION = 0,
-HOSPITAL_VALUE = 0
-}
+export var name = "default" setget setName,getName
+export var money = 0 setget setMoney,getMoney
+export var expense = 0 setget setExpense,getExpense
+export var heal_patients = 0.0 setget setHealPatients,getHealPatients
+export var total_patients = 0.0 setget setTotalPatients,getTotalPatients
+export var heal_patients_percent = 0.0 setget ,getHealPatientsPercent
+export var reputation = 0 setget setReputation,getReputation
+export var hospital_value = 0 setget setHospitalValue,getHospitalValue
+
+var stats = {}
+
 
 signal reputation_change(reputation)
 
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
 
-func increase_money(val):
-	stats.MONEY += val
+func loadData():
+	name = stats.NAME
+	money = stats.MONEY
+	expense = stats.EXPENSE
+	heal_patients = stats.HEAL_PATIENTS
+	total_patients = stats.TOTAL_PATIENTS
+	heal_patients_percent = stats.HEAL_PATIENTS_PERCENT
+	reputation = stats.REPUTATION
+	hospital_value = stats.HOSPITAL_VALUE
+	resetStatsDict()
 
-func decrease_money(val):
-	stats.MONEY -= val
+func createStatsDict():
+	stats = {
+	NAME = name,
+	MONEY = money,
+	EXPENSE = expense,
+	HEAL_PATIENTS = heal_patients,
+	TOTAL_PATIENTS = total_patients,
+	HEAL_PATIENTS_PERCENT = heal_patients_percent,
+	REPUTATION = reputation,
+	HOSPITAL_VALUE = hospital_value
+	}
 
-func increase_expense(val):
-	stats.EXPENSE += val
+func resetStatsDict():
+	stats.clear()
 
-func decrease_expense(val):
-	stats.EXPENSE -= val
+func setName(new_name):
+	name = name
 
-func increase_heal_patients(val):
-	stats.HEAL_PATIENTS += val
+func getName():
+	return name
 
-func decrease_heal_patients(val):
-	stats.HEAL_PATIENTS -= val
+func setMoney(val):
+	money = val
 
-func increase_total_patients(val):
-	stats.TOTAL_PATIENTS += val
+func getMoney():
+	return money
 
-func decrease_total_patients(val):
-	stats.TOTAL_PATIENTS -= val
+func increaseMoney(val):
+	money += val
 
-func calculate_heal_patients_percent():
-	if stats.TOTAL_PATIENTS > 0:
-		stats.HEAL_PATIENTS_PERCENT = 100 * (stats.HEAL_PATIENTS/stats.TOTAL_PATIENTS)
+func decreaseMoney(val):
+	money -= val
 
-func increase_reputation(val):
-	stats.REPUTATION += val
-	emit_signal("reputation_change", stats.REPUTATION)
+func setExpense(val):
+	expense = val
 
-func decrease_reputation(val):
-	stats.REPUTATION -= val
-	emit_signal("reputation_change", stats.REPUTATION)
+func getExpense():
+	return expense
 
-func increase_hospital_value(val):
-	stats.HOSPITAL_VALUE += val
+func increaseExpense(val):
+	expense += val
 
-func decrease_hospital_value(val):
-	stats.HOSPITAL_VALUE -= val
+func decreaseExpense(val):
+	expense -= val
+
+func setHealPatients(val):
+	heal_patients = val
+
+func getHealPatients():
+	return heal_patients
+
+func increaseHealPatients(val):
+	heal_patients += val
+
+func decreaseHealPatients(val):
+	heal_patients -= val
+
+func setTotalPatients(val):
+	total_patients = val
+
+func getTotalPatients(val):
+	return total_patients
+
+func increaseTotalPatients(val):
+	total_patients += val
+
+func decreaseTotalPatients(val):
+	total_patients -= val
+
+func getHealPatientsPercent():
+	return heal_patients_percent
+
+func calculateHealPatientsPercent():
+	if total_patients > 0:
+		heal_patients_percent = 100 * (heal_patients/total_patients)
+
+func setReputation(val):
+	reputation += val
+	emit_signal("reputation_change", reputation)
+
+func getReputation():
+	return reputation
+
+func increaseReputation(val):
+	reputation += val
+	emit_signal("reputation_change", reputation)
+
+func decreaseReputation(val):
+	reputation -= val
+	emit_signal("reputation_change", reputation)
+
+func setHospitalValue(val):
+	hospital_value = val
+
+func getHospitalValue():
+	return hospital_value
+
+func increaseHospitalValue(val):
+	hospital_value += val
+
+func decreaseHospitalValue(val):
+	hospital_value -= val
 
 func _on_end_month():
-	decrease_money(stats.EXPENSE)
+	decrease_money(expense)

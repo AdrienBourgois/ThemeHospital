@@ -7,7 +7,7 @@ onready var dynamic_info_bar_buttons = get_node("Dynamic_info_bar/Buttons")
 func _ready():
 	pass
 
-func init_connect(node):
+func initConnect(node):
 	node.connect("mouse_enter", self, "_on_Control_panel_mouse_enter")
 	node.connect("mouse_exit", self, "_on_Control_panel_mouse_exit")
 

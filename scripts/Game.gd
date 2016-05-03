@@ -1,6 +1,6 @@
 extends Node
 
-var first_game = true setget ,get_first_game
+var first_game = true setget ,getFirstGame
 
 onready var init_path = "res://init.cfg"
 onready var file = File.new() 
@@ -14,19 +14,19 @@ sound = false,
 online_mode = false
 }
 
-var scene setget ,get_scene
-var feedback setget ,get_feedback
+var scene setget ,getScene
+var feedback setget ,getFeedback
 
 var SPEED = {
 	SLOWEST = 0.25,
-	SLOWER = 0.25,
+	SLOWER = 0.5,
 	NORMAL = 1.0,
 	MAX = 2.0,
 	AND_THEN_SOME_MORE = 4.0}
 
-var speed = SPEED.NORMAL setget set_speed, get_speed
+var speed = SPEED.NORMAL setget setSpeed, getSpeed
 
-var speed_array = [SPEED.SLOWEST, SPEED.SLOWER, SPEED.NORMAL, SPEED.MAX, SPEED.AND_THEN_SOME_MORE] setget ,get_speed_array
+var speed_array = [SPEED.SLOWEST, SPEED.SLOWER, SPEED.NORMAL, SPEED.MAX, SPEED.AND_THEN_SOME_MORE] setget ,getSpeedArray
 
 signal speed_change
 signal end_month
@@ -35,21 +35,21 @@ signal build_timer_timeout
 func _ready():
 	pass
 
-func set_speed(new_speed):
+func setSpeed(new_speed):
 	speed = new_speed
 	emit_signal("speed_change")
 
-func get_speed():
+func getSpeed():
 	return speed
 
-func get_scene():
+func getScene():
 	return get_node("/root/GameScene")
 
-func get_feedback():
+func getFeedback():
 	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
 
-func get_speed_array(id):
+func getSpeedArray(id):
 	return speed_array[id]
 
-func get_first_game():
+func getFirstGame():
 	return first_game

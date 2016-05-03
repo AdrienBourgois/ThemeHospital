@@ -2,41 +2,58 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.get_scene()
+onready var gamescn = game.scene
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var path = "res://saves/"
 onready var filename
 onready var file_path
+onready var save_dict = {}
 
 func _ready():
 	pass
 
-func set_init():
+func setDefaultInit():
 	game.file.open(game.init_path, game.file.WRITE)
 	game.file.store_string(game.default_config.to_json())
 	game.file.close()
 
-func save_player(ID):
-	check_saves()
-	check_player_folder()
-	if (ID == 0):
-		filename = "Quicksave"
-	else:
-		filename = "save_" + str(ID)
-	file_path = saves_path + gamescn.player.stats.NAME + '/' + filename
-	store_data()
-
-func store_data():
-	game.file.open(file_path, game.file.WRITE)
-	game.file.store_string(gamescn.player.stats.to_json())
+func setInit():
+	game.file.open(game.init_path, game.file.WRITE)
+	game.file.store_string(game.config.to_json())
 	game.file.close()
 
-func check_saves():
+func quicksave():
+	savePlayer(0)
+
+func savePlayer(ID):
+	checkSaves()
+	checkPlayerFolder()
+	if (ID == 0):
+		filename = "Quicksave.json"
+	else:
+		filename = "save_" + str(ID) + ".json"
+	file_path = saves_path + gamescn.player.name + '/' + filename
+	storeData()
+
+func storeData():
+	createSaveDict()
+	game.file.open(file_path, game.file.WRITE)
+	game.file.store_string(save_dict.to_json())
+	game.file.close()
+	gamescn.player.resetStatsDict()
+
+func createSaveDict():
+	gamescn.player.createStatsDict()
+	save_dict = {
+	PLAYER = gamescn.player.stats
+	}
+
+func checkSaves():
 	if (!dir.dir_exists("res://saves")):
 		dir.make_dir("res://saves")
 
-func check_player_folder():
-	path += gamescn.player.stats.NAME
+func checkPlayerFolder():
+	path += gamescn.player.name
 	if (!dir.dir_exists(path)):
 		dir.make_dir(path)

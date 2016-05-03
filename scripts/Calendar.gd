@@ -4,10 +4,10 @@ onready var game = get_node("/root/Game")
 onready var gui = game.scene.get_node("In_game_gui/Control_panel/Calendar")
 
 export var day_duration = 3.0
-export var day = 1 setget ,get_day
-export(int, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December") var month = 0 setget ,get_month
+export var day = 1 setget ,getDay
+export(int, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December") var month = 0 setget ,getMonth
 var end_month
-export var year = 1997 setget , get_year
+export var year = 1997 setget , getYear
 
 var month_list = ["January", 
 				  "February", 
@@ -25,7 +25,7 @@ var month_list = ["January",
 var thirty_days_month = ["April", "June", "September", "November"]
 
 func _ready():
-	check_thirty_days_month()
+	checkThirtyDaysMonth()
 	set_wait_time(day_duration/game.speed)
 	game.connect("speed_change", self, "_on_Global_speed_change")
 
@@ -37,26 +37,26 @@ func _on_Global_speed_change():
 func _on_Calendar_timeout():
 	day += 1
 	
-	check_end_month() 
+	checkEndMonth() 
 
-func check_end_month():
+func checkEndMonth():
 	if day > end_month:
 		day = 1
 		month += 1
 		game.emit_signal("end_month")
-		check_end_year()
-		check_thirty_days_month()
+		checkEndYear()
+		checkThirtyDaysMonth()
 
-func check_end_year():
+func checkEndYear():
 	if month > 11:
 		month = 0
 		year += 1 
 
-func check_thirty_days_month():
+func checkThirtyDaysMonth():
 	var actual_month = month_list[month]
 	
 	if actual_month == "February":
-		check_february_days()
+		checkFebruaryDays()
 		return
 	
 	for idx in thirty_days_month:
@@ -66,17 +66,17 @@ func check_thirty_days_month():
 	
 	end_month = 31
 
-func check_february_days():
+func checkFebruaryDays():
 	if decimals(year/4.0) == 0:
 		end_month = 29
 	else:
 		end_month = 28
 
-func get_day():
+func getDay():
 	return day
 
-func get_month():
+func getMonth():
 	return month_list[month]
 
-func get_year():
+func getYear():
 	return year
