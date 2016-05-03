@@ -19,6 +19,7 @@ func _ready():
 func _process(delta):
 	checkPacketToInterpret()
 
+
 func checkPacketToInterpret():
 	if (client_packets_list.size() > 0):
 		setCurrentParsing("client", true)
@@ -30,6 +31,7 @@ func checkPacketToInterpret():
 		current_player_id = server_packets_list[0][1]
 		parsePacket(server_packets_list[0][0])
 		server_packets_list.remove(0)
+
 
 func parsePacket(packet):
 	storeData(packet)
@@ -68,29 +70,50 @@ func checkForEmptyness(data):
 	
 	return true
 
+
 func parseGame():
 	var packet_id = tmpData[1]
 	
 	if (packet_id == "0"):
-		global_client.setClientId(tmpData[2].to_int())
+		playerIdPacket()
 	elif (packet_id == "1"):
-		global_server.setPlayerReady(current_player_id, bool(tmpData[2].to_int()))
+		playerReadyPacket()
 	elif (packet_id == "2"):
-		get_tree().get_current_scene().queue_free()
-		get_tree().change_scene("res://scenes/gamescn.scn")
+		gameStartedPacket()
+	elif (packet_id == "3"):
+		checkNicknamePacket()
+
+
+func playerIdPacket(): #Packet 0
+	global_client.setClientId(tmpData[2].to_int())
+
+func playerReadyPacket(): #Packet 1
+	global_server.setPlayerReady(current_player_id, bool(tmpData[2].to_int()))
+
+func gameStartedPacket(): #Packet 2
+	get_tree().get_current_scene().queue_free()
+	get_tree().change_scene("res://scenes/gamescn.scn")
+
+func checkNicknamePacket(): #Packet 3
+	var nickname_is_ok = bool(tmpData[2].to_int())
+	var current_scene = get_tree().get_current_scene()
+	
+	if ( current_scene.get_name() == "lobby" ):
+		current_scene.displayNicknameMenu(nickname_is_ok)
+
 
 func setNickname():
 	if (current_parsing.server):
 		var nickname = tmpData[1]
 		global_server.setNickname(current_player_id, nickname)
 
+
 func setCurrentParsing(current_parser, boolean):
 	current_parsing.client = false
 	current_parsing.server = false
 	
 	current_parsing[current_parser] = boolean
-	
-	pass
+
 
 func parseMessage(packet):
 	var message = packet.substr(5, packet.length() - 5)
@@ -100,6 +123,7 @@ func parseMessage(packet):
 	elif (current_parsing.client):
 		global_client.addMessage(message)
 
+
 func addServerPacket(packet, client_id):
 	var client_data = Array()
 	client_data.push_back(packet)
@@ -108,6 +132,7 @@ func addServerPacket(packet, client_id):
 
 func getServerPacketsList():
 	return server_packets_list
+
 
 func addClientPacket(packet):
 	client_packets_list.push_back(packet)

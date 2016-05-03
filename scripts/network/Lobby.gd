@@ -115,3 +115,22 @@ func _on_kick_button_pressed():
 	
 	if (kick_list_node.get_item_count() > 0):
 		global_server.kickPlayer(kick_list_node.get_selected_ID())
+
+func displayNicknameMenu(boolean):
+	get_node("panel/control").set_hidden(boolean)
+
+
+func _on_control_visibility_changed():
+	if (is_visible()):
+		get_node("panel/control/nickname_information_box/nickname_line_edit").grab_focus()
+
+
+func _on_send_nickname_button_pressed():
+	var nickname = get_node("panel/control/nickname_information_box/nickname_line_edit").get_text()
+	
+	global_client.addPacket("/nickname " + nickname) 
+
+
+func _on_nickname_line_edit_input_event( ev ):
+	if (ev.is_action_pressed("accept")):
+		_on_send_nickname_button_pressed()

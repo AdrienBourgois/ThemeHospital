@@ -138,13 +138,14 @@ func sendPacket(packet):
 
 func setNickname(player_id, nickname):
 	if checkNicknameAlreadyTaken(nickname):
-		#sendPacket
+		sendTargetedPacket(player_id, "/game 3 0")
 		return
 	
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
 			sendMessageToAll(-1, nickname + " joined the server\n")
+			sendTargetedPacket(player_id, "/game 3 1")
 			updateClientsData()
 
 
