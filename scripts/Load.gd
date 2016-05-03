@@ -35,8 +35,12 @@ func loadPlayerData():
 	game.file.open(folder_path + filename, game.file.READ)
 	while (!game.file.eof_reached()):
 		load_dict.parse_json(game.file.get_line())
+		
 	gamescn.player.stats = load_dict.PLAYER
+	gamescn.calendar.stats = load_dict.CALENDAR
+	
 	gamescn.player.loadData()
+	gamescn.calendar.loadData()
 	resetStatsDict()
 	game.file.close()
 

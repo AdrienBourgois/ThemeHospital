@@ -9,6 +9,6 @@ onready var calendar = get_node("Calendar")
 
 func _ready():
 	loader.loadInit()
-	saver.savePlayer(0)
-	loader.quickload()
+	#saver.savePlayer(0)
+	#loader.quickload()
 	pass
