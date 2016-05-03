@@ -3,14 +3,14 @@ extends Node
 
 onready var game = get_node("/root/Game")
 
-export var name = "default" setget set_name,get_name
-export var money = 0 setget set_money,get_money
-export var expense = 0 setget set_expense,get_expense
-export var heal_patients = 0.0 setget set_heal_patients,get_heal_patients
-export var total_patients = 0.0 setget set_total_patients,get_total_patients
-export var heal_patients_percent = 0.0 setget ,get_heal_patients_percent
-export var reputation = 0 setget set_reputation,get_reputation
-export var hospital_value = 0 setget set_hospital_value,get_hospital_value
+export var name = "default" setget setName,getName
+export var money = 0 setget setMoney,getMoney
+export var expense = 0 setget setExpense,getExpense
+export var heal_patients = 0.0 setget setHealPatients,getHealPatients
+export var total_patients = 0.0 setget setTotalPatients,getTotalPatients
+export var heal_patients_percent = 0.0 setget ,getHealPatientsPercent
+export var reputation = 0 setget setReputation,getReputation
+export var hospital_value = 0 setget setHospitalValue,getHospitalValue
 
 var stats = {}
 
@@ -19,96 +19,96 @@ signal reputation_change(reputation)
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
 
-func set_name(new_name):
+func setName(new_name):
 	name = name
 
-func get_name():
+func getName():
 	return name
 
-func set_money(val):
+func setMoney(val):
 	money = val
 
-func get_money():
+func getMoney():
 	return money
 
 func reset():
 	stats.clear()
 
 
-func increase_money(val):
+func increaseMoney(val):
 	money += val
 
-func decrease_money(val):
+func decreaseMoney(val):
 	money -= val
 
-func set_expense(val):
+func setExpense(val):
 	expense = val
 
-func get_expense():
+func getExpense():
 	return expense
 
-func increase_expense(val):
+func increaseExpense(val):
 	expense += val
 
-func decrease_expense(val):
+func decreaseExpense(val):
 	expense -= val
 
-func set_heal_patients(val):
+func setHealPatients(val):
 	heal_patients = val
 
-func get_heal_patients():
+func getHealPatients():
 	return heal_patients
 
-func increase_heal_patients(val):
+func increaseHealPatients(val):
 	heal_patients += val
 
-func decrease_heal_patients(val):
+func decreaseHealPatients(val):
 	heal_patients -= val
 
-func set_total_patients(val):
+func setTotalPatients(val):
 	total_patients = val
 
-func get_total_patients(val):
+func getTotalPatients(val):
 	return total_patients
 
-func increase_total_patients(val):
+func increaseTotalPatients(val):
 	total_patients += val
 
-func decrease_total_patients(val):
+func decreaseTotalPatients(val):
 	total_patients -= val
 
-func get_heal_patients_percent():
+func getHealPatientsPercent():
 	return heal_patients_percent
 
-func calculate_heal_patients_percent():
+func calculateHealPatientsPercent():
 	if total_patients > 0:
 		heal_patients_percent = 100 * (heal_patients/total_patients)
 
-func set_reputation(val):
+func setReputation(val):
 	reputation += val
 	emit_signal("reputation_change", reputation)
 
-func get_reputation():
+func getReputation():
 	return reputation
 
-func increase_reputation(val):
+func increaseReputation(val):
 	reputation += val
 	emit_signal("reputation_change", reputation)
 
-func decrease_reputation(val):
+func decreaseReputation(val):
 	reputation -= val
 	emit_signal("reputation_change", reputation)
 
-func set_hospital_value(val):
+func setHospitalValue(val):
 	hospital_value = val
 
-func get_hospital_value():
+func getHospitalValue():
 	return hospital_value
 
-func increase_hospital_value(val):
+func increaseHospitalValue(val):
 	hospital_value += val
 
-func decrease_hospital_value(val):
+func decreaseHospitalValue(val):
 	hospital_value -= val
 
 func _on_end_month():
