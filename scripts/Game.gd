@@ -1,23 +1,38 @@
 extends Node
 
-var speed = 1 setget set_speed, get_speed
+var first_game = true setget ,get_first_game
+
+onready var init_path = "res://init.cfg"
+onready var file = File.new() 
+onready var dir = Directory.new() 
+onready var config = {}
+onready var default_config = {
+res_x = 1024,
+res_y = 600,
+fullscreen = false,
+sound = false,
+online_mode = false
+}
+
 var scene setget ,get_scene
+var feedback setget ,get_feedback
 
 var SPEED = {
 	SLOWEST = 0.25,
 	SLOWER = 0.5,
 	NORMAL = 1.0,
 	MAX = 2.0,
-	AND_THEN_SOME_MORE = 4.0 }
+	AND_THEN_SOME_MORE = 4.0}
+
+var speed = SPEED.NORMAL setget set_speed, get_speed
 
 var speed_array = [SPEED.SLOWEST, SPEED.SLOWER, SPEED.NORMAL, SPEED.MAX, SPEED.AND_THEN_SOME_MORE] setget ,get_speed_array
 
 signal speed_change
 signal end_month
+signal build_timer_timeout
 
 func _ready():
-	for idx in speed_array:
-		print(idx)
 	pass
 
 func set_speed(new_speed):
@@ -30,6 +45,11 @@ func get_speed():
 func get_scene():
 	return get_node("/root/GameScene")
 
+func get_feedback():
+	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
+
 func get_speed_array(id):
-	print(id)
 	return speed_array[id]
+
+func get_first_game():
+	return first_game
