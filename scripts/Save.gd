@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.scene
+onready var gamescn = game.getScene()
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var path = "res://saves/"

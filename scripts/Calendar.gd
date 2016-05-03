@@ -30,6 +30,9 @@ func _ready():
 	set_wait_time(day_duration/game.speed)
 	game.connect("speed_change", self, "_on_Global_speed_change")
 
+func test():
+	print("TAMERE : ", game.scene.player)
+
 func loadData():
 	day = stats.DAY
 	month = stats.MONTH
