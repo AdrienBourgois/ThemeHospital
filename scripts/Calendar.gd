@@ -1,7 +1,7 @@
 extends Timer
 
 onready var game = get_node("/root/Game")
-onready var gui = game.scene.get_node("In_game_gui/Calendar")
+onready var gui = game.scene.get_node("In_game_gui/Control_panel/Calendar")
 
 export var day_duration = 3.0
 export var day = 1 setget ,get_day
@@ -32,6 +32,7 @@ func _ready():
 func _on_Global_speed_change():
 	if game.speed > 0:
 		set_wait_time(day_duration/game.speed)
+		start()
 
 func _on_Calendar_timeout():
 	day += 1

@@ -1,5 +1,5 @@
 
-extends Panel
+extends Control
 
 onready var money_label = get_node("Label")
 onready var game = get_node("/root/Game")

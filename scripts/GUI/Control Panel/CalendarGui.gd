@@ -1,5 +1,5 @@
 
-extends Panel
+extends Control
 
 onready var day_label = get_node("Day")
 onready var month_label = get_node("Month")
