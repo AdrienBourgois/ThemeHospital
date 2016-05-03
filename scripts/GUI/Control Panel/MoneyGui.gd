@@ -9,4 +9,4 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	money_label.set_text(str(player.stats.MONEY) + " $")
+	money_label.set_text(str(player.money) + " $")
