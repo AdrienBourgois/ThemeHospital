@@ -8,14 +8,21 @@ onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var filename
 onready var folder_path
+onready var file_path
 onready var load_dict = {}
 
 func _ready():
 	pass
 
+func quickload():
+	loadPlayer(0)
+
 func loadPlayer(save_number):
 	if (!checkPlayerFolder()):
-		print("Player not found")
+		print("Player folder not found")
+		return false
+	if (!checkPlayerFile(save_number)):
+		print("Player file not found")
 		return false
 	else:
 		setFilename(save_number)
@@ -49,6 +56,16 @@ func checkPlayerFolder():
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
+
+func checkPlayerFile(save_number):
+	if save_number == 0:
+		file_path = folder_path + "Quicksave.json"
+	else:
+		file_path = folder_path + "save_" + str(save_number) + ".json"
+	if (game.file.file_exists(file_path)):
+		return true
+	else:
+		return false
 
 func loadInit():
 	save.checkSaves()

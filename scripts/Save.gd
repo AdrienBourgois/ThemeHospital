@@ -16,7 +16,11 @@ func _ready():
 func setInit():
 	game.file.open(game.init_path, game.file.WRITE)
 	game.file.store_string(game.default_config.to_json())
+	game.config = game.default_config
 	game.file.close()
+
+func quicksave():
+	savePlayer(0)
 
 func savePlayer(ID):
 	checkSaves()
