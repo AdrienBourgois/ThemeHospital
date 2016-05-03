@@ -23,10 +23,20 @@ func loadPlayer(save_number):
 		return true
 
 func loadPlayerData():
+	gamescn.player.resetStatsDict()
 	game.file.open(folder_path + filename, game.file.READ)
 	while (!game.file.eof_reached()):
 		gamescn.player.stats.parse_json(game.file.get_line())
 	game.file.close()
+	gamescn.player.name = gamescn.player.stats.NAME
+	gamescn.player.money = gamescn.player.stats.MONEY
+	gamescn.player.expense = gamescn.player.stats.EXPENSE
+	gamescn.player.heal_patients = gamescn.player.stats.HEAL_PATIENTS
+	gamescn.player.total_patients = gamescn.player.stats.TOTAL_PATIENTS
+	gamescn.player.heal_patients_percent = gamescn.player.stats.HEAL_PATIENTS_PERCENT
+	gamescn.player.reputation = gamescn.player.stats.REPUTATION
+	gamescn.player.hospital_value = gamescn.player.stats.HOSPITAL_VALUE
+	gamescn.player.resetStatsDict()
 
 func setFilename(save_number):
 	if (save_number == 0):
@@ -35,7 +45,9 @@ func setFilename(save_number):
 		filename = "save_" + str(save_number)
 
 func checkPlayerFolder():
+	gamescn.player.createStatsDict()
 	folder_path = saves_path + gamescn.player.stats.NAME + '/'
+	gamescn.player.resetStatsDict()
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false

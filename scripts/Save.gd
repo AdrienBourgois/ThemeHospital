@@ -28,9 +28,11 @@ func savePlayer(ID):
 	storeData()
 
 func storeData():
+	gamescn.player.createStatsDict()
 	game.file.open(file_path, game.file.WRITE)
 	game.file.store_string(gamescn.player.stats.to_json())
 	game.file.close()
+	gamescn.player.resetStatsDict()
 
 func checkSaves():
 	if (!dir.dir_exists("res://saves")):
