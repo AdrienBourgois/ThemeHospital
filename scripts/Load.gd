@@ -24,7 +24,7 @@ func loadPlayer(save_number):
 
 func loadPlayerData():
 	gamescn.player.resetStatsDict()
-	game.file.open(folder_path + filename, game.file.READ)
+	game.file.open_encrypted_with_pass(folder_path + filename, game.file.READ, "PASS")
 	while (!game.file.eof_reached()):
 		gamescn.player.stats.parse_json(game.file.get_line())
 	game.file.close()
@@ -32,9 +32,9 @@ func loadPlayerData():
 
 func setFilename(save_number):
 	if (save_number == 0):
-		filename = "Quicksave"
+		filename = "Quicksave.json"
 	else:
-		filename = "save_" + str(save_number)
+		filename = "save_" + str(save_number) + ".json"
 
 func checkPlayerFolder():
 	gamescn.player.createStatsDict()

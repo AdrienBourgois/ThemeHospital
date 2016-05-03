@@ -21,15 +21,15 @@ func savePlayer(ID):
 	checkSaves()
 	checkPlayerFolder()
 	if (ID == 0):
-		filename = "Quicksave"
+		filename = "Quicksave.json"
 	else:
-		filename = "save_" + str(ID)
+		filename = "save_" + str(ID) + ".json"
 	file_path = saves_path + gamescn.player.name + '/' + filename
 	storeData()
 
 func storeData():
 	gamescn.player.createStatsDict()
-	game.file.open(file_path, game.file.WRITE)
+	game.file.open_encrypted_with_pass(file_path, game.file.WRITE, "PASS") 
 	game.file.store_string(gamescn.player.stats.to_json())
 	game.file.close()
 	gamescn.player.resetStatsDict()
