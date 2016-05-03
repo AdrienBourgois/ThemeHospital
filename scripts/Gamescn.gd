@@ -8,3 +8,4 @@ onready var player = get_node("Player")
 
 func _ready():
 	loader.load_init()
+	saver.save_player(0)

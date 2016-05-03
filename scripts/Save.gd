@@ -24,7 +24,7 @@ func save_player(ID):
 		filename = "Quicksave"
 	else:
 		filename = "save_" + str(ID)
-	file_path = saves_path + gamescn.player.stats.NAME + '/' + filename
+	file_path = saves_path + gamescn.player.name + '/' + filename
 	store_data()
 
 func store_data():
@@ -37,6 +37,6 @@ func check_saves():
 		dir.make_dir("res://saves")
 
 func check_player_folder():
-	path += gamescn.player.stats.NAME
+	path += gamescn.player.name
 	if (!dir.dir_exists(path)):
 		dir.make_dir(path)
