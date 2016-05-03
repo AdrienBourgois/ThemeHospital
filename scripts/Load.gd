@@ -71,7 +71,7 @@ func loadInit():
 	save.checkSaves()
 	if (!game.file.file_exists(game.init_path)):
 		print("Init file not found, create a new one")
-		save.setInit()
+		save.setDefaultInit()
 		game.config = game.default_config
 	else:
 		game.file.open(game.init_path, game.file.READ)
@@ -83,4 +83,3 @@ func loadInit():
 func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
-

@@ -13,10 +13,14 @@ onready var save_dict = {}
 func _ready():
 	pass
 
-func setInit():
+func setDefaultInit():
 	game.file.open(game.init_path, game.file.WRITE)
 	game.file.store_string(game.default_config.to_json())
-	game.config = game.default_config
+	game.file.close()
+
+func setInit():
+	game.file.open(game.init_path, game.file.WRITE)
+	game.file.store_string(game.config.to_json())
 	game.file.close()
 
 func quicksave():
