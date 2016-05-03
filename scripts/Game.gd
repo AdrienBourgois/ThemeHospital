@@ -5,6 +5,7 @@ var scene setget ,get_scene
 
 onready var init_path = "res://init.cfg"
 onready var file = File.new() 
+onready var dir = Directory.new() 
 onready var config = {}
 onready var default_config = {
 res_x = 1024,

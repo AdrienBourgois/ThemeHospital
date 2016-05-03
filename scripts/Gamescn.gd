@@ -7,3 +7,4 @@ onready var loader = get_node("/root/Load")
 
 func _ready():
 	loader.load_init()
+	saver.save_player()

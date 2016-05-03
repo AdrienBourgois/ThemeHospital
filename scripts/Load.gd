@@ -3,11 +3,13 @@ extends Node
 
 onready var game = get_node("/root/Game")
 onready var save = get_node("/root/Save")
+onready var dir = game.dir
 
 func _ready():
 	pass
 
 func load_init():
+	save.check_saves()
 	if (!game.file.file_exists(game.init_path)):
 		print("Init file not found, create a new one")
 		save.set_init()
