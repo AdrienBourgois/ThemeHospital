@@ -22,8 +22,11 @@ height=600
 
 [input]
 
+<<<<<<< HEAD
 enter=[key(Return), key(Enter)]
+=======
 accept=[key(Return), key(Enter)]
+>>>>>>> 67187a21e332e1c6d7e7d9b636b388e6b573853d
 test_increase=[key(Kp Add)]
 test_decrease=[key(Kp Subtract)]
 left_click=[mbutton(0, 1)]
