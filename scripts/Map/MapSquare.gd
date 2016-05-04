@@ -45,3 +45,22 @@ func hover_on():
 
 func hover_off():
 	update(room_type)
+
+func _input_event( camera, event, click_pos, click_normal, shape_idx ):
+	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click")):
+		get_parent().new_room("from", Vector2(x, y))
+	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("left_click")):
+		get_parent().new_room("to", Vector2(x, y))
+
+func _current_select():
+	get_parent().new_room("current", Vector2(x, y))
+
+func get(neighbour):
+	if (neighbour == "up"):
+		return get_parent().get_tile(Vector2(x, y - 1))
+	elif (neighbour == "left"):
+		return get_parent().get_tile(Vector2(x - 1, y))
+	elif (neighbour == "down"):
+		return get_parent().get_tile(Vector2(x, y + 1))
+	elif (neighbour == "right"):
+		return get_parent().get_tile(Vector2(x + 1, y))
