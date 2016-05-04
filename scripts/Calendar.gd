@@ -98,5 +98,8 @@ func getDay():
 func getMonth():
 	return month
 
+func getMonthInList():
+	return month_list[month]
+
 func getYear():
 	return year

@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.getScene()
+var gamescn setget setGamescn
 onready var save = get_node("/root/Save")
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
@@ -18,17 +18,19 @@ func quickload():
 	loadPlayer(0)
 
 func loadPlayer(save_number):
-	if (!checkPlayerFolder()):
-		print("Player folder not found")
-		return false
-	if (!checkPlayerFile(save_number)):
-		print("Player file not found")
-		return false
-	else:
-		setFilename(save_number)
-		loadPlayerData()
-		print("Player founded and loaded")
-		return true
+	if gamescn:
+		if (!checkPlayerFolder()):
+			print("Player folder not found")
+			return false
+		if (!checkPlayerFile(save_number)):
+			print("Player file not found")
+			return false
+		else:
+			setFilename(save_number)
+			loadPlayerData()
+			print("Player founded and loaded")
+			return true
+	return false
 
 func loadPlayerData():
 	gamescn.player.resetStatsDict()
@@ -87,3 +89,6 @@ func loadInit():
 func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
+
+func setGamescn(scene):
+	gamescn = scene
