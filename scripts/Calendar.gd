@@ -10,18 +10,18 @@ export(int, "January", "February", "March", "April", "May", "June", "July", "Aug
 var end_month
 export var year = 1997 setget , getYear
 
-var month_list = ["January", 
-				  "February", 
-				  "March", 
-				  "April", 
-				  "May", 
-				  "June", 
-				  "July", 
-				  "August", 
-				  "September", 
-				  "October", 
-				  "November", 
-				  "December"]
+var month_list = [tr("TXT_JANUARY"), 
+				  tr("TXT_FEBRUARY"), 
+				  tr("TXT_MARCH"), 
+				  tr("TXT_APRIL"), 
+				  tr("TXT_MAY"), 
+				  tr("TXT_JUNE"), 
+				  tr("TXT_JULY"), 
+				  tr("TXT_AUGUST"), 
+				  tr("TXT_SEPTEMBER"), 
+				  tr("TXT_OCTOBER"), 
+				  tr("TXT_NOVEMBER"), 
+				  tr("TXT_DECEMBER")]
 
 var thirty_days_month = ["April", "June", "September", "November"]
 
