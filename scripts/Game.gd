@@ -12,7 +12,8 @@ res_x = 1024,
 res_y = 600,
 fullscreen = false,
 sound = false,
-online_mode = false
+online_mode = false,
+langage = "en"
 }
 
 var scene setget ,getScene
