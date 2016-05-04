@@ -14,10 +14,37 @@ export var hospital_value = 0 setget setHospitalValue,getHospitalValue
 
 var stats = {}
 
+
 signal reputation_change(reputation)
 
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
+
+func loadData():
+	name = stats.NAME
+	money = stats.MONEY
+	expense = stats.EXPENSE
+	heal_patients = stats.HEAL_PATIENTS
+	total_patients = stats.TOTAL_PATIENTS
+	heal_patients_percent = stats.HEAL_PATIENTS_PERCENT
+	reputation = stats.REPUTATION
+	hospital_value = stats.HOSPITAL_VALUE
+	resetStatsDict()
+
+func createStatsDict():
+	stats = {
+	NAME = name,
+	MONEY = money,
+	EXPENSE = expense,
+	HEAL_PATIENTS = heal_patients,
+	TOTAL_PATIENTS = total_patients,
+	HEAL_PATIENTS_PERCENT = heal_patients_percent,
+	REPUTATION = reputation,
+	HOSPITAL_VALUE = hospital_value
+	}
+
+func resetStatsDict():
+	stats.clear()
 
 func setName(new_name):
 	name = name
@@ -30,10 +57,6 @@ func setMoney(val):
 
 func getMoney():
 	return money
-
-func reset():
-	stats.clear()
-
 
 func increaseMoney(val):
 	money += val
