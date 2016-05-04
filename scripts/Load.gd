@@ -17,6 +17,9 @@ func _ready():
 func quickload():
 	loadPlayer(0)
 
+func autoload():
+	loadPlayer(10)
+
 func loadPlayer(save_number):
 	if gamescn:
 		if (!checkPlayerFolder()):
@@ -52,6 +55,8 @@ func resetStatsDict():
 func setFilename(save_number):
 	if (save_number == 0):
 		filename = "Quicksave.json"
+	elif (save_number == 10):
+		filename = "Autoload.json"
 	else:
 		filename = "save_" + str(save_number) + ".json"
 
