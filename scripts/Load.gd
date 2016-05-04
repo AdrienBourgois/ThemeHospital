@@ -8,7 +8,7 @@ onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var filename
 onready var folder_path
-onready var file_path
+onready var file_path setget ,getPath
 onready var load_dict = {}
 
 func _ready():
@@ -101,3 +101,6 @@ func applyConfig():
 
 func setGamescn(scene):
 	gamescn = scene
+
+func getPath():
+	return file_path
