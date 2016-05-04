@@ -43,7 +43,7 @@ func getSpeed():
 	return speed
 
 func getScene():
-	return get_node("/root/GameScene")
+	pass
 
 func getFeedback():
 	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
