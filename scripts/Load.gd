@@ -8,7 +8,7 @@ onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var filename
 onready var folder_path
-onready var file_path
+onready var file_path setget ,getPath
 onready var load_dict = {}
 
 func _ready():
@@ -61,9 +61,12 @@ func setFilename(save_number):
 		filename = "save_" + str(save_number) + ".json"
 
 func checkPlayerFolder():
-	gamescn.player.createStatsDict()
-	folder_path = saves_path + gamescn.player.stats.NAME + '/'
-	gamescn.player.resetStatsDict()
+	if gamescn:
+		gamescn.player.createStatsDict()
+		folder_path = saves_path + game.username + '/'
+		gamescn.player.resetStatsDict()
+	else:
+		folder_path = saves_path + game.username + '/'
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
@@ -73,6 +76,7 @@ func checkPlayerFile(save_number):
 		file_path = folder_path + "Quicksave.json"
 	else:
 		file_path = folder_path + "save_" + str(save_number) + ".json"
+	
 	if (game.file.file_exists(file_path)):
 		return true
 	else:
@@ -97,3 +101,6 @@ func applyConfig():
 
 func setGamescn(scene):
 	gamescn = scene
+
+func getPath():
+	return file_path

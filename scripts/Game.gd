@@ -16,6 +16,10 @@ online_mode = false,
 langage = "en"
 }
 
+var username = "" setget setUsername,getUsername
+var new_game = true setget setNewGame,getNewGame
+var save_to_load setget setSaveToLoad,getSaveToLoad
+
 var scene setget ,getScene
 var feedback setget ,getFeedback
 
@@ -55,3 +59,21 @@ func getSpeedArray(id):
 
 func getFirstGame():
 	return first_game
+
+func setUsername(name):
+	username = name
+
+func getUsername():
+	return username
+
+func setSaveToLoad(val):
+	save_to_load = val
+
+func getSaveToLoad():
+	return save_to_load
+
+func setNewGame(state):
+	new_game = state
+
+func getNewGame():
+	return new_game
