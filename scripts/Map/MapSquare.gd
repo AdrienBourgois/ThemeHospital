@@ -1,6 +1,8 @@
 
 extends Spatial
 
+onready var wall_res = preload("res://scenes/Map/Wall.scn")
+
 const enum_room_type = { "DECORATION": 0, "LOBBY": 1 }
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 
@@ -10,10 +12,11 @@ var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
 var x = 0
 var y = 0
 
-var material = FixedMaterial.new()
+var room_material = FixedMaterial.new()
+var wall_material = FixedMaterial.new()
 
 func _ready():
-	get_node("StaticBody/Quad").set_material_override(material)
+	get_node("StaticBody/Quad").set_material_override(room_material)
 	get_node("StaticBody").connect("mouse_enter", self, "hover_on")
 	get_node("StaticBody").connect("mouse_exit", self, "hover_off")
 
@@ -25,23 +28,31 @@ func create(_x, _y, _type):
 
 func update(type):
 	room_type = type
+	room_material.set_flag(1, true)
+	wall_material.set_flag(1, true)
 	if (type == enum_room_type.DECORATION):
-		material.set_parameter(0, colors.green)
+		room_material.set_parameter(0, colors.green)
 	elif (type == enum_room_type.LOBBY):
-		material.set_parameter(0, colors.red)
+		room_material.set_parameter(0, colors.red)
+
+func update_walls(direction):
+	if (get(direction) != null):
+		if (!get(direction).room_type):
+			change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] == enum_wall_type.VOID):
-			get_node("StaticBody/Quad/" + wall + "_Wall").add_child(load("res://scenes/Map/Wall.scn").instance())
+			var new_wall = wall_res.instance()
+			new_wall.set_material_override(wall_material)
+			get_node("StaticBody/Quad/" + wall + "_Wall").add_child(new_wall)
 	if (type == enum_wall_type.VOID):
 		if (walls_types[wall] == enum_wall_type.WALL):
 			get_node("StaticBody/Quad/" + wall + "_Wall").remove_child("Wall")
 	walls_types[wall] = type
 
 func hover_on():
-	#print("Tile : ", x, "-", y)
-	material.set_parameter(0, colors.brown)
+	room_material.set_parameter(0, colors.brown)
 
 func hover_off():
 	update(room_type)
@@ -56,11 +67,11 @@ func _current_select():
 	get_parent().new_room("current", Vector2(x, y))
 
 func get(neighbour):
-	if (neighbour == "up"):
+	if (neighbour == "Up"):
 		return get_parent().get_tile(Vector2(x, y - 1))
-	elif (neighbour == "left"):
+	elif (neighbour == "Left"):
 		return get_parent().get_tile(Vector2(x - 1, y))
-	elif (neighbour == "down"):
+	elif (neighbour == "Down"):
 		return get_parent().get_tile(Vector2(x, y + 1))
-	elif (neighbour == "right"):
+	elif (neighbour == "Right"):
 		return get_parent().get_tile(Vector2(x + 1, y))
