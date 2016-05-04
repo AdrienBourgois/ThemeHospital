@@ -16,6 +16,7 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
+#	print("host ? ", client_states.is_host)
 	if (client_states.is_connected):
 		checkForMessage()
 		checkForDisconnection()

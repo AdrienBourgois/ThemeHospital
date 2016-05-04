@@ -92,7 +92,7 @@ func playerReadyPacket(): #Packet 1
 
 func gameStartedPacket(): #Packet 2
 	get_tree().get_current_scene().queue_free()
-	get_tree().change_scene("res://scenes/gamescn.scn")
+	get_tree().change_scene("res://scenes/network/MapSelect.scn")
 
 func checkNicknamePacket(): #Packet 3
 	var nickname_is_ok = bool(tmpData[2].to_int())

@@ -46,7 +46,6 @@ func checkHostClient():
 		get_node("panel/combo_box").set_hidden(true)
 	else:
 		get_node("panel/clients_information_box").set_hidden(true)
-	pass
 
 
 func setScrollFollow():
