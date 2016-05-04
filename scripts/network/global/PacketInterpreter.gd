@@ -91,8 +91,14 @@ func playerReadyPacket(): #Packet 1
 	global_server.setPlayerReady(current_player_id, bool(tmpData[2].to_int()))
 
 func gameStartedPacket(): #Packet 2
-	get_tree().get_current_scene().queue_free()
-	get_tree().change_scene("res://scenes/network/MapSelect.scn")
+	var scene = tmpData[2]
+	
+	if (scene == "0"):
+		get_tree().get_current_scene().queue_free()
+		get_tree().change_scene("res://scenes/network/MapSelect.scn")
+	elif (scene == "1"):
+		get_tree().get_current_scene().queue_free()
+		get_tree().change_scene("res://scenes/gamescn.scn")
 
 func checkNicknamePacket(): #Packet 3
 	var nickname_is_ok = bool(tmpData[2].to_int())

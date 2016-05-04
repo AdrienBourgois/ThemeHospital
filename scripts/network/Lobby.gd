@@ -7,6 +7,7 @@ onready var global_server = get_node("/root/GlobalServer")
 onready var connected_clients_label = get_node("./panel/clients_information_box/connected_clients_list")
 onready var ready_players_label = get_node("./panel/clients_information_box/ready_players_label")
 onready var kick_list = get_node("./panel/clients_information_box/kick_list_box")
+onready var messages_list_label = get_node("panel/chat_box/messages_list_label")
 var last_messages_list_size = 0
 
 
@@ -31,14 +32,13 @@ func _on_send_message_button_pressed():
 
 
 func update_chat():
-	var messagesListLabel = get_node("panel/chat_box/messages_list_label")
-	var messagesList = global_client.getMessagesList()
+	var messages_list = global_client.getMessagesList()
 	
-	if (last_messages_list_size != messagesList.size()):
-		last_messages_list_size = messagesList.size()
-		messagesListLabel.clear()
-		for message in range (messagesList.size()):
-			messagesListLabel.add_text(messagesList[message])
+	if (last_messages_list_size != messages_list.size()):
+		last_messages_list_size = messages_list.size()
+		messages_list_label.clear()
+		for message in range (messages_list.size()):
+			messages_list_label.add_text(messages_list[message])
 
 
 func checkHostClient():
@@ -95,7 +95,7 @@ func _on_ready_button_toggled( pressed ):
 
 
 func _on_start_game_button_pressed():
-	global_server.addPacket("/game 2")
+	global_server.addPacket("/game 2 0")
 
 
 func _on_kick_button_pressed():
