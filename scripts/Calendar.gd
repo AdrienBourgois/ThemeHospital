@@ -2,6 +2,7 @@ extends Timer
 
 onready var game = get_node("/root/Game")
 onready var gui = game.scene.get_node("In_game_gui/Control_panel/Calendar")
+onready var stats = {}
 
 export var day_duration = 3.0
 export var day = 1 setget ,getDay
@@ -28,6 +29,25 @@ func _ready():
 	checkThirtyDaysMonth()
 	set_wait_time(day_duration/game.speed)
 	game.connect("speed_change", self, "_on_Global_speed_change")
+
+func test():
+	print("TAMERE : ", game.scene.player)
+
+func loadData():
+	day = stats.DAY
+	month = stats.MONTH
+	year = stats.YEAR
+	resetStatsDict()
+
+func createStatsDict():
+	stats = {
+	DAY = getDay(),
+	MONTH = getMonth(),
+	YEAR = getYear(),
+	}
+
+func resetStatsDict():
+	stats.clear()
 
 func _on_Global_speed_change():
 	if game.speed > 0:
@@ -76,6 +96,9 @@ func getDay():
 	return day
 
 func getMonth():
+	return month
+
+func getMonthInList():
 	return month_list[month]
 
 func getYear():

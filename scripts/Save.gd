@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.scene
+var gamescn setget setGamescn
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var path = "res://saves/"
@@ -45,8 +45,10 @@ func storeData():
 
 func createSaveDict():
 	gamescn.player.createStatsDict()
+	gamescn.calendar.createStatsDict()
 	save_dict = {
-	PLAYER = gamescn.player.stats
+	PLAYER = gamescn.player.stats,
+	CALENDAR = gamescn.calendar.stats
 	}
 
 func checkSaves():
@@ -57,3 +59,6 @@ func checkPlayerFolder():
 	path += gamescn.player.name
 	if (!dir.dir_exists(path)):
 		dir.make_dir(path)
+
+func setGamescn(scene):
+	gamescn = scene

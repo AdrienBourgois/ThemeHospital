@@ -8,7 +8,9 @@ onready var player = get_node("Player")
 onready var calendar = get_node("Calendar")
 
 func _ready():
+	loader.gamescn = self
+	saver.gamescn = self
 	loader.loadInit()
-	saver.savePlayer(0)
-	loader.quickload()
+	#saver.savePlayer(0)
+	#loader.quickload()
 	pass
