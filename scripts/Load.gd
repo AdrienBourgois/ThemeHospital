@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.scene
+var gamescn setget setGamescn
 onready var save = get_node("/root/Save")
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
@@ -13,14 +13,16 @@ func _ready():
 	pass
 
 func loadPlayer(save_number):
-	if (!checkPlayerFolder()):
-		print("Player not found")
-		return false
-	else:
-		setFilename(save_number)
-		loadPlayerData()
-		print("Player founded and loaded")
-		return true
+	if gamescn:
+		if (!checkPlayerFolder()):
+			print("Player not found")
+			return false
+		else:
+			setFilename(save_number)
+			loadPlayerData()
+			print("Player founded and loaded")
+			return true
+	return false
 
 func loadPlayerData():
 	game.file.open(folder_path + filename, game.file.READ)
@@ -35,7 +37,7 @@ func setFilename(save_number):
 		filename = "save_" + str(save_number)
 
 func checkPlayerFolder():
-	folder_path = saves_path + gamescn.player.stats.NAME + '/'
+	folder_path = saves_path + gamescn.player.name + '/'
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
@@ -44,7 +46,7 @@ func loadInit():
 	save.checkSaves()
 	if (!game.file.file_exists(game.init_path)):
 		print("Init file not found, create a new one")
-		save.setInit()
+		save.setDefaultInit()
 		game.config = game.default_config
 	else:
 		game.file.open(game.init_path, game.file.READ)
@@ -57,3 +59,5 @@ func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
 
+func setGamescn(scene):
+	gamescn = scene
