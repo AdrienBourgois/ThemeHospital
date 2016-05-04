@@ -3,8 +3,7 @@ extends Node
 
 var socket = null setget ,getSocket
 var player_data = Array()
-var packet_list = Array() setget addPacket,getPacketList
-var current_packet_number = 0
+var packet_list = Array() setget addPacket
 
 var server_states = {
 	server_connected = false,
@@ -20,16 +19,11 @@ func _process(delta):
 		checkForDisconnection()
 		checkForIncomingConnection()
 		checkForMessage()
+		checkForPacketToSend()
 
 
 func getSocket():
 	return socket
-
-func addPacket(packet):
-	packet_list.push_back(packet)
-
-func getPacketList():
-	return packet_list
 
 
 func startServer(port):
@@ -63,34 +57,39 @@ func resetServerStates():
 	server_states.looking_for_players = false
 	server_states.game_started = false
 
+
 func stopServer():
 	resetServerStates()
 	
 	socket.stop()
 	player_data.clear()
-	packet_list.clear()
-	current_packet_number = 0
 	
 	socket = null
-	print("Server stopped")
+
+
+func kickPlayer(player_id):
+	for player in range ( player_data.size() ):
+		if (player_id == player_data[player][3]):
+			sendMessageToAll(-1, player_data[player][2] + tr("MSG_KICKED") + "\n") 
+			player_data.remove(player)
+			
+			updateServerData()
 
 
 func checkForDisconnection():
 	for player in range (player_data.size()):
 		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
-			print("client disconnected")
+			sendMessageToAll(-1, player_data[player][2] + tr("MSG_LEFT") + "\n")
 			player_data.remove(player)
-			checkLookingForPlayers()
+			
+			updateServerData()
 
 
 func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			get_node("/root/PacketInterpreter").parsePacket(message)
-##			var new_message = player_data[player][2] + ": " + message + "\n"
-#			sendPacket(new_message)
-			#Make Packet Interpreter script to parse messages received
+			get_node("/root/PacketInterpreter").addServerPacket(message, player_data[player][3])
 
 
 func checkForIncomingConnection():
@@ -103,6 +102,12 @@ func checkForIncomingConnection():
 		checkLookingForPlayers()
 
 
+func checkForPacketToSend():
+	if (packet_list.size() > 0 ):
+		sendPacket(packet_list[0])
+		packet_list.remove(0)
+
+
 func createClientData(clientObject, clientPeerstream):
 	var player = Array()
 	var player_id = player_data.size()
@@ -112,13 +117,14 @@ func createClientData(clientObject, clientPeerstream):
 	player.push_back("Client " + str(player_id))
 	player.push_back(player_id)
 	player.push_back(false)
-	player.push_back(false)
 	player_data.push_back(player)
+	
+	clientPeerstream.put_var("/game 0 " + str(player_id))
 
 
 func checkLookingForPlayers():
 	var current_player_number = player_data.size()
-	if (current_player_number >= 4):
+	if ( current_player_number >= 4 ):
 		server_states.looking_for_players = false
 	else:
 		server_states.looking_for_players = true
@@ -128,3 +134,105 @@ func sendPacket(packet):
 	for player in range (player_data.size()):
 		player_data[player][1].put_var(packet)
 	pass
+
+
+func setNickname(player_id, nickname):
+	if checkNicknameAlreadyTaken(nickname):
+		sendTargetedPacket(player_id, "/game 3 0")
+		return
+	
+	for player in range (player_data.size()):
+		if (player_data[player][3] == player_id):
+			player_data[player][2] = nickname
+			sendMessageToAll(-1, nickname + tr("MSG_JOINED") + "\n")
+			sendTargetedPacket(player_id, "/game 3 1")
+			updateClientsData()
+
+
+func checkNicknameAlreadyTaken(nickname):
+	for player in range (player_data.size()):
+		if (player_data[player][2] == nickname):
+			return true
+	
+	return false
+
+
+func setPlayerReady(player_id, boolean):
+	var root = get_tree().get_current_scene()
+	
+	for player in range (player_data.size()):
+		if (player_data[player][3] == player_id):
+			player_data[player][4] = boolean
+			if (boolean):
+				sendMessageToAll(-1, player_data[player][2] + tr("MSG_READY") + "\n")
+			else:
+				sendMessageToAll(-1, player_data[player][2] + tr("MSG_NOT_READY") + "\n")
+		checkPlayersReady()
+		updateReadyPlayers()
+
+
+func checkPlayersReady():
+	var player_ready = 0
+	
+	for player in range (player_data.size()):
+		if (player_data[player][4]):
+			player_ready += 1
+	
+	var start_game_button = get_tree().get_current_scene().get_node("./panel/clients_information_box/start_game_button")
+	
+	if ((player_ready == player_data.size() - 1)  && player_data.size() >= 2 && start_game_button != null):
+		start_game_button.set_disabled(false)
+	elif (start_game_button != null):
+		start_game_button.set_disabled(true)
+
+
+func sendMessageToAll(from_client_id, message):
+	var new_message = "/chat "
+	
+	for player in range(player_data.size()):
+		if (player_data[player][3] == from_client_id):
+			new_message += player_data[player][2] + ": " + message
+			sendPacket(new_message)
+	
+	if (from_client_id == -1):
+		new_message += message
+		sendPacket(new_message)
+
+
+func sendTargetedPacket(to_client_id, packet):
+	for player in range (player_data.size()):
+		if ( player_data[player][3] == to_client_id ):
+			player_data[player][1].put_var(packet)
+
+
+func addPacket(packet):
+	packet_list.push_back(packet)
+
+
+func updateClientsData():
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "lobby" ):
+		root.clearConnectedClientsLabel()
+		root.clearKickList()
+		for player in range ( player_data.size() ):
+			root.addConnectedClient("- " + player_data[player][2] + "\n")
+			if (player_data[player][3] != 0):
+				root.addPlayerKickList(player_data[player][2], player_data[player][3])
+
+
+func updateReadyPlayers():
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "lobby"):
+		root.clearReadyPlayersLabel()
+		for player in range ( player_data.size() ):
+			if (player_data[player][4]):
+				root.addReadyPlayer("- " + player_data[player][2] + "\n")
+
+
+func updateServerData():
+	updateClientsData()
+	updateReadyPlayers()
+	checkPlayersReady()
+	checkLookingForPlayers()
