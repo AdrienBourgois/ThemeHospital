@@ -7,24 +7,41 @@ const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 var room_type = 0
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
 
+var x = 0
+var y = 0
+
 var material = FixedMaterial.new()
 
 func _ready():
 	get_node("StaticBody/Quad").set_material_override(material)
+	get_node("StaticBody").connect("mouse_enter", self, "hover_on")
+	get_node("StaticBody").connect("mouse_exit", self, "hover_off")
+
+func create(_x, _y, _type):
+	set_name("Tile-" + str(_x) + "." + str(_y))
+	x = _x
+	y = _y
+	update(_type)
 
 func update(type):
 	room_type = type
 	if (type == enum_room_type.DECORATION):
-		material.set_parameter(0, Color(0,1,0))
+		material.set_parameter(0, colors.green)
 	elif (type == enum_room_type.LOBBY):
-		material.set_parameter(0, Color(1,0,0))
+		material.set_parameter(0, colors.red)
 
 func change_wall(wall, type):
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] == enum_wall_type.VOID):
-			get_node("StaticBody/Quad/" + wall + "_Wall").add_child(load("res://scenes/Map/Wall.scn"))
+			get_node("StaticBody/Quad/" + wall + "_Wall").add_child(load("res://scenes/Map/Wall.scn").instance())
 	if (type == enum_wall_type.VOID):
 		if (walls_types[wall] == enum_wall_type.WALL):
 			get_node("StaticBody/Quad/" + wall + "_Wall").remove_child("Wall")
 	walls_types[wall] = type
-	
+
+func hover_on():
+	#print("Tile : ", x, "-", y)
+	material.set_parameter(0, colors.brown)
+
+func hover_off():
+	update(room_type)
