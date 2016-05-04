@@ -5,6 +5,7 @@ onready var loader = get_node("/root/Load")
 
 func _ready():
 	loader.loadInit()
+	print("Username : ", game.username)
 
 func _on_New_game_pressed():
 	get_tree().get_current_scene().queue_free()
