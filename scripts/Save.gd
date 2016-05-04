@@ -26,11 +26,16 @@ func setInit():
 func quicksave():
 	savePlayer(0)
 
+func autosave():
+	savePlayer(10)
+
 func savePlayer(ID):
 	checkSaves()
 	checkPlayerFolder()
 	if (ID == 0):
 		filename = "Quicksave.json"
+	elif (ID == 10):
+		filename = "Autosave.json"
 	else:
 		filename = "save_" + str(ID) + ".json"
 	file_path = saves_path + gamescn.player.name + '/' + filename
