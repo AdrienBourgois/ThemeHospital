@@ -14,7 +14,6 @@ func _ready():
 
 
 func _on_ApplyButton_pressed():
-	applyLanguage()
 	save.setInit()
 	loader.applyConfig()
 	apply_button.set_disabled(true)

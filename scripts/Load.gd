@@ -98,6 +98,7 @@ func loadInit():
 func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
+	TranslationServer.set_locale(game.config.langage)
 
 func setGamescn(scene):
 	gamescn = scene

@@ -13,7 +13,7 @@ res_y = 600,
 fullscreen = false,
 sound = false,
 online_mode = false,
-langage = "en"
+langage = "fr"
 }
 
 var username = "" setget setUsername,getUsername
