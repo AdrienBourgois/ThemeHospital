@@ -7,8 +7,7 @@ func _ready():
 	loader.loadInit()
 
 func _on_New_game_pressed():
-	get_tree().get_current_scene().queue_free()
-	get_tree().change_scene("res://scenes/gamescn.scn")
+	game.goToScene("res://scenes/gamescn.scn")
 
 
 func _on_Load_game_pressed():
