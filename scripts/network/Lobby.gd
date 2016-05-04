@@ -4,9 +4,9 @@ extends Control
 onready var message_line_edit = get_node("./panel/chat_box/message_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
 onready var global_server = get_node("/root/GlobalServer")
-onready var connected_clients_label = get_node("./panel/clients_information_box/connected_clients_list")
-onready var ready_players_label = get_node("./panel/clients_information_box/ready_players_label")
-onready var kick_list = get_node("./panel/clients_information_box/kick_list_box")
+onready var connected_clients_label = get_node("./panel/information_box/connected_clients_list")
+onready var ready_players_label = get_node("./panel/information_box/ready_players_label")
+onready var kick_list = get_node("./panel/information_box/server_commands_box/kick_list_box")
 onready var messages_list_label = get_node("panel/chat_box/messages_list_label")
 var last_messages_list_size = 0
 
@@ -45,7 +45,8 @@ func checkHostClient():
 	if (global_client.getClientStates().is_host):
 		get_node("panel/combo_box").set_hidden(true)
 	else:
-		get_node("panel/clients_information_box").set_hidden(true)
+#		get_node("panel/information_box").set_hidden(true)
+		get_node("panel/information_box/server_commands_box").set_hidden(true)
 
 
 func setScrollFollow():
@@ -99,7 +100,7 @@ func _on_start_game_button_pressed():
 
 
 func _on_kick_button_pressed():
-	var kick_list_node = get_node("panel/clients_information_box/kick_list_box")
+	var kick_list_node = get_node("panel/information_box/kick_list_box")
 	
 	if (kick_list_node.get_item_count() > 0):
 		global_server.kickPlayer(kick_list_node.get_selected_ID())

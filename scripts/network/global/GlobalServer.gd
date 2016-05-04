@@ -178,7 +178,7 @@ func checkPlayersReady():
 		if (player_data[player][4]):
 			player_ready += 1
 	
-	var start_game_button = get_tree().get_current_scene().get_node("./panel/clients_information_box/start_game_button")
+	var start_game_button = get_tree().get_current_scene().get_node("./panel/information_box/server_commands_box/start_game_button")
 	
 	if ((player_ready == player_data.size() - 1)  && player_data.size() >= 2 && start_game_button != null):
 		start_game_button.set_disabled(false)
@@ -211,24 +211,26 @@ func addPacket(packet):
 
 func updateClientsData():
 	var root = get_tree().get_current_scene()
+	var packet = "/game 4 0"
 	
 	if ( root != null && root.get_name() == "lobby" ):
-		root.clearConnectedClientsLabel()
 		root.clearKickList()
 		for player in range ( player_data.size() ):
-			root.addConnectedClient("- " + player_data[player][2] + "\n")
+			packet += " " + player_data[player][2]
 			if (player_data[player][3] != 0):
 				root.addPlayerKickList(player_data[player][2], player_data[player][3])
+			sendPacket(packet)
 
 
 func updateReadyPlayers():
 	var root = get_tree().get_current_scene()
+	var packet = "/game 4 1"
 	
 	if ( root != null && root.get_name() == "lobby"):
-		root.clearReadyPlayersLabel()
 		for player in range ( player_data.size() ):
 			if (player_data[player][4]):
-				root.addReadyPlayer("- " + player_data[player][2] + "\n")
+				packet += " " + player_data[player][2]
+		sendPacket(packet)
 
 
 func updateServerData():
