@@ -2,7 +2,7 @@
 extends Node
 
 onready var game = get_node("/root/Game")
-onready var gamescn = game.getScene()
+var gamescn setget setGamescn
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var path = "res://saves/"
@@ -26,11 +26,16 @@ func setInit():
 func quicksave():
 	savePlayer(0)
 
+func autosave():
+	savePlayer(10)
+
 func savePlayer(ID):
 	checkSaves()
 	checkPlayerFolder()
 	if (ID == 0):
 		filename = "Quicksave.json"
+	elif (ID == 10):
+		filename = "Autosave.json"
 	else:
 		filename = "save_" + str(ID) + ".json"
 	file_path = saves_path + gamescn.player.name + '/' + filename
@@ -59,3 +64,6 @@ func checkPlayerFolder():
 	path += gamescn.player.name
 	if (!dir.dir_exists(path)):
 		dir.make_dir(path)
+
+func setGamescn(scene):
+	gamescn = scene
