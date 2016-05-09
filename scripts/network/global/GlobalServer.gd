@@ -4,6 +4,8 @@ extends Node
 var socket = null setget ,getSocket
 var player_data = Array()
 var packet_list = Array() setget addPacket
+onready var global_client = get_node("/root/GlobalClient")
+onready var packet_interpreter = get_node("/root/PacketInterpreter")
 
 var server_states = {
 	server_connected = false,
@@ -39,8 +41,6 @@ func startServer(port):
 		return false
 
 func initializeServer(port):
-	var global_client = get_node("/root/GlobalClient")
-	
 	server_states.server_connected = true
 	server_states.looking_for_players = true
 	global_client.setHostClient(true)
@@ -69,18 +69,21 @@ func stopServer():
 
 func kickPlayer(player_id):
 	for player in range ( player_data.size() ):
-		if (player_id == player_data[player][3]):
-			sendMessageToAll(-1, player_data[player][2] + tr("MSG_KICKED") + "\n") 
+		if (player_data[player] != null && player_id == player_data[player][3]):
+			sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_KICKED") + "\n") 
 			player_data.remove(player)
 			
 			updateServerData()
 
 
 func checkForDisconnection():
-	for player in range (player_data.size()):
-		if (player_data[player][0] != null && !player_data[player][0].is_connected()):
-			sendMessageToAll(-1, player_data[player][2] + tr("MSG_LEFT") + "\n")
+	var size = player_data.size()
+	
+	for player in range (size):
+		if (player_data[player] != null && !player_data[player][0].is_connected()):
+			sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_LEFT") + "\n")
 			player_data.remove(player)
+			player_data.resize(size)
 			
 			updateServerData()
 
@@ -89,7 +92,7 @@ func checkForMessage():
 	for player in range (player_data.size()):
 		if (player_data[player][1].get_available_packet_count() > 0):
 			var message = player_data[player][1].get_var()
-			get_node("/root/PacketInterpreter").addServerPacket(message, player_data[player][3])
+			packet_interpreter.addServerPacket(message, player_data[player][3])
 
 
 func checkForIncomingConnection():
@@ -132,7 +135,8 @@ func checkLookingForPlayers():
 
 func sendPacket(packet):
 	for player in range (player_data.size()):
-		player_data[player][1].put_var(packet)
+		if (player_data[player] != null):
+			player_data[player][1].put_var(packet)
 	pass
 
 
@@ -144,7 +148,7 @@ func setNickname(player_id, nickname):
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
-			sendMessageToAll(-1, nickname + tr("MSG_JOINED") + "\n")
+			sendMessageToAll(-1, nickname + " " + tr("MSG_JOINED") + "\n")
 			sendTargetedPacket(player_id, "/game 3 1")
 			updateClientsData()
 
@@ -164,9 +168,9 @@ func setPlayerReady(player_id, boolean):
 		if (player_data[player][3] == player_id):
 			player_data[player][4] = boolean
 			if (boolean):
-				sendMessageToAll(-1, player_data[player][2] + tr("MSG_READY") + "\n")
+				sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_READY") + "\n")
 			else:
-				sendMessageToAll(-1, player_data[player][2] + tr("MSG_NOT_READY") + "\n")
+				sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_NOT_READY") + "\n")
 		checkPlayersReady()
 		updateReadyPlayers()
 

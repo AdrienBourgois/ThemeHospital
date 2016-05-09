@@ -100,7 +100,7 @@ func _on_start_game_button_pressed():
 
 
 func _on_kick_button_pressed():
-	var kick_list_node = get_node("panel/information_box/kick_list_box")
+	var kick_list_node = get_node("panel/information_box/server_commands_box/kick_list_box")
 	
 	if (kick_list_node.get_item_count() > 0):
 		global_server.kickPlayer(kick_list_node.get_selected_ID())
