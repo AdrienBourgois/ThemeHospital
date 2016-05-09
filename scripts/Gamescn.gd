@@ -7,7 +7,10 @@ onready var loader = get_node("/root/Load")
 onready var player = get_node("Player")
 onready var calendar = get_node("Calendar")
 onready var in_game_gui = get_node("In_game_gui")
-var test = true
+onready var mapscn = preload("res://scenes/Map/Map.scn")
+onready var map
+
+export var map_size = Vector2(28, 28)
 
 func _ready(): 
 	loader.gamescn = self
@@ -17,11 +20,8 @@ func _ready():
 	#loader.quickload()
 	init()
 	in_game_gui.init()
-
-func _process(delta):
-	if test:
-		in_game_gui.init()
-		test = false
+	map = mapscn.instance()
+	add_child(map)
 
 func init():
 	if !game.new_game:
