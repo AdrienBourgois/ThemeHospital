@@ -27,4 +27,3 @@ func _on_map_list_array_input_event( ev ):
 	if (ev.is_action_pressed("accept")):
 		var map_selected = map_list.get_selected()
 		global_server.addPacket("/game 2 1 " + str(map_selected))
-		game.multiplayer = true

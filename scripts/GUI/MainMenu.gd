@@ -1,10 +1,9 @@
 extends Control
 
 onready var game = get_node("/root/Game")
-onready var loader = get_node("/root/Load")
 
 func _ready():
-	loader.loadInit()
+	game.multiplayer = false
 
 func _on_New_game_pressed():
 	game.goToScene("res://scenes/gamescn.scn")
@@ -16,6 +15,7 @@ func _on_Load_game_pressed():
 
 
 func _on_Multiplayer_pressed():
+	game.multiplayer = true
 	get_tree().get_current_scene().queue_free()
 	get_tree().change_scene("res://scenes/network/MultiplayerSelectMenu.scn")
 

@@ -22,7 +22,7 @@ langage = "fr"
 var username = "" setget setUsername,getUsername
 var new_game = true setget setNewGame,getNewGame
 var save_to_load setget setSaveToLoad,getSaveToLoad
-var multiplayer = false setget setMultiplayer,getMultiplayer
+var multiplayer setget setMultiplayer,getMultiplayer
 
 var scene setget ,getScene
 var feedback setget ,getFeedback
