@@ -22,9 +22,11 @@ langage = "fr"
 var username = "" setget setUsername,getUsername
 var new_game = true setget setNewGame,getNewGame
 var save_to_load setget setSaveToLoad,getSaveToLoad
+var multiplayer = false setget setMultiplayer,getMultiplayer
 
 var scene setget ,getScene
 var feedback setget ,getFeedback
+var infobar setget ,getInfobar
 
 var SPEED = {
 	SLOWEST = 0.25,
@@ -57,6 +59,9 @@ func getScene():
 func getFeedback():
 	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
 
+func getInfobar():
+	return get_node("/root/GameScene/In_game_gui/Control_panel/Dynamic_info_bar")
+
 func getSpeedArray(id):
 	return speed_array[id]
 
@@ -80,6 +85,12 @@ func setNewGame(state):
 
 func getNewGame():
 	return new_game
+
+func setMultiplayer(state):
+	multiplayer = state
+
+func getMultiplayer():
+	return multiplayer
 
 func goToScene(scene):
 	loader = preloader.instance()
