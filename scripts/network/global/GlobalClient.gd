@@ -6,6 +6,7 @@ var peer_stream = null
 var client_id = null setget setClientId,getClientId
 var messages_list = Array() setget addMessage,getMessagesList
 var packet_list = Array() setget addPacket
+onready var packet_interpreter = get_node("/root/PacketInterpreter")
 
 var client_states = {
 	is_connected = false,
@@ -16,7 +17,6 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-#	print("host ? ", client_states.is_host)
 	if (client_states.is_connected):
 		checkForMessage()
 		checkForDisconnection()
@@ -41,7 +41,7 @@ func checkSocketStatus():
 		initializeConnection()
 		return true
 	else:
-		var dialog = get_tree().get_current_scene().get_node("./panel/AcceptDialog")
+		var dialog = get_tree().get_current_scene().get_node("./panel/Control/invalid_server")
 		
 		if ( dialog != null ):
 			dialog.set_hidden(false)
@@ -57,7 +57,7 @@ func initializeConnection():
 func checkForMessage():
 	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
 		var message = peer_stream.get_var()
-		get_node("/root/PacketInterpreter").addClientPacket(message)
+		packet_interpreter.addClientPacket(message)
 
 
 func checkForDisconnection():
