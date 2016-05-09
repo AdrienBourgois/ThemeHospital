@@ -13,7 +13,7 @@ func _ready():
 	loader.gamescn = self
 	saver.gamescn = self
 	loader.loadInit()
-	#saver.savePlayer(0)
+	saver.savePlayer(0)
 	#loader.quickload()
 	init()
 	in_game_gui.init()
