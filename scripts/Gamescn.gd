@@ -18,6 +18,5 @@ func _ready():
 
 func init():
 	if !game.new_game:
-		print(game.save_to_load)
 		loader.loadPlayer(game.save_to_load)
 		game.new_game = true

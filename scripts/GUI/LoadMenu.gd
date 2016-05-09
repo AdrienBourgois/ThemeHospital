@@ -21,8 +21,7 @@ func _on_Back_to_menu_pressed():
 func setLoad(idx):
 	game.save_to_load = idx
 	game.new_game = false
-	get_tree().get_current_scene().queue_free()
-	get_tree().change_scene("res://scenes/gamescn.scn")
+	game.goToScene("res://scenes/gamescn.scn")
 
 func _on_Quicksave_pressed():
 	setLoad(0)

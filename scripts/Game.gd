@@ -2,18 +2,21 @@ extends Node
 
 var first_game = true setget ,getFirstGame
 
+onready var root = get_tree().get_root()
+
 onready var init_path = "res://init.cfg"
 onready var file = File.new() 
 onready var dir = Directory.new() 
 onready var config = {}
-
+onready var preloader = preload("res://scenes/LoadingScreen.scn")
+var loader
 onready var default_config = {
 res_x = 1024,
 res_y = 600,
 fullscreen = false,
 sound = false,
 online_mode = false,
-langage = "en"
+langage = "fr"
 }
 
 var username = "" setget setUsername,getUsername
@@ -49,7 +52,8 @@ func getSpeed():
 	return speed
 
 func getScene():
-	return get_node("/root/GameScene")
+	#return get_node("/root/GameScene")
+	pass
 
 func getFeedback():
 	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
@@ -77,3 +81,10 @@ func setNewGame(state):
 
 func getNewGame():
 	return new_game
+
+func goToScene(scene):
+	loader = preloader.instance()
+	var current_scene = root.get_child(root.get_child_count() - 1)
+	loader.setCurrentScene(current_scene)
+	root.add_child(loader)
+	loader.goToScene(scene)
