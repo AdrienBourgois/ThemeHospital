@@ -4,6 +4,7 @@ extends Node
 var socket = null setget ,getSocket
 var player_data = Array()
 var packet_list = Array() setget addPacket
+var current_available_id = 0
 onready var global_client = get_node("/root/GlobalClient")
 onready var packet_interpreter = get_node("/root/PacketInterpreter")
 
@@ -77,16 +78,13 @@ func kickPlayer(player_id):
 
 
 func checkForDisconnection():
-	var size = player_data.size()
-	
-	for player in range (size):
-		if (player_data[player] != null && !player_data[player][0].is_connected()):
+	for player in range ( player_data.size() ):
+		if ( !player_data[player][0].is_connected() ):
 			sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_LEFT") + "\n")
 			player_data.remove(player)
-			player_data.resize(size)
 			
 			updateServerData()
-
+			return
 
 func checkForMessage():
 	for player in range (player_data.size()):
@@ -113,16 +111,17 @@ func checkForPacketToSend():
 
 func createClientData(clientObject, clientPeerstream):
 	var player = Array()
-	var player_id = player_data.size()
 	
 	player.push_back(clientObject)
 	player.push_back(clientPeerstream)
-	player.push_back("Client " + str(player_id))
-	player.push_back(player_id)
+	player.push_back("Client " + str(current_available_id))
+	player.push_back(current_available_id)
 	player.push_back(false)
 	player_data.push_back(player)
 	
-	clientPeerstream.put_var("/game 0 " + str(player_id))
+	current_available_id += 1
+	
+	clientPeerstream.put_var("/game 0 " + str(current_available_id))
 
 
 func checkLookingForPlayers():
