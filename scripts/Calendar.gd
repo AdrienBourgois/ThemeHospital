@@ -1,7 +1,6 @@
 extends Timer
 
 onready var game = get_node("/root/Game")
-onready var gui = game.scene.get_node("In_game_gui/Control_panel/Calendar")
 onready var stats = {}
 
 export var day_duration = 3.0
