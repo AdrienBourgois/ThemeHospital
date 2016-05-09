@@ -33,7 +33,7 @@ func loadData():
 
 func createStatsDict():
 	stats = {
-	NAME = name,
+	NAME = game.username,
 	MONEY = money,
 	EXPENSE = expense,
 	HEAL_PATIENTS = heal_patients,

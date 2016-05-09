@@ -38,7 +38,7 @@ func savePlayer(ID):
 		filename = "Autosave.json"
 	else:
 		filename = "save_" + str(ID) + ".json"
-	file_path = saves_path + gamescn.player.name + '/' + filename
+	file_path = saves_path + game.username + '/' + filename
 	storeData()
 
 func storeData():
@@ -51,8 +51,11 @@ func storeData():
 func createSaveDict():
 	gamescn.player.createStatsDict()
 	gamescn.calendar.createStatsDict()
+	gamescn.map.createStatsDict()
+	
 	save_dict = {
 	PLAYER = gamescn.player.stats,
+	MAP = gamescn.map.stats,
 	CALENDAR = gamescn.calendar.stats
 	}
 
@@ -61,9 +64,9 @@ func checkSaves():
 		dir.make_dir("res://saves")
 
 func checkPlayerFolder():
-	path += gamescn.player.name
-	if (!dir.dir_exists(path)):
-		dir.make_dir(path)
+	file_path = saves_path + game.username
+	if (!dir.dir_exists(file_path)):
+		dir.make_dir(file_path)
 
 func setGamescn(scene):
 	gamescn = scene

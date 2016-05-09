@@ -36,11 +36,13 @@ func checkPacketToInterpret():
 func parsePacket(packet):
 	storeData(packet)
 	
-	if (tmpData[0] == "/game"):
+	var keyword = tmpData[0]
+	
+	if (keyword == "/game"):
 		parseGame()
-	elif (tmpData[0] == "/nickname"):
+	elif (keyword == "/nickname"):
 		setNickname()
-	elif (tmpData[0] == "/chat"):
+	elif (keyword == "/chat"):
 		parseMessage(packet)
 
 
@@ -82,6 +84,8 @@ func parseGame():
 		gameStartedPacket()
 	elif (packet_id == "3"):
 		checkNicknamePacket()
+	elif (packet_id == "4"):
+		updateLobbyData()
 
 
 func playerIdPacket(): #Packet 0
@@ -106,6 +110,23 @@ func checkNicknamePacket(): #Packet 3
 	
 	if ( current_scene.get_name() == "lobby" ):
 		current_scene.displayNicknameMenu(nickname_is_ok)
+
+
+func updateLobbyData(): #Packet 4
+	var label_to_update = tmpData[2]
+	var scene = get_tree().get_current_scene()
+	
+	if (scene != null && scene.get_name() == "lobby"):
+		if (label_to_update == "0"):
+			scene.clearConnectedClientsLabel()
+			for connected_client in range (3, tmpData.size()):
+				scene.addConnectedClient("- " + tmpData[connected_client] + "\n")
+		elif (label_to_update == "1"):
+			scene.clearReadyPlayersLabel()
+			for ready_client in range (3, tmpData.size()):
+				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
+	
+	pass
 
 
 func setNickname():
