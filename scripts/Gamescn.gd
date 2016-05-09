@@ -18,7 +18,9 @@ func _ready():
 	init()
 	in_game_gui.init()
 	map.init(int(map_size.x), int(map_size.y))
-	set_process_input(true) 
+	set_process_input(true)
+	loader.loadPlayer(0)
+	print(map.size_x)
 
 func _input(event):
 	if (event.is_action_released("ui_accept")):
