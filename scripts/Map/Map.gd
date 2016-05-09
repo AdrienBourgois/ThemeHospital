@@ -3,16 +3,38 @@ extends Node
 
 var squares = []
 onready var square_res = preload("res://scenes/Map/MapSquare.scn")
+onready var stats = {}
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
+var size_x 
+var size_y
 
-func _ready():
-	create_map(28, 28)
+func _ready(): 
+	pass
+
+func init(_x, _y):
+	create_map(_x, _y)
 	new_room("new", 0)
 
+func loadData():
+	size_x = stats.SIZE_X
+	size_y = stats.SIZE_Y
+	resetStatsDict()
+
+func createStatsDict():
+	stats = {
+	SIZE_X = size_x,
+	SIZE_Y = size_y
+	}
+
+func resetStatsDict():
+	stats.clear()
+
 func create_map(_x, _y):
+	size_x = _x
+	size_y = _y
 	for x in range(_x):
 		for y in range(_y):
 			var square = square_res.instance()
