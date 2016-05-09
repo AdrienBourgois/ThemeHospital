@@ -21,6 +21,7 @@ func _on_Back_to_menu_pressed():
 func setLoad(idx):
 	game.save_to_load = idx
 	game.new_game = false
+	loader.loadPlayer(idx)
 	game.goToScene("res://scenes/gamescn.scn")
 
 func _on_Quicksave_pressed():
