@@ -30,6 +30,7 @@ func create(_x, _y, _type):
 	update(_type)
 
 func update(type):
+	get_node("StaticBody/Quad").set_material_override(room_material)
 	room_type = type
 	room_material.set_flag(1, true)
 	wall_material.set_flag(1, true)
@@ -72,10 +73,10 @@ func _current_select():
 func get_all_neighbour():
 	var map = get_parent()
 	if ((y - 1) > 0):
-		neighbour.Up = map.lines[x][y - 1]
+		neighbour.Up = map.columns[x][y - 1]
 	if ((y + 1) < map.size_y):
-		neighbour.Down = map.lines[x][y + 1]
+		neighbour.Down = map.columns[x][y + 1]
 	if ((x - 1) > 0):
-		neighbour.Left = map.lines[x - 1][y]
+		neighbour.Left = map.columns[x - 1][y]
 	if ((x + 1) < map.size_x):
-		neighbour.Right = map.lines[x + 1][y]
+		neighbour.Right = map.columns[x + 1][y]

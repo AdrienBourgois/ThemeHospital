@@ -1,7 +1,7 @@
 
 extends Node
 
-var lines = []
+var columns = []
 var tiles = []
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 
@@ -13,24 +13,46 @@ var size_x = 0
 var size_y = 0
 
 func _ready():
-	create_map(28, 28)
+	create_map("res://Maps/Map1.lvl")
 	new_room("new", 0)
 
-func create_map(_x, _y):
-	size_x = _x
-	size_y = _y
-	for x in range(_x):
+func create_map(file_path):
+	var file = File.new()
+	file.open(file_path, File.READ)
+	
+	size_x = file.get_line().to_int()
+	size_y = file.get_line().to_int()
+	
+	var lines_str = []
+	for i in range(size_y):
+		lines_str.append(file.get_line())
+	
+	for x in range(size_x):
 		var column = []
-		for y in range(_y):
+		for y in range(size_y):
 			var tile = tile_res.instance()
 			add_child(tile)
-			tile.create(x, y, tile.enum_room_type.DECORATION)
+			var tile_type = lines_str[y].substr(x, 1).to_int()
+			tile.create(x, y, tile_type)
 			tile.set_translation(Vector3(x, 0, y))
 			tiles.append(tile)
 			column.append(tile)
-		lines.append(column)
+		columns.append(column)
 	for tile in tiles:
 		tile.get_all_neighbour()
+		if (tile.room_type):
+			tile.update_walls("Up")
+			tile.update_walls("Left")
+			tile.update_walls("Right")
+			tile.update_walls("Down")
+
+func reload_map():
+	for tile in tiles:
+		tile.update(tile.room_type)
+		tile.update_walls("Up")
+		tile.update_walls("Left")
+		tile.update_walls("Right")
+		tile.update_walls("Down")
 
 func get_tile(coords):
 	for tile in tiles:
