@@ -62,6 +62,8 @@ func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 		get_parent().new_room("from", Vector2(x, y))
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("left_click")):
 		get_parent().new_room("to", Vector2(x, y))
+	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click")):
+		get_parent().addObject(self)
 
 func _current_select():
 	get_parent().new_room("current", Vector2(x, y))
