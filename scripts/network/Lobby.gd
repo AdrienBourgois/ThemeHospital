@@ -45,7 +45,6 @@ func checkHostClient():
 	if (global_client.getClientStates().is_host):
 		get_node("panel/combo_box").set_hidden(true)
 	else:
-#		get_node("panel/information_box").set_hidden(true)
 		get_node("panel/information_box/server_commands_box").set_hidden(true)
 
 
