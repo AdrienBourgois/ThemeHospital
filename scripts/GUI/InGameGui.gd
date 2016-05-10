@@ -13,3 +13,6 @@ func init():
 	calendar.init()
 	money.init()
 	reputation.init()
+
+func _on_Corridor_items_pressed():
+	pass # replace with function body
