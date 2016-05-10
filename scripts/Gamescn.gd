@@ -9,7 +9,7 @@ onready var objectives = get_node("Objectives")
 onready var calendar = get_node("Calendar")
 onready var in_game_gui = get_node("In_game_gui")
 onready var map = get_node("Map")
-onready var menu = get_node("InGameMenu")
+onready var menu = in_game_gui.menu
 
 export var map_size = Vector2(0, 0)
 
