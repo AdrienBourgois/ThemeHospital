@@ -1,0 +1,61 @@
+,en,fr
+MSG_JOINED,joined the server,vient de se connecter
+MSG_KICKED,has been kicked from server,a ete expulse du serveur
+MSG_LEFT,left the lobby,a quitte la session
+MSG_READY,is ready to play,est pret a jouer
+MSG_NOT_READY,is  no longer ready,n'est plus pret
+TXT_PORT,Port:,Port:
+TXT_NICKNAME,Nickname:,Pseudo:
+TXT_IP_ADDRESS,Adresse ip,Ip address
+TXT_CONNECTED_CLIENTS,Connected clients:,Clients connectes:
+TXT_READY,Players ready:,Joueurs prets:
+TXT_CHAT,Chat:,Chat:
+TXT_NICKNAME_TAKEN,Nickname already taken,Ce pseudo est deja pris
+TXT_NEW_NICKNAME,Please choose a new one,Choisissez-en un autre:
+TXT_WARNING,Warning !,Attention !
+TXT_SERVER_UNAVAILABLE,Server is no longer available,Le serveur n'est plus disponible
+TXT_REDIRECT,You're going to be redirected to main menu,Retour au menu principal
+TXT_INVALID_NICKNAME,Invalid nickname,Pseudo invalide
+TXT_MINIMUM_CHARACTER,Your nickname must contain at least 1 character,Votre pseudo doit contenir au moins 1 caractere
+TXT_CONNECT_SERVER,Couldn't connect to server,Connection impossible
+TXT_CHECK_IP,Please check the IP address and the port you entered are valid,Veuillez verifier que l'adresse IP et le port sont valides
+TXT_INFO,Information,Information
+TXT_SELECTING_MAP,The host is choosing a map,L'hote choisit une carte
+TXT_PLEASE_WAIT,Please wait.,Veuillez patienter.
+TXT_SLOWEST,SLOWEST,LA PLUS LENTE
+TXT_SLOWER,SLOWER,PLUS LENT
+TXT_NORMAL,NORMAL,NORMAL
+TXT_MAX,MAX,MAX
+TXT_SOME_MORE,AND THEN SOME MORE,ET TOUJOURS PLUS 
+TXT_JANUARY,Januray,Janvier
+TXT_FEBRUARY,February,Fevrier
+TXT_MARCH,March,Mars
+TXT_APRIL,April,Avril
+TXT_MAY,May,Mai
+TXT_JUNE,June,Juin
+TXT_JULY,July,Juillet
+TXT_AUGUST,August,Aout
+TXT_SEPTEMBER,September,Septembre
+TXT_OCTOBER,October,Octobre
+TXT_NOVEMBER,November,Novembre
+TXT_DECEMBER,December,Decembre
+TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
+TXT_MAP_SELECTED,The map you have selected is: ,La carte selectionnee est: 
+TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
+MENU_NEW_GAME,New game,Nouvelle partie
+MENU_LOAD_GAME,Load game,Charger partie
+MENU_MULTIPLAYER,Multiplayer,Multijoueur
+MENU_SETTINGS,Settings,Options
+MENU_QUIT,Quit,Quitter
+MENU_LAUNCH_SERVER,Launch server,Lancer le serveur
+MENU_BACK_TO_MAIN_MENU,Back to main menu,Retourner au menu principal
+MENU_CONNECT,Connect to server,Se connecter au serveur
+MENU_HOST_GAME,Host game,Heberger la partie
+MENU_JOIN_SERVER,Join game,Rejoindre la partie
+MENU_DISCONNECT,Disconnect,Deconnexion
+BTN_SEND,Send,Envoyer
+BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
+BTN_READY,Ready,Pret
+BTN_KICK,Kick,Kicker joueur
+BTN_START_GAME,Start game,Lancer la partie
+BTN_DISCONNECT,Disconnect server,Se deconnecter
