@@ -23,6 +23,8 @@ func _ready():
 func _input(event):
 	if (event.is_action_released("ui_accept")):
 		saver.quicksave()
+	elif (event.is_action_released("ui_cancel")):
+		menu.set_hidden(not menu.is_hidden())
  
 func init():
 	if !game.new_game:
