@@ -2,8 +2,11 @@
 extends Control
 
 onready var client_states = get_node("/root/GlobalClient").getClientStates()
-onready var map_list = get_node("panel_server/map_list_array")
+onready var map_list = get_node("panel_server/")
 onready var global_server = get_node("/root/GlobalServer")
+onready var controle_validation = get_node("./panel_server/controle_validation")
+onready var map_confirmation = get_node("./panel_server/controle_validation/map_confirmation")
+var selected_map = null
 
 func _ready():
 	checkClientHost()
@@ -21,8 +24,19 @@ func _on_panel_server_visibility_changed():
 func _on_panel_client_visibility_changed():
 	get_node("panel_client/information_box").set_hidden(false)
 
+func selectMap( map_id, map_name ):
+	selected_map = map_id
+	
+	controle_validation.set_hidden(false)
+	map_confirmation.set_hidden(false)
+	map_confirmation.get_ok().grab_focus()
+	
+	map_confirmation.get_node("map_name_label").set_text(tr("TXT_MAP_SELECTED") + map_name)
 
-func _on_map_list_array_input_event( ev ):
-	if (ev.is_action_pressed("accept")):
-		var map_selected = map_list.get_selected()
-		global_server.addPacket("/game 2 1 " + str(map_selected))
+
+func _on_map_confirmation_confirmed():
+	global_server.addPacket("/game 2 1 " + str(selected_map))
+
+
+func _on_map_confirmation_hide():
+	controle_validation.set_hidden(true)
