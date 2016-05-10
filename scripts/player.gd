@@ -17,6 +17,10 @@ var savename = "default"
 
 
 signal reputation_change(reputation)
+signal money_change(money)
+signal heal_patients_change(heal_patients)
+signal heal_patients_percent_change(total_patients)
+signal hospital_value_change(hospital_value)
 
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
@@ -58,15 +62,18 @@ func getName():
 
 func setMoney(val):
 	money = val
+	emit_signal("money_change", money)
 
 func getMoney():
 	return money
 
 func increaseMoney(val):
 	money += val
+	emit_signal("money_change", money)
 
 func decreaseMoney(val):
 	money -= val
+	emit_signal("money_change", money)
 
 func setExpense(val):
 	expense = val
@@ -82,27 +89,36 @@ func decreaseExpense(val):
 
 func setHealPatients(val):
 	heal_patients = val
+	emit_signal("heal_patients_change", heal_patients)
+	calculateHealPatientsPercent()
 
 func getHealPatients():
 	return heal_patients
 
 func increaseHealPatients(val):
 	heal_patients += val
+	emit_signal("heal_patients_change", heal_patients)
+	calculateHealPatientsPercent()
 
 func decreaseHealPatients(val):
 	heal_patients -= val
+	emit_signal("heal_patients_change", heal_patients)
+	calculateHealPatientsPercent()
 
 func setTotalPatients(val):
 	total_patients = val
+	calculateHealPatientsPercent()
 
 func getTotalPatients(val):
 	return total_patients
 
 func increaseTotalPatients(val):
 	total_patients += val
+	calculateHealPatientsPercent()
 
 func decreaseTotalPatients(val):
 	total_patients -= val
+	calculateHealPatientsPercent()
 
 func getHealPatientsPercent():
 	return heal_patients_percent
@@ -128,6 +144,7 @@ func decreaseReputation(val):
 
 func setHospitalValue(val):
 	hospital_value = val
+	emit_signal("hospital_value", hospital_value)
 
 func getHospitalValue():
 	return hospital_value
@@ -139,4 +156,4 @@ func decreaseHospitalValue(val):
 	hospital_value -= val
 
 func _on_end_month():
-	decrease_money(expense)
+	decreaseMoney(expense)

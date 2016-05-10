@@ -2,6 +2,7 @@
 extends Spatial
 
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
+onready var have_object = false
 
 const enum_room_type = { "DECORATION": 0, "LOBBY": 1 }
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
@@ -62,6 +63,9 @@ func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 		get_parent().new_room("from", Vector2(x, y))
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("left_click")):
 		get_parent().new_room("to", Vector2(x, y))
+	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click")):
+	#	get_parent().addObject(self)
+		pass
 
 func _current_select():
 	get_parent().new_room("current", Vector2(x, y))

@@ -2,7 +2,10 @@
 extends Node
 
 var squares = []
+var objects = []
+
 onready var square_res = preload("res://scenes/Map/MapSquare.scn")
+onready var object_res = preload("res://scenes/Entities/Objects/Object.scn")
 onready var stats = {}
 
 var new_room_from = Vector2(-1,-1)
@@ -17,6 +20,12 @@ func _ready():
 func init(_x, _y):
 	create_map(_x, _y)
 	new_room("new", 0)
+
+func addObject(map_square):
+	var new_object = object_res.instance()
+	new_object.create(map_square)
+	map_square.add_child(new_object)
+	objects.append(new_object)
 
 func loadData():
 	size_x = stats.SIZE_X
