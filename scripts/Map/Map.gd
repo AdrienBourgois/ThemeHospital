@@ -23,7 +23,6 @@ func init(_x, _y):
 
 func addObject(map_square):
 	var new_object = object_res.instance()
-	#new_object.set_translation(map_square.get_translation()) 
 	new_object.create(map_square)
 	map_square.add_child(new_object)
 	objects.append(new_object)
