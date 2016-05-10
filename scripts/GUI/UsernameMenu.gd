@@ -2,9 +2,11 @@
 extends Control
 
 onready var game = get_node("/root/Game")
+onready var loader = get_node("/root/Load")
 onready var line_edit = get_node("LineEdit")
 
 func _ready():
+	loader.loadInit()
 	set_process_input(true)
 	pass
 

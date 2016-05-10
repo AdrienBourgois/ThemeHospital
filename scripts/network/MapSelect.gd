@@ -1,6 +1,7 @@
 
 extends Control
 
+onready var game = get_node("/root/Game")
 onready var client_states = get_node("/root/GlobalClient").getClientStates()
 onready var map_list = get_node("panel_server/")
 onready var global_server = get_node("/root/GlobalServer")
@@ -32,7 +33,6 @@ func selectMap( map_id, map_name ):
 	map_confirmation.get_ok().grab_focus()
 	
 	map_confirmation.get_node("map_name_label").set_text(tr("TXT_MAP_SELECTED") + map_name)
-
 
 func _on_map_confirmation_confirmed():
 	global_server.addPacket("/game 2 1 " + str(selected_map))

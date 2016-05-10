@@ -13,6 +13,7 @@ export var reputation = 0 setget setReputation,getReputation
 export var hospital_value = 0 setget setHospitalValue,getHospitalValue
 
 var stats = {}
+var savename = "default"
 
 
 signal reputation_change(reputation)
@@ -32,6 +33,8 @@ func loadData():
 	resetStatsDict()
 
 func createStatsDict():
+	var date = str(OS.get_date().day) + '/' + str(OS.get_date().month) + '/' + str(OS.get_date().year)
+	date += " - " + str(OS.get_time().hour) + ':' + str(OS.get_time().minute) + ':' + str(OS.get_time().second)
 	stats = {
 	NAME = game.username,
 	MONEY = money,
@@ -40,7 +43,8 @@ func createStatsDict():
 	TOTAL_PATIENTS = total_patients,
 	HEAL_PATIENTS_PERCENT = heal_patients_percent,
 	REPUTATION = reputation,
-	HOSPITAL_VALUE = hospital_value
+	HOSPITAL_VALUE = hospital_value,
+	SAVENAME = game.username + " -" + date
 	}
 
 func resetStatsDict():

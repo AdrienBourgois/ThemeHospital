@@ -7,6 +7,7 @@ onready var save = get_node("/root/Save")
 onready var dir = game.dir
 onready var saves_path = "res://saves/"
 onready var filename
+onready var savename setget, getSavename
 onready var folder_path
 onready var file_path setget ,getPath
 onready var load_dict = {}
@@ -40,11 +41,13 @@ func loadPlayerData():
 	game.file.open(folder_path + filename, game.file.READ)
 	while (!game.file.eof_reached()):
 		load_dict.parse_json(game.file.get_line())
-		
+
 	gamescn.player.stats = load_dict.PLAYER
+	gamescn.map.stats = load_dict.MAP
 	gamescn.calendar.stats = load_dict.CALENDAR
 	
 	gamescn.player.loadData()
+	gamescn.map.loadData()
 	gamescn.calendar.loadData()
 	resetStatsDict()
 	game.file.close()
@@ -55,10 +58,13 @@ func resetStatsDict():
 func setFilename(save_number):
 	if (save_number == 0):
 		filename = "Quicksave.json"
+		savename = "QuickSave"
 	elif (save_number == 10):
-		filename = "Autoload.json"
+		filename = "Autosave.json"
+		savename = "AutoSave"
 	else:
 		filename = "save_" + str(save_number) + ".json"
+		savename = "Save " + str(save_number)
 
 func checkPlayerFolder():
 	if gamescn:
@@ -99,6 +105,9 @@ func applyConfig():
 	OS.set_window_size(Vector2(game.config.res_x, game.config.res_y))
 	OS.set_window_fullscreen(game.config.fullscreen)
 	TranslationServer.set_locale(game.config.langage)
+
+func getSavename():
+	return savename
 
 func setGamescn(scene):
 	gamescn = scene
