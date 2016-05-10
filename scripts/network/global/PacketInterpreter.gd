@@ -164,7 +164,7 @@ func setCurrentParsing(current_parser, boolean):
 
 
 func parseMessage(packet):
-	var message = packet.substr(5, packet.length() - 5)
+	var message = packet.substr(6, packet.length() - 6)
 	
 	if (current_parsing.server):
 		global_server.sendMessageToAll(current_player_id, message)
