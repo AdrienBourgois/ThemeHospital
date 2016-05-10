@@ -42,6 +42,7 @@ TXT_DECEMBER,December,Decembre
 TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
 TXT_MAP_SELECTED,The map you have selected is: ,La carte selectionnee est: 
 TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
+TXT_ENTERNAME, Please enter your username :, Veuillez entrer votre pseudo :
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
