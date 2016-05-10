@@ -17,6 +17,8 @@ func _on_ApplyButton_pressed():
 	save.setInit()
 	loader.applyConfig()
 	apply_button.set_disabled(true)
+	get_tree().get_current_scene().queue_free()
+	get_tree().change_scene("res://scenes/GUI/OptionsMenu.scn")
 
 func _on_Back_pressed():
 	get_tree().get_current_scene().queue_free()
