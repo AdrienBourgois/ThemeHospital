@@ -56,6 +56,11 @@ MENU_DISCONNECT,Disconnect,Deconnexion
 IGMENU_BACKTOGAME, Back to game, Reprendre la partie
 IGMENU_SAVEGAME, Save game, Sauvegarder
 IGMENU_BACKTOMENU, Back to menu, Retourner au menu
+OPTIONS_FULLSCREEN, Fullscreen, Plein ecran
+OPTIONS_ENABLE, Enable, Active
+OPTIONS_DISABLE, Disable, Desactive
+OPTIONS_LANGUAGE, Language, Langage
+OPTIONS_APPLY, Apply, Appliquer
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
 BTN_READY,Ready,Pret
