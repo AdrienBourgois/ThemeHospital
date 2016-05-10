@@ -6,7 +6,7 @@ MSG_READY,is ready to play,est pret a jouer
 MSG_NOT_READY,is  no longer ready,n'est plus pret
 TXT_PORT,Port:,Port:
 TXT_NICKNAME,Nickname:,Pseudo:
-TXT_IP_ADDRESS,Adresse ip,Ip address
+TXT_IP_ADDRESS,IP address,Addresse IP
 TXT_CONNECTED_CLIENTS,Connected clients:,Clients connectes:
 TXT_READY,Players ready:,Joueurs prets:
 TXT_CHAT,Chat:,Chat:
@@ -40,8 +40,10 @@ TXT_OCTOBER,October,Octobre
 TXT_NOVEMBER,November,Novembre
 TXT_DECEMBER,December,Decembre
 TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
-TXT_MAP_SELECTED,The map you have selected is: ,La carte selectionnee est: 
+TXT_MAP_SELECTED,The map you have selected is ,La carte selectionnee est 
 TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
+TXT_CLIENT_CHOOSING_NAME,A new client is choosing a nickname,Un nouveau client choisit son pseudo
+TXT_ENTERNAME, Please enter your username :, Veuillez entrer votre pseudo :
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
@@ -56,9 +58,16 @@ MENU_DISCONNECT,Disconnect,Deconnexion
 IGMENU_BACKTOGAME, Back to game, Reprendre la partie
 IGMENU_SAVEGAME, Save game, Sauvegarder
 IGMENU_BACKTOMENU, Back to menu, Retourner au menu
+OPTIONS_FULLSCREEN, Fullscreen, Plein ecran
+OPTIONS_ENABLE, Enable, Active
+OPTIONS_DISABLE, Disable, Desactive
+OPTIONS_LANGUAGE, Language, Langage
+OPTIONS_APPLY, Apply, Appliquer
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
 BTN_READY,Ready,Pret
 BTN_KICK,Kick,Kicker joueur
 BTN_START_GAME,Start game,Lancer la partie
 BTN_DISCONNECT,Disconnect server,Se deconnecter
+BTN_CONFIRM,Confirm,Confirmer
+BTN_CANCEL,Cancel,Annuler

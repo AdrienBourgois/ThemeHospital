@@ -30,7 +30,7 @@ func selectMap( map_id, map_name ):
 	
 	controle_validation.set_hidden(false)
 	map_confirmation.set_hidden(false)
-	map_confirmation.get_ok().grab_focus()
+	map_confirmation.get_node("ok_button").grab_focus()
 	
 	map_confirmation.get_node("map_name_label").set_text(tr("TXT_MAP_SELECTED") + map_name)
 
@@ -39,4 +39,5 @@ func _on_map_confirmation_confirmed():
 
 
 func _on_map_confirmation_hide():
+	map_confirmation.set_hidden(true)
 	controle_validation.set_hidden(true)

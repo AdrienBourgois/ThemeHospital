@@ -27,8 +27,6 @@ func connectToServer(ip_address, port):
 	var status_connection = socket.connect(ip_address, port)
 	
 	return checkSocketStatus()
-	
-	pass
 
 
 func checkSocketStatus():

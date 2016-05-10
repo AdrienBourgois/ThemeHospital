@@ -75,6 +75,7 @@ func kickPlayer(player_id):
 			player_data.remove(player)
 			
 			updateServerData()
+			return
 
 
 func checkForDisconnection():
@@ -122,6 +123,7 @@ func createClientData(clientObject, clientPeerstream):
 	current_available_id += 1
 	
 	clientPeerstream.put_var("/game 0 " + str(current_available_id))
+	checkPlayersReady()
 
 
 func checkLookingForPlayers():
@@ -136,12 +138,12 @@ func sendPacket(packet):
 	for player in range (player_data.size()):
 		if (player_data[player] != null):
 			player_data[player][1].put_var(packet)
-	pass
 
 
 func setNickname(player_id, nickname):
 	if checkNicknameAlreadyTaken(nickname):
 		sendTargetedPacket(player_id, "/game 3 0")
+		sendMessageToAll(-1, tr("TXT_CLIENT_CHOOSING_NAME") + "\n")
 		return
 	
 	for player in range (player_data.size()):
@@ -149,7 +151,7 @@ func setNickname(player_id, nickname):
 			player_data[player][2] = nickname
 			sendMessageToAll(-1, nickname + " " + tr("MSG_JOINED") + "\n")
 			sendTargetedPacket(player_id, "/game 3 1")
-			updateClientsData()
+			updateServerData()
 
 
 func checkNicknameAlreadyTaken(nickname):
