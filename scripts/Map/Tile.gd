@@ -71,7 +71,11 @@ func _current_select():
 
 func get_all_neighbour():
 	var map = get_parent()
-	neighbour.Up = map.get_tile(Vector2(x, y - 1))
-	neighbour.Down = map.get_tile(Vector2(x, y + 1))
-	neighbour.Left = map.get_tile(Vector2(x - 1, y))
-	neighbour.Right = map.get_tile(Vector2(x + 1, y))
+	if ((y - 1) > 0):
+		neighbour.Up = map.lines[x][y - 1]
+	if ((y + 1) < map.size_y):
+		neighbour.Down = map.lines[x][y + 1]
+	if ((x - 1) > 0):
+		neighbour.Left = map.lines[x - 1][y]
+	if ((x + 1) < map.size_x):
+		neighbour.Right = map.lines[x + 1][y]

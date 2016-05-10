@@ -2,35 +2,40 @@
 extends Node
 
 var lines = []
-var squares = []
-onready var square_res = preload("res://scenes/Map/MapSquare.scn")
+var tiles = []
+onready var tile_res = preload("res://scenes/Map/Tile.scn")
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
+
+var size_x = 0
+var size_y = 0
 
 func _ready():
 	create_map(28, 28)
 	new_room("new", 0)
 
 func create_map(_x, _y):
+	size_x = _x
+	size_y = _y
 	for x in range(_x):
 		var column = []
 		for y in range(_y):
-			var square = square_res.instance()
-			add_child(square)
-			square.create(x, y, square.enum_room_type.DECORATION)
-			square.set_translation(Vector3(x, 0, y))
-			squares.append(square)
-			column.append(square)
+			var tile = tile_res.instance()
+			add_child(tile)
+			tile.create(x, y, tile.enum_room_type.DECORATION)
+			tile.set_translation(Vector3(x, 0, y))
+			tiles.append(tile)
+			column.append(tile)
 		lines.append(column)
-	for square in squares:
-		square.get_all_neighbour()
+	for tile in tiles:
+		tile.get_all_neighbour()
 
 func get_tile(coords):
-	for square in squares:
-		if (square.x == coords.x && square.y == coords.y):
-			return square
+	for tile in tiles:
+		if (tile.x == coords.x && tile.y == coords.y):
+			return tile
 	return null
 
 func get_list(from, to):
@@ -41,44 +46,44 @@ func get_list(from, to):
 	
 	var selection = []
 	if(from.y > to.y):
-		for square in squares:
-			if ((square.x >= from.x && square.x <= to.x) && (square.y <= from.y && square.y >= to.y)):
-				selection.append(square)
+		for tile in tiles:
+			if ((tile.x >= from.x && tile.x <= to.x) && (tile.y <= from.y && tile.y >= to.y)):
+				selection.append(tile)
 	else:
-		for square in squares:
-			if ((square.x >= from.x && square.x <= to.x) && (square.y >= from.y && square.y <= to.y)):
-				selection.append(square)
+		for tile in tiles:
+			if ((tile.x >= from.x && tile.x <= to.x) && (tile.y >= from.y && tile.y <= to.y)):
+				selection.append(tile)
 	
 	return selection
 
 func new_room(state, parameters):
 	if (state == "new"):
-		for square in squares:
-			square.staticBody.connect("input_event", square, "_input_event")
+		for tile in tiles:
+			tile.staticBody.connect("input_event", tile, "_input_event")
 
 	elif (state == "from"):
 		new_room_from = parameters
-		for square in squares:
-			square.staticBody.connect("mouse_enter", square, "_current_select")
+		for tile in tiles:
+			tile.staticBody.connect("mouse_enter", tile, "_current_select")
 	
 	elif (state == "current"):
-		for square in previous_current_selection:
-			square.update(square.room_type)
+		for tile in previous_current_selection:
+			tile.update(tile.room_type)
 		previous_current_selection = get_list(new_room_from, parameters)
-		for square in previous_current_selection:
-			square.room_material.set_parameter(0, colors.purple)
+		for tile in previous_current_selection:
+			tile.room_material.set_parameter(0, colors.purple)
 
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
-		for square in squares:
-			square.staticBody.disconnect("input_event", square, "_input_event")
-			square.staticBody.disconnect("mouse_enter", square, "_current_select")
+		for tile in tiles:
+			tile.staticBody.disconnect("input_event", tile, "_input_event")
+			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
-		for square in new_room_square:
-			square.update(square.enum_room_type.LOBBY)
-		for square in new_room_square:
-			square.update_walls("Up")
-			square.update_walls("Left")
-			square.update_walls("Right")
-			square.update_walls("Down")
+		for tile in new_room_square:
+			tile.update(tile.enum_room_type.LOBBY)
+		for tile in new_room_square:
+			tile.update_walls("Up")
+			tile.update_walls("Left")
+			tile.update_walls("Right")
+			tile.update_walls("Down")
 
