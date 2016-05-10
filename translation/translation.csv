@@ -53,6 +53,9 @@ MENU_CONNECT,Connect to server,Se connecter au serveur
 MENU_HOST_GAME,Host game,Heberger la partie
 MENU_JOIN_SERVER,Join game,Rejoindre la partie
 MENU_DISCONNECT,Disconnect,Deconnexion
+IGMENU_BACKTOGAME, Back to game, Reprendre la partie
+IGMENU_SAVEGAME, Save game, Sauvegarder
+IGMENU_BACKTOMENU, Back to menu, Retourner au menu
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
 BTN_READY,Ready,Pret
