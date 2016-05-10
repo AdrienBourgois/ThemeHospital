@@ -3,7 +3,7 @@ extends Control
 
 onready var game = get_node("/root/Game")
 onready var loader = get_node("/root/Load")
-onready var buttons = get_node("Buttons")
+onready var buttons = get_node("Panel/Buttons")
 
 func _ready():
 	if loader.checkPlayerFolder():
