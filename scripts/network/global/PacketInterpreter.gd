@@ -44,6 +44,8 @@ func parsePacket(packet):
 		setNickname()
 	elif (keyword == "/chat"):
 		parseMessage(packet)
+	elif (keyword == "/info"):
+		parseInfo()
 
 
 func storeData(packet):
@@ -150,6 +152,19 @@ func parseMessage(packet):
 	elif (current_parsing.client):
 		global_client.addMessage(message)
 
+
+func parseInfo():
+	var info = ""
+	
+	for word in range ( 1, tmpData.size() ):
+		if (tmpData[word].begins_with("MSG")):
+			info += tr(tmpData[word]) + " "
+		else:
+			info += tmpData[word] + " "
+	
+	info += "\n"
+	
+	global_client.addMessage(info)
 
 func addServerPacket(packet, client_id):
 	var client_data = Array()

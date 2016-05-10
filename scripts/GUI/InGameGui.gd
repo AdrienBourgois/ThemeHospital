@@ -14,3 +14,6 @@ func init():
 	money.init()
 	reputation.init()
 	get_node("Charts/Objectives").init()
+
+func _on_Corridor_items_pressed():
+	pass # replace with function body
