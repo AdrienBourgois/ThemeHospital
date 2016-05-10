@@ -11,7 +11,8 @@ func _ready():
 		for idx in buttons.get_children():
 			if loader.checkPlayerFile(count):
 				idx.set_disabled(false)
-				idx.set_text(loader.getPath())
+				loader.setFilename(count)
+				idx.set_text(loader.getSavename())
 			count += 1
 
 func _on_Back_to_menu_pressed():
