@@ -1,6 +1,7 @@
 
 extends Node
 
+var lines = []
 var squares = []
 onready var square_res = preload("res://scenes/Map/MapSquare.scn")
 
@@ -14,12 +15,17 @@ func _ready():
 
 func create_map(_x, _y):
 	for x in range(_x):
+		var column = []
 		for y in range(_y):
 			var square = square_res.instance()
 			add_child(square)
 			square.create(x, y, square.enum_room_type.DECORATION)
 			square.set_translation(Vector3(x, 0, y))
 			squares.append(square)
+			column.append(square)
+		lines.append(column)
+	for square in squares:
+		square.get_all_neighbour()
 
 func get_tile(coords):
 	for square in squares:
@@ -48,12 +54,12 @@ func get_list(from, to):
 func new_room(state, parameters):
 	if (state == "new"):
 		for square in squares:
-			square.get_node("StaticBody").connect("input_event", square, "_input_event")
+			square.staticBody.connect("input_event", square, "_input_event")
 
 	elif (state == "from"):
 		new_room_from = parameters
 		for square in squares:
-			square.get_node("StaticBody").connect("mouse_enter", square, "_current_select")
+			square.staticBody.connect("mouse_enter", square, "_current_select")
 	
 	elif (state == "current"):
 		for square in previous_current_selection:
@@ -65,8 +71,8 @@ func new_room(state, parameters):
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
 		for square in squares:
-			square.get_node("StaticBody").disconnect("input_event", square, "_input_event")
-			square.get_node("StaticBody").disconnect("mouse_enter", square, "_current_select")
+			square.staticBody.disconnect("input_event", square, "_input_event")
+			square.staticBody.disconnect("mouse_enter", square, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
 		for square in new_room_square:
 			square.update(square.enum_room_type.LOBBY)

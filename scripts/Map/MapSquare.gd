@@ -8,12 +8,15 @@ const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 
 var room_type = 0
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
+var neighbour = { "Up": null, "Left": null, "Down": null, "Right": null }
 
 var x = 0
 var y = 0
 
 var room_material = FixedMaterial.new()
 var wall_material = FixedMaterial.new()
+
+onready var staticBody = get_node("StaticBody")
 
 func _ready():
 	get_node("StaticBody/Quad").set_material_override(room_material)
@@ -36,8 +39,8 @@ func update(type):
 		room_material.set_parameter(0, colors.red)
 
 func update_walls(direction):
-	if (get(direction) != null):
-		if (!get(direction).room_type):
+	if (neighbour[direction] != null):
+		if (!neighbour[direction].room_type):
 			change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
@@ -66,12 +69,9 @@ func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 func _current_select():
 	get_parent().new_room("current", Vector2(x, y))
 
-func get(neighbour):
-	if (neighbour == "Up"):
-		return get_parent().get_tile(Vector2(x, y - 1))
-	elif (neighbour == "Left"):
-		return get_parent().get_tile(Vector2(x - 1, y))
-	elif (neighbour == "Down"):
-		return get_parent().get_tile(Vector2(x, y + 1))
-	elif (neighbour == "Right"):
-		return get_parent().get_tile(Vector2(x + 1, y))
+func get_all_neighbour():
+	var map = get_parent()
+	neighbour.Up = map.get_tile(Vector2(x, y - 1))
+	neighbour.Down = map.get_tile(Vector2(x, y + 1))
+	neighbour.Left = map.get_tile(Vector2(x - 1, y))
+	neighbour.Right = map.get_tile(Vector2(x + 1, y))
