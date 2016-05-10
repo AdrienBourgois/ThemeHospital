@@ -71,7 +71,7 @@ func stopServer():
 func kickPlayer(player_id):
 	for player in range ( player_data.size() ):
 		if (player_data[player] != null && player_id == player_data[player][3]):
-			sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_KICKED") + "\n") 
+			sendInfo(player_data[player][2] + " MSG_KICKED") 
 			player_data.remove(player)
 			
 			updateServerData()
@@ -81,7 +81,7 @@ func kickPlayer(player_id):
 func checkForDisconnection():
 	for player in range ( player_data.size() ):
 		if ( !player_data[player][0].is_connected() ):
-			sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_LEFT") + "\n")
+			sendInfo(player_data[player][2] + " MSG_LEFT")
 			player_data.remove(player)
 			
 			updateServerData()
@@ -134,22 +134,16 @@ func checkLookingForPlayers():
 		server_states.looking_for_players = true
 
 
-func sendPacket(packet):
-	for player in range (player_data.size()):
-		if (player_data[player] != null):
-			player_data[player][1].put_var(packet)
-
-
 func setNickname(player_id, nickname):
 	if checkNicknameAlreadyTaken(nickname):
 		sendTargetedPacket(player_id, "/game 3 0")
-		sendMessageToAll(-1, tr("TXT_CLIENT_CHOOSING_NAME") + "\n")
+		sendInfo("MSG_CLIENT_CHOOSING_NAME")
 		return
 	
 	for player in range (player_data.size()):
 		if (player_data[player][3] == player_id):
 			player_data[player][2] = nickname
-			sendMessageToAll(-1, nickname + " " + tr("MSG_JOINED") + "\n")
+			sendInfo(nickname + " MSG_JOINED")
 			sendTargetedPacket(player_id, "/game 3 1")
 			updateServerData()
 
@@ -169,9 +163,9 @@ func setPlayerReady(player_id, boolean):
 		if (player_data[player][3] == player_id):
 			player_data[player][4] = boolean
 			if (boolean):
-				sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_READY") + "\n")
+				sendInfo(player_data[player][2] + " MSG_READY")
 			else:
-				sendMessageToAll(-1, player_data[player][2] + " " + tr("MSG_NOT_READY") + "\n")
+				sendInfo(player_data[player][2] + " MSG_NOT_READY")
 		checkPlayersReady()
 		updateReadyPlayers()
 
@@ -198,10 +192,12 @@ func sendMessageToAll(from_client_id, message):
 		if (player_data[player][3] == from_client_id):
 			new_message += player_data[player][2] + ": " + message
 			sendPacket(new_message)
+
+
+func sendInfo(message):
+	var info_message = "/info " + message
 	
-	if (from_client_id == -1):
-		new_message += message
-		sendPacket(new_message)
+	sendPacket(info_message)
 
 
 func sendTargetedPacket(to_client_id, packet):
@@ -209,6 +205,11 @@ func sendTargetedPacket(to_client_id, packet):
 		if ( player_data[player][3] == to_client_id ):
 			player_data[player][1].put_var(packet)
 
+
+func sendPacket(packet):
+	for player in range (player_data.size()):
+		if (player_data[player] != null):
+			player_data[player][1].put_var(packet)
 
 func addPacket(packet):
 	packet_list.push_back(packet)
