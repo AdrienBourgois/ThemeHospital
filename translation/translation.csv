@@ -6,7 +6,7 @@ MSG_READY,is ready to play,est pret a jouer
 MSG_NOT_READY,is  no longer ready,n'est plus pret
 TXT_PORT,Port:,Port:
 TXT_NICKNAME,Nickname:,Pseudo:
-TXT_IP_ADDRESS,Adresse ip,Ip address
+TXT_IP_ADDRESS,IP address,Addresse IP
 TXT_CONNECTED_CLIENTS,Connected clients:,Clients connectes:
 TXT_READY,Players ready:,Joueurs prets:
 TXT_CHAT,Chat:,Chat:
@@ -69,3 +69,5 @@ BTN_READY,Ready,Pret
 BTN_KICK,Kick,Kicker joueur
 BTN_START_GAME,Start game,Lancer la partie
 BTN_DISCONNECT,Disconnect server,Se deconnecter
+BTN_CONFIRM,Confirm,Confirmer
+BTN_CANCEL,Cancel,Annuler
