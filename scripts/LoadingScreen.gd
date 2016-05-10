@@ -59,6 +59,7 @@ func goToScene(scene_path):
 func set_scene(scene):
 	var new_scene = scene.instance()
 	root.add_child(new_scene)
+	get_tree().set_current_scene(new_scene)
 	
 	queue_free()
 
