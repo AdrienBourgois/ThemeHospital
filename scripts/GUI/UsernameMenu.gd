@@ -3,7 +3,8 @@ extends Control
 
 onready var game = get_node("/root/Game")
 onready var loader = get_node("/root/Load")
-onready var line_edit = get_node("Panel/LineEdit")
+#onready var line_edit = get_node("Panel/LineEdit")
+onready var line_edit = get_node("Panel/UsernameBox/UsernameLineEdit")
 
 func _ready():
 	loader.loadInit()
