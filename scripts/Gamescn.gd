@@ -16,7 +16,6 @@ func _ready():
 	saver.gamescn = self
 	loader.loadInit()
 	init()
-	in_game_gui.init()
 	set_process_input(true)
 
 func _input(event):
@@ -30,3 +29,5 @@ func init():
 		game.new_game = true
 	else:
 		map.init(int(map_size.x), int(map_size.y))
+	
+	in_game_gui.init()

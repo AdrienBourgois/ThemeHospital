@@ -1,6 +1,7 @@
 
 extends Control
 
+onready var game = get_node("/root/Game")
 onready var client_states = get_node("/root/GlobalClient").getClientStates()
 onready var map_list = get_node("panel_server/map_list_array")
 onready var global_server = get_node("/root/GlobalServer")
