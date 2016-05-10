@@ -4,6 +4,7 @@ MSG_KICKED,has been kicked from server,a ete expulse du serveur
 MSG_LEFT,left the lobby,a quitte la session
 MSG_READY,is ready to play,est pret a jouer
 MSG_NOT_READY,is  no longer ready,n'est plus pret
+MSG_CLIENT_CHOOSING_NAME,A new client is choosing a nickname,Un nouveau client choisit son pseudo
 TXT_PORT,Port:,Port:
 TXT_NICKNAME,Nickname:,Pseudo:
 TXT_IP_ADDRESS,IP address,Addresse IP
@@ -42,7 +43,6 @@ TXT_DECEMBER,December,Decembre
 TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
 TXT_MAP_SELECTED,The map you have selected is ,La carte selectionnee est 
 TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
-TXT_CLIENT_CHOOSING_NAME,A new client is choosing a nickname,Un nouveau client choisit son pseudo
 TXT_ENTERNAME, Please enter your username :, Veuillez entrer votre pseudo :
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
