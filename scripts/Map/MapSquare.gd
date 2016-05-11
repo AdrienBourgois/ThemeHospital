@@ -68,8 +68,10 @@ func hover_on():
 func hover_off():
 	update(room_type)
 
-func _input_event( camera, event, click_pos, click_normal, shape_idx ):
+func _take_mouse_pos( camera, event, click_pos, click_normal, shape_idx ):
 	get_parent().mouse_pos = click_pos
+
+func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click")):
 		get_parent().new_room("from", Vector2(x, y))
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("left_click")):
