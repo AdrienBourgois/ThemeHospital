@@ -2,7 +2,7 @@
 extends Camera
 
 onready var root = get_tree().get_root()
-export var cam_speed = 1
+export var cam_speed = 10
 export var border = 50
 
 var speed = 2.5
@@ -24,13 +24,13 @@ func checkMove():
 	var mouse_pos = root.get_mouse_pos()
 	var window = OS.get_window_size()
 	if mouse_pos.x >= window.x - border:
-		move_x(cam_speed)
-	elif mouse_pos.x <= border:
 		move_x(-cam_speed)
+	elif mouse_pos.x <= border:
+		move_x(cam_speed)
 	if mouse_pos.y >= window.y - border:
-		move_y(cam_speed)
-	elif mouse_pos.y <= border:
 		move_y(-cam_speed)
+	elif mouse_pos.y <= border:
+		move_y(cam_speed)
 
 func move_x(x):
 	var delta = get_process_delta_time()
