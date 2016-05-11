@@ -19,6 +19,7 @@ onready var player = get_parent().get_node("Player")
 onready var objectives_gui = get_parent().get_node("In_game_gui/Charts/Objectives")
 
 func _ready():
+	checkValidObjectives()
 	set_process(true)
 
 func _process(delta):
@@ -28,6 +29,16 @@ func _process(delta):
 	
 	get_tree().get_current_scene().queue_free()
 	get_tree().change_scene("res://scenes/GUI/EndGameGUI.scn")
+
+func checkValidObjectives():
+	var goals = [reputation_goal, money_goal, heal_patients_percent_goal, heal_patients_goal, hospital_value_goal]
+	var count = 0
+	
+	for idx in objectives_complete:
+		if goals[count] == 0:
+			objectives_complete[idx] = true
+			
+		count += 1
 
 func getHealPatientsGoal():
 	return heal_patients_goal
