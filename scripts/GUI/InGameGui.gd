@@ -8,8 +8,8 @@ onready var reputation = control_panel.get_node("Reputation")
 onready var corridor_items_menu = get_node("HUD/CorridorItemsMenu")
 onready var objectives = get_node("Charts/Objectives")
 onready var menu = get_node("InGameMenu")
-onready var engage = control_panel.get_node("Build_hire_controls/Buttons/Hire/Engage")
-onready var hire_selector = control_panel.get_node("Build_hire_controls/Buttons/Hire/TabContainer")
+onready var engage = get_node("HUD/Staff/Engage")
+onready var hire_selector = get_node("HUD/Staff/TabContainer")
 
 var window_opened = false
 
