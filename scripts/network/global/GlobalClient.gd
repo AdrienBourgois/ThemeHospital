@@ -10,6 +10,7 @@ onready var packet_interpreter = get_node("/root/PacketInterpreter")
 
 var client_states = {
 	is_connected = false,
+	is_connecting = false,
 	is_host = false
 } setget ,getClientStates
 
@@ -21,12 +22,16 @@ func _process(delta):
 		checkForMessage()
 		checkForDisconnection()
 		checkForPacketToSend()
+	elif (client_states.is_connecting):
+		checkSocketStatus()
 
 func connectToServer(ip_address, port):
-	socket = StreamPeerTCP.new()
-	var status_connection = socket.connect(ip_address, port)
-	
-	return checkSocketStatus()
+	if (!client_states.is_connected && !client_states.is_connecting):
+		client_states.is_connecting = true
+		socket = StreamPeerTCP.new()
+		var status_connection = socket.connect(ip_address, port)
+		
+		return checkSocketStatus()
 
 
 func checkSocketStatus():
@@ -35,20 +40,26 @@ func checkSocketStatus():
 	
 	var connection_status = socket.get_status()
 	
-	if (connection_status == 0 || connection_status == 2):
+	if (connection_status == StreamPeerTCP.STATUS_CONNECTED):
 		initializeConnection()
+		get_tree().get_current_scene().queue_free()
+		get_tree().change_scene("res://scenes/network/Lobby.scn")
+		
 		return true
-	else:
+	elif (connection_status == StreamPeerTCP.STATUS_CONNECTING):
 		var dialog = get_tree().get_current_scene().get_node("./panel/Control/invalid_server")
 		
 		if ( dialog != null ):
 			dialog.set_hidden(false)
 		
 		return false
+	else:
+		return false
 
 
 func initializeConnection():
 	client_states.is_connected = true
+	client_states.is_connecting = false
 	peer_stream = PacketPeerStream.new()
 	peer_stream.set_stream_peer(socket)
 
@@ -92,12 +103,15 @@ func disconnectServer():
 
 func resetClientStates():
 	client_states.is_connected = false
+	client_states.is_connecting = false
 	client_states.is_host = false
 
 func disconnectFromServer():
 	if (socket != null):
 		socket.disconnect()
+	
 	messages_list.clear()
+	packet_list.clear()
 	
 	disconnectServer()
 	resetClientStates()
