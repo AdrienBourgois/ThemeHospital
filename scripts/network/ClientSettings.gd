@@ -18,10 +18,9 @@ func _on_join_server_button_pressed():
 	if ( !checkValidIpAddress() || !checkValidNickname()):
 		return
 	
-	if (global_client.connectToServer(ip_address_node.get_text(), port_node.get_value())):
-		global_client.addPacket("/nickname " + nickname_node.get_text())
-		get_tree().get_current_scene().queue_free()
-		get_tree().change_scene("res://scenes/network/Lobby.scn")
+	global_client.connectToServer(ip_address_node.get_text(), port_node.get_value())
+	global_client.addPacket("/nickname " + nickname_node.get_text())
+
 
 
 func _on_back_to_main_menu_button_pressed():
@@ -77,6 +76,7 @@ func _on_Control_visibility_changed():
 
 
 func _on_invalid_server_confirmed():
+	global_client.disconnectFromServer()
 	control_node.set_hidden(true)
 
 
