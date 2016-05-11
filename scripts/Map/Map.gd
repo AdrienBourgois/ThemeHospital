@@ -1,4 +1,3 @@
-
 extends Node
 
 var columns = []
@@ -92,8 +91,12 @@ func new_room(state, parameters):
 		for tile in previous_current_selection:
 			tile.update(tile.room_type)
 		previous_current_selection = get_list(new_room_from, parameters)
+		print("tile x : ", new_room_from.x - parameters.x, " tile y : ", new_room_from.y - parameters.y)
 		for tile in previous_current_selection:
-			tile.room_material.set_parameter(0, colors.purple)
+			if (parameters.x - new_room_from.x < 4 && parameters.y - new_room_from.y < 4 && parameters.x - new_room_from.x > -4 && parameters.y - new_room_from.y > -4):
+				tile.room_material.set_parameter(0, colors.red)
+			else:
+				tile.room_material.set_parameter(0, colors.blue)
 
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
@@ -102,10 +105,9 @@ func new_room(state, parameters):
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
 		for tile in new_room_square:
-			tile.update(tile.enum_room_type.DIAGNOSTIC.GENERAL_DIAGNOSTIC)
+			tile.update(tile.enum_room_type.DIAGNOSTIC.GP_OFFICE)
 		for tile in new_room_square:
 			tile.update_walls("Up")
 			tile.update_walls("Left")
 			tile.update_walls("Right")
 			tile.update_walls("Down")
-

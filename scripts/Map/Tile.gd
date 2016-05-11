@@ -1,4 +1,3 @@
-
 extends Spatial
 
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
@@ -45,11 +44,7 @@ func update(type):
 	elif (type == enum_room_type.LOBBY):
 		room_material.set_parameter(0, colors.grey)
 	elif (type == enum_room_type.DIAGNOSTIC.GP_OFFICE):
-		print("elif")
 		room_material.set_parameter(0, colors.red)
-	elif (type == enum_room_type.DIAGNOSTIC.GENERAL_DIAGNOSTIC):
-		print("if")
-		room_material.set_parameter(0, colors.white)
 
 func update_walls(direction):
 	if (neighbour[direction] != null):
