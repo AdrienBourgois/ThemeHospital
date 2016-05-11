@@ -13,6 +13,7 @@ var salary
 var specialities
 var seniority
 var is_selected = false
+var can_selected = true
 
 func _ready():
 	set_translation(mouse_pos_3d)
@@ -20,4 +21,14 @@ func _ready():
 
 func _process(delta):
 	mouse_pos_3d = map.mouse_pos
-	set_translation(mouse_pos_3d)
+	if can_selected == true:
+		set_translation(mouse_pos_3d)
+	
+
+func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
+		can_selected = false
+	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == false:
+		is_selected = true
+		can_selected = true
+	

@@ -89,6 +89,7 @@ func get_list(from, to):
 func new_room(state, parameters):
 	if (state == "new"):
 		for square in squares:
+			square.get_node("StaticBody").connect("input_event", square, "_take_mouse_pos")
 			square.get_node("StaticBody").connect("input_event", square, "_input_event")
 
 	elif (state == "from"):
