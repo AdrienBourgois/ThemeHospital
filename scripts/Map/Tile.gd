@@ -3,9 +3,14 @@ extends Spatial
 
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
 
-const enum_diagnostic_rooms_type = { "GP_OFFICE" : 0, "GENERAL_DIAGNOSTIC": 1 }
-const enum_room_type = { "DECORATION":  0, "LOBBY": 1, "DIAGNOSTIC": enum_diagnostic_rooms_type }
+const enum_diagnostic_rooms_type = { "GP_OFFICE" : 10, "GENERAL_DIAGNOSTIC": 11 }
+const enum_treatment_rooms_type = { "PSYCHIATRIC" : 20, "WARD": 21, "PHARMACY": 22 }
+const enum_clinic_rooms_type = { "INFLATION": 30 }
+const enum_facilities_rooms_type = { "STAFF": 40, "TOILETS": 41 }
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
+const enum_room_type = { "DECORATION":  0, "LOBBY": 1, 
+"DIAGNOSTIC": enum_diagnostic_rooms_type,"TREATMENT": enum_treatment_rooms_type, 
+"CLINICS": enum_clinic_rooms_type, "FACILITIES": enum_facilities_rooms_type }
 
 var room_type = 0
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
