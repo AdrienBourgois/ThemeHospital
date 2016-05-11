@@ -88,6 +88,8 @@ func parseGame():
 		checkNicknamePacket()
 	elif (packet_id == "4"):
 		updateLobbyData()
+	elif (packet_id == "5"):
+		updateMapRoom()
 
 
 func playerIdPacket(): #Packet 0
@@ -127,12 +129,29 @@ func updateLobbyData(): #Packet 4
 			scene.clearReadyPlayersLabel()
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
+
+func updateMapRoom(): #Packet 5
+	var state = tmpData[2]
+	var parameters = tmpData[3]
 	
-	pass
+	if (current_parsing.server):
+		global_server.addPacket("/game 5 " + state + " " + parameters)
+	elif (current_parsing.client):
+		var x = 0
+		var y = 0
+		for character in range ( tmpData[3].length() ):
+			if ( tmpData[3][character] == ","):
+				x = int(tmpData[3].substr(0, character))
+				y = int(tmpData[3].substr(character, tmpData[3].length()))
+		var root = get_tree().get_current_scene()
+		if (root != null && root.get_name() == "GameScene"):
+			var map = root.get_child(1)
+			if (map.get_name() == "Map"):
+				map.new_room(state, Vector2(x,y))
 
 
 func setNickname():
-	if (current_parsing.server):
+	if ( current_parsing.server ):
 		var nickname = tmpData[1]
 		global_server.setNickname(current_player_id, nickname)
 
@@ -145,7 +164,7 @@ func setCurrentParsing(current_parser, boolean):
 
 
 func parseMessage(packet):
-	var message = packet.substr(5, packet.length() - 5)
+	var message = packet.substr(6, packet.length() - 6)
 	
 	if (current_parsing.server):
 		global_server.sendMessageToAll(current_player_id, message)

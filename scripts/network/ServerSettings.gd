@@ -4,6 +4,10 @@ onready var port_label_node = get_tree().get_current_scene().get_node("./panel/c
 onready var nickname_line_edit_node = get_tree().get_current_scene().get_node("./panel/combo_box/nickname_line_edit")
 onready var global_server = get_node("/root/GlobalServer")
 onready var global_client = get_node("/root/GlobalClient")
+onready var game = get_node("/root/Game")
+
+func _ready():
+	setUsername()
 
 func _on_launch_server_button_pressed():
 	var nickname = nickname_line_edit_node.get_text()
@@ -40,3 +44,8 @@ func checkValidNickname(nickname):
 func displayInvalidNickname():
 	var node = ResourceLoader.load("res://scenes/network/InvalidNickname.scn").instance()
 	get_tree().get_current_scene().add_child(node)
+
+
+func setUsername():
+	if (game != null):
+		nickname_line_edit_node.set_text(game.getUsername())

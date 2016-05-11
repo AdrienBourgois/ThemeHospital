@@ -22,9 +22,6 @@ func _on_panel_server_visibility_changed():
 	map_list.set_hidden(false)
 	map_list.grab_focus()
 
-func _on_panel_client_visibility_changed():
-	get_node("panel_client/information_box").set_hidden(false)
-
 func selectMap( map_id, map_name ):
 	selected_map = map_id
 	

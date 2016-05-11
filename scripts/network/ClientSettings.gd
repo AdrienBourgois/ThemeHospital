@@ -6,6 +6,10 @@ onready var ip_address_node = get_node("./panel/combo_box/ip_address_line_edit")
 onready var nickname_node = get_node("./panel/combo_box/nickname_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
 onready var control_node = get_node("panel/Control")
+onready var game = get_node("/root/Game")
+
+func _ready():
+	setUsername()
 
 func _on_join_server_button_pressed():
 	if (port_node == null || ip_address_node == null):
@@ -74,3 +78,8 @@ func _on_Control_visibility_changed():
 
 func _on_invalid_server_confirmed():
 	control_node.set_hidden(true)
+
+
+func setUsername():
+	if (game != null):
+		nickname_node.set_text(game.getUsername())
