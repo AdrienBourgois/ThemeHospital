@@ -10,6 +10,8 @@ onready var calendar = get_node("Calendar")
 onready var in_game_gui = get_node("In_game_gui")
 onready var map = get_node("Map")
 onready var menu = in_game_gui.menu
+onready var entity_manager = get_node("EntityManager")
+onready var hire_manager = get_node("HireManager")
 
 export var map_size = Vector2(0, 0)
 
@@ -35,6 +37,7 @@ func init():
 		game.new_game = true
 	else:
 		map.init(int(map_size.x), int(map_size.y))
+	hire_manager.setStaffArray(entity_manager.staff_array)
 	
 	in_game_gui.init()
 	player.initObjectives()

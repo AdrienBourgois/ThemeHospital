@@ -3,6 +3,7 @@ extends Node
 
 var squares = []
 var objects = []
+onready var mouse_pos
 
 onready var square_res = preload("res://scenes/Map/MapSquare.scn")
 onready var object_res = preload("res://scenes/Entities/Objects/Object.scn")

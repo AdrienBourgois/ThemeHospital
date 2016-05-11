@@ -8,6 +8,8 @@ onready var reputation = control_panel.get_node("Reputation")
 onready var corridor_items_menu = get_node("HUD/CorridorItemsMenu")
 onready var objectives = get_node("Charts/Objectives")
 onready var menu = get_node("InGameMenu")
+onready var engage = control_panel.get_node("Build_hire_controls/Buttons/Hire/Engage")
+onready var hire_selector = control_panel.get_node("Build_hire_controls/Buttons/Hire/TabContainer")
 
 var window_opened = false
 
@@ -30,6 +32,8 @@ func init():
 	calendar.init()
 	money.init()
 	reputation.init()
+	engage.init()
+	hire_selector.init()
 #	objectives.init()
 
 func _on_Corridor_items_pressed():
