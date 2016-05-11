@@ -31,6 +31,14 @@ func addObject(map_square):
 func loadData():
 	size_x = stats.SIZE_X
 	size_y = stats.SIZE_Y
+	init(size_x, size_y)
+	for current in stats.ROOMS:
+		var square = square_res.instance()
+		#square.create(size_x, size_y, square.enum_room_type.DECORATION)
+		square.create(size_x, size_y, square.enum_room_type.LOBBY)
+		#square.update(square.enum_room_type.LOBBY)
+		#square.set_translation(Vector3(size_x, 0, size_y)) 
+		add_child(square)
 	resetStatsDict()
 
 func createStatsDict():
@@ -103,8 +111,8 @@ func new_room(state, parameters):
 			square.get_node("StaticBody").disconnect("mouse_enter", square, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
 		for square in new_room_square:
-			square.update(square.enum_room_type.LOBBY)
 			var new_room = []
+			square.update(square.enum_room_type.LOBBY)
 			new_room.append(square.createStatsDict())
 			rooms.append(new_room)
 		for square in new_room_square:

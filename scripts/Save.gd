@@ -54,6 +54,7 @@ func createSaveDict():
 	MAP = gamescn.map.createStatsDict(),
 	CALENDAR = gamescn.calendar.createStatsDict()
 	}
+	return save_dict
 
 func checkSaves():
 	if (!dir.dir_exists("res://saves")):

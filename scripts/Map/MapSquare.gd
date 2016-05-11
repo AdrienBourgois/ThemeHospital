@@ -31,6 +31,7 @@ func create(_x, _y, _type):
 
 func createStatsDict():
 	var stats = {
+	NAME = name,
 	X = x,
 	Y = y
 	}
