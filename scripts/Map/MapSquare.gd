@@ -10,6 +10,7 @@ const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 var room_type = 0
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
 
+var name
 var x = 0
 var y = 0
 
@@ -22,10 +23,19 @@ func _ready():
 	get_node("StaticBody").connect("mouse_exit", self, "hover_off")
 
 func create(_x, _y, _type):
-	set_name("Tile-" + str(_x) + "." + str(_y))
+	name = "Tile-" + str(_x) + "." + str(_y)
+	set_name(name)
 	x = _x
 	y = _y
 	update(_type)
+
+func createStatsDict():
+	var stats = {
+	NAME = name,
+	X = x,
+	Y = y
+	}
+	return stats
 
 func update(type):
 	room_type = type

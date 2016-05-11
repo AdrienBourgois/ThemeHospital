@@ -33,11 +33,9 @@ func _input(event):
 func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
-		map.init(int(map.size_x), int(map.size_y))
 		game.new_game = true
 	else:
 		map.init(int(map_size.x), int(map_size.y))
 	hire_manager.setStaffArray(entity_manager.staff_array)
-	
 	in_game_gui.init()
 	player.initObjectives()

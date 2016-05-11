@@ -57,6 +57,7 @@ func createStatsDict():
 	HOSPITAL_VALUE = hospital_value,
 	SAVENAME = game.username + " -" + date
 	}
+	return stats
 
 func resetStatsDict():
 	stats.clear()

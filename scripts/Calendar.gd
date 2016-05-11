@@ -41,6 +41,7 @@ func createStatsDict():
 	MONTH = getMonth(),
 	YEAR = getYear(),
 	}
+	return stats
 
 func resetStatsDict():
 	stats.clear()

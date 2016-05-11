@@ -4,6 +4,7 @@ extends Node
 var squares = []
 var objects = []
 onready var mouse_pos
+var rooms = []
 
 onready var square_res = preload("res://scenes/Map/MapSquare.scn")
 onready var object_res = preload("res://scenes/Entities/Objects/Object.scn")
@@ -31,13 +32,23 @@ func addObject(map_square):
 func loadData():
 	size_x = stats.SIZE_X
 	size_y = stats.SIZE_Y
+	init(size_x, size_y)
+	for current in stats.ROOMS:
+		var square = square_res.instance()
+		#square.create(size_x, size_y, square.enum_room_type.DECORATION)
+		square.create(size_x, size_y, square.enum_room_type.LOBBY)
+		#square.update(square.enum_room_type.LOBBY)
+		#square.set_translation(Vector3(size_x, 0, size_y)) 
+		add_child(square)
 	resetStatsDict()
 
 func createStatsDict():
 	stats = {
 	SIZE_X = size_x,
-	SIZE_Y = size_y
+	SIZE_Y = size_y,
+	ROOMS = rooms
 	}
+	return stats
 
 func resetStatsDict():
 	stats.clear()
@@ -93,15 +104,18 @@ func new_room(state, parameters):
 		previous_current_selection = get_list(new_room_from, parameters)
 		for square in previous_current_selection:
 			square.room_material.set_parameter(0, colors.purple)
-
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
+		var square = []
 		for square in squares:
 			square.get_node("StaticBody").disconnect("input_event", square, "_input_event")
 			square.get_node("StaticBody").disconnect("mouse_enter", square, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
 		for square in new_room_square:
+			var new_room = []
 			square.update(square.enum_room_type.LOBBY)
+			new_room.append(square.createStatsDict())
+			rooms.append(new_room)
 		for square in new_room_square:
 			square.update_walls("Up")
 			square.update_walls("Left")
