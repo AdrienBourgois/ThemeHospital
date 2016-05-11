@@ -1,6 +1,7 @@
 
 extends Control
 
+onready var game = get_node("/root/Game")
 onready var message_line_edit = get_node("./panel/chat_box/message_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
 onready var global_server = get_node("/root/GlobalServer")
@@ -8,6 +9,7 @@ onready var connected_clients_label = get_node("./panel/information_box/connecte
 onready var ready_players_label = get_node("./panel/information_box/ready_players_label")
 onready var kick_list = get_node("./panel/information_box/server_commands_box/kick_list_box")
 onready var messages_list_label = get_node("panel/chat_box/messages_list_label")
+onready var nickname_line_edit = get_node("panel/control/nickname_information_box/nickname_line_edit")
 var last_messages_list_size = 0
 
 
@@ -16,6 +18,7 @@ func _ready():
 	setScrollFollow()
 	message_line_edit.grab_focus()
 	set_process(true)
+	setUsername()
 
 
 func _process(delta):
@@ -110,11 +113,11 @@ func displayNicknameMenu(boolean):
 
 func _on_control_visibility_changed():
 	if (is_visible()):
-		get_node("panel/control/nickname_information_box/nickname_line_edit").grab_focus()
+		get_node("panel/control/nickname_information_box/send_nickname_button").grab_focus()
 
 
 func _on_send_nickname_button_pressed():
-	var nickname = get_node("panel/control/nickname_information_box/nickname_line_edit").get_text()
+	var nickname = nickname_line_edit.get_text()
 	
 	if ( !checkValidNickname(nickname) ):
 		var node = ResourceLoader.load("res://scenes/network/InvalidNickname.scn").instance()
@@ -144,6 +147,22 @@ func addReadyPlayer(player_nickname):
 
 func clearKickList():
 	kick_list.clear()
+	checkKickListItemCount()
 
 func addPlayerKickList(player_nickname, player_id):
+	if (kick_list.get_item_count() > 0):
+		kick_list.add_separator()
+	
 	kick_list.add_item(player_nickname, player_id)
+	
+	checkKickListItemCount()
+
+func checkKickListItemCount():
+	if ( kick_list.get_item_count() > 0):
+		kick_list.set_ignore_mouse(false)
+	else:
+		kick_list.set_ignore_mouse(true)
+
+
+func setUsername():
+	nickname_line_edit.set_text(game.getUsername() + "_2")
