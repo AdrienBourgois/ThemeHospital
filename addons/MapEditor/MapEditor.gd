@@ -16,6 +16,7 @@ func _enter_tree():
 func new_map(x, y):
 	if (current_map):
 		print("Delete previous Map")
+		remove_control_from_bottom_panel(current_map)
 		current_map.free()
 	current_map = Map.new(x, y)
 	add_control_to_bottom_panel(current_map, "Map")
