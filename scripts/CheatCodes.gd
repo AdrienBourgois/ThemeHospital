@@ -39,6 +39,6 @@ func modifyHealPatients():
 
 func modifyHospitalValue():
 	if Input.is_key_pressed(KEY_KP_ADD):
-		player.increaseHospitalValue(100)
+		player.increaseHospitalValue(1000)
 	elif Input.is_key_pressed(KEY_KP_SUBTRACT):
-		player.decreaseHospitalValue(100)
+		player.decreaseHospitalValue(1000)

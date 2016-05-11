@@ -64,8 +64,10 @@ func stopServer():
 	
 	socket.stop()
 	player_data.clear()
+	packet_list.clear()
 	
 	socket = null
+	current_available_id = 0
 
 
 func kickPlayer(player_id):
@@ -171,20 +173,22 @@ func setPlayerReady(player_id, boolean):
 
 
 func checkPlayersReady():
+	if (player_data.size() < 2):
+		return
+	
 	var player_ready = 0
+	var root = get_tree().get_current_scene()
 	
 	for player in range (player_data.size()):
 		if (player_data[player][4]):
 			player_ready += 1
-	
-	var root = get_tree().get_current_scene()
 	
 	if (root == null || root.get_name() != "lobby"):
 		return
 	
 	var start_game_button = root.get_node("./panel/information_box/server_commands_box/start_game_button")
 	
-	if ((player_ready == player_data.size() - 1)  && player_data.size() >= 2 && start_game_button != null):
+	if ((player_ready == player_data.size() - 1) && start_game_button != null):
 		start_game_button.set_disabled(false)
 	elif (start_game_button != null):
 		start_game_button.set_disabled(true)

@@ -36,3 +36,4 @@ func init():
 		map.init(int(map_size.x), int(map_size.y)) 
 	
 	in_game_gui.init()
+	player.initObjectives()

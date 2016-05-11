@@ -19,11 +19,18 @@ var savename = "default"
 signal reputation_change(reputation)
 signal money_change(money)
 signal heal_patients_change(heal_patients)
-signal heal_patients_percent_change(total_patients)
+signal heal_patients_percent_change(patients_percent)
 signal hospital_value_change(hospital_value)
 
 func _ready():
 	game.connect("end_month", self, "_on_end_month")
+
+func initObjectives():
+	emit_signal("money_change", money)
+	emit_signal("heal_patients_change", heal_patients)
+	calculateHealPatientsPercent()
+	emit_signal("reputation_change", reputation)
+	emit_signal("hospital_value_change", hospital_value)
 
 func loadData():
 	name = stats.NAME
@@ -127,6 +134,7 @@ func getHealPatientsPercent():
 func calculateHealPatientsPercent():
 	if total_patients > 0:
 		heal_patients_percent = 100 * (heal_patients/total_patients)
+	emit_signal("heal_patients_percent_change", heal_patients_percent)
 
 func setReputation(val):
 	reputation += val
@@ -145,16 +153,18 @@ func decreaseReputation(val):
 
 func setHospitalValue(val):
 	hospital_value = val
-	emit_signal("hospital_value", hospital_value)
+	emit_signal("hospital_value_change", hospital_value)
 
 func getHospitalValue():
 	return hospital_value
 
 func increaseHospitalValue(val):
 	hospital_value += val
+	emit_signal("hospital_value_change", hospital_value)
 
 func decreaseHospitalValue(val):
 	hospital_value -= val
+	emit_signal("hospital_value_change", hospital_value)
 
 func _on_end_month():
 	decreaseMoney(expense)
