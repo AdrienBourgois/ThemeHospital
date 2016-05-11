@@ -2,13 +2,13 @@ extends Spatial
 
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
 
-const enum_diagnostic_rooms_type = { "GP_OFFICE" : 10, "GENERAL_DIAGNOSTIC": 11 }
+const enum_diagnostic_rooms_type = { "GP_OFFICE" : 10, "GENERAL_DIAGNOSIS": 11 }
 const enum_treatment_rooms_type = { "PSYCHIATRIC" : 20, "WARD": 21, "PHARMACY": 22 }
 const enum_clinic_rooms_type = { "INFLATION": 30 }
 const enum_facilities_rooms_type = { "STAFF": 40, "TOILETS": 41 }
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 const enum_room_type = { "DECORATION":  0, "LOBBY": 1, 
-"DIAGNOSTIC": enum_diagnostic_rooms_type,"TREATMENT": enum_treatment_rooms_type, 
+"DIAGNOSIS": enum_diagnostic_rooms_type,"TREATMENT": enum_treatment_rooms_type, 
 "CLINICS": enum_clinic_rooms_type, "FACILITIES": enum_facilities_rooms_type }
 
 var room_type = 0
@@ -43,7 +43,7 @@ func update(type):
 		room_material.set_parameter(0, colors.green)
 	elif (type == enum_room_type.LOBBY):
 		room_material.set_parameter(0, colors.grey)
-	elif (type == enum_room_type.DIAGNOSTIC.GP_OFFICE):
+	elif (type == enum_room_type.DIAGNOSIS.GP_OFFICE):
 		room_material.set_parameter(0, colors.red)
 
 func update_walls(direction):
