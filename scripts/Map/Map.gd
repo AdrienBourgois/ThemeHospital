@@ -102,7 +102,7 @@ func new_room(state, parameters):
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
 		var new_room_square = get_list(new_room_from, new_room_to)
 		for tile in new_room_square:
-			tile.update(tile.enum_room_type.LOBBY)
+			tile.update(tile.enum_room_type.DIAGNOSTIC.GP_OFFICE)
 		for tile in new_room_square:
 			tile.update_walls("Up")
 			tile.update_walls("Left")
