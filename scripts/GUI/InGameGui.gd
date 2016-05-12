@@ -36,6 +36,7 @@ func init():
 	reputation.init()
 	engage.init()
 	hire_selector.init()
+	rooms_menu.confirm_node.init()
 #	objectives.init()
 
 func _on_Corridor_items_pressed():
