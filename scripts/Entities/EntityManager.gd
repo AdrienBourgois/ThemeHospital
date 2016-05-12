@@ -21,7 +21,7 @@ onready var staff_array = []
 
 func _ready():
 	randomize()
-	generateIdAndDataArray()
+	generateStaffIdAndDataArray()
 	generatePatientData()
 
 func generateStaffData(id):
@@ -36,7 +36,6 @@ func generateStaffIdAndDataArray():
 	var id = 0
 	for i in range(28):
 		id = randi()%4
-		print(id)
 		staff_array.push_back(generateStaffData(id))
 
 func generatePatientData():
