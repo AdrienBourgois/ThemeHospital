@@ -10,6 +10,7 @@ onready var objectives = get_node("Charts/Objectives")
 onready var menu = get_node("InGameMenu")
 onready var engage = get_node("HUD/Staff/Engage")
 onready var hire_selector = get_node("HUD/Staff/TabContainer")
+onready var rooms_menu = get_node("HUD/RoomsMenu")
 
 var window_opened = false
 
@@ -40,3 +41,6 @@ func _on_Corridor_items_pressed():
 	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
 	if (!corridor_items_menu.is_hidden()):
 		window_opened = true
+
+func _on_Build_pressed():
+	rooms_menu.set_hidden(not rooms_menu.is_hidden())
