@@ -1,6 +1,7 @@
 
 extends Spatial
 
+onready var salary_tab = [[75, 105, 205], 60, 25, 20]
 onready var last_name = ["CRAMBLIN", "WARMOND", "CRABINGTON", "SCOTE", "WRIGHTSON", "HIGHTON", "BURMORE", "BANE", "KINGSMITH", "PETCLIFFE", "PODMAN", "FENTON", "GOLDBERRY", "BYSON", "WATERS", "WRIGHTMORE", "BYTON", "BINNWICK", "WYERS", "CURLAN", "BOYBAUM", "CRABELTON", "WATERSON", "HIGHLEY", "PODINGTON"]
 onready var first_name = ["A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. ", "I. ", "J. ", "K. ", "L. ", "M. ", "N. ", "O. ", "P. ", "Q. ", "R. ", "S. ", "T. ", "U. ", "V. ", "W. ", "X. ", "Y. ", "Z. "]
 
@@ -16,23 +17,23 @@ STAFF = 0,
 PATIENT = 1
 }
 
+onready var patient_res = preload("res://scenes/Entities/Human/Patient.scn")
+
 onready var patient_array = []
 onready var staff_array = []
 
 func _ready():
 	randomize()
 	generateStaffIdAndDataArray()
-	set_process(true)
-
-func _process(delta):
-	generatePatientData()
 
 func generateStaffData(id):
 	var staff_data = {}
 	staff_data["entity_id"] = 0
 	staff_data["type"] = id
 	staff_data["name"] = first_name[randi()%first_name.size()] + last_name[randi()%last_name.size()]
-	staff_data["skill"] = randi()%1000
+	staff_data["skill"] = randi()%1000 
+	staff_data["salary"] = calculateSalary(id, staff_data["skill"])
+	print(staff_data)
 	return staff_data
 
 func generateStaffIdAndDataArray():
@@ -48,3 +49,20 @@ func generatePatientData():
 	patient_data["thirsty"] = 100
 	patient_data["warmth"] = 50
 	return patient_data
+
+func createPatientBody():
+	var patient = patient_res.instance()
+	patient.happiness = patient_array[0]["happiness"]
+	patient.thirsty = patient_array[0]["thirsty"]
+	patient.warmth = patient_array[0]["warmth"]
+	add_child(patient)
+	patient.add_to_group("Patients")
+	patient_array.clear()
+
+func calculateSalary(id, skill):
+	var salary = 0
+	if id == 0:
+		salary = salary_tab[id][0] + skill/10
+	else:
+		salary = salary_tab[id] + skill/10
+	return salary
