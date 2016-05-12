@@ -21,8 +21,11 @@ onready var staff_array = []
 
 func _ready():
 	randomize()
-	generateIdAndDataArray()
-	generatePatientData()
+	generateStaffIdAndDataArray()
+	set_process(true)
+
+func _process(delta):
+	pass
 
 func generateStaffData(id):
 	var staff_data = {}
@@ -36,13 +39,12 @@ func generateStaffIdAndDataArray():
 	var id = 0
 	for i in range(28):
 		id = randi()%4
-		print(id)
 		staff_array.push_back(generateStaffData(id))
 
 func generatePatientData():
 	var patient_data = {}
 	patient_data["entity_id"] = 1
 	patient_data["happiness"] = 100
-	patient_data["thirsty"] = randi()%80
-	patient_data["warmth"] = randi()%80
+	patient_data["thirsty"] = 100
+	patient_data["warmth"] = 50
 	return patient_data
