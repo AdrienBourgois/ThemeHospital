@@ -31,9 +31,6 @@ func less(value):
 		value = 0
 	return value
 
-func plus(value):
-	value += 1
-
 func _on_Drink_pressed():
 	pass # replace with function body
 
@@ -41,33 +38,41 @@ func _on_Close_pressed():
 	self.hide()
 
 func _on_LessBench_pressed():
-	less(items_to_buy.BENCH)
-	bench.get_node("Panel/Label").set_text(countString(items_to_buy.BENCH))
+	items_to_buy.BENCH = less(items_to_buy.BENCH)
+	bench.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.BENCH))
 
 func _on_PlusBench_pressed():
-	plus(items_to_buy.BENCH)
-	bench.get_node("Panel/Label").set_text(countString(items_to_buy.BENCH))
+	items_to_buy.BENCH += 1
+	bench.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.BENCH))
 
 func _on_LessPlant_pressed():
-	less(items_to_buy.PLANT)
+	items_to_buy.PLANT = less(items_to_buy.PLANT)
+	plant.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.PLANT))
 
 func _on_PlusPlant_pressed():
-	plus(items_to_buy.PLANT)
+	items_to_buy.PLANT += 1
+	plant.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.PLANT))
 
 func _on_LessRadiator_pressed():
-	less(items_to_buy.RADIATOR)
+	items_to_buy.RADIATOR = less(items_to_buy.RADIATOR)
+	radiator.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.RADIATOR))
 
 func _on_PlusRadiator_pressed():
-	plus(items_to_buy.RADIATOR)
+	items_to_buy.RADIATOR += 1
+	radiator.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.RADIATOR))
 
 func _on_LessDrink_pressed():
-	less(items_to_buy.DRINK)
+	items_to_buy.DRINK = less(items_to_buy.DRINK)
+	drink.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.DRINK))
 
 func _on_PlusDrink_pressed():
-	plus(items_to_buy.DRINK)
+	items_to_buy.DRINK += 1
+	drink.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.DRINK))
 
 func _on_LessFire_pressed():
-	less(items_to_buy.FIRE)
+	items_to_buy.FIRE = less(items_to_buy.FIRE)
+	fire.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.FIRE))
 
 func _on_PlusFire_pressed():
-	plus(items_to_buy.FIRE)
+	items_to_buy.FIRE += 1
+	fire.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.FIRE))

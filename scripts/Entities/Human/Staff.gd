@@ -5,7 +5,6 @@ onready var game = get_node("/root/Game")
 onready var map = game.scene.map
 onready var mouse_pos_3d = map.mouse_pos
 
-
 var id
 var name
 var skill
