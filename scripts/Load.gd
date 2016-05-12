@@ -43,11 +43,9 @@ func loadPlayerData():
 		load_dict.parse_json(game.file.get_line())
 
 	gamescn.player.stats = load_dict.PLAYER
-	gamescn.map.stats = load_dict.MAP
 	gamescn.calendar.stats = load_dict.CALENDAR
 	
 	gamescn.player.loadData()
-	gamescn.map.loadData()
 	gamescn.calendar.loadData()
 	resetStatsDict()
 	game.file.close()
