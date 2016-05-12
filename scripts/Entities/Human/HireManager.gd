@@ -14,6 +14,8 @@ func createStaffBody(index):
 	staff_body.id = staff_array[index]["type"]
 	staff_body.name = staff_array[index]["name"]
 	staff_body.skill = staff_array[index]["skill"]
+	staff_body.salary = staff_array[index]["salary"]
+	game.scene.player.increaseExpense(staff_body.salary)
 	add_child(staff_body)
 	staff_body.add_to_group("Staff")
 	pass
