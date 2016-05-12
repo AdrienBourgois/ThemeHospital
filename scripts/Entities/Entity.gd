@@ -4,12 +4,13 @@ extends KinematicBody
 onready var game = get_node("/root/Game")
 onready var map = game.scene.map
 onready var mouse_pos_3d = map.center_tile_on_cursor
+onready var cube = get_node("TestCube")
 
 var is_selected = false
 var can_selected = true
 
 func _ready():
-	var cube_scale = get_node("TestCube").get_scale()
+	var cube_scale = cube.get_scale()
 	set_translation(Vector3(mouse_pos_3d.x - (cube_scale.x * 2), cube_scale.y, mouse_pos_3d.y - (cube_scale.z * 2)))
 	set_process(true)
 
