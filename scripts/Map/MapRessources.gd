@@ -1,5 +1,6 @@
 extends Node
 
+var lobby = { "ID": 0, "NAME": "lobby", "COLOR": colors.grey, "RESSOURCES": [], "OBJECTS": []}
 var gp_office = { "ID": 1, "NAME": "gp's office", "SIZE_MIN": 4, "COLOR": colors.red, "RESSOURCES": [], "OBJECTS": []}
 var general_diagnosis = { "ID": 2, "NAME": "general diagnosis", "SIZE_MIN": 5, "COLOR": colors.white, "RESSOURCES": [], "OBJECTS": []}
 var psychiatric = { "ID": 10, "NAME": "psychiatric", "SIZE_MIN": 5, "COLOR": colors.red, "RESSOURCES": [], "OBJECTS": []}

@@ -2,7 +2,10 @@ extends Node
 
 var columns = []
 var tiles = []
+var rooms = []
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
+onready var room_class = preload("res://scripts/Map/Room.gd")
+onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
@@ -32,26 +35,23 @@ func create_map(file_path):
 			var tile = tile_res.instance()
 			add_child(tile)
 			var tile_type = lines_str[y].substr(x, 1).to_int()
-			tile.create(x, y, tile_type)
+			tile.create(x, y, ressources.lobby)
 			tile.set_translation(Vector3(x, 0, y))
 			tiles.append(tile)
 			column.append(tile)
 		columns.append(column)
 	for tile in tiles:
 		tile.get_all_neighbour()
-		if (tile.room_type):
-			tile.update_walls("Up")
-			tile.update_walls("Left")
-			tile.update_walls("Right")
-			tile.update_walls("Down")
-
-func reload_map():
-	for tile in tiles:
-		tile.update(tile.room_type)
 		tile.update_walls("Up")
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+
+func reload_map():
+	for tile in tiles:
+		tile.reinitialize()
+	for room in rooms:
+		room.recreate()
 
 func get_tile(coords):
 	for tile in tiles:
@@ -82,8 +82,6 @@ func is_huge_as(from, to, x_length, y_length):
 		var swap_tmp = from
 		from = to
 		to = swap_tmp
-	
-	print("From : ", from, " - To : ", to)
 	
 	if(from.y <= to.y):
 		if (to.x - from.x >= x_length - 1 && to.y - from.y >= y_length - 1):
@@ -121,11 +119,6 @@ func new_room(state, parameters):
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
-		var new_room_square = get_list(new_room_from, new_room_to)
-		for tile in new_room_square:
-			tile.update(tile.enum_room_type.DIAGNOSIS.GP_OFFICE)
-		for tile in new_room_square:
-			tile.update_walls("Up")
-			tile.update_walls("Left")
-			tile.update_walls("Right")
-			tile.update_walls("Down")
+		var room = room_class.new(new_room_from, new_room_to, ressources.inflation, self)
+		rooms.append(room)
+		

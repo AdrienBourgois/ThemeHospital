@@ -2,16 +2,9 @@ extends Spatial
 
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
 
-const enum_diagnostic_rooms_type = { "GP_OFFICE" : 10, "GENERAL_DIAGNOSIS": 11 }
-const enum_treatment_rooms_type = { "PSYCHIATRIC" : 20, "WARD": 21, "PHARMACY": 22 }
-const enum_clinic_rooms_type = { "INFLATION": 30 }
-const enum_facilities_rooms_type = { "STAFF": 40, "TOILETS": 41 }
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
-const enum_room_type = { "DECORATION":  0, "LOBBY": 1, 
-"DIAGNOSIS": enum_diagnostic_rooms_type,"TREATMENT": enum_treatment_rooms_type, 
-"CLINICS": enum_clinic_rooms_type, "FACILITIES": enum_facilities_rooms_type }
 
-var room_type = 0
+var room_type = {}
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
 var neighbour = { "Up": null, "Left": null, "Down": null, "Right": null }
 
@@ -34,21 +27,16 @@ func create(_x, _y, _type):
 	y = _y
 	update(_type)
 
-func update(type):
+func update(_room_type):
 	get_node("StaticBody/Quad").set_material_override(room_material)
-	room_type = type
+	room_type = _room_type
 	room_material.set_flag(1, true)
 	wall_material.set_flag(1, true)
-	if (type == enum_room_type.DECORATION):
-		room_material.set_parameter(0, colors.green)
-	elif (type == enum_room_type.LOBBY):
-		room_material.set_parameter(0, colors.grey)
-	elif (type == enum_room_type.DIAGNOSIS.GP_OFFICE):
-		room_material.set_parameter(0, colors.red)
+	room_material.set_parameter(0, room_type.COLOR)
 
 func update_walls(direction):
 	if (neighbour[direction] != null):
-		if (!neighbour[direction].room_type):
+		if (neighbour[direction].room_type != room_type):
 			change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
@@ -66,7 +54,7 @@ func hover_on():
 	room_material.set_parameter(0, colors.brown)
 
 func hover_off():
-	update(room_type)
+	room_material.set_parameter(0, room_type.COLOR)
 
 func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click")):
@@ -87,3 +75,15 @@ func get_all_neighbour():
 		neighbour.Left = map.columns[x - 1][y]
 	if ((x + 1) < map.size_x):
 		neighbour.Right = map.columns[x + 1][y]
+
+func reinitialize():
+	change_wall("Up", enum_wall_type.VOID)
+	change_wall("Left", enum_wall_type.VOID)
+	change_wall("Right", enum_wall_type.VOID)
+	change_wall("Down", enum_wall_type.VOID)
+	room_type = 0
+	room_material.free()
+	wall_material.free()
+	room_material = FixedMaterial.new()
+	wall_material = FixedMaterial.new()
+	get_node("StaticBody/Quad").set_material_override(room_material)
