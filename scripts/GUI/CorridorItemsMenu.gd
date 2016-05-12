@@ -11,14 +11,6 @@ onready var fire = panel.get_node("Fire")
 onready var drinkscn = preload("res://scenes/Entities/Objects/Object.scn")
 
 var items_count_array = []
-var drink_array = []
-var items_to_buy = {
-BENCH = 0,
-PLANT = 0,
-RADIATOR = 0,
-DRINK = 0,
-FIRE = 0
-}
 
 func _ready():
 	self.hide()
@@ -36,6 +28,7 @@ func countString(value):
 
 func _on_Accept_pressed():
 	updateValues()
+	self.hide()
 	
 func _on_Close_pressed():
 	self.hide()
