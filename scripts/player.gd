@@ -11,6 +11,10 @@ export var total_patients = 0.0 setget setTotalPatients,getTotalPatients
 export var heal_patients_percent = 0.0 setget ,getHealPatientsPercent
 export var reputation = 0 setget setReputation,getReputation
 export var hospital_value = 0 setget setHospitalValue,getHospitalValue
+export var pharmacy_discover = []
+export var psychatric_discover = []
+export var clinics_discover = []
+
 
 var stats = {}
 var savename = "default"
@@ -41,6 +45,9 @@ func loadData():
 	heal_patients_percent = stats.HEAL_PATIENTS_PERCENT
 	reputation = stats.REPUTATION
 	hospital_value = stats.HOSPITAL_VALUE
+	pharmacy_discover = stats.PHARMACY_DISCOVER
+	psychatric_discover = stats.PSYCHATRIC_DISCOVER
+	clinics_discover = stats.CLINICS_DISCOVER
 	resetStatsDict()
 
 func createStatsDict():
@@ -55,6 +62,9 @@ func createStatsDict():
 	HEAL_PATIENTS_PERCENT = heal_patients_percent,
 	REPUTATION = reputation,
 	HOSPITAL_VALUE = hospital_value,
+	PHARMACY_DISCOVER = pharmacy_discover,
+	PSYCHATRIC_DISCOVER = psychatric_discover,
+	CLINICS_DISCOVER = clinics_discover,
 	SAVENAME = game.username + " -" + date
 	}
 	return stats
