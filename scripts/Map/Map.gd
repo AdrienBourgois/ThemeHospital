@@ -77,6 +77,25 @@ func get_list(from, to):
 	
 	return selection
 
+func is_huge_as(from, to, x_length, y_length):
+	if (from > to):
+		var swap_tmp = from
+		from = to
+		to = swap_tmp
+	
+	print("From : ", from, " - To : ", to)
+	
+	if(from.y <= to.y):
+		if (to.x - from.x >= x_length - 1 && to.y - from.y >= y_length - 1):
+			return true
+		else:
+			return false
+	else:
+		if (to.x - from.x >= x_length - 1 && from.y - to.y >= y_length - 1):
+			return true
+		else:
+			return false
+
 func new_room(state, parameters):
 	if (state == "new"):
 		for tile in tiles:
@@ -91,9 +110,8 @@ func new_room(state, parameters):
 		for tile in previous_current_selection:
 			tile.update(tile.room_type)
 		previous_current_selection = get_list(new_room_from, parameters)
-		print("tile x : ", new_room_from.x - parameters.x, " tile y : ", new_room_from.y - parameters.y)
 		for tile in previous_current_selection:
-			if (parameters.x - new_room_from.x < 4 && parameters.y - new_room_from.y < 4 && parameters.x - new_room_from.x > -4 && parameters.y - new_room_from.y > -4):
+			if (!is_huge_as(new_room_from, parameters, 4, 4)):
 				tile.room_material.set_parameter(0, colors.red)
 			else:
 				tile.room_material.set_parameter(0, colors.blue)
