@@ -52,6 +52,7 @@ TXT_RADIATOR, Radiator, Radiateur
 TXT_DRINK, Drink Machine, Distributeur de boisson
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
+TXT_BUY, Buy, Acheter
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
