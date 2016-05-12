@@ -1,12 +1,6 @@
 
-extends Spatial
-
-onready var squares_array = []
+extends "../Entity.gd"
 
 func _ready():
 	pass
-
-func create(square):
-	var cube = get_node("TestCube")
-
 

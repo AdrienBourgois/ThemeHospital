@@ -51,7 +51,7 @@ func initializeServer(port):
 	else:
 		stopServer()
 		return false
-	
+
 
 func resetServerStates():
 	server_states.server_connected = false
