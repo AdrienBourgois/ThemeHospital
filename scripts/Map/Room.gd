@@ -20,12 +20,5 @@ func _init(from, to, _type, _map_reference):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
-
-func recreate():
-	for tile in tiles:
-		tile.change_ground(type.COLOR)
-		tile.update_walls("Up")
-		tile.update_walls("Left")
-		tile.update_walls("Right")
-		tile.update_walls("Down")
+	self.free()
 

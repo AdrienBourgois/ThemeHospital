@@ -10,13 +10,14 @@ onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
+var new_room_type = {}
 
 var size_x = 0
 var size_y = 0
 
 func _ready():
 	create_map("res://Maps/Map1.lvl")
-	new_room("new", 0)
+	new_room("new", ressources.psychiatric)
 
 func create_map(file_path):
 	var file = File.new()
@@ -35,7 +36,10 @@ func create_map(file_path):
 			var tile = tile_res.instance()
 			add_child(tile)
 			var tile_type = lines_str[y].substr(x, 1).to_int()
-			tile.create(x, y, ressources.lobby)
+			if (tile_type == 0):
+				tile.create(x, y, ressources.grass)
+			elif (tile_type == 1):
+				tile.create(x, y, ressources.lobby)
 			tile.set_translation(Vector3(x, 0, y))
 			tiles.append(tile)
 			column.append(tile)
@@ -46,12 +50,6 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
-
-func reload_map():
-	for tile in tiles:
-		tile.reinitialize()
-	for room in rooms:
-		room.recreate()
 
 func get_tile(coords):
 	for tile in tiles:
@@ -77,25 +75,34 @@ func get_list(from, to):
 	
 	return selection
 
-func is_huge_as(from, to, x_length, y_length):
+func is_huge_as(from, to, size):
 	if (from > to):
 		var swap_tmp = from
 		from = to
 		to = swap_tmp
 	
 	if(from.y <= to.y):
-		if (to.x - from.x >= x_length - 1 && to.y - from.y >= y_length - 1):
+		if (to.x - from.x >= size - 1 && to.y - from.y >= size - 1):
 			return true
 		else:
 			return false
 	else:
-		if (to.x - from.x >= x_length - 1 && from.y - to.y >= y_length - 1):
+		if (to.x - from.x >= size - 1 && from.y - to.y >= size - 1):
 			return true
 		else:
 			return false
 
+func is_new_room_valid():
+	if(!is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN)):
+		return false
+	for tile in previous_current_selection:
+		if (tile.room_type.ID != ressources.lobby.ID):
+			return false
+	return true
+
 func new_room(state, parameters):
 	if (state == "new"):
+		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
 
@@ -105,20 +112,21 @@ func new_room(state, parameters):
 			tile.staticBody.connect("mouse_enter", tile, "_current_select")
 	
 	elif (state == "current"):
+		new_room_to = parameters
 		for tile in previous_current_selection:
 			tile.update(tile.room_type)
-		previous_current_selection = get_list(new_room_from, parameters)
+		previous_current_selection = get_list(new_room_from, new_room_to)
 		for tile in previous_current_selection:
-			if (!is_huge_as(new_room_from, parameters, 4, 4)):
-				tile.room_material.set_parameter(0, colors.red)
-			else:
+			if (is_new_room_valid()):
 				tile.room_material.set_parameter(0, colors.blue)
+			else:
+				tile.room_material.set_parameter(0, colors.red)
 
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
-		var room = room_class.new(new_room_from, new_room_to, ressources.inflation, self)
+		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
 		

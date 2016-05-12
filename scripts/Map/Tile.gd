@@ -75,15 +75,3 @@ func get_all_neighbour():
 		neighbour.Left = map.columns[x - 1][y]
 	if ((x + 1) < map.size_x):
 		neighbour.Right = map.columns[x + 1][y]
-
-func reinitialize():
-	change_wall("Up", enum_wall_type.VOID)
-	change_wall("Left", enum_wall_type.VOID)
-	change_wall("Right", enum_wall_type.VOID)
-	change_wall("Down", enum_wall_type.VOID)
-	room_type = 0
-	room_material.free()
-	wall_material.free()
-	room_material = FixedMaterial.new()
-	wall_material = FixedMaterial.new()
-	get_node("StaticBody/Quad").set_material_override(room_material)
