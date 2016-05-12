@@ -25,7 +25,7 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	pass
+	generatePatientData()
 
 func generateStaffData(id):
 	var staff_data = {}
