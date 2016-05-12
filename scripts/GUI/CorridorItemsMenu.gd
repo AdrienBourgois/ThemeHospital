@@ -8,6 +8,12 @@ onready var radiator = panel.get_node("Radiator")
 onready var drink = panel.get_node("Drink")
 onready var fire = panel.get_node("Fire")
 
+onready var bench_label = bench.get_node("Label")
+onready var plant_label = plant.get_node("Label")
+onready var radiator_label = radiator.get_node("Label")
+onready var drink_label = drink.get_node("Label")
+onready var fire_label = fire.get_node("Label")
+
 onready var drinkscn = preload("res://scenes/Entities/Objects/Object.scn")
 
 var items_count_array = []
@@ -23,12 +29,24 @@ func updateValues():
 	items_count_array.append(drink.getValue())
 	items_count_array.append(fire.getValue())
 
+func resetvalues():
+	bench.setValue(0)
+	plant.setValue(0)
+	radiator.setValue(0)
+	drink.setValue(0)
+	fire.setValue(0)
+
 func countString(value):
 	var count_string = "Count : " + str(value)
 
 func _on_Accept_pressed():
 	updateValues()
+	for current in items_count_array:
+		while (current > 0):
+			print("TAMERE")
+			current -= 1
+	resetvalues()
 	self.hide()
-	
+
 func _on_Close_pressed():
 	self.hide()
