@@ -28,6 +28,7 @@ func _input(event):
 func hideWindows():
 	menu.hide()
 	corridor_items_menu.hide()
+	rooms_menu.hide()
 
 func init():
 	calendar.init()
