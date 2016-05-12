@@ -51,6 +51,10 @@ func change_wall(wall, type):
 	walls_types[wall] = type
 
 func hover_on():
+	get_parent().tile_on_cursor = Vector2(x, y)
+	var translation = get_translation()
+	var quad_size = get_node("StaticBody/Quad").get_size()
+	get_parent().center_tile_on_cursor = Vector2((quad_size.x / 2) + translation.x, (quad_size.y / 2) + translation.z)
 	room_material.set_parameter(0, colors.brown)
 
 func hover_off():

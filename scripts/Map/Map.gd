@@ -15,6 +15,9 @@ var new_room_type = {}
 var size_x = 0
 var size_y = 0
 
+var tile_on_cursor = Vector2(-1, -1)
+var center_tile_on_cursor = Vector2(-1, -1)
+
 func _ready():
 	create_map("res://Maps/Map1.lvl")
 	new_room("new", ressources.psychiatric)
