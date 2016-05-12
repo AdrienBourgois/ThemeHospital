@@ -8,81 +8,49 @@ onready var radiator = panel.get_node("Radiator")
 onready var drink = panel.get_node("Drink")
 onready var fire = panel.get_node("Fire")
 
+onready var bench_label = bench.get_node("Label")
+onready var plant_label = plant.get_node("Label")
+onready var radiator_label = radiator.get_node("Label")
+onready var drink_label = drink.get_node("Label")
+onready var fire_label = fire.get_node("Label")
+onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
+
 onready var drinkscn = preload("res://scenes/Entities/Objects/Object.scn")
 
-var drink_array = []
-var items_to_buy = {
-BENCH = 0,
-PLANT = 0,
-RADIATOR = 0,
-DRINK = 0,
-FIRE = 0
-}
+var items_count_array = []
 
 func _ready():
 	self.hide()
 
-func updateValues(node):
-	pass
+func updateValues():
+	items_count_array.clear()
+	items_count_array.append(bench.getValue())
+	items_count_array.append(plant.getValue())
+	items_count_array.append(radiator.getValue())
+	items_count_array.append(drink.getValue())
+	items_count_array.append(fire.getValue())
+
+func resetvalues():
+	var default_text = "Count : 0"
+	bench.setValue(0)
+	plant.setValue(0)
+	radiator.setValue(0)
+	drink.setValue(0)
+	fire.setValue(0)
+	for current in label_array:
+		current.set_text(default_text)
 
 func countString(value):
 	var count_string = "Count : " + str(value)
 
 func _on_Accept_pressed():
-	var node = drinkscn.instance()
-	add_child(node)
-
-func checkIsEmpty():
-	pass
-	
-func less(value):
-	value -= 1
-	if (value < 0):
-		value = 0
-	return value
-	
-func _on_Close_pressed():
+	updateValues()
+	for current in items_count_array:
+		while (current > 0):
+			print("TAMERE")
+			current -= 1
+	resetvalues()
 	self.hide()
 
-func _on_Drink_pressed():
-	_on_PlusDrink_pressed()
-
-func _on_LessBench_pressed():
-	items_to_buy.BENCH = less(items_to_buy.BENCH)
-	bench.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.BENCH))
-
-func _on_PlusBench_pressed():
-	items_to_buy.BENCH += 1
-	bench.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.BENCH))
-
-func _on_LessPlant_pressed():
-	items_to_buy.PLANT = less(items_to_buy.PLANT)
-	plant.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.PLANT))
-
-func _on_PlusPlant_pressed():
-	items_to_buy.PLANT += 1
-	plant.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.PLANT))
-
-func _on_LessRadiator_pressed():
-	items_to_buy.RADIATOR = less(items_to_buy.RADIATOR)
-	radiator.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.RADIATOR))
-
-func _on_PlusRadiator_pressed():
-	items_to_buy.RADIATOR += 1
-	radiator.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.RADIATOR))
-
-func _on_LessDrink_pressed():
-	items_to_buy.DRINK = less(items_to_buy.DRINK)
-	drink.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.DRINK))
-
-func _on_PlusDrink_pressed():
-	items_to_buy.DRINK += 1
-	drink.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.DRINK))
-
-func _on_LessFire_pressed():
-	items_to_buy.FIRE = less(items_to_buy.FIRE)
-	fire.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.FIRE))
-
-func _on_PlusFire_pressed():
-	items_to_buy.FIRE += 1
-	fire.get_node("Panel/Label").set_text("Count : " + str(items_to_buy.FIRE))
+func _on_Close_pressed():
+	self.hide()

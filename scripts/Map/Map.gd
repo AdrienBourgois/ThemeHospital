@@ -20,7 +20,6 @@ var center_tile_on_cursor = Vector2(-1, -1)
 
 func _ready():
 	create_map("res://Maps/Map1.lvl")
-	new_room("new", ressources.psychiatric)
 
 func create_map(file_path):
 	var file = File.new()
@@ -113,7 +112,7 @@ func new_room(state, parameters):
 		new_room_from = parameters
 		for tile in tiles:
 			tile.staticBody.connect("mouse_enter", tile, "_current_select")
-	
+
 	elif (state == "current"):
 		new_room_to = parameters
 		for tile in previous_current_selection:
@@ -130,6 +129,12 @@ func new_room(state, parameters):
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
-		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
-		rooms.append(room)
+
+	elif (state == "create"):
+		if (is_new_room_valid()):
+			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+			rooms.append(room)
+		else:
+			for tile in previous_current_selection:
+				tile.update(tile.room_type)
 		

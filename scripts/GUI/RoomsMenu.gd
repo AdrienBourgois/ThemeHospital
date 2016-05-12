@@ -20,3 +20,7 @@ func on_button_pressed():
 
 func _on_Cancel_pressed():
 	self.hide()
+
+
+func _on_1stButton_pressed():
+	get_node("/root/Game").scene.map.new_room("new", get_node("/root/Game").scene.map.ressources.psychiatric)
