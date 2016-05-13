@@ -47,15 +47,18 @@ func _on_Cancel_pressed():
 
 func on_rooms_button_pressed():
 	self.hide()
+	map.new_room("cancel", null)
 	confirm_build.show()
+
+func on_mouse_enter():
+	#get_node("Rooms/Cost").set_text("cost : " + rooms_ressources.type_selected.room.COST)
+	#get_node("Text/Label").set_text(rooms_ressources.type_selected.room.NAME)
+	pass
 
 func _on_Button1_pressed():
 	on_rooms_button_pressed()
-	map.new_room("cancel", null)
 	map.new_room("new", rooms_ressources.diagnosis_rooms.GP_OFFICE)
-
 
 func _on_Button0_pressed():
 	on_rooms_button_pressed()
-	map.new_room("cancel", null)
 	map.new_room("new", rooms_ressources.treatment_rooms.PSYCHIATRIC)
