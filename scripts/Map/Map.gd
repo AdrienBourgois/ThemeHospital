@@ -6,6 +6,8 @@ var rooms = []
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
+onready var stats = {}
+onready var path
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
@@ -21,7 +23,18 @@ var center_tile_on_cursor = Vector2(-1, -1)
 func _ready():
 	create_map("res://Maps/Map1.lvl")
 
+func createStatsDict():
+	stats = {
+	FILE_PATH = path,
+	ROOMS = rooms
+	}
+	return stats
+
+func resetStatsDict():
+	stats.clear()
+
 func create_map(file_path):
+	path = file_path
 	var file = File.new()
 	file.open(file_path, File.READ)
 	
