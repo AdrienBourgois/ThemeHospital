@@ -9,5 +9,6 @@ func init():
 
 func _on_Cancel_pressed():
 	self.hide()
+	get_node("Buttons/Accept").disconnect("pressed", get_node("/root/Game").scene.map, "new_room")
 	#######cancel all construction#########
 

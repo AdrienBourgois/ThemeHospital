@@ -37,6 +37,7 @@ func init():
 	reputation.init()
 	engage.init()
 	hire_selector.init()
+	rooms_menu.init()
 	rooms_menu.confirm_node.init()
 #	objectives.init()
 
