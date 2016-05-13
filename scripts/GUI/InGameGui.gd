@@ -17,6 +17,7 @@ func _input(event):
 			window_opened = false
 			hideWindows()
 		else:
+			menu.show()
 			menu.set_hidden(not menu.is_hidden())
 
 func hideWindows():
