@@ -20,5 +20,3 @@ func _init(from, to, _type, _map_reference):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
-	self.free()
-
