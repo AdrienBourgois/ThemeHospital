@@ -57,6 +57,7 @@ func _on_Accept_pressed():
 				add_child(node)
 			current -= 1
 		array_idx += 1
+		
 	resetvalues()
 	self.hide()
 
