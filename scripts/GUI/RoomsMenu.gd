@@ -2,10 +2,10 @@ extends Panel
 
 var rooms_ressources
 var map
-var confirm_node
+var confirm_build
 
 func _ready():
-	confirm_node = get_node("Confirmation")
+	confirm_build = get_node("../Confirmation")
 	map = get_node("/root/Game").scene.map
 	rooms_ressources = map.ressources
 
@@ -43,11 +43,11 @@ func on_type_rooms_buttons_pressed():
 		get_node("Rooms/Button" + str(number_button)).set_text("")
 
 func _on_Cancel_pressed():
-	self.free()
+	self.hide()
 
 func on_rooms_button_pressed():
-	self.free()
-	#confirmation_res
+	self.hide()
+	confirmation_build.show()
 
 func _on_Button1_pressed():
 	on_rooms_button_pressed()
