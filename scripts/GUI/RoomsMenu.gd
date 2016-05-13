@@ -9,7 +9,11 @@ func init():
 
 func _on_Diagnostic_pressed():
 	on_button_pressed()
-	get_node("Rooms/1stButton").set_text(rooms_ressources.diagnosis_rooms.GP_OFFICE.NAME)
+	var i = 0
+	for room in rooms_ressources.diagnosis_rooms:
+		print("HEY")
+		get_node("Rooms/Button" + str(i)).set_text(rooms_ressources.diagnosis_rooms[room].NAME)
+		i += 1
 
 
 func _on_Treatment_pressed():
