@@ -19,5 +19,5 @@ func _on_Build_timer_timeout():
 
 func _on_Button_pressed():
 	game.emit_signal("build_timer_timeout")
-	game.scene.entity_manager.get_node("Timer").start()
+	game.scene.entity_manager.get_node("SpawnTimerPatient").start()
 	self.queue_free()
