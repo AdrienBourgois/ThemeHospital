@@ -4,7 +4,7 @@ extends Control
 onready var control_panel = get_parent()
 onready var buttons = get_node("Buttons")
 
-onready var staff_gui = get_node("../../Staff")
+onready var staff_gui = get_node("../../../Staff_gui")
 
 func _ready():
 	for idx in buttons.get_children():
