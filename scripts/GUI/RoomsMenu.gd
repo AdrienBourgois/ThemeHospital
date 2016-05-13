@@ -47,7 +47,7 @@ func _on_Cancel_pressed():
 
 func on_rooms_button_pressed():
 	self.hide()
-	confirmation_build.show()
+	confirm_build.show()
 
 func _on_Button1_pressed():
 	on_rooms_button_pressed()
