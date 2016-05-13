@@ -31,16 +31,6 @@ func hideWindows():
 	rooms_menu.hide()
 	hire_selector.hide()
 
-func init():
-	calendar.init()
-	money.init()
-	reputation.init()
-	engage.init()
-	hire_selector.init()
-	rooms_menu.init()
-	rooms_menu.confirm_node.init()
-#	objectives.init()
-
 func _on_Corridor_items_pressed():
 	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
 	if (!corridor_items_menu.is_hidden()):
