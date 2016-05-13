@@ -1,6 +1,8 @@
 
 extends Control
 
+onready var gamescn = get_node("/root/Game").scene
+
 onready var panel = get_node("Panel")
 onready var bench = panel.get_node("Bench")
 onready var plant = panel.get_node("Plant")
@@ -15,7 +17,9 @@ onready var drink_label = drink.get_node("Label")
 onready var fire_label = fire.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
 
-onready var drinkscn = preload("res://scenes/Entities/Objects/Object.scn")
+onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn") 
+onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn") 
+onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 
 var items_count_array = []
 
@@ -48,9 +52,10 @@ func _on_Accept_pressed():
 	updateValues()
 	for current in items_count_array:
 		while (current > 0):
+			var node = objectscn.instance()
+			if (!node.get_owner()):
+				add_child(node)
 			current -= 1
-			var node = drinkscn.instance()
-			add_child(node)
 		array_idx += 1
 	resetvalues()
 	self.hide()

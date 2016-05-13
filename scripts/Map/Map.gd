@@ -137,16 +137,21 @@ func new_room(state, parameters):
 	elif (state == "cancel"):
 		for tile in tiles:
 			tile.hover_off()
-			new_room_from = Vector2(-1,-1)
-			previous_current_selection = []
-			new_room_to = Vector2(-1,-1)
-			new_room_type = {}
+		new_room_from = Vector2(-1,-1)
+		previous_current_selection = []
+		new_room_to = Vector2(-1,-1)
+		new_room_type = {}
 
 	elif (state == "create"):
 		if (is_new_room_valid()):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
-		else:
 			for tile in previous_current_selection:
-				tile.update(tile.room_type)
+				tile.hover_off()
+			new_room_from = Vector2(-1,-1)
+			previous_current_selection = []
+			new_room_to = Vector2(-1,-1)
+			new_room_type = {}
+		else:
+			print("New room is not valid !")
 		
