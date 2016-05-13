@@ -48,7 +48,10 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
-		config.fullscreen ^= 1
+		if config.fullscreen:
+			config.fullscreen = false
+		else:
+			config.fullscreen = true
 		OS.set_window_fullscreen(config.fullscreen)
 
 func setSpeed(new_speed):

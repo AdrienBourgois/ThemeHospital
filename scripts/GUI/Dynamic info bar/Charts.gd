@@ -1,5 +1,5 @@
 
-extends Control
+extends Panel
 
 onready var hud = get_parent().get_node("HUD")
 
