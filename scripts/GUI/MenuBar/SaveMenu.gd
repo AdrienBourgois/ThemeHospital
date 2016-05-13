@@ -10,7 +10,7 @@ func _ready():
 		idx.connect("mouse_exit", self, "_on_mouse_exit")
 
 func _on_SaveButton_pressed():
-	save_location.set_hidden(not save_location.is_hidden())
+	save_location.show()
 
 func save(idx):
 	saver.savePlayer(idx)
