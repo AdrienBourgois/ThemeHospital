@@ -25,7 +25,10 @@ func _on_Control_panel_mouse_exit():
 	dynamic_info_bar_buttons.hide()
 
 func _on_Build_pressed():
-	rooms_menu.set_hidden(not rooms_menu.is_hidden())
+	if (get_node("../../Confirmation").is_hidden()):
+		rooms_menu.set_hidden(not rooms_menu.is_hidden())
+	else:
+		return
 
 
 func _on_Corridor_items_pressed():
