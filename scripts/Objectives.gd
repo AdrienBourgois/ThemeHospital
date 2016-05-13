@@ -16,7 +16,7 @@ HOSPITAL_VALUE = false
 }
 
 onready var player = get_parent().get_node("Player")
-onready var objectives_gui = get_parent().get_node("In_game_gui/Charts/Objectives")
+var objectives_gui
 
 func _ready():
 	checkValidObjectives()
@@ -39,6 +39,9 @@ func checkValidObjectives():
 			objectives_complete[idx] = true
 			
 		count += 1
+
+func linkToGui():
+	objectives_gui = get_parent().get_node("In_game_gui/Charts/Objectives")
 
 func getHealPatientsGoal():
 	return heal_patients_goal
