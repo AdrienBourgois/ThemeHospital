@@ -18,9 +18,9 @@ func new_map(x, y):
 		print("Delete previous Map")
 		remove_control_from_bottom_panel(current_map)
 		current_map.free()
-	current_map = Map.new(x, y)
+	current_map = Map.new(x, y, self)
 	add_control_to_bottom_panel(current_map, "Map")
-	current_map.set_custom_minimum_size(Vector2(100, 100))
+	current_map.set_custom_minimum_size(Vector2(500, 500))
 	current_map.set_size(Vector2(5,5))
 
 func change_brush(type):

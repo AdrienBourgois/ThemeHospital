@@ -8,6 +8,7 @@ var label_x = Label.new()
 var label_y = Label.new()
 var spin_size_x = SpinBox.new()
 var spin_size_y = SpinBox.new()
+var zoom_slider = HSlider.new()
 
 var decoration_brush = Button.new()
 var lobby_brush = Button.new()
@@ -31,6 +32,8 @@ func create_new_container():
 	
 	add_spacer(false)
 	
+	zoom_slider.set_min(1)
+	zoom_slider.set_max(25)
 	decoration_brush.set_disabled(true)
 	decoration_brush.set_text("Decoration")
 	decoration_brush.connect("pressed", editor, "change_brush", ["Decoration"])
@@ -38,6 +41,7 @@ func create_new_container():
 	lobby_brush.set_text("Lobby")
 	lobby_brush.connect("pressed", editor, "change_brush", ["Lobby"])
 	
+	add_child(zoom_slider)
 	add_child(decoration_brush)
 	add_child(lobby_brush)
 
@@ -46,3 +50,5 @@ func new_map_pressed():
 	decoration_brush.set_disabled(false)
 	lobby_brush.set_disabled(false)
 	editor.new_map(spin_size_x.get_line_edit().get_text().to_int(), spin_size_y.get_line_edit().get_text().to_int())
+	zoom_slider.connect("value_changed", editor.current_map, "change_zoom")
+	
