@@ -50,15 +50,13 @@ func countString(value):
 func _on_Accept_pressed():
 	var array_idx = 0
 	updateValues()
-#	for current in items_count_array:
-#		while (current > 0):
-#			var node = objectscn.instance()
-#			if (!node.get_owner()):
-#				add_child(node)
-#			current -= 1
-#		array_idx += 1
-	while (items_count_array[0] > 0):
-		items_count_array[0] -= 1
+	for current in items_count_array:
+		while (current > 0):
+			var node = objectscn.instance()
+			if (!node.get_owner()):
+				add_child(node)
+			current -= 1
+		array_idx += 1
 		
 	resetvalues()
 	self.hide()

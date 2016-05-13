@@ -44,7 +44,12 @@ signal end_month
 signal build_timer_timeout
 
 func _ready():
-	pass
+	set_process_input(true)
+
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		config.fullscreen ^= 1
+		OS.set_window_fullscreen(config.fullscreen)
 
 func setSpeed(new_speed):
 	speed = new_speed
