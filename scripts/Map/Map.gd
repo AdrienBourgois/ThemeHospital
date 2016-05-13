@@ -3,6 +3,8 @@ extends Node
 var columns = []
 var tiles = []
 var rooms = []
+var rooms_data = []
+var tiles_data = []
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
@@ -24,9 +26,11 @@ func _ready():
 	create_map("res://Maps/Map1.lvl")
 
 func createStatsDict():
+	for current in tiles:
+		tiles_data.append(current.createStatsDict())
 	stats = {
 	FILE_PATH = path,
-	ROOMS = rooms
+	TILES = tiles_data
 	}
 	return stats
 
@@ -181,4 +185,4 @@ func new_room(state, parameters):
 		else:
 			print("New room is not valid !")
 			new_room("cancel", null)
-		
+			
