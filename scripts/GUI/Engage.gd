@@ -2,7 +2,7 @@
 extends Button
 
 onready var game = get_node("/root/Game")
-var hire_manager
+onready var hire_manager = game.scene.hire_manager
 
 onready var selectors = [
 get_parent().get_node("TabContainer/Doctor/DoctorSelector"),
@@ -22,9 +22,6 @@ func addBodyStaff(id):
 			hire_manager.createStaffBody(selectors[id].get_selected_ID())
 			selectors[id].remove_item(i)
 			selectors[id].set_text("Employee")
-
-func init():
-	hire_manager = game.scene.hire_manager
 
 func _on_Engage_pressed():
 	waitToAdd(get_parent().get_node("TabContainer").get_current_tab())

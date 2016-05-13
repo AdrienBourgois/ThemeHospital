@@ -107,6 +107,8 @@ func new_room(state, parameters):
 		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
+			tile.get_node("StaticBody").connect("mouse_enter", tile, "hover_on", [colors.brown])
+			tile.get_node("StaticBody").connect("mouse_exit", tile, "hover_off")
 
 	elif (state == "from"):
 		new_room_from = parameters
@@ -116,25 +118,40 @@ func new_room(state, parameters):
 	elif (state == "current"):
 		new_room_to = parameters
 		for tile in previous_current_selection:
-			tile.update(tile.room_type)
+			tile.hover_off()
 		previous_current_selection = get_list(new_room_from, new_room_to)
 		for tile in previous_current_selection:
 			if (is_new_room_valid()):
-				tile.room_material.set_parameter(0, colors.blue)
+				tile.hover_on(colors.blue)
 			else:
-				tile.room_material.set_parameter(0, colors.red)
+				tile.hover_on(colors.red)
 
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
 			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
+			tile.get_node("StaticBody").disconnect("mouse_enter", tile, "hover_on")
+			tile.get_node("StaticBody").disconnect("mouse_exit", tile, "hover_off")
+	
+	elif (state == "cancel"):
+		for tile in tiles:
+			tile.hover_off()
+		new_room_from = Vector2(-1,-1)
+		previous_current_selection = []
+		new_room_to = Vector2(-1,-1)
+		new_room_type = {}
 
 	elif (state == "create"):
 		if (is_new_room_valid()):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
-		else:
 			for tile in previous_current_selection:
-				tile.update(tile.room_type)
+				tile.hover_off()
+			new_room_from = Vector2(-1,-1)
+			previous_current_selection = []
+			new_room_to = Vector2(-1,-1)
+			new_room_type = {}
+		else:
+			print("New room is not valid !")
 		

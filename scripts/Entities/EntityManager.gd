@@ -2,6 +2,7 @@
 extends Spatial
 
 onready var salary_tab = [[75, 105, 205], 60, 25, 20]
+onready var speciality_bonus_salary = [0, 20, 30, 40]
 onready var last_name = ["CRAMBLIN", "WARMOND", "CRABINGTON", "SCOTE", "WRIGHTSON", "HIGHTON", "BURMORE", "BANE", "KINGSMITH", "PETCLIFFE", "PODMAN", "FENTON", "GOLDBERRY", "BYSON", "WATERS", "WRIGHTMORE", "BYTON", "BINNWICK", "WYERS", "CURLAN", "BOYBAUM", "CRABELTON", "WATERSON", "HIGHLEY", "PODINGTON"]
 onready var first_name = ["A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. ", "I. ", "J. ", "K. ", "L. ", "M. ", "N. ", "O. ", "P. ", "Q. ", "R. ", "S. ", "T. ", "U. ", "V. ", "W. ", "X. ", "Y. ", "Z. "]
 
@@ -10,6 +11,19 @@ DOCTOR = 0,
 NURSE = 1,
 HANDYMEN = 2,
 RECEPTIONIST = 3
+}
+
+onready var specialities_id = {
+NONE = 0,
+PSYCHIATRIS = 1,
+RESEARCHER = 2,
+SURGEON = 3
+}
+
+onready var seniority_id = {
+JUNIOR = 0,
+DOCTOR = 1,
+CONSULTANT = 2
 }
 
 onready var entity_id = {
@@ -32,7 +46,12 @@ func generateStaffData(id):
 	staff_data["type"] = id
 	staff_data["name"] = first_name[randi()%first_name.size()] + last_name[randi()%last_name.size()]
 	staff_data["skill"] = randi()%1000 
-	staff_data["salary"] = calculateSalary(id, staff_data["skill"])
+	if id == 0:
+		staff_data["seniority"] = calculateSeniorityWithSkill(staff_data["skill"])
+		staff_data["specialities"] = randi()%4
+		staff_data["salary"] = calculateSalary(id, staff_data["skill"], staff_data["seniority"], staff_data["specialities"])
+	else:
+		staff_data["salary"] = calculateSalary(id, staff_data["skill"])
 	return staff_data
 
 func generateStaffIdAndDataArray():
@@ -58,10 +77,20 @@ func createPatientBody():
 	patient.add_to_group("Patients")
 	patient_array.clear()
 
-func calculateSalary(id, skill):
+func calculateSeniorityWithSkill(skill):
+	var seniority
+	if skill >= 1 && skill <= 249:
+		seniority = seniority_id.JUNIOR
+	elif skill >= 250 && skill <= 799:
+		seniority = seniority_id.DOCTOR
+	elif skill >= 800 && skill <= 1000:
+		seniority = seniority_id.CONSULTANT
+	return seniority
+
+func calculateSalary(id, skill, seniority=0, speciality=0):
 	var salary = 0
 	if id == 0:
-		salary = salary_tab[id][0] + skill/10
+		salary = salary_tab[id][seniority] + speciality_bonus_salary[speciality] + skill/10
 	else:
 		salary = salary_tab[id] + skill/10
 	return salary
