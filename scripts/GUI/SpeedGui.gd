@@ -1,18 +1,17 @@
 
-extends Panel
+extends OptionButton
 
 export(int, 0,4) var default_speed = 2
 onready var game = get_node("/root/Game")
-onready var selector = get_node("SpeedSelector")
 
 func _ready():
 	if !game.multiplayer:
-		selector.add_item(tr("TXT_SLOWEST"), 0)
-		selector.add_item(tr("TXT_SLOWER"), 1)
-		selector.add_item(tr("TXT_NORMAL"), 2)
-		selector.add_item(tr("TXT_MAX"), 3)
-		selector.add_item(tr("TXT_SOME_MORE"), 4)
-		selector.select(default_speed)
+		add_item(tr("TXT_SLOWEST"), 0)
+		add_item(tr("TXT_SLOWER"), 1)
+		add_item(tr("TXT_NORMAL"), 2)
+		add_item(tr("TXT_MAX"), 3)
+		add_item(tr("TXT_SOME_MORE"), 4)
+		select(default_speed)
 	else:
 		hide()
 
