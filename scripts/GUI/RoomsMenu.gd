@@ -39,15 +39,19 @@ func _on_Facilities_pressed():
 
 func on_type_rooms_buttons_pressed():
 	get_node("Rooms/Label").set_text("Pick Room Type")
-	for number_button in range(10):
-		get_node("Rooms/Button" + str(number_button)).set_text("")
+	clean_buttons()
 
 func _on_Cancel_pressed():
 	self.hide()
 
 func on_rooms_button_pressed():
 	self.hide()
+	clean_buttons()
 	confirm_build.show()
+
+func clean_buttons():
+	for number_button in range(10):
+		get_node("Rooms/Button" + str(number_button)).set_text("")
 
 func on_mouse_enter():
 	#get_node("Rooms/Cost").set_text("cost : " + rooms_ressources.type_selected.room.COST)
