@@ -14,7 +14,6 @@ func _on_Diagnostic_pressed():
 		get_node("Rooms/Button" + str(i)).set_text(rooms_ressources.diagnosis_rooms[room].NAME)
 		i += 1
 
-
 func _on_Treatment_pressed():
 	on_button_pressed()
 	var i = 0
@@ -46,11 +45,11 @@ func _on_Cancel_pressed():
 
 func _on_Button1_pressed():
 	get_node("/root/Game").scene.map.new_room("cancel", null)
-	get_node("/root/Game").scene.map.new_room("new", get_node("/root/Game").scene.map.ressources.psychiatric)
+	get_node("/root/Game").scene.map.new_room("new", rooms_ressources.diagnosis_rooms.gp_office)
 	get_node("Confirmation").show()
 
 
 func _on_Button0_pressed():
 	get_node("/root/Game").scene.map.new_room("cancel", null)
-	get_node("/root/Game").scene.map.new_room("new", get_node("/root/Game").scene.map.ressources.psychiatric)
+	get_node("/root/Game").scene.map.new_room("new", rooms_ressources.treatment_rooms.psychiatric)
 	get_node("Confirmation").show()
