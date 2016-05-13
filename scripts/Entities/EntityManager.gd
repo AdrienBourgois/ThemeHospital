@@ -78,7 +78,7 @@ func createPatientBody():
 	patient_array.clear()
 
 func calculateSeniorityWithSkill(skill):
-	var seniority
+	var seniority = 0
 	if skill >= 1 && skill <= 249:
 		seniority = seniority_id.JUNIOR
 	elif skill >= 250 && skill <= 799:
