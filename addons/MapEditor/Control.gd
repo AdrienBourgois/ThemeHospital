@@ -3,13 +3,14 @@ tool
 extends VBoxContainer
 
 var editor = null
+
 var new_button = Button.new()
 var label_x = Label.new()
 var label_y = Label.new()
 var spin_size_x = SpinBox.new()
 var spin_size_y = SpinBox.new()
-var zoom_slider = HSlider.new()
 
+var zoom_slider = HSlider.new()
 var decoration_brush = Button.new()
 var lobby_brush = Button.new()
 
