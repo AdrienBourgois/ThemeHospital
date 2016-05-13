@@ -104,16 +104,22 @@ func is_new_room_valid():
 
 func new_room(state, parameters):
 	if (state == "new"):
+		new_room_from = Vector2(-1,-1)
+		previous_current_selection = []
+		new_room_to = Vector2(-1,-1)
+		new_room_type = {}
+		
 		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
-			tile.get_node("StaticBody").connect("mouse_enter", tile, "hover_on", [colors.brown])
-			tile.get_node("StaticBody").connect("mouse_exit", tile, "hover_off")
+			tile.staticBody.connect("mouse_enter", tile, "hover_on", [colors.brown])
+			tile.staticBody.connect("mouse_exit", tile, "hover_off")
 
 	elif (state == "from"):
 		new_room_from = parameters
 		for tile in tiles:
-			tile.staticBody.connect("mouse_enter", tile, "_current_select")
+			tile.currently_create_room = true
+			tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
 
 	elif (state == "current"):
 		new_room_to = parameters
@@ -130,13 +136,20 @@ func new_room(state, parameters):
 		new_room_to = parameters
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
-			tile.staticBody.disconnect("mouse_enter", tile, "_current_select")
-			tile.get_node("StaticBody").disconnect("mouse_enter", tile, "hover_on")
-			tile.get_node("StaticBody").disconnect("mouse_exit", tile, "hover_off")
+			tile.staticBody.disconnect("mouse_exit", tile, "hover_off")
+			tile.currently_create_room = false
 	
 	elif (state == "cancel"):
 		for tile in tiles:
 			tile.hover_off()
+			tile.currently_create_room = false
+		if(new_room_to == Vector2(-1,-1)):
+			for tile in tiles:
+				tile.staticBody.disconnect("input_event", tile, "_input_event")
+				tile.staticBody.disconnect("mouse_exit", tile, "hover_off")
+		if(new_room_from == Vector2(-1,-1)):
+			for tile in tiles:
+				tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
 		new_room_from = Vector2(-1,-1)
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
@@ -154,4 +167,5 @@ func new_room(state, parameters):
 			new_room_type = {}
 		else:
 			print("New room is not valid !")
+			new_room("cancel", null)
 		

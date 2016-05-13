@@ -47,7 +47,6 @@ func _on_Cancel_pressed():
 
 func on_rooms_button_pressed():
 	self.hide()
-	map.new_room("cancel", null)
 	confirm_build.show()
 
 func on_mouse_enter():
