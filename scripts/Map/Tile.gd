@@ -15,12 +15,29 @@ var room_material = FixedMaterial.new()
 var wall_material = FixedMaterial.new()
 var hover_material = FixedMaterial.new()
 
+var signals_enabled = false
+var currently_create_room = false
+
 onready var staticBody = get_node("StaticBody")
+onready var hover = get_node("Hover")
+onready var stats = {}
 
 func _ready():
 	get_node("StaticBody/Quad").set_material_override(room_material)
-	get_node("Hover").set_material_override(hover_material)
-	get_node("Hover").hide()
+	staticBody.connect("mouse_enter", self, "update_cursor_pos")
+	hover.set_material_override(hover_material)
+	hover.hide()
+
+func createStatsDict():
+	stats = {
+	X = x,
+	Y = y,
+	ROOM_TYPE = room_type
+	}
+	return stats
+
+func resetStatsDict():
+	stats.clear()
 
 func create(_x, _y, _type):
 	set_name("Tile-" + str(_x) + "." + str(_y))
@@ -56,13 +73,15 @@ func update_cursor_pos():
 	var translation = get_translation()
 	var quad_size = get_node("StaticBody/Quad").get_size()
 	get_parent().center_tile_on_cursor = Vector2((quad_size.x / 2) + translation.x, (quad_size.y / 2) + translation.z)
+	if (currently_create_room):
+		get_parent().new_room("current", get_parent().tile_on_cursor)
 
 func hover_on(color):
 	hover_material.set_parameter(0, color)
-	get_node("Hover").show()
+	hover.show()
 
 func hover_off():
-	get_node("Hover").hide()
+	hover.hide()
 
 func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click")):

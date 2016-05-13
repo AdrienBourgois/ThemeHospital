@@ -18,7 +18,6 @@ func _on_BackToMenu_pressed():
 	saver.gamescn = null
 	checkForMultiplayerGame()
 	game.goToScene("res://scenes/GUI/MainMenu.scn")
-	game.goToScene("res://scenes/GUI/MainMenu.scn")
 
 func checkForMultiplayerGame():
 	if (game.multiplayer):

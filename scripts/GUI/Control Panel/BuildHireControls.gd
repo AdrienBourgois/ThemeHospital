@@ -4,7 +4,11 @@ extends Control
 onready var control_panel = get_parent()
 onready var buttons = get_node("Buttons")
 
-onready var staff_gui = get_node("../../../Staff_gui")
+onready var rooms_menu = get_node("../../RoomsMenu")
+onready var corridor_items_menu = get_node("../../CorridorItemsMenu")
+onready var staff_gui = get_node("../../Staff_gui")
+
+var window_opened = false
 
 func _ready():
 	for idx in buttons.get_children():
@@ -12,3 +16,11 @@ func _ready():
 
 func _on_Hire_pressed():
 	staff_gui.show()
+
+func _on_Build_pressed():
+	rooms_menu.set_hidden(not rooms_menu.is_hidden())
+
+func _on_Corridor_items_pressed():
+	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
+	if (!corridor_items_menu.is_hidden()):
+		window_opened = true
