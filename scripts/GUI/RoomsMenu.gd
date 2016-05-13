@@ -1,5 +1,7 @@
 extends Panel
 
+onready var confirm_node = get_node("Confirmation")
+
 func _ready():
 	pass
 
@@ -24,3 +26,4 @@ func _on_Cancel_pressed():
 
 func _on_1stButton_pressed():
 	get_node("/root/Game").scene.map.new_room("new", get_node("/root/Game").scene.map.ressources.psychiatric)
+	get_node("Confirmation").show()

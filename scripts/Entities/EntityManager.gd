@@ -33,7 +33,6 @@ func generateStaffData(id):
 	staff_data["name"] = first_name[randi()%first_name.size()] + last_name[randi()%last_name.size()]
 	staff_data["skill"] = randi()%1000 
 	staff_data["salary"] = calculateSalary(id, staff_data["skill"])
-	print(staff_data)
 	return staff_data
 
 func generateStaffIdAndDataArray():

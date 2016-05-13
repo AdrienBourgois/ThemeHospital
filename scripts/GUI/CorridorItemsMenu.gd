@@ -44,11 +44,14 @@ func countString(value):
 	var count_string = "Count : " + str(value)
 
 func _on_Accept_pressed():
+	var array_idx = 0
 	updateValues()
 	for current in items_count_array:
 		while (current > 0):
-			print("TAMERE")
 			current -= 1
+			var node = drinkscn.instance()
+			add_child(node)
+		array_idx += 1
 	resetvalues()
 	self.hide()
 
