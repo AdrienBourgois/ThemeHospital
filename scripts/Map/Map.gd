@@ -3,9 +3,13 @@ extends Node
 var columns = []
 var tiles = []
 var rooms = []
+var rooms_data = []
+var tiles_data = []
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
+onready var stats = {}
+onready var path
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
@@ -21,7 +25,20 @@ var center_tile_on_cursor = Vector2(-1, -1)
 func _ready():
 	create_map("res://Maps/Map1.lvl")
 
+func createStatsDict():
+	for current in tiles:
+		tiles_data.append(current.createStatsDict())
+	stats = {
+	FILE_PATH = path,
+	TILES = tiles_data
+	}
+	return stats
+
+func resetStatsDict():
+	stats.clear()
+
 func create_map(file_path):
+	path = file_path
 	var file = File.new()
 	file.open(file_path, File.READ)
 	
@@ -168,4 +185,4 @@ func new_room(state, parameters):
 		else:
 			print("New room is not valid !")
 			new_room("cancel", null)
-		
+			

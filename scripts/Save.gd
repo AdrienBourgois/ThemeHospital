@@ -4,6 +4,7 @@ extends Node
 onready var game = get_node("/root/Game")
 var gamescn setget setGamescn
 onready var dir = game.dir
+onready var map
 onready var saves_path = "res://saves/"
 onready var path = "res://saves/"
 onready var filename
@@ -49,8 +50,11 @@ func storeData():
 	gamescn.player.resetStatsDict()
 
 func createSaveDict():
+	if (!map):
+		map = gamescn.map
 	save_dict = {
 	PLAYER = gamescn.player.createStatsDict(),
+	MAP = map.createStatsDict(),
 	CALENDAR = gamescn.calendar.createStatsDict()
 	}
 	return save_dict

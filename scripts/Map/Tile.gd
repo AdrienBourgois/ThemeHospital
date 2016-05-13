@@ -20,12 +20,24 @@ var currently_create_room = false
 
 onready var staticBody = get_node("StaticBody")
 onready var hover = get_node("Hover")
+onready var stats = {}
 
 func _ready():
 	get_node("StaticBody/Quad").set_material_override(room_material)
 	staticBody.connect("mouse_enter", self, "update_cursor_pos")
 	hover.set_material_override(hover_material)
 	hover.hide()
+
+func createStatsDict():
+	stats = {
+	X = x,
+	Y = y,
+	ROOM_TYPE = room_type
+	}
+	return stats
+
+func resetStatsDict():
+	stats.clear()
 
 func create(_x, _y, _type):
 	set_name("Tile-" + str(_x) + "." + str(_y))
