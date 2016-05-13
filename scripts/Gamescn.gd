@@ -7,10 +7,11 @@ onready var loader = get_node("/root/Load")
 onready var player = get_node("Player")
 onready var objectives = get_node("Objectives")
 onready var calendar = get_node("Calendar")
-onready var in_game_gui = preload("res://scenes/GUI/InGameGui.scn")
+onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
+var in_game_gui
 
 export var map_size = Vector2(0, 0)
 
@@ -34,8 +35,8 @@ func init():
 	initInGameGui()
 
 func initInGameGui():
-	var scn = in_game_gui.instance()
-	add_child(scn)
+	in_game_gui = in_game_gui_res.instance()
+	add_child(in_game_gui)
 	initObjectives()
 
 func initObjectives():
