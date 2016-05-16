@@ -102,7 +102,6 @@ var pavement = {
 	"RESSOURCES": {}
 }
 
-
 var diagnosis_rooms = {
 	"GP_OFFICE": gp_office,
 	"GENERAL_DIAGNOSIS": general_diagnosis
@@ -125,5 +124,18 @@ var facilities = {
 
 var decorations = {
 	"GRASS": grass,
-	"PAVEMENT": pavement 
+	"PAVEMENT": pavement
 }
+
+var type_rooms = {
+	"FACILITIES": facilities,
+	"DIAGNOSIS": diagnosis_rooms,
+	"TREATMENT": treatment_rooms,
+	"CLINICS": clinics,
+}
+
+func get_rooms_by_type(type):
+	var rooms = []
+	for room in type:
+		rooms.append(type[room])
+	return rooms
