@@ -90,6 +90,8 @@ func parseGame():
 		updateLobbyData()
 	elif (packet_id == "5"):
 		updateMapRoom()
+	elif (packet_id == "6"):
+		updateMapItems()
 
 
 func playerIdPacket(): #Packet 0
@@ -130,24 +132,32 @@ func updateLobbyData(): #Packet 4
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
 
-func updateMapRoom(): #Packet 5
-	var state = tmpData[2]
-	var parameters = tmpData[3]
+func updateMapRoom():
+	var room_from = Vector2(tmpData[2], tmpData[3])
+	var room_to = Vector2(tmpData[4], tmpData[5])
+	var room_id = tmpData[6].to_int()
 	
 	if (current_parsing.server):
-		global_server.addPacket("/game 5 " + state + " " + parameters)
+		global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
 	elif (current_parsing.client):
-		var x = 0
-		var y = 0
-		for character in range ( tmpData[3].length() ):
-			if ( tmpData[3][character] == ","):
-				x = int(tmpData[3].substr(0, character))
-				y = int(tmpData[3].substr(character, tmpData[3].length()))
 		var root = get_tree().get_current_scene()
 		if (root != null && root.get_name() == "GameScene"):
 			var map = root.get_child(1)
 			if (map.get_name() == "Map"):
-				map.new_room(state, Vector2(x,y))
+				map.new_room("new", map.getResources().getRoomFromId(room_id))
+				map.new_room("from", room_from)
+				map.new_room("current", room_to)
+				map.new_room("to", room_to)
+				map.new_room("create", null)
+
+func updateMapItems():
+	if (current_parsing.server):
+		global_server.addPacket("/game 6 " + tmpData[2] + " " + tmpData[3])
+	else:
+		var corridor = get_tree().get_current_scene().get_node("./In_game_gui/HUD/CorridorItemsMenu")
+		var node = ResourceLoader.load("res://scenes/Entities/Objects/Object.scn").instance()
+		corridor.add_child(node)
+		node.setMultiplayer(tmpData[2].to_int(), tmpData[3].to_int())
 
 
 func setNickname():
