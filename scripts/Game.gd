@@ -11,6 +11,7 @@ onready var config = {}
 onready var preloader = preload("res://scenes/LoadingScreen.scn")
 var loader
 onready var default_config = {
+username = "Default",
 res_x = 1024,
 res_y = 600,
 fullscreen = false,
