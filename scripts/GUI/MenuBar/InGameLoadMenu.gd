@@ -23,7 +23,7 @@ func loadGame(idx):
 	loader.loadPlayer(idx)
 	game.goToScene("res://scenes/gamescn.scn")
 
-func _on_SaveButton_pressed():
+func _on_LoadButton_pressed():
 	load_location.show()
 
 func _on_mouse_enter():
