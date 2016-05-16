@@ -22,6 +22,8 @@ func _on_Less_pressed():
 
 func _on_More_pressed():
 	value += 1
+	if (value > 5):
+		value = 5
 	update()
 
 func setValue(val):
