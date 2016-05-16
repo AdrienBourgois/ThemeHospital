@@ -67,6 +67,16 @@ SAVE_5, Save 5, Sauvegarde 5
 SAVE_6, Save 6, Sauvegarde 6
 SAVE_7, Save 7, Sauvegarde 7
 SAVE_8, Save 8, Sauvegarde 8
+LOAD, Load, Charger
+LOAD_1, Save 1, Sauvegarde 1
+LOAD_2, Save 2, Sauvegarde 2
+LOAD_3, Save 3, Sauvegarde 3
+LOAD_4, Save 4, Sauvegarde 4
+LOAD_5, Save 5, Sauvegarde 5
+LOAD_6, Save 6, Sauvegarde 6
+LOAD_7, Save 7, Sauvegarde 7
+LOAD_8, Save 8, Sauvegarde 8
+LOAD_AUTO, Auto save, Sauvegarde automatique
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
