@@ -4,6 +4,7 @@ extends Control
 onready var game = get_node("/root/Game")
 onready var save_location = get_node("SaveLocation")
 onready var saver = get_node("/root/Save")
+onready var saving_game = get_node("SavingGameGUI")
 
 func _ready():
 	if !game.multiplayer:
@@ -17,8 +18,11 @@ func _on_SaveButton_pressed():
 	save_location.show()
 
 func save(idx):
+	saving_game.show()
+	saving_game.showSaving()
 	saver.savePlayer(idx)
 	save_location.hide()
+	saving_game.showComplete()
 
 func _on_Save_pressed():
 	var count = 1
