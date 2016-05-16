@@ -92,6 +92,8 @@ func parseGame():
 		updateMapRoom()
 	elif (packet_id == "6"):
 		updateMapItems()
+	elif (packet_id == "7"):
+		kickedFromServer()
 
 
 func playerIdPacket(): #Packet 0
@@ -132,7 +134,7 @@ func updateLobbyData(): #Packet 4
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
 
-func updateMapRoom():
+func updateMapRoom(): #Packet 5
 	var room_from = Vector2(tmpData[2], tmpData[3])
 	var room_to = Vector2(tmpData[4], tmpData[5])
 	var room_id = tmpData[6].to_int()
@@ -150,7 +152,7 @@ func updateMapRoom():
 				map.new_room("to", room_to)
 				map.new_room("create", null)
 
-func updateMapItems():
+func updateMapItems(): #Packet 6
 	if (current_parsing.server):
 		global_server.addPacket("/game 6 " + tmpData[2] + " " + tmpData[3])
 	else:
@@ -159,8 +161,15 @@ func updateMapItems():
 		corridor.add_child(node)
 		node.setMultiplayer(tmpData[2].to_int(), tmpData[3].to_int())
 
+func kickedFromServer(): #Packet 7
+	if ( current_parsing.client ):
+		get_node("/root/GlobalClient").disconnectFromServer()
+		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
+		scene.displayKickedFromServer()
+		get_tree().get_current_scene().add_child(scene, true)
 
-func setNickname():
+
+func setNickname(): 
 	if ( current_parsing.server ):
 		var nickname = tmpData[1]
 		global_server.setNickname(current_player_id, nickname)
@@ -191,7 +200,7 @@ func parseInfo():
 		else:
 			info += tmpData[word] + " "
 	
-	info += "\n"
+	info += "\n" 
 	
 	global_client.addMessage(info)
 
