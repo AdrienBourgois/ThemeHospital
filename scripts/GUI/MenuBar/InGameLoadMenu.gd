@@ -7,10 +7,12 @@ onready var loader = get_node("/root/Load")
 
 func _ready():
 	var count = 1
-	if !game.multiplayer:
+	if !game.multiplayer && loader.checkPlayerFolder():
 		for idx in load_location.get_children():
 			idx.connect("mouse_enter", self, "_on_mouse_enter")
 			idx.connect("mouse_exit", self, "_on_mouse_exit")
+			if loader.checkPlayerFile(count):
+				idx.set_disabled(false)
 			count += 1
 	else:
 		hide()
