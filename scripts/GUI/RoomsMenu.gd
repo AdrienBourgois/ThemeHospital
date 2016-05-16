@@ -39,7 +39,6 @@ func rooms_pressed(room):
 	if (is_type_selected == true):
 		confirm_build.show()
 		self.hide()
-	print("ROOMS")
 	var i = 0
 	for button in get_node("Rooms").get_children():
 		get_node("Rooms/Button" + str(i)).disconnect("pressed", self, "rooms_pressed")
