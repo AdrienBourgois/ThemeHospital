@@ -47,10 +47,11 @@ func checkSocketStatus():
 		
 		return true
 	elif (connection_status == StreamPeerTCP.STATUS_CONNECTING):
-		var dialog = get_tree().get_current_scene().get_node("./panel/Control/invalid_server")
+		var control = get_tree().get_current_scene().get_node("./panel/Control")
 		
-		if ( dialog != null ):
-			dialog.set_hidden(false)
+		if ( control != null && !control.is_visible() ):
+			control.set_hidden(false)
+			control.get_node("connecting_to_server").set_hidden(false)
 		
 		return false
 	else:
