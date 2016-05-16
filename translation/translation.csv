@@ -56,6 +56,8 @@ TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
+TXT_SAVING, Saving game..., Sauvegarde en cours...
+TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
