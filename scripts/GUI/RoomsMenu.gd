@@ -16,8 +16,6 @@ func _ready():
 	for room in rooms_types:
 		if (buttons[i].is_connected("pressed", self, "type_rooms_pressed") == true):
 			buttons[i].disconnect("pressed", self, "type_rooms_pressed")
-		print("TESSSSSSST : " , rooms_types)
-		print("ROOM : ", room)
 		buttons[i].connect("pressed", self, "type_rooms_pressed", [rooms_types[room]])
 		i += 1
 
@@ -40,6 +38,7 @@ func rooms_pressed(room):
 	if (is_type_selected == true):
 		confirm_build.show()
 		self.hide()
+	print("ROOMS")
 	var i = 0
 	for button in get_node("Rooms").get_children():
 		get_node("Rooms/Button" + str(i)).disconnect("pressed", self, "rooms_pressed")
@@ -52,8 +51,10 @@ func type_rooms_pressed(type):
 	clean_buttons()
 	var i = 0
 	print("type : ", type)
-	for room in rooms_ressources.get_rooms_by_type(rooms_ressources.type):
-		get_node("Rooms/Button" + str(i)).set_text(room.NAME)
-		get_node("Rooms/Button" + str(i)).connect("pressed", self, "type_rooms_pressed", [type])
+	for room in rooms_ressources.get_rooms_by_type(type):
+		print("room func : ", room)
+		print("TEST 1 : ", rooms_ressources.type_rooms)
+		get_node("Rooms/Button" + str(i)).set_text(rooms_ressources.type_rooms[type.NAME])
+		get_node("Rooms/Button" + str(i)).connect("pressed", self, "rooms_pressed", [type])
 		i += 1
 	is_type_selected = true

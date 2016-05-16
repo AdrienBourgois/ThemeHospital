@@ -102,13 +102,6 @@ var pavement = {
 	"RESSOURCES": {}
 }
 
-var type_rooms = {
-	"DIAGNOSIS": diagnosis_rooms,
-	"TREATMENT": treatment_rooms,
-	"CLINICS": clinics,
-	"FACILITIES": facilities
-}
-
 var diagnosis_rooms = {
 	"GP_OFFICE": gp_office,
 	"GENERAL_DIAGNOSIS": general_diagnosis
@@ -132,6 +125,13 @@ var facilities = {
 var decorations = {
 	"GRASS": grass,
 	"PAVEMENT": pavement
+}
+
+var type_rooms = {
+	"FACILITIES": facilities,
+	"DIAGNOSIS": diagnosis_rooms,
+	"TREATMENT": treatment_rooms,
+	"CLINICS": clinics,
 }
 
 func get_rooms_by_type(type):
