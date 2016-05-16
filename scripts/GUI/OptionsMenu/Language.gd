@@ -3,7 +3,7 @@ extends MenuButton
 
 onready var game = get_node("/root/Game")
 onready var language_button = get_node("./LanguageOptionButton")
-onready var options_menu = get_tree().get_current_scene()
+onready var options_menu = get_node("../..")
 
 var language = ["fr", "en"]
 

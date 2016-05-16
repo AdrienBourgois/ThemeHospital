@@ -34,18 +34,11 @@ func checkInputEvent( ev ):
 
 
 func checkValidIpAddress():
-	var count = 0
+	var ip_address = ip_address_node.get_text()
 	
-	if ( ip_address_node.get_text().empty() ):
+	if ( ip_address.empty() || !ip_address.is_valid_ip_address() ):
 		control_node.set_hidden(false)
-		return false
-	
-	for character in range ( ip_address_node.get_text().length() ):
-		if (ip_address_node.get_text()[character] == '.' ):
-			count += 1
-	
-	if (count != 3):
-		control_node.set_hidden(false)
+		control_node.get_node("invalid_server").set_hidden(false)
 		return false
 	
 	return true
