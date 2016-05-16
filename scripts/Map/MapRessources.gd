@@ -128,10 +128,10 @@ var decorations = {
 }
 
 var type_rooms = {
-	"FACILITIES": facilities,
-	"DIAGNOSIS": diagnosis_rooms,
 	"TREATMENT": treatment_rooms,
+	"FACILITIES": facilities,
 	"CLINICS": clinics,
+	"DIAGNOSIS": diagnosis_rooms
 }
 
 func get_rooms_by_type(type):
