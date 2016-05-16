@@ -6,12 +6,20 @@ onready var load_location = get_node("LoadLocation")
 onready var loader = get_node("/root/Load")
 
 func _ready():
+	var count = 1
 	if !game.multiplayer:
 		for idx in load_location.get_children():
 			idx.connect("mouse_enter", self, "_on_mouse_enter")
 			idx.connect("mouse_exit", self, "_on_mouse_exit")
+			count += 1
 	else:
 		hide()
+
+func loadGame(idx):
+	game.save_to_load = idx
+	game.new_game = false
+	loader.loadPlayer(idx)
+	game.goToScene("res://scenes/gamescn.scn")
 
 func _on_SaveButton_pressed():
 	load_location.show()
@@ -21,3 +29,14 @@ func _on_mouse_enter():
 
 func _on_mouse_exit():
 	load_location.hide()
+
+func _on_Load_pressed():
+	var count = 1
+	for idx in load_location.get_children():
+		if idx.is_pressed():
+			loadGame(count)
+			return
+		count += 1
+
+func _on_Load_auto_pressed():
+	loadGame(10)

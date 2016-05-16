@@ -64,8 +64,8 @@ func setFilename(save_number):
 		filename = "save_" + str(save_number) + ".json"
 		savename = "Save " + str(save_number)
 
-func checkPlayerFolder():
-	if gamescn:
+func checkPlayerFolder(load_menu = false):
+	if !load_menu:
 		gamescn.player.createStatsDict()
 		folder_path = saves_path + game.username + '/'
 		gamescn.player.resetStatsDict()
