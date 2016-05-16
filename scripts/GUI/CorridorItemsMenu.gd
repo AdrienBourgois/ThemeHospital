@@ -2,6 +2,7 @@
 extends Control
 
 onready var gamescn = get_node("/root/Game").scene
+onready var player = gamescn.player
 
 onready var panel = get_node("Panel")
 onready var bench = panel.get_node("Bench")
@@ -53,6 +54,7 @@ func _on_Accept_pressed():
 	for current in items_count_array:
 		while (current > 0):
 			var node = objectscn.instance()
+			player.money -= node.price
 			if (!node.get_owner()):
 				add_child(node)
 			current -= 1
