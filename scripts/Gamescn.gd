@@ -11,6 +11,7 @@ onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
+onready var saving_game = get_node("SavingGameGUI")
 var in_game_gui
 
 export var map_size = Vector2(0, 0)
@@ -24,8 +25,10 @@ func _ready():
 	set_process(true)
 
 func _input(event):
-	if (event.is_action_released("ui_accept")):
+	if (event.is_action_released("save")):
+		saving_game.show()
 		saver.quicksave()
+		saving_game.showComplete()
  
 func init():
 	if !game.new_game:

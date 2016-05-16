@@ -57,6 +57,8 @@ TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
 TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
+TXT_SAVING, Saving game..., Sauvegarde en cours...
+TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
