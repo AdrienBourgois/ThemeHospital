@@ -5,9 +5,10 @@ var tiles = []
 var rooms = []
 var rooms_data = []
 var tiles_data = []
+onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
-onready var ressources = preload("res://scripts/Map/MapRessources.gd").new()
+onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
 onready var stats = {}
 onready var path
 
@@ -166,7 +167,7 @@ func new_room(state, parameters):
 				tile.staticBody.disconnect("mouse_exit", tile, "hover_off")
 		if(new_room_from == Vector2(-1,-1)):
 			for tile in tiles:
-				tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
+				tile.staticBodyvi.disconnect("mouse_enter", tile, "hover_on")
 		new_room_from = Vector2(-1,-1)
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
@@ -185,4 +186,10 @@ func new_room(state, parameters):
 		else:
 			print("New room is not valid !")
 			new_room("cancel", null)
-			
+
+func sendRoomToServer():
+	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
+	global_client.addPacket(packet)
+
+func getResources():
+	return ressources
