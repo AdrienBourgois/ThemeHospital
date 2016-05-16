@@ -24,7 +24,7 @@ func _ready():
 	set_process(true)
 
 func _input(event):
-	if (event.is_action_released("ui_accept")):
+	if (event.is_action_released("save")):
 		saver.quicksave()
  
 func init():
