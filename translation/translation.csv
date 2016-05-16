@@ -14,11 +14,14 @@ TXT_CHAT,Chat:,Chat:
 TXT_NICKNAME_TAKEN,Nickname already taken,Ce pseudo est deja pris
 TXT_NEW_NICKNAME,Please choose a new one,Choisissez-en un autre:
 TXT_WARNING,Warning !,Attention !
+TXT_WARNING_CONNECTING, Connection to server ..., Connexion au serveur ...
 TXT_SERVER_UNAVAILABLE,Server is no longer available,Le serveur n'est plus disponible
 TXT_REDIRECT,You're going to be redirected to main menu,Retour au menu principal
 TXT_INVALID_NICKNAME,Invalid nickname,Pseudo invalide
 TXT_MINIMUM_CHARACTER,Your nickname must contain at least 1 character,Votre pseudo doit contenir au moins 1 caractere
 TXT_CONNECT_SERVER,Connecting to server. Please wait ...,Connection au serveur en cours. Veuillez patienter...
+TXT_INVALID_SERVER,Couldn't connect to server,Connection impossible
+TXT_CHECK_IP,Please check the IP address and the port you entered are valid,Veuillez verfier que l'adresse IP et le port sont valides
 TXT_CLICK_CANCEL,Click to cancel,Cliquez pour annuler
 TXT_INFO,Information,Information
 TXT_SELECTING_MAP,The host is choosing a map,L'hote choisit une carte
@@ -49,7 +52,7 @@ TXT_EDIT, Edit, Editer
 TXT_BENCH, Bench, Banc
 TXT_PLANT, Plant, Plante
 TXT_RADIATOR, Radiator, Radiateur
-TXT_DRINK, Drink Machine, Distributeur de boisson
+TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
