@@ -1,5 +1,19 @@
 extends Node
 
+func getRoomFromId(id):
+	if (id == 0):
+		return lobby
+	elif (id == 1):
+		return gp_office
+	elif (id == 2):
+		return general_diagnosis
+	elif (id == 10):
+		return psychiatric
+	elif (id == 11):
+		return pharmacy
+	else:
+		print("Bonsoir monsieur")
+
 var lobby = { 
 	"ID": 0,
 	"NAME": "lobby",
@@ -128,10 +142,10 @@ var decorations = {
 }
 
 var type_rooms = {
-	"FACILITIES": facilities,
-	"DIAGNOSIS": diagnosis_rooms,
 	"TREATMENT": treatment_rooms,
+	"FACILITIES": facilities,
 	"CLINICS": clinics,
+	"DIAGNOSIS": diagnosis_rooms
 }
 
 func get_rooms_by_type(type):

@@ -2,6 +2,7 @@ extends Panel
 
 var map
 onready var node_rooms_menu = get_node("../RoomsMenu")
+onready var game = get_node("/root/Game")
 
 func _ready():
 	map = get_node("/root/Game").scene.map
@@ -13,6 +14,10 @@ func _on_Cancel_pressed():
 	node_rooms_menu.is_type_selected = false
 
 func _on_Accept_pressed():
-	map.new_room("create", null)
+	if (game.getMultiplayer()):
+		map.sendRoomToServer()
+	else:
+		map.new_room("create", null)
+	
 	self.hide()
 	node_rooms_menu.is_type_selected = false
