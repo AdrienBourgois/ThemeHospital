@@ -74,8 +74,8 @@ func kickPlayer(player_id):
 	for player in range ( player_data.size() ):
 		if (player_data[player] != null && player_id == player_data[player][3]):
 			sendInfo(player_data[player][2] + " MSG_KICKED") 
-			player_data.remove(player)
-			
+			sendTargetedPacket(player_data[player][3], "/game 7")
+			player_data[player][5] = true
 			updateServerData()
 			return
 
@@ -83,7 +83,8 @@ func kickPlayer(player_id):
 func checkForDisconnection():
 	for player in range ( player_data.size() ):
 		if ( !player_data[player][0].is_connected() ):
-			sendInfo(player_data[player][2] + " MSG_LEFT")
+			if ( !player_data[player][5] ):
+				sendInfo(player_data[player][2] + " MSG_LEFT")
 			player_data.remove(player)
 			
 			updateServerData()
@@ -119,6 +120,7 @@ func createClientData(clientObject, clientPeerstream):
 	player.push_back(clientPeerstream)
 	player.push_back("Client " + str(current_available_id))
 	player.push_back(current_available_id)
+	player.push_back(false)
 	player.push_back(false)
 	player_data.push_back(player)
 	
