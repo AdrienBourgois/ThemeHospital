@@ -25,16 +25,10 @@ func _ready():
 	set_process(true)
 
 func _input(event):
-<<<<<<< HEAD
-	pass
-#	if (event.is_action_released("save")):
-#		saver.quicksave()
-=======
 	if (event.is_action_released("save")):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
->>>>>>> 6ea42e17593f04c4104403675032d20934b10e69
  
 func init():
 	if !game.new_game:
