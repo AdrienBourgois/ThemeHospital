@@ -41,9 +41,9 @@ func _init(_x, _y, _editor):
 	node2d.set_scale(Vector2(zoom,zoom))
 	add_child(node2d)
 	node2d.connect("draw", self, "draw_map")
-	editor.control.zoom_slider.set_val(zoom)
 	
 	set_process_input(true)
+	print("Node for map initialized !")
 
 func _input(event):
 	if ((event.type == InputEvent.MOUSE_MOTION) or (event.type == InputEvent.MOUSE_BUTTON)):
@@ -63,7 +63,6 @@ func _input(event):
 				node2d.update()
 
 func draw_map():
-	print("Draw_map")
 	for tile in tiles:
 		if(tile.type == "Null"):
 			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(1,1,1))
