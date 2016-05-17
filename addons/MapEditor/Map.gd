@@ -13,6 +13,9 @@ var current_tile = Vector2(-1,-1)
 var current_color = Color(0,0,0)
 var painting = false
 
+var square_from = Vector2(-1,-1)
+var square_to = Vector2(-1,-1)
+
 const tile_type = {"Decoration":0, "Lobby":1}
 
 class Tile:
@@ -62,8 +65,19 @@ func _input(event):
 			current_tile = Vector2(-1,-1)
 		if (event.is_action_pressed("left_click")):
 			painting = true
-		if (event.is_action_released("left_click")):
+		elif (event.is_action_released("left_click")):
 			painting = false
+		elif (event.is_action_pressed("right_click")):
+			if (square_from == Vector2(-1,-1)):
+				square_from = current_tile
+				change_tile(square_from.x, square_from.y)
+			else:
+				square_to = current_tile
+				for tile in get_list(square_from, square_to):
+					tile.type = editor.current_brush
+				node2d.update()
+				square_from = Vector2(-1,-1)
+				square_to = Vector2(-1,-1)
 		if(painting):
 			if(current_tile != Vector2(-1,-1)):
 				change_tile(current_tile.x, current_tile.y)
@@ -89,3 +103,21 @@ func is_valid():
 		if (tile.type == "Lobby"):
 			return true
 	return false
+
+func get_list(from, to):
+	if (from > to):
+		var swap_tmp = from
+		from = to
+		to = swap_tmp
+	
+	var selection = []
+	if(from.y > to.y):
+		for tile in tiles:
+			if ((tile.x >= from.x && tile.x <= to.x) && (tile.y <= from.y && tile.y >= to.y)):
+				selection.append(tile)
+	else:
+		for tile in tiles:
+			if ((tile.x >= from.x && tile.x <= to.x) && (tile.y >= from.y && tile.y <= to.y)):
+				selection.append(tile)
+	
+	return selection
