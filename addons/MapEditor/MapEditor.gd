@@ -7,7 +7,7 @@ const Map = preload("res://addons/MapEditor/Map.gd")
 var control = null
 var current_map = null
 
-var current_brush = null
+var current_brush = "Decoration"
 
 func _enter_tree():
 	control = EditorControl.new(self)
