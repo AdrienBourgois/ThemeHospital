@@ -60,6 +60,9 @@ TXT_SPEED,Speed : ,Vitesse :
 TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
 TXT_SAVING, Saving game..., Sauvegarde en cours...
 TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
+TXT_CHAT_SETTINGS,Chat settings,Options du tchat
+TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
+TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -110,6 +113,8 @@ BTN_DISCONNECT,Disconnect server,Se deconnecter
 BTN_CONFIRM,Confirm,Confirmer
 BTN_CANCEL,Cancel,Annuler
 BTN_GO,Go!,Pret!
+BTN_MOVE_CHAT,Move chat,Deplacer le tchat
+BTN_MUTE,Mute,Rendre muet
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
