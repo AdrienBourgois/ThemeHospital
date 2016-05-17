@@ -14,7 +14,6 @@ onready var child_count = get_parent().get_child_count()
 func _ready():
 	get_node("Timer").start()
 	count = 0
-	pass
 
 func checkGlobalTemperature():
 	if warmth > 0:
@@ -34,7 +33,6 @@ func checkThirsty():
 	if thirsty > 0:
 		thirsty -= 2
 	if thirsty <= 20:
-		print(count)
 		calculateHappiness(false)
 		if machine == true:
 			thirsty += 50

@@ -38,10 +38,6 @@ func rooms_pressed(room):
 	if (is_type_selected == true):
 		confirm_build.show()
 		self.hide()
-	var i = 0
-	for button in get_node("Rooms").get_children():
-		get_node("Rooms/Button" + str(i)).disconnect("pressed", self, "rooms_pressed")
-		i += 1
 	if (is_type_selected == true):
 		map.new_room("new", room)
 
@@ -53,6 +49,6 @@ func type_rooms_pressed(type):
 		if get_node("Rooms/Button" + str(i)).is_connected("pressed", self, "rooms_pressed"):
 			get_node("Rooms/Button" + str(i)).disconnect("pressed", self, "rooms_pressed")
 		get_node("Rooms/Button" + str(i)).set_text(rooms)
-		get_node("Rooms/Button" + str(i)).connect("pressed", self, "rooms_pressed", [rooms])
+		get_node("Rooms/Button" + str(i)).connect("pressed", self, "rooms_pressed",[type[rooms]])
 		i += 1
 	is_type_selected = true
