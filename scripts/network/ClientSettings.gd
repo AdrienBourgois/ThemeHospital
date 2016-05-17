@@ -6,10 +6,17 @@ onready var ip_address_node = get_node("./panel/combo_box/ip_address_line_edit")
 onready var nickname_node = get_node("./panel/combo_box/nickname_line_edit")
 onready var global_client = get_node("/root/GlobalClient")
 onready var control_node = get_node("panel/Control")
+onready var connecting_popup = control_node.get_node("connecting_to_server")
+onready var invalid_popup = control_node.get_node("invalid_server")
 onready var game = get_node("/root/Game")
+onready var timer = get_node("./timer")
+onready var timer_label = control_node.get_node("connecting_to_server/timer_label")
 
 func _ready():
 	setUsername()
+
+func _process(delta):
+	updateTimer()
 
 func _on_join_server_button_pressed():
 	if (port_node == null || ip_address_node == null):
@@ -71,8 +78,24 @@ func _on_Control_visibility_changed():
 func _on_invalid_server_confirmed():
 	global_client.disconnectFromServer()
 	control_node.set_hidden(true)
+	connecting_popup.set_hidden(true)
+	invalid_popup.set_hidden(true)
+	
 
 
 func setUsername():
 	if (game != null):
 		nickname_node.set_text(game.getUsername())
+
+func _on_connecting_to_server_visibility_changed():
+	timer.start()
+	set_process(true)
+
+
+func _on_timer_timeout():
+	_on_invalid_server_confirmed()
+	set_process(false)
+
+func updateTimer():
+	var time_left = int(timer.get_time_left())
+	timer_label.set_text(str(time_left))
