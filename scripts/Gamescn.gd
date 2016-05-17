@@ -32,16 +32,15 @@ func _input(event):
 		saving_game.showComplete()
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
-		pass
  
 func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
 		game.new_game = true
 	hire_manager.setStaffArray(entity_manager.staff_array)
-	initInGameGui()
 	if ( game.getMultiplayer() ):
 		initInGameChat()
+	initInGameGui()
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
