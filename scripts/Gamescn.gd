@@ -12,6 +12,7 @@ onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
 onready var saving_game = get_node("SavingGameGUI")
+onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 var in_game_gui
 
 export var map_size = Vector2(0, 0)
@@ -29,6 +30,9 @@ func _input(event):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
+	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
+		in_game_chat.toggleVisibility()
+		pass
  
 func init():
 	if !game.new_game:
@@ -36,6 +40,9 @@ func init():
 		game.new_game = true
 	hire_manager.setStaffArray(entity_manager.staff_array)
 	initInGameGui()
+	if ( game.getMultiplayer() ):
+		initInGameChat()
+	game.feedback.display("TUTO_MOVE_CAM")
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
@@ -45,3 +52,7 @@ func initInGameGui():
 func initObjectives():
 	objectives.linkToGui()
 	player.initObjectives()
+
+func initInGameChat():
+	in_game_chat = in_game_chat.instance()
+	add_child(in_game_chat)

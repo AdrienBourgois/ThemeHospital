@@ -55,4 +55,3 @@ func _on_Timer_timeout():
 	
 	if count == 5:
 		count = 0
-	print("Patient " + str(get_tree().get_nodes_in_group("Patients").size()), ": Thirsty = ", thirsty, " | Warmth = ", warmth, " | Happiness = ", happiness)
