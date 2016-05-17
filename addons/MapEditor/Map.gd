@@ -11,6 +11,7 @@ var node2d = null
 var is_inside = false
 var current_tile = Vector2(-1,-1)
 var current_color = Color(0,0,0)
+var painting = false
 
 const tile_type = {"Null":-1, "Decoration":0, "Lobby":1}
 
@@ -60,6 +61,10 @@ func _input(event):
 		else:
 			current_tile = Vector2(-1,-1)
 		if (event.is_action_pressed("left_click")):
+			painting = true
+		if (event.is_action_released("left_click")):
+			painting = false
+		if(painting):
 			if(current_tile != Vector2(-1,-1)):
 				change_tile(current_tile.x, current_tile.y)
 				node2d.update()
