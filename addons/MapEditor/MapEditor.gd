@@ -38,16 +38,26 @@ func change_brush(type):
 
 func _exit_tree():
 	control.get_parent().remove_child(control)
+	remove_control_from_docks(control)
+	control.free()
+	map.free()
+	window.free()
 
 func save():
-	var file = File.new()
-	file.open("res://Maps/" + control.path_lineedit.get_text() + ".lvl", file.WRITE)
-	var tiles = map.tiles
-	
-	file.store_string(str(map.size_x) + "\n" + str(map.size_y))
-	for tile in tiles:
-		if(tile.x == 0):
-			file.store_string("\n")
-		file.store_string(str(map.tile_type[tile.type]))
-	
-	file.close()
+	if (!map.is_valid()):
+		print("[MAP EDITOR] Can't save map, map is invalid !")
+	elif (control.path_lineedit.get_text() == ""):
+		print("[MAP EDITOR] Please name the map !")
+	else:
+		var file = File.new()
+		file.open("res://Maps/" + control.path_lineedit.get_text() + ".lvl", file.WRITE)
+		var tiles = map.tiles
+		
+		file.store_string(str(map.size_x) + "\n" + str(map.size_y))
+		for tile in tiles:
+			if(tile.x == 0):
+				file.store_string("\n")
+			file.store_string(str(map.tile_type[tile.type]))
+		
+		file.close()
+		print("[MAP EDITOR] Map saved : res://Maps/", control.path_lineedit.get_text(), ".lvl")

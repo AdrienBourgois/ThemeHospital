@@ -85,3 +85,9 @@ func change_tile(x, y):
 func change_zoom(_zoom):
 	zoom = _zoom
 	node2d.set_scale(Vector2(zoom,zoom))
+
+func is_valid():
+	for tile in tiles:
+		if (tile.type == "Null"):
+			return false
+	return true

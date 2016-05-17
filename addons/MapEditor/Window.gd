@@ -24,5 +24,6 @@ func _ready():
 func set_map(_map):
 	map = _map
 	container.add_child(map)
+	set_title("Map Editor - " + str(map.size_x) + "X" + str(map.size_y))
 
 
