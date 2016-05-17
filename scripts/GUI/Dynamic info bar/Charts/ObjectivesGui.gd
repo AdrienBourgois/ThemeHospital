@@ -17,7 +17,7 @@ func calculatePercent(numerator, denominator):
 	if denominator > 0 :
 		return 100 * (float(numerator)/float(denominator))
 	else:
-		return 0
+		return 100
 
 func setReputation(reputation_player, reputation_goal):
 	var val = calculatePercent(reputation_player, reputation_goal)

@@ -6,7 +6,7 @@ onready var hud = control_panel.get_parent()
 onready var buttons = get_node("Buttons")
 onready var label = get_node("Label")
 
-onready var charts = get_node("../../../Charts")
+onready var status = get_node("../../../Status")
 
 func _ready():
 	for idx in buttons.get_children():
@@ -15,6 +15,6 @@ func _ready():
 func display(txt):
 	label.set_text(txt)
 
-func _on_Charts_pressed():
+func _on_Status_pressed():
 	hud.hide()
-	charts.show()
+	status.show()
