@@ -10,6 +10,7 @@ var spin_size_x = SpinBox.new()
 var spin_size_y = SpinBox.new()
 var new_button = Button.new()
 var see_map_button = Button.new()
+var path_lineedit = LineEdit.new()
 var save_button = Button.new()
 
 func _init(_editor):
@@ -32,12 +33,13 @@ func _init(_editor):
 	add_child(spin_size_y)
 	add_child(new_button)
 	add_child(see_map_button)
+	add_child(path_lineedit)
 	add_child(save_button)
 	
 	add_spacer(false)
 
 func new_map_pressed():
-	print("New Map")
+	print("[MAP EDITOR] New Map")
 	editor.new_map(spin_size_x.get_line_edit().get_text().to_int(), spin_size_y.get_line_edit().get_text().to_int())
 	see_map_button.set_disabled(false)
 	save_button.set_disabled(false)

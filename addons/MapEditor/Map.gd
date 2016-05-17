@@ -29,7 +29,7 @@ func _init(_x, _y, _editor):
 	size_x = _x
 	size_y = _y
 	editor = _editor
-	print("Create new Map of ", size_x, "X", size_y, " tiles")
+	print("[MAP EDITOR] Create new Map of ", size_x, "X", size_y, " tiles")
 	
 	for y in range(size_y):
 		for x in range(size_x):
@@ -37,7 +37,7 @@ func _init(_x, _y, _editor):
 			tile.x = x
 			tile.y = y
 			tiles.append(tile)
-	print("Map generated !")
+	print("[MAP EDITOR] Map generated !")
 	
 	node2d = Node2D.new()
 	node2d.set_scale(Vector2(zoom,zoom))
@@ -45,7 +45,7 @@ func _init(_x, _y, _editor):
 	node2d.connect("draw", self, "draw_map")
 	
 	set_process_input(true)
-	print("Node for map initialized !")
+	print("[MAP EDITOR] Node for map initialized !")
 
 func _input(event):
 	if ((event.type == InputEvent.MOUSE_MOTION) or (event.type == InputEvent.MOUSE_BUTTON)):
@@ -69,9 +69,9 @@ func draw_map():
 		if(tile.type == "Null"):
 			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(1,1,1))
 		if(tile.type == "Decoration"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0,1,0))
+			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.086, 0.627, 0.522))
 		if(tile.type == "Lobby"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0,0,0))
+			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.498, 0.549, 0.553))
 
 func change_tile(x, y):
 	tiles[coord_to_index(x, y)].type = editor.current_brush

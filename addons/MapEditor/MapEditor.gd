@@ -12,13 +12,13 @@ var window = null
 var current_brush = "Decoration"
 
 func _enter_tree():
-	print("----------------------------- /*- Theme Hospital Editor - Initialisation... -*\\ -----------------------------")
+	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialisation... -*\\")
 	control = GodotControl.new(self)
 	add_control_to_dock(DOCK_SLOT_LEFT_UR, control)
 
 func new_map(x, y):
 	if (map):
-		print("Delete previous Map")
+		print("[MAP EDITOR] Delete previous Map")
 		map.free()
 		window.free()
 	map = Map.new(x, y, self)
@@ -34,14 +34,14 @@ func see_map():
 
 func change_brush(type):
 	current_brush = type
-	print("Change brush to ", type)
+	print("[MAP EDITOR] Change brush to ", type)
 
 func _exit_tree():
 	control.get_parent().remove_child(control)
 
 func save():
 	var file = File.new()
-	file.open("res://Maps/Map1.lvl", file.WRITE)
+	file.open("res://Maps/" + control.path_lineedit.get_text() + ".lvl", file.WRITE)
 	var tiles = map.tiles
 	
 	file.store_string(str(map.size_x) + "\n" + str(map.size_y))
