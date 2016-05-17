@@ -41,7 +41,7 @@ func checkValidObjectives():
 		count += 1
 
 func linkToGui():
-	objectives_gui = get_parent().get_node("In_game_gui/Charts/Objectives")
+	objectives_gui = get_parent().get_node("In_game_gui/Status/Objectives")
 
 func getHealPatientsGoal():
 	return heal_patients_goal
