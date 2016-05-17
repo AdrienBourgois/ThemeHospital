@@ -13,10 +13,10 @@ var current_tile = Vector2(-1,-1)
 var current_color = Color(0,0,0)
 var painting = false
 
-const tile_type = {"Null":-1, "Decoration":0, "Lobby":1}
+const tile_type = {"Decoration":0, "Lobby":1}
 
 class Tile:
-	var type = "Null"
+	var type = "Decoration"
 	var x = -1
 	var y = -1
 
@@ -71,10 +71,8 @@ func _input(event):
 
 func draw_map():
 	for tile in tiles:
-		if(tile.type == "Null"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(1,1,1))
 		if(tile.type == "Decoration"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.086, 0.627, 0.522))
+			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.153, 0.682, 0.384))
 		if(tile.type == "Lobby"):
 			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.498, 0.549, 0.553))
 
@@ -88,6 +86,6 @@ func change_zoom(_zoom):
 
 func is_valid():
 	for tile in tiles:
-		if (tile.type == "Null"):
-			return false
-	return true
+		if (tile.type == "Lobby"):
+			return true
+	return false

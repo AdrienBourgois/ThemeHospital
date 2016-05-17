@@ -9,12 +9,13 @@ var control = null
 var map = null
 var window = null
 
-var current_brush = "Decoration"
+var current_brush = "Lobby"
 
 func _enter_tree():
 	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialisation... -*\\")
 	control = GodotControl.new(self)
 	add_control_to_dock(DOCK_SLOT_LEFT_UR, control)
+	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialized ! -*\\")
 
 func new_map(x, y):
 	if (map):
@@ -37,11 +38,16 @@ func change_brush(type):
 	print("[MAP EDITOR] Change brush to ", type)
 
 func _exit_tree():
-	control.get_parent().remove_child(control)
-	remove_control_from_docks(control)
-	control.free()
-	map.free()
-	window.free()
+	print("[MAP EDITOR]  /*- Theme Hospital Editor - Quit... -*\\")
+	if (control):
+		remove_control_from_docks(control)
+		control.free()
+	if (map):
+		map.free()
+	if (window):
+		window.free()
+	print("[MAP EDITOR] Bye !")
+	queue_free()
 
 func save():
 	if (!map.is_valid()):
