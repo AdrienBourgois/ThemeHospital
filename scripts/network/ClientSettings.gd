@@ -80,7 +80,6 @@ func _on_invalid_server_confirmed():
 	control_node.set_hidden(true)
 	connecting_popup.set_hidden(true)
 	invalid_popup.set_hidden(true)
-	
 
 
 func setUsername():

@@ -19,8 +19,7 @@ func _on_SaveButton_pressed():
 
 func save(idx):
 	saving_game.show()
-	saving_game.showSaving()
-	saver.savePlayer(idx)
+	saver.savePlayer(idx )
 	save_location.hide()
 	saving_game.showComplete()
 

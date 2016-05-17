@@ -22,7 +22,7 @@ func _ready():
 
 
 func _process(delta):
-	update_chat()
+	updateChat()
 
 
 func _on_send_message_button_pressed():
@@ -34,7 +34,7 @@ func _on_send_message_button_pressed():
 		message_line_edit.clear()
 
 
-func update_chat():
+func updateChat():
 	var messages_list = global_client.getMessagesList()
 	
 	if (last_messages_list_size != messages_list.size()):
@@ -52,7 +52,7 @@ func checkHostClient():
 
 
 func setScrollFollow():
-	get_node("panel/chat_box/messages_list_label").set_scroll_follow(true)
+	messages_list_label.set_scroll_follow(true)
 
 
 func _on_message_line_edit_input_event( ev ):
@@ -67,11 +67,11 @@ func _on_disconnect_button_pressed():
 
 
 func checkForEmptyMessage(message):
-	if (message.empty()):
+	if ( message.empty() ):
 		return true
 	
-	for character in range (message.length()):
-		if (message[character] != ' '):
+	for character in range ( message.length() ):
+		if ( message[character] != ' ' ):
 			return false
 	
 	return true
