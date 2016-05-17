@@ -1,7 +1,5 @@
 extends Node
 
-var first_game = true setget ,getFirstGame
-
 onready var root = get_tree().get_root()
 
 onready var init_path = "res://init.cfg"
@@ -17,7 +15,8 @@ res_y = 600,
 fullscreen = false,
 sound = false,
 online_mode = false,
-langage = "fr"
+langage = "fr",
+tuto = true
 }
 
 var username = "" setget setUsername,getUsername
@@ -73,9 +72,6 @@ func getInfobar():
 
 func getSpeedArray(id):
 	return speed_array[id]
-
-func getFirstGame():
-	return first_game
 
 func setUsername(name):
 	username = name
