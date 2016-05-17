@@ -12,6 +12,8 @@ var is_inside = false
 var current_tile = Vector2(-1,-1)
 var current_color = Color(0,0,0)
 
+const tile_type = {"Null":-1, "Decoration":0, "Lobby":1}
+
 class Tile:
 	var type = "Null"
 	var x = -1

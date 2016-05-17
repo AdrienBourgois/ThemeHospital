@@ -13,8 +13,8 @@ func _init(_editor):
 	
 	zoom_slider.set_min(1)
 	zoom_slider.set_max(25)
-	zoom_slider.set_val(editor.current_map.zoom)
-	zoom_slider.connect("value_changed", editor.current_map, "change_zoom")
+	zoom_slider.set_val(editor.map.zoom)
+	zoom_slider.connect("value_changed", editor.map, "change_zoom")
 	decoration_brush.set_text("Decoration")
 	decoration_brush.connect("pressed", editor, "change_brush", ["Decoration"])
 	lobby_brush.set_text("Lobby")
