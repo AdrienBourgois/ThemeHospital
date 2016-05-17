@@ -65,7 +65,7 @@ func getScene():
 	return get_node("/root/GameScene")
 
 func getFeedback():
-	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
+	return get_node("/root/GameScene/In_game_gui/HUD/Feedback_panel")
 
 func getInfobar():
 	return get_node("/root/GameScene/In_game_gui/Control_panel/Dynamic_info_bar")

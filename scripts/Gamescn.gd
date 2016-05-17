@@ -42,6 +42,7 @@ func init():
 	initInGameGui()
 	if ( game.getMultiplayer() ):
 		initInGameChat()
+	game.feedback.display("TUTO_MOVE_CAM")
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()

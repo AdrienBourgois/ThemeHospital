@@ -7,6 +7,8 @@ onready var saver = get_node("/root/Save")
 onready var saving_game = get_node("SavingGameGUI")
 onready var save_button = get_node("SaveButton")
 
+onready var load_menu = get_node("../Load_control")
+
 func _ready():
 	if !game.multiplayer:
 		save_button.set_disabled(false)
@@ -22,6 +24,7 @@ func save(idx):
 	saver.savePlayer(idx )
 	save_location.hide()
 	saving_game.showComplete()
+	load_menu.enableButtons()
 
 func _on_Save_pressed():
 	var count = 1
