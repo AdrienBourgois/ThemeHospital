@@ -10,11 +10,11 @@ var map = null
 
 func _init(_editor):
 	editor = _editor
-	set_size(Vector2(500,500))
+	set_size(Vector2(900,800))
 	set_exclusive(true)
 	controls = EditorControls.new(editor)
 	container.set_pos(Vector2(85,0))
-	container.set_size(Vector2(400,400))
+	container.set_size(Vector2(790,790))
 	add_child(controls)
 	add_child(container)
 

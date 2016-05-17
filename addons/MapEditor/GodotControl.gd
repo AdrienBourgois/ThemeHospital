@@ -21,8 +21,10 @@ func _init(_editor):
 	new_button.connect("pressed", self, "new_map_pressed")
 	see_map_button.set_text("See map")
 	see_map_button.set_disabled(true)
+	see_map_button.connect("pressed", editor, "see_map")
 	save_button.set_text("Save")
 	save_button.set_disabled(true)
+	save_button.connect("pressed", editor, "save")
 	
 	add_child(label_x)
 	add_child(spin_size_x)
@@ -38,6 +40,4 @@ func new_map_pressed():
 	print("New Map")
 	editor.new_map(spin_size_x.get_line_edit().get_text().to_int(), spin_size_y.get_line_edit().get_text().to_int())
 	see_map_button.set_disabled(false)
-	see_map_button.connect("pressed", editor, "see_map")
 	save_button.set_disabled(false)
-	save_button.connect("pressed", editor, "save")
