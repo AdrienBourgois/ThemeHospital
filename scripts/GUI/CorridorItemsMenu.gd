@@ -24,9 +24,6 @@ onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn")
 
 var items_count_array = []
 
-func _ready():
-	self.hide()
-
 func updateValues():
 	items_count_array.clear()
 	items_count_array.append(bench.getValue())
@@ -53,7 +50,7 @@ func _on_Accept_pressed():
 	updateValues()
 	for current in items_count_array:
 		while (current > 0):
-			var node = objectscn.instance()
+			var node = plantscn.instance()
 			player.money -= node.price
 			if (!node.get_owner()):
 				add_child(node)

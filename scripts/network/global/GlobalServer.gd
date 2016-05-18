@@ -118,15 +118,16 @@ func createClientData(clientObject, clientPeerstream):
 	
 	player.push_back(clientObject)
 	player.push_back(clientPeerstream)
-	player.push_back("Client " + str(current_available_id))
+	player.push_back(null)
 	player.push_back(current_available_id)
 	player.push_back(false)
 	player.push_back(false)
+	player.push_back(Array())
 	player_data.push_back(player)
 	
 	current_available_id += 1
 	
-	clientPeerstream.put_var("/game 0 " + str(current_available_id))
+	clientPeerstream.put_var("/game 0 " + str(player[3]))
 	checkPlayersReady()
 
 
@@ -168,10 +169,13 @@ func setPlayerReady(player_id, boolean):
 			player_data[player][4] = boolean
 			if (boolean):
 				sendInfo(player_data[player][2] + " MSG_READY")
+				pass
 			else:
 				sendInfo(player_data[player][2] + " MSG_NOT_READY")
-		checkPlayersReady()
-		updateReadyPlayers()
+				pass
+	
+	checkPlayersReady()
+	updateReadyPlayers()
 
 
 func checkPlayersReady():
@@ -202,8 +206,19 @@ func sendMessageToAll(from_client_id, message):
 	for player in range(player_data.size()):
 		if (player_data[player][3] == from_client_id):
 			new_message += player_data[player][2] + ": " + message
-			sendPacket(new_message)
+			sendMessage(from_client_id, new_message)
 
+func sendMessage(from_client_id, message):
+	for player in range ( player_data.size() ):
+		if ( !checkMutedPlayer(from_client_id, player) ):
+			sendTargetedPacket(player_data[player][3], message)
+
+func checkMutedPlayer(from_client_id, player):
+	for player_muted in range (player_data[player][6].size() ):
+		if ( player_data[player][6][player_muted].to_int() == from_client_id):
+			return true
+	
+	return false
 
 func sendInfo(message):
 	var info_message = "/info " + message
@@ -215,11 +230,12 @@ func sendTargetedPacket(to_client_id, packet):
 	for player in range (player_data.size()):
 		if ( player_data[player][3] == to_client_id ):
 			player_data[player][1].put_var(packet)
+			return
 
 
 func sendPacket(packet):
 	for player in range (player_data.size()):
-		if (player_data[player] != null):
+		if (player_data[player] != null && player_data[player][2] != null):
 			player_data[player][1].put_var(packet)
 
 func addPacket(packet):
@@ -255,3 +271,30 @@ func updateServerData():
 	updateReadyPlayers()
 	checkPlayersReady()
 	checkLookingForPlayers()
+
+
+func sendMutablePlayers():
+	var packet = "/game 8"
+	
+	for data in range (player_data.size()):
+		packet += " " + player_data[data][2] + " " + str(player_data[data][3])
+	
+	sendPacket(packet)
+
+func mutePlayer(player_id, muted_player_id):
+	for player in range ( player_data.size() ):
+		if (player_data[player][3] == player_id):
+			var new_array = player_data[player][6]
+			new_array.push_back(muted_player_id)
+			player_data[player][6] = new_array
+			return
+
+func unmutePlayer(player_id, unmuted_player_id):
+	for player in range ( player_data.size() ):
+		if (player_data[player][3] == player_id):
+			for muted_player in range ( player_data[player][6].size() ):
+				if (player_data[player][6][muted_player] == unmuted_player_id):
+					var new_array = player_data[player][6]
+					new_array.remove(muted_player)
+					player_data[player][6] = new_array
+					return

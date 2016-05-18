@@ -15,7 +15,7 @@ func _ready():
 		control_panel.initConnect(idx)
 
 func _on_Hire_pressed():
-	staff_gui.show()
+	staff_gui.set_hidden(not staff_gui.is_hidden())
 
 func _on_Build_pressed():
 	rooms_menu.set_hidden(not rooms_menu.is_hidden())
