@@ -80,12 +80,13 @@ func checkForDisconnection():
 
 func checkForPacketToSend():
 	if (packet_list.size() > 0):
-		sendPacket(packet_list[0])
-		packet_list.remove(0)
+		if ( sendPacket(packet_list[0]) ):
+			packet_list.remove(0)
 
 func sendPacket(packet):
-	if (client_states.is_connected):
+	if ( client_states.is_connected ):
 		peer_stream.put_var(packet)
+		return true
 
 func addMessage(message):
 	messages_list.push_back(message)
@@ -132,3 +133,11 @@ func getClientId():
 
 func addPacket(packet):
 	packet_list.push_back(packet)
+
+
+func mutePlayer(player_id):
+	addPacket("/game 9 1 " + str(player_id))
+
+
+func unmutePlayer(player_id):
+	addPacket("/game 9 0 " + str(player_id))

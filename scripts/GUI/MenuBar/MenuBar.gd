@@ -15,7 +15,6 @@ var in_game_chat = null
 
 func _ready():
 	initChatSettings()
-	player_container.add_child(Button.new())
 
 
 func _on_Options_pressed():
@@ -62,3 +61,28 @@ func _on_Hide_send_button_checkbox_toggled( pressed ):
 
 func _on_Hide_chat_checkbox_toggled( pressed ):
 	in_game_chat.toggleVisibility()
+
+
+func clearPlayerContainer():
+	for player in range ( player_container.get_child_count() ):
+		var node = player_container.get_child(0)
+		node.queue_free()
+
+
+func addPlayerInPlayerContainer(player_name, player_id):
+	var button = Button.new()
+	button.set_text(player_name)
+	button.set_toggle_mode(true)
+	button.connect("toggled", self, "mutePlayer", [player_id])
+	
+	player_container.add_child(button)
+
+
+func mutePlayer(boolean, player_id):
+	if ( !boolean ):
+		global_client.mutePlayer(player_id)
+	else:
+		global_client.unmutePlayer(player_id)
+
+func _on_Mute_button_toggled( pressed ):
+	player_container.set_hidden(!pressed)
