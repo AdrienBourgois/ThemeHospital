@@ -7,12 +7,17 @@ onready var loader = get_node("/root/Load")
 onready var load_button = get_node("LoadButton")
 
 func _ready():
-	var count = 1
-	if !game.multiplayer && loader.checkPlayerFolder():
-		load_button.set_disabled(false)
+	if !game.multiplayer:
+		enableButtons()
 		for idx in load_location.get_children():
 			idx.connect("mouse_enter", self, "_on_mouse_enter")
 			idx.connect("mouse_exit", self, "_on_mouse_exit")
+
+func enableButtons():
+	var count = 1
+	if loader.checkPlayerFolder():
+		load_button.set_disabled(false)
+		for idx in load_location.get_children():
 			if loader.checkPlayerFile(count):
 				idx.set_disabled(false)
 			count += 1

@@ -37,10 +37,14 @@ func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
 		game.new_game = true
+	
 	hire_manager.setStaffArray(entity_manager.staff_array)
+	
 	if ( game.getMultiplayer() ):
 		initInGameChat()
+	
 	initInGameGui()
+	game.feedback.display("TUTO_MOVE_CAM")
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()

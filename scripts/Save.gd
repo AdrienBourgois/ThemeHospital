@@ -44,6 +44,8 @@ func savePlayer(ID):
 
 func storeData():
 	createSaveDict()
+	if (game.file.is_open()):
+		game.file.close()
 	game.file.open(file_path, game.file.WRITE)
 	game.file.store_string(save_dict.to_json())
 	game.file.close()
@@ -54,8 +56,8 @@ func createSaveDict():
 		map = gamescn.map
 	save_dict = {
 	PLAYER = gamescn.player.createStatsDict(),
-	CALENDAR = gamescn.calendar.createStatsDict(),
-	MAP = map.createStatsDict()
+	CALENDAR = gamescn.calendar.createStatsDict()
+#	MAP = map.createStatsDict()
 	}
 	return save_dict
 
