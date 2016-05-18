@@ -13,6 +13,7 @@ onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
+onready var global_server = get_node("/root/GlobalServer")
 var in_game_gui
 
 export var map_size = Vector2(0, 0)
@@ -45,6 +46,7 @@ func init():
 	
 	initInGameGui()
 	game.feedback.display("TUTO_MOVE_CAM")
+	global_server.sendMutablePlayers()
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
