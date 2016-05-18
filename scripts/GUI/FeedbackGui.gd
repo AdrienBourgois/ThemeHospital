@@ -14,7 +14,7 @@ func _input(event):
 		hide()
 
 func display(txt):
-	if game.config.tuto :
+	if game.config.tutorial :
 		feed_back_label.set_text(txt)
 		show()
 
