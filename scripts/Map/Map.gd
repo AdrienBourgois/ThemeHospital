@@ -1,5 +1,7 @@
 extends Node
 
+export var map_path = "res://Maps/Map1.lvl"
+
 var columns = []
 var tiles = []
 var rooms = []
@@ -19,12 +21,13 @@ var new_room_type = {}
 
 var size_x = 0
 var size_y = 0
+var position
 
 var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
 
 func _ready():
-	create_map("res://Maps/Map1.lvl")
+	create_map(map_path)
 
 func createStatsDict():
 	for current in tiles:
@@ -55,6 +58,7 @@ func create_map(file_path):
 		for y in range(size_y):
 			var tile = tile_res.instance()
 			add_child(tile)
+			position = tile.get_translation()
 			var tile_type = lines_str[y].substr(x, 1).to_int()
 			if (tile_type == 0):
 				tile.create(x, y, ressources.grass)
@@ -193,3 +197,9 @@ func sendRoomToServer():
 
 func getResources():
 	return ressources
+
+func getSize():
+	return Vector3(size_x, 0, size_y)
+
+func getPosition():
+	return position

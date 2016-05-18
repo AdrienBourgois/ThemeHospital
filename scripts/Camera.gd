@@ -3,47 +3,57 @@ extends Camera
 
 onready var root = get_tree().get_root()
 onready var game = get_node("/root/Game")
+var map
 export var border = 10
-export var inferior_limit = Vector3(9, 7, 20)
-export var superior_limit = Vector3(30, 20, 47)
+var inferior_limit = Vector3(0,5,0)
+var superior_limit = Vector3(9,20,9)
 
 var position
+var rotation
+var movement = Vector3(0,0,0)
 export var speed = 2.5
 
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
+	rotation = get_rotation()
+	map = game.scene.get_node("Map")
+	if map:
+		inferior_limit += map.getPosition()
+		superior_limit += map.getSize()
 
 func _fixed_process(delta):
 	if game.config.move_cam_with_mouse:
 		checkMove()
+	move()
 	checkLimit()
 
 func _input(event):
 	if event.is_action_pressed("zoom"):
-		translate(Vector3(0, -1, -1))
+		translate(Vector3(0, -1, 0))
 	if event.is_action_pressed("dezoom"):
-		translate(Vector3(0, 1, 1))
+		translate(Vector3(0, 1, 0))
 	if event.is_action("ui_left"):
-		move_x(2)
+		movement.x += 3
 	if event.is_action("ui_right"):
-		move_x(-2)
+		movement.x -= 3
 	if event.is_action("ui_up"):
-		move_y(2)
+		movement.z += 3
 	if event.is_action("ui_down"):
-		move_y(-2)
+		movement.z -= 3
 
 func checkMove():
 	var mouse_pos = root.get_mouse_pos()
 	var window = OS.get_window_size()
 	if mouse_pos.x >= window.x - border:
-		move_x(-1)
+		movement.x -= 1
 	elif mouse_pos.x <= border:
-		move_x(1)
+		movement.x += 1
 	if mouse_pos.y >= window.y - border:
-		move_y(-1)
+		movement.z -= 1
 	elif mouse_pos.y <= border:
-		move_y(1)
+		movement.x += 1
+
 
 func checkLimit():
 	position = get_translation()
@@ -70,12 +80,8 @@ func checkZLimit():
 	elif position.z > superior_limit.z:
 		position.z = superior_limit.z
 
-func move_x(x):
+func move():
 	var delta = get_process_delta_time()
-	var new_pos = get_translation() - Vector3(x,0,0) * speed * delta
+	var new_pos = get_translation() - movement * speed * delta
 	set_translation(new_pos)
-
-func move_y(y):
-	var delta = get_process_delta_time()
-	var new_pos = get_translation() - Vector3(0,0,y) * speed * delta
-	set_translation(new_pos)
+	movement = Vector3(0,0,0)

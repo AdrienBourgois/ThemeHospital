@@ -23,7 +23,7 @@ func _ready():
 	loader.loadInit()
 	init()
 	set_process_input(true)
-	set_process(true)
+
 
 func _input(event):
 	if (event.is_action_released("save")):
