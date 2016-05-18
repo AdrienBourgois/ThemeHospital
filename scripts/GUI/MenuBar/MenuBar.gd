@@ -9,11 +9,13 @@ onready var global_client = get_node("/root/GlobalClient")
 onready var chat_settings_button = get_node("./Chat_settings_button")
 onready var chat_settings_control = chat_settings_button.get_node("Control")
 onready var chat_visibility_checkbox = get_node("./Chat_settings_button/Control/Chat_settings_box/Hide_chat_checkbox")
+onready var player_container = chat_settings_button.get_node("Control/Chat_settings_box/Mute_button/Player_container")
 onready var options_menu_res = preload("res://scenes/GUI/OptionsMenu.scn")
 var in_game_chat = null
 
 func _ready():
 	initChatSettings()
+	player_container.add_child(Button.new())
 
 
 func _on_Options_pressed():
@@ -40,12 +42,11 @@ func checkForMultiplayerGame():
 
 
 func initChatSettings():
-	if ( !game.getMultiplayer() ):
-		chat_settings_button.set_disabled(true)
-	else:
+	if ( game.getMultiplayer() ):
 		getInGameChat()
 		in_game_chat.initChatSettingsVariables()
-
+	else:
+		chat_settings_button.set_disabled(true)
 
 func _on_Chat_settings_button_toggled( pressed ):
 	chat_settings_control.set_hidden(!pressed)

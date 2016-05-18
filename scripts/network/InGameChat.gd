@@ -25,11 +25,11 @@ func initChatSettingsVariables():
 	missed_messages_label= chat_settings.get_node("Chat_settings_button/Messages_missed_label")
 
 func checkMultiplayer():
-	if ( !game.getMultiplayer() ):
-		never_show_chat = true
-	else:
+	if ( game.getMultiplayer() ):
 		messages_list_label.set_scroll_follow(true)
 		set_process(true)
+	else:
+		never_show_chat = true
 
 func toggleVisibility():
 	if ( !never_show_chat ):
@@ -45,14 +45,19 @@ func updateChat():
 	var messages_list = global_client.getMessagesList()
 	
 	if ( last_messages_list_size != messages_list.size() ):
-		if ( !is_visible() ):
-			messages_missed += 1
+		addMissedMessage()
 		last_messages_list_size = messages_list.size()
 		messages_list_label.clear()
 		for message in range (messages_list.size()):
 			messages_list_label.add_text(messages_list[message])
 		
 		updateMissedMessage()
+
+func addMissedMessage():
+	if ( last_messages_list_size == 0):
+		return
+	if ( !is_visible() ):
+			messages_missed += 1
 
 func updateMissedMessage():
 	if (missed_messages_label != null):
