@@ -101,6 +101,7 @@ OPTIONS_DISABLE,Disable,Desactive
 OPTIONS_LANGUAGE,Language,Langage
 OPTIONS_APPLY,Apply,Appliquer
 OPTIONS_TUTO,Tutorial,Tutoriel
+OPTIONS_CAMERA, Move camera with mouse : ,Bouger la camera avec la souris : 
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
 BTN_READY,Ready,Pret

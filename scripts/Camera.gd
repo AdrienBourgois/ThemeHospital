@@ -15,7 +15,8 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	checkMove()
+	if game.config.move_cam_with_mouse:
+		checkMove()
 	checkLimit()
 
 func _input(event):

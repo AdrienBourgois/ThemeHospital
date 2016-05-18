@@ -8,6 +8,7 @@ onready var dir = Directory.new()
 onready var config = {}
 onready var preloader = preload("res://scenes/LoadingScreen.scn")
 var loader
+
 onready var default_config = {
 username = "Default",
 res_x = 1024,
@@ -16,7 +17,8 @@ fullscreen = false,
 sound = false,
 online_mode = false,
 langage = "fr",
-tuto = true
+tutorial = true,
+move_cam_with_mouse = true
 }
 
 var username = "" setget setUsername,getUsername
