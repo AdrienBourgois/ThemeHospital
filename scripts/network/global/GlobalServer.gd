@@ -279,6 +279,7 @@ func sendMutablePlayers():
 	for data in range (player_data.size()):
 		packet += " " + player_data[data][2] + " " + str(player_data[data][3])
 	
+	print(packet)
 	sendPacket(packet)
 
 func mutePlayer(player_id, muted_player_id):

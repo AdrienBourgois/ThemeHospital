@@ -182,7 +182,7 @@ func updatePlayerContainer(): #Packet 8
 			
 			var data = 2
 			
-			for count in range ( 2,(tmpData.size()-2)/2 ):
+			for count in range ( (tmpData.size()-2)/2 ):
 				if (global_client.getClientId() != tmpData[data+1].to_int()):
 					menu_bar.addPlayerInPlayerContainer(tmpData[data], tmpData[data+1].to_int())
 				data += 2
