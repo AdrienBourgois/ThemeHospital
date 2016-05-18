@@ -79,7 +79,7 @@ func addPlayerInPlayerContainer(player_name, player_id):
 
 
 func mutePlayer(boolean, player_id):
-	if ( !boolean ):
+	if ( boolean ):
 		global_client.mutePlayer(player_id)
 	else:
 		global_client.unmutePlayer(player_id)

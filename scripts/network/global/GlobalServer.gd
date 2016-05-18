@@ -169,10 +169,13 @@ func setPlayerReady(player_id, boolean):
 			player_data[player][4] = boolean
 			if (boolean):
 				sendInfo(player_data[player][2] + " MSG_READY")
+				pass
 			else:
 				sendInfo(player_data[player][2] + " MSG_NOT_READY")
-		checkPlayersReady()
-		updateReadyPlayers()
+				pass
+	
+	checkPlayersReady()
+	updateReadyPlayers()
 
 
 func checkPlayersReady():
@@ -203,8 +206,19 @@ func sendMessageToAll(from_client_id, message):
 	for player in range(player_data.size()):
 		if (player_data[player][3] == from_client_id):
 			new_message += player_data[player][2] + ": " + message
-			sendPacket(new_message)
+			sendMessage(from_client_id, new_message)
 
+func sendMessage(from_client_id, message):
+	for player in range ( player_data.size() ):
+		if ( !checkMutedPlayer(from_client_id, player) ):
+			sendTargetedPacket(player_data[player][3], message)
+
+func checkMutedPlayer(from_client_id, player):
+	for player_muted in range (player_data[player][6].size() ):
+		if ( player_data[player][6][player_muted].to_int() == from_client_id):
+			return true
+	
+	return false
 
 func sendInfo(message):
 	var info_message = "/info " + message
@@ -216,6 +230,7 @@ func sendTargetedPacket(to_client_id, packet):
 	for player in range (player_data.size()):
 		if ( player_data[player][3] == to_client_id ):
 			player_data[player][1].put_var(packet)
+			return
 
 
 func sendPacket(packet):
@@ -269,11 +284,17 @@ func sendMutablePlayers():
 func mutePlayer(player_id, muted_player_id):
 	for player in range ( player_data.size() ):
 		if (player_data[player][3] == player_id):
-			player_data[player][6].push_back(muted_player_id)
+			var new_array = player_data[player][6]
+			new_array.push_back(muted_player_id)
+			player_data[player][6] = new_array
+			return
 
 func unmutePlayer(player_id, unmuted_player_id):
 	for player in range ( player_data.size() ):
 		if (player_data[player][3] == player_id):
 			for muted_player in range ( player_data[player][6].size() ):
 				if (player_data[player][6][muted_player] == unmuted_player_id):
-					player_data[player][6].remove(muted_player)
+					var new_array = player_data[player][6]
+					new_array.remove(muted_player)
+					player_data[player][6] = new_array
+					return
