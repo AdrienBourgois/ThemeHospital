@@ -13,6 +13,12 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		set_process_input(false)
 		position.x = click_pos.x
 		position.y = click_pos.y
+		var object_stats = []
+		object_stats.append(object_name)
+		object_stats.append(position.x)
+		object_stats.append(position.y)
+		object_stats.append(position.z)
+		gamescn.objects_array.append(object_stats)
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object):
 			return

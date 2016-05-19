@@ -45,9 +45,11 @@ func loadPlayerData():
 
 	gamescn.player.stats = load_dict.PLAYER
 	gamescn.calendar.stats = load_dict.CALENDAR
+	gamescn.objects = load_dict.OBJECTS
 	
 	gamescn.player.loadData()
 	gamescn.calendar.loadData()
+	gamescn.loadObjects()
 	resetStatsDict()
 	game.file.close()
 
