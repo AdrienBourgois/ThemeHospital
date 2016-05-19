@@ -22,6 +22,7 @@ onready var label_array = [bench_label, plant_label, radiator_label, drink_label
 onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
 onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
 onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
+onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
 
 var items_count_array = []
 
@@ -51,7 +52,7 @@ func _on_Accept_pressed():
 	updateValues()
 	for current in items_count_array:
 		while (current > 0):
-			var node = plantscn.instance()
+			var node = radiatorscn.instance()
 			player.money -= node.price
 			if (!node.get_owner()):
 				add_child(node)

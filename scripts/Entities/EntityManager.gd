@@ -96,7 +96,7 @@ func calculateSalary(id, skill, seniority=0, speciality=0):
 		salary = salary_tab[id] + skill/10
 	return salary
 
-func isInRadiatorRay():
+func isInRadiatorRay(node):
 	for heat in heats:
 		pass
 	pass

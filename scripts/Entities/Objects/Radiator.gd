@@ -7,8 +7,6 @@ var heat_ray = 1
 
 func _ready():
 	entity_manager.heats.append(self)
-	print(entity_manager.heats)
-	pass
 
 #if ((v/10)%2):
 #	+8
