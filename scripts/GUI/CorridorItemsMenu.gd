@@ -1,6 +1,7 @@
 
 extends Control
 
+onready var game = get_node("/root/Game")
 onready var gamescn = get_node("/root/Game").scene
 onready var player = gamescn.player
 
@@ -18,8 +19,8 @@ onready var drink_label = drink.get_node("Label")
 onready var fire_label = fire.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
 
-onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn") 
-onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn") 
+onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
+onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
 onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 
 var items_count_array = []
