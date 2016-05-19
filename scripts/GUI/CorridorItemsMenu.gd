@@ -20,11 +20,15 @@ onready var fire_label = fire.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
 
 onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
+onready var benchscn = preload("res://scenes/Entities/Objects/Bench.scn")
 onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
-onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
+onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
+onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
+onready var array_scn = [plantscn, plantscn, plantscn, plantscn, plantscn]
 
 var items_count_array = []
+var number_of_buttons = 2
 
 func updateValues():
 	items_count_array.clear()
@@ -48,16 +52,21 @@ func countString(value):
 	var count_string = "Count : " + str(value)
 
 func _on_Accept_pressed():
-	var array_idx = 0
+	var max_count = panel.get_child_count() - number_of_buttons
+	var count = 0
 	updateValues()
-	for current in items_count_array:
-		while (current > 0):
-			var node = radiatorscn.instance()
-			player.money -= node.price
-			if (!node.get_owner()):
-				add_child(node)
-			current -= 1
-		array_idx += 1
+#	for current in items_count_array:
+#		while (current > 0):
+#			var node = radiatorscn.instance()
+#			player.money -= node.price
+#			add_child(node)
+#			current -= 1
+	while (count < max_count):
+		while (items_count_array[count] > 0):
+			var node = array_scn[count].instance()
+			gamescn.add_child(node)
+			items_count_array[count] -= 1
+		count += 1
 		
 	resetvalues()
 	self.hide()
