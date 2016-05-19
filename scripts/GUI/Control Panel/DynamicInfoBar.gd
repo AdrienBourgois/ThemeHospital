@@ -7,6 +7,7 @@ onready var buttons = get_node("Buttons")
 onready var label = get_node("Label")
 
 onready var status = get_node("../../../Status")
+onready var town_map = get_node("../../../TownMap")
 
 func _ready():
 	for idx in buttons.get_children():
@@ -18,3 +19,8 @@ func display(txt):
 func _on_Status_pressed():
 	hud.hide()
 	status.show()
+
+func _on_Town_Map_pressed():
+	hud.hide()
+	town_map.show()
+	pass # replace with function body

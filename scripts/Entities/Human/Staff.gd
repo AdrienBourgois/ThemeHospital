@@ -10,6 +10,7 @@ var specialities
 export var fixing_machinery = 50.0
 export var watering_plants = 50.0
 export var sweeping_litter = 50.0
+export var warmth = 50.0
 export var happiness = 100.0
 export var tireness = 100.0
 export var count = 0
@@ -21,11 +22,6 @@ onready var entity_manager = game.scene.entity_manager
 
 func _ready():
 	get_node("Timer").start()
-	set_process(true)
-	pass
-
-func _process(delta):
-	entity_manager.isInRadiatorRay(self)
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
@@ -36,6 +32,7 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			staff_information_gui.show()
 
 func _on_Timer_timeout():
+	entity_manager.checkGlobalTemperature(self)
 	tireness -= 1
 
 func increaseFixingMachinery():
