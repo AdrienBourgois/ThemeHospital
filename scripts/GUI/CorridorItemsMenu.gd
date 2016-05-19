@@ -59,7 +59,7 @@ func _on_Accept_pressed():
 		while (items_count_array[count] > 0):
 			var node = array_scn[count].instance()
 			gamescn.add_child(node)
-			print(node.object_name)
+			gamescn.objects_array.append(node)
 			items_count_array[count] -= 1
 		count += 1
 		
