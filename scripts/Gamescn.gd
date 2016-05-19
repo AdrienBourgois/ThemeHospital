@@ -14,6 +14,8 @@ onready var hire_manager = get_node("HireManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
+onready var objects_array = [] setget getObjectArray
+onready var stats = {}
 var in_game_gui
 
 export var map_size = Vector2(0, 0)
@@ -25,6 +27,14 @@ func _ready():
 	init()
 	set_process_input(true)
 
+func createObjectsDict():
+	stats = {
+	OBJECTS = objects_array
+	}
+	return stats
+
+func getObjectArray():
+	return objects_array
 
 func _input(event):
 	if (event.is_action_released("save")):
