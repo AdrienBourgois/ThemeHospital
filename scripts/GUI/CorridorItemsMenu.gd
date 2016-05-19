@@ -55,12 +55,6 @@ func _on_Accept_pressed():
 	var max_count = panel.get_child_count() - number_of_buttons
 	var count = 0
 	updateValues()
-#	for current in items_count_array:
-#		while (current > 0):
-#			var node = radiatorscn.instance()
-#			player.money -= node.price
-#			add_child(node)
-#			current -= 1
 	while (count < max_count):
 		while (items_count_array[count] > 0):
 			var node = array_scn[count].instance()

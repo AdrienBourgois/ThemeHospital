@@ -2,7 +2,7 @@
 extends "../Entity.gd"
 
 export var object_name = " " setget setName, getName
-export var price = 100
+export var price = 100 setget getPrice, setPrice
 export var expense_per_month = 0
 
 export var in_room_object = false
@@ -23,3 +23,9 @@ func setName(value):
 
 func getName():
 	return object_name
+
+func setPrice(value):
+	price = value
+
+func getPrice():
+	return price
