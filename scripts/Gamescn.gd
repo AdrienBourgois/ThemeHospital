@@ -27,7 +27,7 @@ func _ready():
 	init()
 	set_process_input(true)
 
-func createStatsDict():
+func createObjectsDict():
 	stats = {
 	OBJECTS = objects_array
 	}

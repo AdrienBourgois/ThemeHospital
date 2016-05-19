@@ -2,6 +2,7 @@
 extends KinematicBody
 
 onready var game = get_node("/root/Game")
+onready var gamescn = game.scene
 onready var map = game.scene.map
 onready var mouse_pos_3d = map.center_tile_on_cursor
 onready var cube = get_node("TestCube") 
