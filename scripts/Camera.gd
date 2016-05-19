@@ -7,11 +7,13 @@ var map
 export var border = 10
 var inferior_limit = Vector3(0,5,0)
 var superior_limit = Vector3(9,20,9)
+var rotation_limit = Vector3(0,45,45)
 
 var position
 var rotation
 var movement = Vector3(0,0,0)
 export var speed = 2.5
+
 
 func _ready():
 	set_process_input(true)
@@ -22,6 +24,7 @@ func _ready():
 		inferior_limit += map.getPosition()
 		superior_limit += map.getSize()
 
+
 func _fixed_process(delta):
 	if game.config.move_cam_with_mouse:
 		checkMouseMove()
@@ -29,13 +32,16 @@ func _fixed_process(delta):
 	move()
 	checkLimit()
 
+
 func _input(event):
 	set_rotation(Vector3(0,0,0))
 	if event.is_action_pressed("zoom"):
 		translate(Vector3(0, -1, 0))
 	if event.is_action_pressed("dezoom"):
 		translate(Vector3(0, 1, 0))
+	
 	set_rotation(rotation)
+
 
 func checkInputMove():
 	if Input.is_action_pressed("ui_left"):
@@ -46,6 +52,7 @@ func checkInputMove():
 		movement.z += 1
 	if Input.is_action_pressed("ui_down"):
 		movement.z -= 1
+
 
 func checkMouseMove():
 	var mouse_pos = root.get_mouse_pos()
@@ -67,11 +74,13 @@ func checkLimit():
 	checkZLimit()
 	set_translation(position)
 
+
 func checkXLimit():
 	if position.x < inferior_limit.x:
 		position.x = inferior_limit.x
 	elif position.x > superior_limit.x:
 		position.x = superior_limit.x
+
 
 func checkYLimit():
 	if position.y < inferior_limit.y:
@@ -79,11 +88,13 @@ func checkYLimit():
 	elif position.y > superior_limit.y:
 		position.y = superior_limit.y
 
+
 func checkZLimit():
 	if position.z < inferior_limit.z:
 		position.z = inferior_limit.z
 	elif position.z > superior_limit.z:
 		position.z = superior_limit.z
+
 
 func move():
 	var delta = get_process_delta_time()

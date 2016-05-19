@@ -3,7 +3,7 @@ extends MenuButton
 
 onready var game = get_node("/root/Game")
 onready var check_button = get_node("CheckButton")
-onready var options_menu = get_node("../..")
+onready var options_menu = get_node("../../..")
 
 func _ready():
 	if game.config.move_cam_with_mouse:
