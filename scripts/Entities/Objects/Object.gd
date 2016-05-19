@@ -23,7 +23,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 func setName(value):
 	object_name = value
 
-func getName():
+func getName(): 
 	return object_name
 
 func setPrice(value):
