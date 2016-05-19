@@ -5,22 +5,15 @@ export var machine = false
 var happiness
 var thirsty
 var warmth
-export var global_temperature = 0
 var count
 onready var disease = get_node("Disease")
-onready var child_count = get_parent().get_child_count()
+onready var entity_manager = get_parent()
+onready var child_count = entity_manager.get_child_count()
 
 
 func _ready():
 	get_node("Timer").start()
 	count = 0
-
-func checkGlobalTemperature():
-	if warmth > 0:
-		if global_temperature <= 16:
-			warmth -= 2
-		elif global_temperature >= 24:
-			warmth += 2
 
 func calculateHappiness(is_increase):
 	if count == 5:
@@ -47,7 +40,7 @@ func checkWarmth():
 
 func _on_Timer_timeout():
 	count += 1
-	checkGlobalTemperature()
+	entity_manager.checkGlobalTemperature(self)
 	checkThirsty()
 	checkWarmth()
 	
