@@ -98,5 +98,8 @@ func calculateSalary(id, skill, seniority=0, speciality=0):
 
 func isInRadiatorRay(node):
 	for heat in heats:
+		print(heat)
+		if (node.get_translation().distance_to(heat.get_translation()) <= heat.heat_ray):
+			print("TAMERE")
 		pass
 	pass

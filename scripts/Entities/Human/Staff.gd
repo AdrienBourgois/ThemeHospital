@@ -17,10 +17,15 @@ export var delta = 5.0
 export var max_value = 100
 
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
+onready var entity_manager = game.scene.entity_manager
 
 func _ready():
 	get_node("Timer").start()
+	set_process(true)
 	pass
+
+func _process(delta):
+	entity_manager.isInRadiatorRay(self)
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
