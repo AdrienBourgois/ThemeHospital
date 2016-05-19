@@ -24,25 +24,30 @@ func _ready():
 
 func _fixed_process(delta):
 	if game.config.move_cam_with_mouse:
-		checkMove()
+		checkMouseMove()
+	checkInputMove()
 	move()
 	checkLimit()
 
 func _input(event):
+	set_rotation(Vector3(0,0,0))
 	if event.is_action_pressed("zoom"):
 		translate(Vector3(0, -1, 0))
 	if event.is_action_pressed("dezoom"):
 		translate(Vector3(0, 1, 0))
-	if event.is_action("ui_left"):
-		movement.x += 3
-	if event.is_action("ui_right"):
-		movement.x -= 3
-	if event.is_action("ui_up"):
-		movement.z += 3
-	if event.is_action("ui_down"):
-		movement.z -= 3
+	set_rotation(rotation)
 
-func checkMove():
+func checkInputMove():
+	if Input.is_action_pressed("ui_left"):
+		movement.x += 1
+	if Input.is_action_pressed("ui_right"):
+		movement.x -= 1
+	if Input.is_action_pressed("ui_up"):
+		movement.z += 1
+	if Input.is_action_pressed("ui_down"):
+		movement.z -= 1
+
+func checkMouseMove():
 	var mouse_pos = root.get_mouse_pos()
 	var window = OS.get_window_size()
 	if mouse_pos.x >= window.x - border:
@@ -52,7 +57,7 @@ func checkMove():
 	if mouse_pos.y >= window.y - border:
 		movement.z -= 1
 	elif mouse_pos.y <= border:
-		movement.x += 1
+		movement.z += 1
 
 
 func checkLimit():
