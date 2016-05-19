@@ -1,5 +1,5 @@
 
-extends "Object.gd"
+extends KinematicBody
 
 func _ready():
 	pass
