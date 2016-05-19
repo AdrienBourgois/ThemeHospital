@@ -11,6 +11,7 @@ onready var savename setget, getSavename
 onready var folder_path
 onready var file_path setget ,getPath
 onready var load_dict = {}
+#onready var inputs_dict = {}
 
 func _ready():
 	pass
@@ -72,6 +73,8 @@ func checkPlayerFolder():
 		gamescn.player.resetStatsDict()
 	else:
 		folder_path = saves_path + game.username + '/'
+	
+	print(folder_path)
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
@@ -113,3 +116,35 @@ func setGamescn(scene):
 
 func getPath():
 	return file_path
+
+#func loadInputs():
+#	if (!checkPlayerFolder()):
+#		print("folder not found")
+#		return false
+#	
+#	if !game.file.file_exists(folder_path + "Input.json"):
+#		print("file not found")
+#		return false
+#	else:
+#		loadInputsData()
+#		return true
+#
+#func loadInputsData():
+#	game.file.open(folder_path + "Input.json", game.file.READ)
+#	while (!game.file.eof_reached()):
+#		inputs_dict.parse_json(game.file.get_line())
+#	
+#	setInputData(inputs_dict)
+#
+#func setInputData(inputs_dict):
+#	for idx in inputs_dict:
+#		eraseActualData(idx)
+#		setNewData(idx)
+#
+#func eraseActualData(action):
+#	for idx in InputMap.get_action_list(action):
+#		InputMap.action_erase_event(action, idx)
+#
+#func setNewData(action):
+#	for idx in inputs_dict[action]:
+#		InputMap.action_add_event(action, idx)

@@ -11,7 +11,7 @@ func _ready():
 	loader.loadInit()
 	line_edit.set_text(game.config.username)
 	set_process_input(true)
-	pass
+	
 
 func _input(event):
 	if event.is_action("enter") && checkIfUsernameCorrect():

@@ -45,8 +45,11 @@ signal speed_change
 signal end_month
 signal build_timer_timeout
 
+var action_list = []
+
 func _ready():
 	set_process_input(true)
+	set_process(true)
 
 
 func _input(event):
