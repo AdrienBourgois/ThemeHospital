@@ -5,6 +5,7 @@ onready var salary_tab = [[75, 105, 205], 60, 25, 20]
 onready var speciality_bonus_salary = [0, 20, 30, 40]
 onready var last_name = ["CRAMBLIN", "WARMOND", "CRABINGTON", "SCOTE", "WRIGHTSON", "HIGHTON", "BURMORE", "BANE", "KINGSMITH", "PETCLIFFE", "PODMAN", "FENTON", "GOLDBERRY", "BYSON", "WATERS", "WRIGHTMORE", "BYTON", "BINNWICK", "WYERS", "CURLAN", "BOYBAUM", "CRABELTON", "WATERSON", "HIGHLEY", "PODINGTON"]
 onready var first_name = ["A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. ", "I. ", "J. ", "K. ", "L. ", "M. ", "N. ", "O. ", "P. ", "Q. ", "R. ", "S. ", "T. ", "U. ", "V. ", "W. ", "X. ", "Y. ", "Z. "]
+var heats = []
 
 onready var staff_id = {
 DOCTOR = 0,
@@ -94,3 +95,8 @@ func calculateSalary(id, skill, seniority=0, speciality=0):
 	else:
 		salary = salary_tab[id] + skill/10
 	return salary
+
+func isInRadiatorRay():
+	for heat in heats:
+		pass
+	pass
