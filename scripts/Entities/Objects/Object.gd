@@ -1,6 +1,7 @@
 
 extends "../Entity.gd"
 
+export var object_name = " " setget setName, getName
 export var price = 100
 export var expense_per_month = 0
 
@@ -16,3 +17,9 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		is_selected = true
 		can_selected = true
 		set_process_input(true)
+
+func setName(value):
+	object_name = value
+
+func getName():
+	return object_name

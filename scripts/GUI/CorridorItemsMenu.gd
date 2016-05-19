@@ -25,7 +25,7 @@ onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
 onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
 onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
-onready var array_scn = [plantscn, plantscn, plantscn, plantscn, plantscn]
+onready var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
 
 var items_count_array = []
 var number_of_buttons = 2
@@ -65,6 +65,7 @@ func _on_Accept_pressed():
 		while (items_count_array[count] > 0):
 			var node = array_scn[count].instance()
 			gamescn.add_child(node)
+			print(node.object_name)
 			items_count_array[count] -= 1
 		count += 1
 		
