@@ -2,6 +2,7 @@
 extends Control
 
 
+onready var game = get_node("/root/Game")
 onready var button = get_node("Button")
 
 onready var commands_menu = get_node("../..")
@@ -14,6 +15,7 @@ onready var key = null
 
 func _ready():
 	init()
+	game.action_list.push_back(action)
 
 
 func init():

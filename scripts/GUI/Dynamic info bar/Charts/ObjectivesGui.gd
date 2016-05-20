@@ -10,8 +10,6 @@ onready var heal_patients_percent_bar = get_node("HealPatientsPercentBar")
 onready var heal_patients_bar = get_node("HealPatientsBar")
 onready var hospital_value_bar = get_node("HospitalValueBar")
 
-func _ready():
-	pass
 
 func calculatePercent(numerator, denominator):
 	if denominator > 0 :

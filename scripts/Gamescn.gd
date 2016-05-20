@@ -72,7 +72,7 @@ func init():
 		initInGameChat()
 	
 	initInGameGui()
-	game.feedback.display("TUTO_MOVE_CAM")
+	#game.feedback.display("TUTO_MOVE_CAM")
 	global_server.sendMutablePlayers()
 
 func initInGameGui():

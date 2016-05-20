@@ -3,8 +3,6 @@ extends Control
 
 onready var game = get_node("/root/Game")
 
-func _ready():
-	pass
 
 func _on_Retry_pressed():
 	game.goToScene("res://scenes/gamescn.scn")

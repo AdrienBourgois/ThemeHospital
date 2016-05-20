@@ -21,6 +21,7 @@ var in_game = false
 
 func _on_ApplyButton_pressed():
 	commands_options.setAllNewInput()
+	save.saveInputs()
 	save.setInit()
 	loader.applyConfig()
 	apply_button.set_disabled(true)

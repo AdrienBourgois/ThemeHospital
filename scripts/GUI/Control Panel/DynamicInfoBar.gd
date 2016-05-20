@@ -23,4 +23,3 @@ func _on_Status_pressed():
 func _on_Town_Map_pressed():
 	hud.hide()
 	town_map.show()
-	pass # replace with function body
