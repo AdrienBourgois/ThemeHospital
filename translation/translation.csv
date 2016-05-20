@@ -136,6 +136,7 @@ BTN_POLICY,Policy,Politique
 BTN_RETRY,Retry,Reessayer
 BTN_GRAB,Grab,Attraper
 BTN_SACK,Sack,Virer
+BTN_BANK,Bank,Banque
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
