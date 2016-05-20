@@ -70,10 +70,11 @@ func init():
 	
 	if ( game.getMultiplayer() ):
 		initInGameChat()
+		global_server.sendMutablePlayers()
 	
 	initInGameGui()
 	#game.feedback.display("TUTO_MOVE_CAM")
-	global_server.sendMutablePlayers()
+	
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
