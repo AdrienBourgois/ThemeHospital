@@ -5,6 +5,7 @@ var map
 var confirm_build
 var is_type_selected = false
 var rooms_types
+onready var node_label = get_node("Rooms/Label")
 
 func _ready():
 	confirm_build = get_node("../Confirmation")
@@ -24,6 +25,7 @@ func _on_Cancel_pressed():
 	self.hide()
 	clean_buttons()
 	is_type_selected = false
+	node_label.set_text("PICK_DPT")
 
 func clean_buttons():
 	for number_button in range(10):
@@ -38,12 +40,11 @@ func rooms_pressed(room):
 		map.new_room("new", room)
 
 func type_rooms_pressed(type):
-	get_node("Rooms/Label").set_text("Pick Room Type")
+	node_label.set_text("PICK_ROOM")
 	clean_buttons()
 	var number_button = 0
 	var buttons
 	for rooms in type:
-		print(rooms)
 		buttons = get_node("Rooms/Button" + str(number_button))
 		if buttons.is_connected("pressed", self, "rooms_pressed"):
 			buttons.disconnect("pressed", self, "rooms_pressed")
