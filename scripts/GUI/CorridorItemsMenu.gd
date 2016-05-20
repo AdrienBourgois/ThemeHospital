@@ -61,6 +61,7 @@ func _on_Accept_pressed():
 			gamescn.add_child(node)
 			var node_info = []
 			items_count_array[count] -= 1
+			gamescn.player.money -= node.price
 		count += 1
 		
 	resetvalues()
