@@ -7,7 +7,7 @@ var update_ready = true
 onready var root = get_tree().get_root()
 onready var progress_bar = get_node("Panel/ProgressBar")
 
-export var waiting_frame = 10
+export var waiting_frame = 1
 
 var current_scene setget setCurrentScene
 

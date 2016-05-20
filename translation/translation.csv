@@ -56,6 +56,7 @@ TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
+TXT_COUNT,Count : ,Nombre : 
 TXT_SPEED,Speed : ,Vitesse : 
 TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
 TXT_SAVING, Saving game..., Sauvegarde en cours...
@@ -63,6 +64,7 @@ TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
 TXT_CHAT_SETTINGS,Chat settings,Options du tchat
 TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
 TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
+TXT_WIN,You win! Congratulation!,Vous avez gagne! Felicitation!
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -127,6 +129,7 @@ BTN_RESEARCH,Research,Recherches
 BTN_STATUS,Status,Statut
 BTN_CHARTS,Charts,Graphiques
 BTN_POLICY,Policy,Politique
+BTN_RETRY,Retry,Reessayer
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
@@ -149,10 +152,10 @@ TUTO_BUILD_ROOMS,button "Rooms" allows to build rooms,Le bouton "Salles" permet 
 TUTO_CORRIDOR_ITEMS,button "Items" allows to buy corridor items,Le bouton "Objets" permet d'acheter des objets a poser dans le couloir
 TUTO_HIRE,button "Hire" allows to hire staff,Le bouton "Engager" permet d'engager du personnel
 TUTO_INFO_BAR,info bar is display if cursor is on control panel,La barre d'information est affichee si le curseur est sur le panneau de controle
-TUTO_TOWN_MAP,button "Map" allows to see map and manage heat,Le button "Carte" permet de voir la carte et de gerer la chaleur
+TUTO_TOWN_MAP,button "Map" allows to see map and manage heat,Le bouton "Carte" permet de voir la carte et de gerer la chaleur
 TUTO_STATUS,button "Status" allows to consult objectives and player progress,Le button "Statut" permet de consulter les objectifs et la progression du joueur
 TUTO_GO,button go or timeout allow to start patient spawn,Le bouton pret ou la fin du chrono permettent l'apparition des patients
-TUTO_SPEED,speed button allows to change game speed from "slowest" to "and then some more",Le button vitesse permet de changer la vitesse du jeu de "la plus lente" a "et toujours plus"
+TUTO_SPEED,speed button allows to change game speed from "slowest" to "and then some more",Le bouton vitesse permet de changer la vitesse du jeu de "la plus lente" a "et toujours plus"
 CMD_UP,[camera] up : ,[camera] haut : 
 CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
