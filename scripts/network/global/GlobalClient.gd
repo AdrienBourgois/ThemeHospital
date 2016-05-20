@@ -42,8 +42,6 @@ func checkSocketStatus():
 	
 	if (connection_status == StreamPeerTCP.STATUS_CONNECTED):
 		initializeConnection()
-		get_tree().get_current_scene().queue_free()
-		get_tree().change_scene("res://scenes/network/Lobby.scn")
 		
 		return true
 	elif (connection_status == StreamPeerTCP.STATUS_CONNECTING):
