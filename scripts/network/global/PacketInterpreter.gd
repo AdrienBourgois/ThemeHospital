@@ -145,8 +145,6 @@ func updateMapRoom(): #Packet 5
 	var room_to = Vector2(tmpData[4].to_int(), tmpData[5].to_int())
 	var room_id = tmpData[6].to_int()
 	
-	print("room from x: ", tmpData[2], "room_to y: ", tmpData[3], " room_to x: ", tmpData[4], "room to y: ", tmpData[5], " id ", tmpData[6])
-	
 	if (current_parsing.server):
 		global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
 	elif (current_parsing.client):
