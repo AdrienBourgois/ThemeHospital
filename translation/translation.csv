@@ -179,3 +179,4 @@ TOOLTIP_TREATMENT,Select General Treatment Room,Selectionne les salles de Traite
 TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
 TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
 TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
+TOOLTIP_CANCEL_ROOMS,Abort this requester and return to game,Annule et retourne en jeu
