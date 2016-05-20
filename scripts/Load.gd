@@ -26,15 +26,12 @@ func loadPlayer(save_number):
 	if !gamescn:
 		return false
 	if (!checkPlayerFolder()):
-		print("Player folder not found")
 		return false
 	if (!checkPlayerFile(save_number)):
-		print("Player file not found")
 		return false
 	else:
 		setFilename(save_number)
 		loadPlayerData()
-		print("Player founded and loaded")
 		return true
 	return false
 
@@ -46,9 +43,11 @@ func loadPlayerData():
 
 	gamescn.player.stats = load_dict.PLAYER
 	gamescn.calendar.stats = load_dict.CALENDAR
+	gamescn.objects = load_dict.OBJECTS
 	
 	gamescn.player.loadData()
 	gamescn.calendar.loadData()
+	gamescn.loadObjects()
 	resetStatsDict()
 	game.file.close()
 
@@ -74,7 +73,6 @@ func checkPlayerFolder():
 	else:
 		folder_path = saves_path + game.username + '/'
 	
-	print(folder_path)
 	if (game.dir.dir_exists(folder_path)):
 		return true
 	return false
@@ -93,7 +91,6 @@ func checkPlayerFile(save_number):
 func loadInit():
 	save.checkSaves()
 	if (!game.file.file_exists(game.init_path)):
-		print("Init file not found, create a new one")
 		save.setDefaultInit()
 		game.config = game.default_config
 	else:

@@ -106,8 +106,5 @@ func initConfig():
 	config.load("res://engine.cfg")
 
 func saveInputs():
-	print(config.has_section_key("input", "show_chat"))
 	for idx in game.action_list:
-		print(idx)
 		config.set_value("input", "show_chat", InputMap.get_action_list(idx))
-		print(config.get_value("input", "show_chat"))
