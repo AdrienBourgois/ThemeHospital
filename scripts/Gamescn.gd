@@ -11,9 +11,20 @@ onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
+onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
+
+onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
+onready var benchscn = preload("res://scenes/Entities/Objects/Bench.scn")
+onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
+onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
+onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
+onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
+onready var objects_array = [] setget getObjectArray
+onready var objects = {}
+
 var in_game_gui
 
 export var map_size = Vector2(0, 0)
@@ -24,7 +35,25 @@ func _ready():
 	loader.loadInit()
 	init()
 	set_process_input(true)
-	set_process(true)
+
+func createObjectsDict():
+	objects = {
+	OBJECTS = objects_array
+	}
+	return objects
+
+func loadObjects():
+	for current in objects.OBJECTS:
+		print("TAMERE : ", objects)
+		var node = objectscn.instance()
+		self.add_child(node)
+		node.can_selected = false
+		node.set_process_input(false)
+		#node.set_translation(Vector3(current[1], 0,  current[2])) 
+		node.global_translate(Vector3(current[1], current[2], current[3]))  
+
+func getObjectArray():
+	return objects_array
 
 func _input(event):
 	if (event.is_action_released("save")):
