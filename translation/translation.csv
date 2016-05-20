@@ -171,3 +171,9 @@ ROOM_PSYCHIATRIC,Psychiatric,Psychiatrie
 ROOM_WARD,Ward,Salle d'Observation
 ROOM_TOILETS,Toilets,Toilettes
 ROOM_STAFF_ROOM,Staff Room,Salle de Repos
+TYPE_DIAGNOSIS,Diagnosis,Diagnostic
+TYPE_TREATMENT,Treatment,Traitement
+TYPE_CLINICS,Clinics,Cliniques
+TYPE_FACILITIES,Facilities,Locaux
+PICK_ROOM,Pick Room Type,Choisir une salle
+PICK_DPT,Pick Department,Choisir un type de salle
