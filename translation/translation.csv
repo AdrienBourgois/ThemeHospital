@@ -133,4 +133,9 @@ CHARTS_MONEY,Money : ,Argent :
 CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients soignes :
 CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
 CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
-TUTO_MOVE_CAM,To move camera put your mouse on the screen edges,Pour deplacer la camera placez la souris sur les bords de l'ecran
+TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour deplacer la camera placez la souris sur les bords de l'ecran ou utiliser les fleches
+CMD_UP,[camera] up : ,[camera] haut : 
+CMD_DOWN,[camera] down : ,[camera] bas :
+CMD_LEFT,[camera] left : ,[camera] gauche : 
+CMD_RIGHT,[camera] right : ,[camera] droite :
+CMD_CHAT,[chat] show : ,[chat] afficher : 
