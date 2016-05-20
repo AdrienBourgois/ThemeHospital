@@ -21,8 +21,8 @@ func _on_Accept_pressed():
 	if (game.getMultiplayer()):
 		map.sendRoomToServer()
 	else:
-		map.new_room("create", null)
-		var desk = desk_res.instance()
-		gamescn.add_child(desk)
+		if (map.new_room("create", null)):
+			var desk = desk_res.instance()
+			gamescn.add_child(desk)
 	self.hide()
 	node_rooms_menu.is_type_selected = false
