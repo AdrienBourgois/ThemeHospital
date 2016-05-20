@@ -1,6 +1,6 @@
 extends Node
 
-export var map_path = "res://Maps/Map1.lvl"
+export var map_path = "res://Maps/map1.lvl"
 
 var columns = []
 var tiles = []
