@@ -24,9 +24,6 @@ func _process(delta):
 			if is_osculted == false:
 				goToOfficeToDiag()
 				is_osculted = true
-			else:
-				pass
-		pass
 
 func calculateHappiness(is_increase):
 	if count == 5:
@@ -62,7 +59,6 @@ func _on_Timer_timeout():
 
 func goToOfficeToDiag():
 	for room in map.rooms:
-		print(room.type["NAME"])
 		if room.type["NAME"] == "ROOM_GP":
 			set_translation(room.tiles[5].get_translation())
 	pass
