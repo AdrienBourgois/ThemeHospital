@@ -69,18 +69,30 @@ func displayInvalidNickname():
 	var node = ResourceLoader.load("res://scenes/network/InvalidNickname.scn").instance()
 	get_tree().get_current_scene().add_child(node)
 
-func _on_Control_visibility_changed():
-	var invalid_server = control_node.get_node("invalid_server")
-	invalid_server.set_hidden(false)
-	invalid_server.get_ok().grab_focus()
 
-
-func _on_invalid_server_confirmed():
+func _on_ok_button_pressed():
 	global_client.disconnectFromServer()
 	control_node.set_hidden(true)
 	connecting_popup.set_hidden(true)
 	invalid_popup.set_hidden(true)
 
+
+func display_connecting_to_server():
+	if ( control_node.is_visible() ):
+		return
+	
+	control_node.set_hidden(false)
+	connecting_popup.set_hidden(false)
+	connecting_popup.get_ok().grab_focus()
+
+
+func display_invalid_server():
+	if ( control_node.is_visible() ):
+		return
+	
+	control_node.set_hidden(false)
+	invalid_popup.set_hidden(false)
+	invalid_popup.get_ok().grab_focus()
 
 func setUsername():
 	if (game != null):

@@ -12,5 +12,12 @@ var idx = 0
 
 func _ready():
 	for i in range(hire_manager.staff_array.size()):
-		selector[hire_manager.staff_array[i]["type"]].add_item("name: " + hire_manager.staff_array[i]["name"], idx)
+		selector[hire_manager.staff_array[i]["type"]].add_item(hire_manager.staff_array[i]["name"], idx)
 		idx += 1
+	setTabsTitle()
+
+func setTabsTitle():
+	set_tab_title(0, tr("TAB_DOCTOR"))
+	set_tab_title(1, tr("TAB_NURSE"))
+	set_tab_title(2, tr("TAB_HANDYMEN"))
+	set_tab_title(3, tr("TAB_RECEPTIONIST"))
