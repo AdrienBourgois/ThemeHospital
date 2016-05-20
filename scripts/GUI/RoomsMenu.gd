@@ -13,10 +13,11 @@ func _ready():
 	rooms_types = rooms_ressources.type_rooms
 	var button_number = 0
 	var buttons = get_node("Types").get_children()
-	for room in rooms_types:
+	for type in rooms_types:
 		if (buttons[button_number].is_connected("pressed", self, "type_rooms_pressed") == true):
 			buttons[button_number].disconnect("pressed", self, "type_rooms_pressed")
-		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[room]])
+		buttons[button_number].set_text(type)
+		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
 		button_number += 1
 
 func _on_Cancel_pressed():
@@ -42,6 +43,7 @@ func type_rooms_pressed(type):
 	var number_button = 0
 	var buttons
 	for rooms in type:
+		print(rooms)
 		buttons = get_node("Rooms/Button" + str(number_button))
 		if buttons.is_connected("pressed", self, "rooms_pressed"):
 			buttons.disconnect("pressed", self, "rooms_pressed")
