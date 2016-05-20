@@ -45,11 +45,10 @@ func checkSocketStatus():
 		
 		return true
 	elif (connection_status == StreamPeerTCP.STATUS_CONNECTING):
-		var control = get_tree().get_current_scene().get_node("./panel/Control")
+		var root = get_tree().get_current_scene()
 		
-		if ( control != null && !control.is_visible() ):
-			control.set_hidden(false)
-			control.get_node("connecting_to_server").set_hidden(false)
+		if ( root != null && root.get_name() == "client_settings_gui" ):
+			root.display_connecting_to_server()
 		
 		return false
 	else:
