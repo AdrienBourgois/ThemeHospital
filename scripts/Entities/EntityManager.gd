@@ -74,6 +74,7 @@ func createPatientBody():
 	patient.happiness = patient_array[0]["happiness"]
 	patient.thirsty = patient_array[0]["thirsty"]
 	patient.warmth = patient_array[0]["warmth"]
+	patient.set_translation(Vector3(20, 0, 48))
 	add_child(patient)
 	patient.add_to_group("Patients")
 	patient_array.clear()
