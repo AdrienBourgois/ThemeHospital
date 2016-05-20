@@ -102,6 +102,8 @@ func parseGame():
 
 func playerIdPacket(): #Packet 0
 	global_client.setClientId(tmpData[2].to_int())
+	get_tree().get_current_scene().queue_free()
+	get_tree().change_scene("res://scenes/network/Lobby.scn")
 
 func playerReadyPacket(): #Packet 1
 	global_server.setPlayerReady(current_player_id, bool(tmpData[2].to_int()))
