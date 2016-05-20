@@ -104,7 +104,5 @@ func isInRadiatorRay(node):
 func checkGlobalTemperature(node):
 	if isInRadiatorRay(node) == true:
 		node.warmth = 60
-		print("is in!")
 	else:
 		node.warmth -= 2
-		print("is not!")

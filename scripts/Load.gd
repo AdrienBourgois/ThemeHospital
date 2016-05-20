@@ -25,15 +25,12 @@ func loadPlayer(save_number):
 	if !gamescn:
 		return false
 	if (!checkPlayerFolder()):
-		print("Player folder not found")
 		return false
 	if (!checkPlayerFile(save_number)):
-		print("Player file not found")
 		return false
 	else:
 		setFilename(save_number)
 		loadPlayerData()
-		print("Player founded and loaded")
 		return true
 	return false
 
@@ -92,7 +89,6 @@ func checkPlayerFile(save_number):
 func loadInit():
 	save.checkSaves()
 	if (!game.file.file_exists(game.init_path)):
-		print("Init file not found, create a new one")
 		save.setDefaultInit()
 		game.config = game.default_config
 	else:
