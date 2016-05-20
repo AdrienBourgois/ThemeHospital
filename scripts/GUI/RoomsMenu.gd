@@ -15,7 +15,7 @@ func _ready():
 	var button_number = 0
 	var buttons = get_node("Types").get_children()
 	for type in rooms_types:
-		if (buttons[button_number].is_connected("pressed", self, "type_rooms_pressed") == true):
+		if buttons[button_number].is_connected("pressed", self, "type_rooms_pressed") == true:
 			buttons[button_number].disconnect("pressed", self, "type_rooms_pressed")
 		buttons[button_number].set_text(type)
 		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
