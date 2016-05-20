@@ -5,8 +5,11 @@ onready var game = get_node("/root/Game")
 onready var gamescn = game.scene
 onready var map = game.scene.map
 onready var mouse_pos_3d = map.center_tile_on_cursor
-onready var cube = get_node("TestCube") 
+onready var cube = get_node("TestCube")
+
 onready var stats = {}
+
+var cube_scale
 
 export var position = Vector3(0,0,0) setget setPosition, getPosition 
 
@@ -14,7 +17,7 @@ var is_selected = false
 var can_selected = true
 
 func _ready():
-	var cube_scale = cube.get_scale()
+	cube_scale = cube.get_scale()
 	set_translation(Vector3(mouse_pos_3d.x - cube_scale.x, cube_scale.y, mouse_pos_3d.y - cube_scale.z))
 	set_process(true)
 	set_process_input(true)
