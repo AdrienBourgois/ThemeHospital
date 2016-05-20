@@ -1,15 +1,9 @@
 
 extends "Object.gd"
 
-
-onready var entity_manager = get_node("/root/Game").scene.entity_manager
-var heating_cost = 7
-var heat_ray = 2
+onready var heat_manager = get_node("/root/Game").scene.heat_manager
+var heat_ray
 
 func _ready():
-	entity_manager.heats.append(self)
-
-#if ((v/10)%2):
-#	+8
-#else:
-#	+7
+	heat_manager.heats.append(self)
+	heat_manager._ready()

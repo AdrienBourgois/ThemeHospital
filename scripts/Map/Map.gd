@@ -188,11 +188,11 @@ func new_room(state, parameters):
 			new_room_to = Vector2(-1,-1)
 			new_room_type = {}
 		else:
-			print("New room is not valid !")
 			new_room("cancel", null)
 
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
+	print("packet: ", packet)
 	global_client.addPacket(packet)
 
 func getResources():

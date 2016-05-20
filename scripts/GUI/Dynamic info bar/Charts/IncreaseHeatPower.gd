@@ -1,13 +1,12 @@
 
 extends Button
 
-onready var entity_manager = get_node("/root/Game").scene.entity_manager
-var heats
+onready var game = get_node("/root/Game")
+onready var heat_manager = get_node("/root/Game").scene.heat_manager
 
 func _on_IncreaseHeatPower_pressed():
-	heats = entity_manager.heats
-	for heat in heats:
-		if heat.heat_ray < 100:
-			heat.heat_ray += 1
-			print(heat.heat_ray)
-			get_parent().get_node("HeatPower").set_val(heat.heat_ray * 10)
+	if heat_manager.heat_ray < 10:
+		heat_manager.heat_ray += 1
+		get_parent().get_node("HeatPower").set_val(heat_manager.heat_ray * 10)
+		heat_manager.increaseHeatCost()
+		get_parent().get_node("CostHeat").set_text(str(heat_manager.heat_cost))

@@ -11,6 +11,7 @@ onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
 onready var hire_manager = get_node("HireManager")
+onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
@@ -47,8 +48,7 @@ func loadObjects():
 		self.add_child(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		#node.set_translation(Vector3(current[1], 0,  current[2])) 
-		node.global_translate(Vector3(current[1], current[2], current[3]))  
+		node.global_translate(Vector3(current[1], current[2], 0))  
 
 func getObjectArray():
 	return objects_array
