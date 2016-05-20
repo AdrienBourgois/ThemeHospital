@@ -51,7 +51,6 @@ func _ready():
 	set_process_input(true)
 	set_process(true)
 
-
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
 		if config.fullscreen:
