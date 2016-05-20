@@ -12,6 +12,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		can_selected = false
 		set_process_input(false)
 		position.x = click_pos.x
+		
 		position.y = click_pos.y
 		var object_stats = []
 		object_stats.append(object_name)
