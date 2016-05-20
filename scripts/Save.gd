@@ -10,7 +10,6 @@ onready var path = "res://saves/"
 onready var filename
 onready var file_path
 onready var save_dict = {}
-#onready var inputs_dict = {}
 var config
 
 func _ready():
@@ -60,7 +59,6 @@ func createSaveDict():
 	PLAYER = gamescn.player.createStatsDict(),
 	CALENDAR = gamescn.calendar.createStatsDict(),
 	OBJECTS = gamescn.createObjectsDict()
-#	MAP = map.createStatsDict()
 	}
 	return save_dict
 
@@ -75,31 +73,6 @@ func checkPlayerFolder():
 
 func setGamescn(scene):
 	gamescn = scene
-
-#func saveInputs():
-#	checkSaves()
-#	checkPlayerFolder()
-#	file_path = saves_path + game.username + '/Input.json'
-#	createinputsDict()
-#	storeInputsData()
-#
-#
-#func createinputsDict():
-#	inputs_dict = {
-#	game.action_list[0] : InputMap.get_action_list(game.action_list[0]),
-#	game.action_list[1] : InputMap.get_action_list(game.action_list[1]),
-#	game.action_list[2] : InputMap.get_action_list(game.action_list[2]),
-#	game.action_list[3] : InputMap.get_action_list(game.action_list[3])}
-#
-#
-#func storeInputsData():
-#	if (game.file.is_open()):
-#		game.file.close()
-#	game.file.open(file_path, game.file.WRITE)
-#	game.file.store_string(inputs_dict.to_json())
-#	game.file.close()
-#	inputs_dict.clear()
-
 
 func initConfig():
 	config = ConfigFile.new()
