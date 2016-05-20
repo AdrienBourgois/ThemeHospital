@@ -147,3 +147,11 @@ CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
 CMD_RIGHT,[camera] right : ,[camera] droite :
 CMD_CHAT,[chat] show : ,[chat] afficher : 
+ROOM_GP,GP's Office,Medecine Generale
+ROOM_GENERAL_DIAGNOSIS,General Diagnosis,Diagnostic General
+ROOM_INFLATION,Inflation,Gonflage
+ROOM_PHARMACY,Pharmacy,Pharmacie
+ROOM_PSYCHIATRIC,Psychiatric,Psychiatrie
+ROOM_WARD,Ward,Salle d'Observation
+ROOM_TOILETS,Toilets,Toilettes
+ROOM_STAFF_ROOM,Staff Room,Salle de Repos
