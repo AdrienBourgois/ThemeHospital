@@ -10,7 +10,7 @@ var lobby = {
 
 var gp_office = { 
 	"ID": 1,
-	"NAME": "gp's office",
+	"NAME": "ROOM_GP",
 	"SIZE_MIN": 4,
 	"COLOR": colors.red,
 	"COST": 2500,
@@ -103,23 +103,23 @@ var pavement = {
 }
 
 var diagnosis_rooms = {
-	"GP_OFFICE": gp_office,
-	"GENERAL_DIAGNOSIS": general_diagnosis
+	"ROOM_GP": gp_office,
+	"ROOM_GENERAL_DIAGNOSIS": general_diagnosis
 }
 
 var treatment_rooms = {
-	"PSYCHIATRIC": psychiatric,
-	"PHARMACY": pharmacy,
-	"WARD": ward
+	"ROOM_PSYCHIATRIC": psychiatric,
+	"ROOM_PHARMACY": pharmacy,
+	"ROOM_WARD": ward
 }
 
 var clinics = {
-	"INFLATION": inflation
+	"ROOM_INFLATION": inflation
 }
 
 var facilities = {
-	"STAFF_ROOM": staff_room,
-	"TOILETS": toilets
+	"ROOM_STAFF_ROOM": staff_room,
+	"ROOM_TOILETS": toilets
 }
 
 var decorations = {
