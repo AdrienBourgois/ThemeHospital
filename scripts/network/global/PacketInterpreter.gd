@@ -139,17 +139,19 @@ func updateLobbyData(): #Packet 4
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
 
 func updateMapRoom(): #Packet 5
-	var room_from = Vector2(tmpData[2], tmpData[3])
-	var room_to = Vector2(tmpData[4], tmpData[5])
+	var room_from = Vector2(tmpData[2].to_int(), tmpData[3].to_int())
+	var room_to = Vector2(tmpData[4].to_int(), tmpData[5].to_int())
 	var room_id = tmpData[6].to_int()
+	
+	print("room from x: ", tmpData[2], "room_to y: ", tmpData[3], " room_to x: ", tmpData[4], "room to y: ", tmpData[5], " id ", tmpData[6])
 	
 	if (current_parsing.server):
 		global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
 	elif (current_parsing.client):
 		var root = get_tree().get_current_scene()
 		if (root != null && root.get_name() == "GameScene"):
-			var map = root.get_child(1)
-			if (map.get_name() == "Map"):
+			var map = root.get_node("Map")
+			if (map.get_name() != null):
 				map.new_room("new", map.getResources().getRoomFromId(room_id))
 				map.new_room("from", room_from)
 				map.new_room("current", room_to)
