@@ -24,9 +24,9 @@ func _on_Accept_pressed():
 	else:
 		map.new_room("create", null)
 		var desk = desk_res.instance()
-		var plant = plant_res.instance()
+		#var plant = plant_res.instance()
 		gamescn.add_child(desk)
-		gamescn.add_child(plant)
+		#gamescn.add_child(plant)
 	
 	self.hide()
 	node_rooms_menu.is_type_selected = false
