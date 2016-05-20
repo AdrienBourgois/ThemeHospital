@@ -189,3 +189,7 @@ TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
 TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
 TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
 TOOLTIP_CANCEL_ROOMS,Abort this requester and return to game,Annule et retourne en jeu
+TAB_DOCTOR,Doctor,Docteur
+TAB_NURSE,Nurse,Infirmiere
+TAB_HANDYMEN,Handymen,Concierge
+TAB_RECEPTIONIST,Receptionist,Receptioniste
