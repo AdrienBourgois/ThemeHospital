@@ -4,9 +4,6 @@ extends Control
 onready var value = 0 setget setValue, getValue
 onready var label = get_node("Label")
 
-func _ready():
-	pass
-
 func update():
 	label.set_text("Count : " + str(value))
 

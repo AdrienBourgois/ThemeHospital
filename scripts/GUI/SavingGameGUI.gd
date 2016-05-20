@@ -8,7 +8,6 @@ onready var timer = get_node("Panel/Timer")
 func _ready():
 	timer.set_wait_time(2)
 	timer.connect("timeout", self, "timerOut")
-	pass
 
 func showSaving():
 	saving_game.show()
