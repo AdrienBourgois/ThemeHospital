@@ -134,6 +134,14 @@ CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients so
 CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
 CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
 TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour deplacer la camera placez la souris sur les bords de l'ecran ou utiliser les fleches
+TUTO_BUILD_ROOMS,button {1} allows to build rooms,Le bouton {1} permet de construire des salles
+TUTO_CORRIDOR_ITEMS,button {2} allows to buy corridor items,Le bouton {2} permet d'acheter des objets a poser dans le couloir
+TUTO_HIRE,button {4} allows to hire staff,Le bouton {4} permet d'engager du personnel
+TUTO_INFO_BAR,info bar is display if cursor is on control panel,La barre d'information est affichee si le curseur est sur le panneau de controle
+TUTO_TOWN_MAP,button {6} allows to see map and manage heat,Le button {6} permet de voir la carte et de gerer la chaleur
+TUTO_STATUS,button {9} allows to consult objectives and player progress,Le button {9} permet de consulter les objectifs et la progression du joueur
+TUTO_GO,button go or timeout allow to start patient spawn,Le bouton pret ou la fin du chrono permettent l'apparition des patients
+TUTO_SPEED,speed button allows to change game speed from "slowest" to "and then some more",Le button vitesse permet de changer la vitesse du jeu de "la plus lente" a "et toujours plus"
 CMD_UP,[camera] up : ,[camera] haut : 
 CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
