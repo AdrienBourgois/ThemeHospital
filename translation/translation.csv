@@ -175,3 +175,7 @@ TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_TREATMENT,Select General Treatment Room,Selectionne les salles de Traitement
+TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
+TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
+TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
