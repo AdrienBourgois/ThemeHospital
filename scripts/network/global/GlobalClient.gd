@@ -119,6 +119,7 @@ func disconnectFromServer():
 	disconnectServer()
 	resetClientStates()
 	
+	client_id = null
 	peer_stream = null
 	socket = null
 
