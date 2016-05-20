@@ -65,6 +65,10 @@ TXT_CHAT_SETTINGS,Chat settings,Options du tchat
 TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
 TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
 TXT_WIN,You win! Congratulation!,Vous avez gagne! Felicitation!
+TXT_HAPPINESS,Happiness,Joie
+TXT_TIRENESS,Tireness,Fatigue
+TXT_SKILL,Skill, Capacite
+TXT_SALARY,Salary,Salaire
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -130,6 +134,8 @@ BTN_STATUS,Status,Statut
 BTN_CHARTS,Charts,Graphiques
 BTN_POLICY,Policy,Politique
 BTN_RETRY,Retry,Reessayer
+BTN_GRAB,Grab,Attraper
+BTN_SACK,Sack,Virer
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
