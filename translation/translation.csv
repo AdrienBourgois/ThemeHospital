@@ -148,6 +148,8 @@ CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients so
 CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
 CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
 TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour deplacer la camera placez la souris sur les bords de l'ecran ou utiliser les fleches
+TUTO_LEFT_CLICK,Left click on a staff allow to see her characteritics,Clique-gauche sur un employe permet de voir ses caracteristiques
+TUTO_RIGHT_CLICK,Right click allows to take a staff or object to move it. If a staff or object is taken it allows to rotate it,Clique droit permet de prendre un employe ou un objet pour le deplacer. Si un employe ou un objet est deja pris il permet de le tourner
 TUTO_BUILD_ROOMS,button "Rooms" allows to build rooms,Le bouton "Salles" permet de construire des salles
 TUTO_CORRIDOR_ITEMS,button "Items" allows to buy corridor items,Le bouton "Objets" permet d'acheter des objets a poser dans le couloir
 TUTO_HIRE,button "Hire" allows to hire staff,Le bouton "Engager" permet d'engager du personnel

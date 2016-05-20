@@ -10,6 +10,8 @@ var mouse_on_it = false
 
 onready var buff = [
 	"TUTO_MOVE_CAM",
+	"TUTO_LEFT_CLICK",
+	"TUTO_RIGHT_CLICK",
 	"TUTO_BUILD_ROOMS",
 	"TUTO_CORRIDOR_ITEMS",
 	"TUTO_HIRE",
