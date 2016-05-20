@@ -56,6 +56,7 @@ TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
+TXT_COUNT,Count : ,Nombre : 
 TXT_SPEED,Speed : ,Vitesse : 
 TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
 TXT_SAVING, Saving game..., Sauvegarde en cours...
@@ -63,6 +64,11 @@ TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
 TXT_CHAT_SETTINGS,Chat settings,Options du tchat
 TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
 TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
+TXT_WIN,You win! Congratulation!,Vous avez gagne! Felicitation!
+TXT_HAPPINESS,Happiness,Joie
+TXT_TIRENESS,Tireness,Fatigue
+TXT_SKILL,Skill, Capacite
+TXT_SALARY,Salary,Salaire
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -116,6 +122,21 @@ BTN_CANCEL,Cancel,Annuler
 BTN_GO,Go!,Pret!
 BTN_MOVE_CHAT,Move chat,Deplacer le tchat
 BTN_MUTE,Mute,Rendre muet
+BTN_ROOMS,Rooms,Salles
+BTN_ITEMS,Items,Objets
+BTN_EDIT,Edit,Editer
+BTN_HIRE,Hire,Engager
+BTN_STAFF,Staff, Personnel
+BTN_MAP,Map,Carte
+BTN_DRUGS,Drugs,Medicament
+BTN_RESEARCH,Research,Recherches
+BTN_STATUS,Status,Statut
+BTN_CHARTS,Charts,Graphiques
+BTN_POLICY,Policy,Politique
+BTN_RETRY,Retry,Reessayer
+BTN_GRAB,Grab,Attraper
+BTN_SACK,Sack,Virer
+BTN_BANK,Bank,Banque
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
@@ -134,6 +155,16 @@ CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients so
 CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
 CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
 TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour deplacer la camera placez la souris sur les bords de l'ecran ou utiliser les fleches
+TUTO_LEFT_CLICK,Left click on a staff allow to see her characteritics,Clique-gauche sur un employe permet de voir ses caracteristiques
+TUTO_RIGHT_CLICK,Right click allows to take a staff or object to move it. If a staff or object is taken it allows to rotate it,Clique droit permet de prendre un employe ou un objet pour le deplacer. Si un employe ou un objet est deja pris il permet de le tourner
+TUTO_BUILD_ROOMS,button [Rooms] allows to build rooms,Le bouton [Salles] permet de construire des salles
+TUTO_CORRIDOR_ITEMS,button [Items] allows to buy corridor items,Le bouton [Objets] permet d'acheter des objets a poser dans le couloir
+TUTO_HIRE,button [Hire] allows to hire staff,Le bouton [Engager] permet d'engager du personnel
+TUTO_INFO_BAR,info bar is display if cursor is on control panel,La barre d'information est affichee si le curseur est sur le panneau de controle
+TUTO_TOWN_MAP,button [Map] allows to see map and manage heat,Le bouton [Carte] permet de voir la carte et de gerer la chaleur
+TUTO_STATUS,button [Status] allows to consult objectives and player progress,Le bouton [Statut] permet de consulter les objectifs et la progression du joueur
+TUTO_GO,button [go] or timeout allow to start patient spawn,Le bouton [pret] ou la fin du chrono permettent l'apparition des patients
+TUTO_SPEED,button [speed] allows to change game speed from [slowest] to [and then some more],Le bouton [vitesse] permet de changer la vitesse du jeu de [la plus lente] a [et toujours plus]
 CMD_UP,[camera] up : ,[camera] haut : 
 CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
@@ -147,3 +178,14 @@ ROOM_PSYCHIATRIC,Psychiatric,Psychiatrie
 ROOM_WARD,Ward,Salle d'Observation
 ROOM_TOILETS,Toilets,Toilettes
 ROOM_STAFF_ROOM,Staff Room,Salle de Repos
+TYPE_DIAGNOSIS,Diagnosis,Diagnostic
+TYPE_TREATMENT,Treatment,Traitement
+TYPE_CLINICS,Clinics,Cliniques
+TYPE_FACILITIES,Facilities,Locaux
+PICK_ROOM,Pick Room Type,Choisir une salle
+PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_TREATMENT,Select General Treatment Room,Selectionne les salles de Traitement
+TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
+TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
+TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
+TOOLTIP_CANCEL_ROOMS,Abort this requester and return to game,Annule et retourne en jeu

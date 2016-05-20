@@ -73,8 +73,6 @@ func init():
 		global_server.sendMutablePlayers()
 	
 	initInGameGui()
-	#game.feedback.display("TUTO_MOVE_CAM")
-	
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()

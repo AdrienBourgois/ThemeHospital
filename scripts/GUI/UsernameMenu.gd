@@ -1,13 +1,14 @@
-
 extends Control
 
 onready var game = get_node("/root/Game")
 onready var loader = get_node("/root/Load")
 onready var saver = get_node("/root/Save")
+onready var label = get_node("Panel/UsernameBox/UsernameLabel")
 onready var line_edit = get_node("Panel/UsernameBox/UsernameLineEdit")
 
 func _ready():
 	loader.loadInit()
+	label.set_text("TXT_ENTERNAME")
 	line_edit.set_text(game.config.username)
 	set_process_input(true)
 

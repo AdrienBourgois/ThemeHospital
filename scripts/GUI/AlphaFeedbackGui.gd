@@ -6,13 +6,20 @@ onready var feed_back_label = get_node("Alpha_feedback_label")
 onready var plus_button = get_node("Plus")
 onready var minus_button = get_node("Minus")
 
-
 var mouse_on_it = false
 
 onready var buff = [
 	"TUTO_MOVE_CAM",
-	"TAMER",
-	"BONJOUR"
+	"TUTO_LEFT_CLICK",
+	"TUTO_RIGHT_CLICK",
+	"TUTO_BUILD_ROOMS",
+	"TUTO_CORRIDOR_ITEMS",
+	"TUTO_HIRE",
+	"TUTO_INFO_BAR",
+	"TUTO_TOWN_MAP",
+	"TUTO_STATUS",
+	"TUTO_GO",
+	"TUTO_SPEED"
 ]
 
 onready var count = 0

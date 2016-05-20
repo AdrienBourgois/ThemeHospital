@@ -187,8 +187,10 @@ func new_room(state, parameters):
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)
 			new_room_type = {}
+			return true
 		else:
 			new_room("cancel", null)
+		return false
 
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
