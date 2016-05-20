@@ -1,19 +1,5 @@
 extends Node
 
-func getRoomFromId(id):
-	if (id == 0):
-		return lobby
-	elif (id == 1):
-		return gp_office
-	elif (id == 2):
-		return general_diagnosis
-	elif (id == 10):
-		return psychiatric
-	elif (id == 11):
-		return pharmacy
-	else:
-		print("Bonsoir monsieur")
-
 var lobby = { 
 	"ID": 0,
 	"NAME": "lobby",
@@ -46,7 +32,7 @@ var psychiatric = {
 	"ID": 10,
 	"NAME": "psychiatric",
 	"SIZE_MIN": 5,
-	"COLOR": colors.red,
+	"COLOR": colors.blue,
 	"COST": 2500,
 	"RESSOURCES": {}, 
 	"OBJECTS": {}
@@ -66,7 +52,7 @@ var ward = {
 	"ID": 12,
 	"NAME": "ward",
 	"SIZE_MIN": 6,
-	"COLOR": colors.white,
+	"COLOR": colors.yellow,
 	"COST": 2000,
 	"RESSOURCES": {},
 	"OBJECTS": {}
@@ -86,7 +72,7 @@ var staff_room = {
 	"ID": 30,
 	"NAME": "staff room",
 	"SIZE_MIN": 4,
-	"COLOR": colors.purple,
+	"COLOR": colors.brown,
 	"COST": 1500,
 	"RESSOURCES": {},
 	"OBJECTS": {}
@@ -96,7 +82,7 @@ var toilets = {
 	"ID": 31,
 	"NAME": "toilets",
 	"SIZE_MIN": 4,
-	"COLOR": colors.white,
+	"COLOR": colors.black,
 	"COST": 1500,
 	"RESSOURCES": {},
 	"OBJECTS": {}
@@ -143,13 +129,7 @@ var decorations = {
 
 var type_rooms = {
 	"TREATMENT": treatment_rooms,
-	"FACILITIES": facilities,
+	"DIAGNOSIS": diagnosis_rooms,
 	"CLINICS": clinics,
-	"DIAGNOSIS": diagnosis_rooms
+	"FACILITIES": facilities
 }
-
-func get_rooms_by_type(type):
-	var rooms = []
-	for room in type:
-		rooms.append(type[room])
-	return rooms

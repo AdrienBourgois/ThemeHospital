@@ -1,9 +1,10 @@
 
+
 extends MenuButton
 
 onready var game = get_node("/root/Game")
 onready var resolution_button = get_node("./ResolutionOptionButton")
-onready var options_menu = get_node("../..")
+onready var options_menu = get_node("../../..")
 onready var fullscreen_button = get_node("./FullscreenCheckButton")
 
 export var res = [Vector2(800, 600), Vector2(1024, 720), Vector2(1366, 768)]

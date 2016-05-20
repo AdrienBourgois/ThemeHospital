@@ -1,7 +1,5 @@
 extends Node
 
-var first_game = true setget ,getFirstGame
-
 onready var root = get_tree().get_root()
 
 onready var init_path = "res://init.cfg"
@@ -10,6 +8,7 @@ onready var dir = Directory.new()
 onready var config = {}
 onready var preloader = preload("res://scenes/LoadingScreen.scn")
 var loader
+
 onready var default_config = {
 username = "Default",
 res_x = 1024,
@@ -17,7 +16,9 @@ res_y = 600,
 fullscreen = false,
 sound = false,
 online_mode = false,
-langage = "fr"
+langage = "fr",
+tutorial = true,
+move_cam_with_mouse = true
 }
 
 var username = "" setget setUsername,getUsername
@@ -47,6 +48,7 @@ signal build_timer_timeout
 func _ready():
 	set_process_input(true)
 
+
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
 		if config.fullscreen:
@@ -66,16 +68,13 @@ func getScene():
 	return get_node("/root/GameScene")
 
 func getFeedback():
-	return get_node("/root/GameScene/In_game_gui/Feedback_panel")
+	return get_node("/root/GameScene/In_game_gui/HUD/Feedback_panel")
 
 func getInfobar():
 	return get_node("/root/GameScene/In_game_gui/Control_panel/Dynamic_info_bar")
 
 func getSpeedArray(id):
 	return speed_array[id]
-
-func getFirstGame():
-	return first_game
 
 func setUsername(name):
 	username = name

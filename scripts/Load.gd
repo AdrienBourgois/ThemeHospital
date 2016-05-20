@@ -22,18 +22,19 @@ func autoload():
 	loadPlayer(10)
 
 func loadPlayer(save_number):
-	if gamescn:
-		if (!checkPlayerFolder()):
-			print("Player folder not found")
-			return false
-		if (!checkPlayerFile(save_number)):
-			print("Player file not found")
-			return false
-		else:
-			setFilename(save_number)
-			loadPlayerData()
-			print("Player founded and loaded")
-			return true
+	if !gamescn:
+		return false
+	if (!checkPlayerFolder()):
+		print("Player folder not found")
+		return false
+	if (!checkPlayerFile(save_number)):
+		print("Player file not found")
+		return false
+	else:
+		setFilename(save_number)
+		loadPlayerData()
+		print("Player founded and loaded")
+		return true
 	return false
 
 func loadPlayerData():
@@ -44,9 +45,11 @@ func loadPlayerData():
 
 	gamescn.player.stats = load_dict.PLAYER
 	gamescn.calendar.stats = load_dict.CALENDAR
+	gamescn.objects = load_dict.OBJECTS
 	
 	gamescn.player.loadData()
 	gamescn.calendar.loadData()
+	gamescn.loadObjects()
 	resetStatsDict()
 	game.file.close()
 

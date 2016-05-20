@@ -30,7 +30,7 @@ TXT_SLOWEST,SLOWEST,LA PLUS LENTE
 TXT_SLOWER,SLOWER,PLUS LENT
 TXT_NORMAL,NORMAL,NORMAL
 TXT_MAX,MAX,MAX
-TXT_SOME_MORE,AND THEN SOME MORE,ET TOUJOURS PLUS 
+TXT_SOME_MORE,AND THEN SOME MORE,ET TOUJOURS PLUS
 TXT_JANUARY,Januray,Janvier
 TXT_FEBRUARY,February,Fevrier
 TXT_MARCH,March,Mars
@@ -46,7 +46,7 @@ TXT_DECEMBER,December,Decembre
 TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
 TXT_MAP_SELECTED,The map you have selected is ,La carte selectionnee est 
 TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
-TXT_ENTERNAME, Please enter your username :, Veuillez entrer votre pseudo :
+TXT_ENTERNAME, Please enter your username :, Veuillez entrer vore pseudo :
 TXT_BUILD, Rooms, Pieces
 TXT_EDIT, Edit, Editer
 TXT_BENCH, Bench, Banc
@@ -56,9 +56,13 @@ TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
+TXT_SPEED,Speed : ,Vitesse : 
 TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
 TXT_SAVING, Saving game..., Sauvegarde en cours...
 TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
+TXT_CHAT_SETTINGS,Chat settings,Options du tchat
+TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
+TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -79,7 +83,7 @@ LOAD_5, Save 5, Sauvegarde 5
 LOAD_6, Save 6, Sauvegarde 6
 LOAD_7, Save 7, Sauvegarde 7
 LOAD_8, Save 8, Sauvegarde 8
-LOAD_AUTO, Auto save, Sauvegarde automatique
+LOAD_AUTO, Auto save, Sauv. auto
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
@@ -91,14 +95,16 @@ MENU_CONNECT,Connect to server,Se connecter au serveur
 MENU_HOST_GAME,Host game,Heberger la partie
 MENU_JOIN_SERVER,Join game,Rejoindre la partie
 MENU_DISCONNECT,Disconnect,Deconnexion
-IGMENU_BACKTOGAME, Back to game, Reprendre la partie
-IGMENU_SAVEGAME, Save game, Sauvegarder
-IGMENU_BACKTOMENU, Back to menu, Retourner au menu
-OPTIONS_FULLSCREEN, Fullscreen, Plein ecran
-OPTIONS_ENABLE, Enable, Active
-OPTIONS_DISABLE, Disable, Desactive
-OPTIONS_LANGUAGE, Language, Langage
-OPTIONS_APPLY, Apply, Appliquer
+IGMENU_BACKTOGAME,Back to game,Reprendre la partie
+IGMENU_SAVEGAME,Save game,Sauvegarder
+IGMENU_BACKTOMENU,Back to menu,Retourner au menu
+OPTIONS_FULLSCREEN,Fullscreen,Plein ecran
+OPTIONS_ENABLE,Enable,Active
+OPTIONS_DISABLE,Disable,Desactive
+OPTIONS_LANGUAGE,Language,Langage
+OPTIONS_APPLY,Apply,Appliquer
+OPTIONS_TUTO,Tutorial,Tutoriel
+OPTIONS_CAMERA, Move camera with mouse : ,Bouger la camera avec la souris : 
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
 BTN_READY,Ready,Pret
@@ -107,3 +113,24 @@ BTN_START_GAME,Start game,Lancer la partie
 BTN_DISCONNECT,Disconnect server,Se deconnecter
 BTN_CONFIRM,Confirm,Confirmer
 BTN_CANCEL,Cancel,Annuler
+BTN_GO,Go!,Pret!
+BTN_MOVE_CHAT,Move chat,Deplacer le tchat
+BTN_MUTE,Mute,Rendre muet
+TIP_BUILD_ROOM,Build room,Construire salle
+TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
+TIP_EDIT,Edit rooms/items,Modifier salles/objets
+TIP_HIRE_STAFF,Hire staff,Engager Personnel
+TIP_BANK,Bank balance,Solde bancaire
+TIP_STAFF_MANAGEMENT,Staff management,Gestion du personnel
+TIP_TOWN_MAP,Town map,Carte de la ville
+TIP_DRUG_CASEBOOK,Drug casebook,Liste de remedes
+TIP_RESEARCH,Research,Recherches
+TIP_STATUS,Status,Statut
+TIP_CHARTS,Charts,Graphiques
+TIP_POLICY,Policy,Politique
+CHARTS_OBJECTIVES,Objectives : ,Objectifs : 
+CHARTS_MONEY,Money : ,Argent : 
+CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients soignes :
+CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
+CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
+TUTO_MOVE_CAM,To move camera put your mouse on the screen edges,Pour deplacer la camera placez la souris sur les bords de l'ecran

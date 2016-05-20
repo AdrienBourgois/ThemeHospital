@@ -78,22 +78,26 @@ func checkForEmptyness(data):
 func parseGame():
 	var packet_id = tmpData[1]
 	
-	if (packet_id == "0"):
+	if ( packet_id == "0" ):
 		playerIdPacket()
-	elif (packet_id == "1"):
+	elif ( packet_id == "1" ):
 		playerReadyPacket()
-	elif (packet_id == "2"):
+	elif ( packet_id == "2" ):
 		gameStartedPacket()
-	elif (packet_id == "3"):
+	elif ( packet_id == "3" ):
 		checkNicknamePacket()
-	elif (packet_id == "4"):
+	elif ( packet_id == "4" ):
 		updateLobbyData()
-	elif (packet_id == "5"):
+	elif ( packet_id == "5" ):
 		updateMapRoom()
-	elif (packet_id == "6"):
+	elif ( packet_id == "6" ):
 		updateMapItems()
-	elif (packet_id == "7"):
+	elif ( packet_id == "7" ):
 		kickedFromServer()
+	elif ( packet_id == "8" ):
+		updatePlayerContainer()
+	elif ( packet_id == "9" ):
+		muteUnmutePlayer()
 
 
 func playerIdPacket(): #Packet 0
@@ -110,7 +114,7 @@ func gameStartedPacket(): #Packet 2
 		get_tree().change_scene("res://scenes/network/MapSelect.scn")
 	elif (scene == "1"):
 		get_tree().get_current_scene().queue_free()
-		get_tree().change_scene("res://scenes/gamescn.scn")
+		get_tree().change_scene("res://scenes/LoadingScreen.scn")
 
 func checkNicknamePacket(): #Packet 3
 	var nickname_is_ok = bool(tmpData[2].to_int())
@@ -168,6 +172,26 @@ func kickedFromServer(): #Packet 7
 		scene.displayKickedFromServer()
 		get_tree().get_current_scene().add_child(scene, true)
 
+func updatePlayerContainer(): #Packet 8
+	if ( current_parsing.client ):
+		var root = get_tree().get_current_scene()
+		
+		if (root.get_name() == "GameScene"):
+			var menu_bar = root.get_node("In_game_gui/HUD/MenuBar")
+			menu_bar.clearPlayerContainer()
+			
+			var data = 2
+			
+			for count in range ( (tmpData.size()-2)/2 ):
+				if (global_client.getClientId() != tmpData[data+1].to_int()):
+					menu_bar.addPlayerInPlayerContainer(tmpData[data], tmpData[data+1].to_int())
+				data += 2
+
+func muteUnmutePlayer(): #Packet 9
+	if (tmpData[2] == "0"):
+		global_server.unmutePlayer(current_player_id, tmpData[3])
+	elif (tmpData[2] == "1"):
+		global_server.mutePlayer(current_player_id, tmpData[3])
 
 func setNickname(): 
 	if ( current_parsing.server ):
