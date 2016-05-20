@@ -8,11 +8,6 @@ onready var language_node = get_node("Language/Language_option")
 
 var has_changed = false
 
-func _ready():
-	
-	pass
-
-
 func _on_ApplyButton_pressed():
 	save.setInit()
 	loader.applyConfig()

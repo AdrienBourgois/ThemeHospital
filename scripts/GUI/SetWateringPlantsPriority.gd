@@ -5,7 +5,6 @@ var staff_selected
 
 func _ready():
 	connect("pressed", self, "_on_WateringPlants_pressed")
-	pass
 
 func _on_WateringPlants_pressed():
 	staff_selected = get_node("/root/Game").scene.hire_manager.staff_selected

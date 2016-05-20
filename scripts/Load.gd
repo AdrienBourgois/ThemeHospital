@@ -1,4 +1,3 @@
-
 extends Node
 
 onready var game = get_node("/root/Game")
@@ -12,9 +11,6 @@ onready var folder_path
 onready var file_path setget ,getPath
 onready var load_dict = {}
 #onready var inputs_dict = {}
-
-func _ready():
-	pass
 
 func quickload():
 	loadPlayer(0)
