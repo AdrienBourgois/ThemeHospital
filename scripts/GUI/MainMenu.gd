@@ -5,7 +5,6 @@ onready var loader = get_node("/root/Load")
 
 
 func _ready():
-#	loader.loadInputs()
 	game.multiplayer = false
 
 func _on_New_game_pressed():
