@@ -188,7 +188,6 @@ func new_room(state, parameters):
 			new_room_to = Vector2(-1,-1)
 			new_room_type = {}
 		else:
-			print("New room is not valid !")
 			new_room("cancel", null)
 
 func sendRoomToServer():

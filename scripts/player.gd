@@ -177,5 +177,4 @@ func decreaseHospitalValue(val):
 	emit_signal("hospital_value_change", hospital_value)
 
 func _on_end_month():
-	print("end_month")
 	decreaseMoney(expense)

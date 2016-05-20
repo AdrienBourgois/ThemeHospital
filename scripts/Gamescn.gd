@@ -44,13 +44,11 @@ func createObjectsDict():
 
 func loadObjects():
 	for current in objects.OBJECTS:
-		print("TAMERE : ", objects)
 		var node = objectscn.instance()
 		self.add_child(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		#node.set_translation(Vector3(current[1], 0,  current[2])) 
-		node.global_translate(Vector3(current[1], current[2], current[3]))  
+		node.global_translate(Vector3(current[1], current[2], 0))  
 
 func getObjectArray():
 	return objects_array

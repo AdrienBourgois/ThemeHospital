@@ -22,8 +22,7 @@ func _ready():
 func createStatsDict():
 	stats = {
 	POSITION_X = position.x,
-	POSITION_Y = position.y,
-	POSITION_Z = position.z
+	POSITION_Y = position.y
 	}
 	return stats
 
