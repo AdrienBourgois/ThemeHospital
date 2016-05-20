@@ -5,7 +5,8 @@ var tiles = []
 var size_x = 0
 var size_y = 0
 var type = 0
-var construted = 0
+var construted = 0 #or temp
+var present_staff = []
 
 var map_reference = null
 
