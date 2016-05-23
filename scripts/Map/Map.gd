@@ -45,8 +45,8 @@ func loadData():
 		new_room_type = ressources.getRoomFromId(current.ID)
 		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
-		print(new_room_from, " ", new_room_from)
 
+	print(new_room_from, " ", new_room_to)
 	resetStatsDict()
 
 func create_map(file_path):
@@ -196,10 +196,11 @@ func new_room(state, parameters):
 			FROM_X = new_room_from.x,
 			FROM_Y = new_room_from.y,
 			TO_X = new_room_to.x,
-			TO_Y = new_room_to.x,
+			TO_Y = new_room_to.y,
 			ID = new_room_type.ID
 			}
 			rooms_save.append(room_data)
+			print(new_room_from, " ", new_room_to)
 			
 			new_room_from = Vector2(-1,-1)
 			previous_current_selection = []
