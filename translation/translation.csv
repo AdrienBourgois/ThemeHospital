@@ -5,6 +5,7 @@ MSG_LEFT,left the lobby,a quitte la session
 MSG_READY,is ready to play,est pret a jouer
 MSG_NOT_READY,is  no longer ready,n'est plus pret
 MSG_CLIENT_CHOOSING_NAME,A new client is choosing a nickname,Un nouveau client choisit son pseudo
+TXT_SACK,Are you sure you want to sack this member of staff?, Etes-vous sur de vouloir renvoyer cet employe?
 TXT_PORT,Port:,Port:
 TXT_NICKNAME,Nickname:,Pseudo:
 TXT_IP_ADDRESS,IP address,Addresse IP
@@ -66,7 +67,7 @@ TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
 TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
 TXT_WIN,You win! Congratulation!,Vous avez gagne! Felicitation!
 TXT_HAPPINESS,Happiness,Joie
-TXT_TIRENESS,Tireness,Fatigue
+TXT_TIRENESS,Tiredness,Fatigue
 TXT_SKILL,Skill, Capacite
 TXT_SALARY,Salary,Salaire
 SAVE, Save, Sauvegarder
