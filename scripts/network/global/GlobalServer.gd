@@ -7,6 +7,8 @@ var packet_list = Array() setget addPacket
 var current_available_id = 0
 onready var global_client = get_node("/root/GlobalClient")
 onready var packet_interpreter = get_node("/root/PacketInterpreter")
+var thread = null
+var mutex = null
 
 var server_states = {
 	server_connected = false,
@@ -21,32 +23,44 @@ func _process(delta):
 		checkForMessage()
 		checkForPacketToSend()
 
+func run(arg):
+	mutex.lock()
+	
+	while ( server_states.server_connected ):
+		checkForDisconnection()
+		checkForIncomingConnection()
+		checkForMessage()
+		checkForPacketToSend()
+	
+	mutex.unlock()
+
 
 func getSocket():
 	return socket
 
 
 func startServer(port):
-	set_process(true)
+	initializeThread()
+	
 	if (socket != null):
-		set_process(false)
+		return
 	
 	socket = TCP_Server.new()
 	
 	if (socket.listen(port) == 0):
 		initializeServer(port)
 	else:
+		mutex.unlock()
 		socket = null
-		set_process(false)
 
 func initializeServer(port):
 	server_states.server_connected = true
 	server_states.looking_for_players = true
+	thread.start(self,"run", 0)
+	
 	global_client.setHostClient(true)
 	
 	global_client.connectToServer("127.0.0.1", port)
-	
-	
 
 
 func resetServerStates():
@@ -56,14 +70,17 @@ func resetServerStates():
 
 
 func stopServer():
-	set_process(false)
 	resetServerStates()
+	thread.wait_to_finish()
 	
 	socket.stop()
 	player_data.clear()
 	packet_list.clear()
 	
 	socket = null
+	mutex = null
+	thread = null
+	
 	current_available_id = 0
 
 
@@ -297,3 +314,10 @@ func unmutePlayer(player_id, unmuted_player_id):
 					new_array.remove(muted_player)
 					player_data[player][6] = new_array
 					return
+
+func initializeThread():
+	if ( thread == null ):
+		thread = Thread.new()
+	
+	if ( mutex == null ):
+		mutex = Mutex.new()
