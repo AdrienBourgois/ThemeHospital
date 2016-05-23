@@ -45,6 +45,7 @@ func loadData():
 		new_room_type = ressources.getRoomFromId(current.ID)
 		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
+		createRoomData()
 
 	print(new_room_from, " ", new_room_to)
 	resetStatsDict()
@@ -191,16 +192,8 @@ func new_room(state, parameters):
 			rooms.append(room)
 			for tile in previous_current_selection:
 				tile.hover_off()
-			 
-			var room_data = {
-			FROM_X = new_room_from.x,
-			FROM_Y = new_room_from.y,
-			TO_X = new_room_to.x,
-			TO_Y = new_room_to.y,
-			ID = new_room_type.ID
-			}
-			rooms_save.append(room_data)
-			print(new_room_from, " ", new_room_to)
+			
+			createRoomData()
 			
 			new_room_from = Vector2(-1,-1)
 			previous_current_selection = []
@@ -210,6 +203,16 @@ func new_room(state, parameters):
 		else:
 			new_room("cancel", null)
 		return false
+
+func createRoomData():
+	var room_data = {
+		FROM_X = new_room_from.x,
+		FROM_Y = new_room_from.y,
+		TO_X = new_room_to.x,
+		TO_Y = new_room_to.y,
+		ID = new_room_type.ID
+		}
+	rooms_save.append(room_data)
 
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
