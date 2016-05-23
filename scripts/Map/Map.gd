@@ -5,8 +5,7 @@ export var map_path = "res://Maps/map1.lvl"
 var columns = []
 var tiles = []
 var rooms = []
-var rooms_data = []
-var tiles_data = []
+var rooms_save = []
 onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
@@ -30,16 +29,26 @@ func _ready():
 	create_map(map_path)
 
 func createStatsDict():
-	for current in tiles:
-		tiles_data.append(current.createStatsDict())
 	stats = {
-	FILE_PATH = path,
-	TILES = tiles_data
+	MAP_PATH = map_path,
+	ROOMS = rooms_save
 	}
 	return stats
 
 func resetStatsDict():
 	stats.clear()
+
+func loadData():
+	for current in stats.ROOMS:
+		new_room_from = Vector2(current.FROM_X, current.FROM_Y)
+		new_room_to = Vector2(current.TO_X, current.TO_Y)
+		new_room_type = ressources.getRoomFromId(current.ID)
+		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+		rooms.append(room)
+		createRoomData()
+
+	print(new_room_from, " ", new_room_to)
+	resetStatsDict()
 
 func create_map(file_path):
 	path = file_path
@@ -183,6 +192,9 @@ func new_room(state, parameters):
 			rooms.append(room)
 			for tile in previous_current_selection:
 				tile.hover_off()
+			
+			createRoomData()
+			
 			new_room_from = Vector2(-1,-1)
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)
@@ -191,6 +203,16 @@ func new_room(state, parameters):
 		else:
 			new_room("cancel", null)
 		return false
+
+func createRoomData():
+	var room_data = {
+		FROM_X = new_room_from.x,
+		FROM_Y = new_room_from.y,
+		TO_X = new_room_to.x,
+		TO_Y = new_room_to.y,
+		ID = new_room_type.ID
+		}
+	rooms_save.append(room_data)
 
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)

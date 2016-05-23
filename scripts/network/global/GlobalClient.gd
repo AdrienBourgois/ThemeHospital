@@ -16,8 +16,8 @@ var client_states = {
 
 func _process(delta):
 	if (client_states.is_connected):
-		checkForMessage()
 		checkForDisconnection()
+		checkForMessage()
 		checkForPacketToSend()
 	elif (client_states.is_connecting):
 		checkSocketStatus()

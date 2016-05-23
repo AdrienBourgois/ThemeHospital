@@ -39,10 +39,12 @@ func loadPlayerData():
 	gamescn.player.stats = load_dict.PLAYER
 	gamescn.calendar.stats = load_dict.CALENDAR
 	gamescn.objects = load_dict.OBJECTS
-	
+	gamescn.map.stats = load_dict.MAP
+
 	gamescn.player.loadData()
 	gamescn.calendar.loadData()
 	gamescn.loadObjects()
+	gamescn.map.loadData()
 	resetStatsDict()
 	game.file.close()
 
