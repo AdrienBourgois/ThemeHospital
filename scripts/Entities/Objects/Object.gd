@@ -4,7 +4,6 @@ extends "../Entity.gd"
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
 export var expense_per_month = 0
-
 export var in_room_object = false
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
