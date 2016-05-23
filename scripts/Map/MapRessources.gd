@@ -155,27 +155,27 @@ var pavement = {
 }
 
 var diagnosis_rooms = {
-	"ROOM_GP": gp_office,
-	"ROOM_GENERAL_DIAGNOSIS": general_diagnosis,
-	"ROOM_CARDIOGRAM": cardiogram,
+	"GP": gp_office,
+	"GENERAL_DIAGNOSIS": general_diagnosis,
+	"CARDIOGRAM": cardiogram,
 }
 
 var treatment_rooms = {
-	"ROOM_PSYCHIATRIC": psychiatric,
-	"ROOM_PHARMACY": pharmacy,
-	"ROOM_WARD": ward,
-	"ROOM_OPERATING": operating,
+	"PSYCHIATRIC": psychiatric,
+	"PHARMACY": pharmacy,
+	"WARD": ward,
+	"OPERATING": operating,
 }
 
 var clinics = {
-	"ROOM_INFLATION": inflation,
-	"ROOM_TONGUE": tongue,
+	"INFLATION": inflation,
+	"TONGUE": tongue,
 }
 
 var facilities = {
-	"ROOM_STAFF_ROOM": staff_room,
-	"ROOM_TOILETS": toilets,
-	"ROOM_RESEARCH": research,
+	"STAFF_ROOM": staff_room,
+	"TOILETS": toilets,
+	"RESEARCH": research,
 }
 
 var decorations = {
