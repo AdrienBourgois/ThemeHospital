@@ -154,6 +154,13 @@ var pavement = {
 	"RESSOURCES": {}
 }
 
+var plot = {
+	"ID": 42,
+	"NAME": "plot",
+	"COLOR": colors.grey,
+	"RESSOURCES": {}
+}
+
 var diagnosis_rooms = {
 	"GP": gp_office,
 	"GENERAL_DIAGNOSIS": general_diagnosis,

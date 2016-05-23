@@ -22,6 +22,7 @@ func _ready():
 	for type in rooms_types:		
 		buttons[button_number].set_text(type)
 		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
+		
 		button_number += 1
 
 func _on_Cancel_pressed():
@@ -35,6 +36,7 @@ func clean_buttons():
 	var buttons
 	for number_button in range(10):
 		buttons = get_node("Rooms/Button" + str(number_button))
+		
 		buttons.set_text("")
 		buttons.set_tooltip("")
 		
