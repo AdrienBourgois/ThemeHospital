@@ -194,6 +194,18 @@ TOOLTIP_TREATMENT,Select General Treatment Room,Selectionne les salles de Traite
 TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
 TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
 TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
+TOOLTIP_GP,Patients receive their initial consultation and results in the GP's Office,Les patients reçoivent leur consultation et les premiers résultats dans cette salle
+TOOLTIP_GENERAL_DIAGNOSIS,A doctor uses the General Diagnosis Room for basic diagnosis of patients. Cheap and often very effective,Un medecin utilise le diagnostic general pour le diagnostic de base des patients. Pas cher et souvent tres efficace
+TOOLTIP_CARDIOGRAM,A Doctor uses the Cardio Room to diagnose Patients,Un docteur utilise cette salle pour faire des diagnostics suplementaires
+TOOLTIP_PHARMACY,The Nurse dispenses drugs to cure patients in a Pharmacy,L'infirmiere distribue des medicaments pour soigner les patients
+TOOLTIP_WARD,Wards are usefull for both diagnosis and treatment. Patients are sent here for observation and also recover from operations in a Ward with a nurse,Les salles d'observation sont utiles a la fois pour le diagnostic et le traitement. Les patients sont envoyes ici pour observation et apres operation pour recuperer. Requiert une infirmiere
+TOOLTIP_PSYCHIATRIC,The Psychiatry Room cures mad patients and helps in the diagnosis of others patients but needs a Doctor with Psychiatry skills,La salle de psychiatrie guerit les patients fou et aide dans le diagnostic des autres patients. Requiert un docteur avec des competences de Psychiatre
+TOOLTIP_OPERATING,The Operating Theatre needs two doctors with surgery skills,La salle d'operation requiert 2 docteurs avec des competences en chirurgie
+TOOLTIP_INFLATION,A Doctor uses the Inflator Room to cure patients with Bloaty Heads, Un docteur utilise cette salle pour guerir les patients atteins d'Encéphalantiasis
+TOOLTIP_TONGUE,A doctor uses the Tonuge-Clicing Room to cure Slack Tongues,Un docteur utilise cette salle pour guerir un patient atteint d'hyperlangue
+TOOLTIP_STAFF_ROOM,Doctors and Nurses relax in the staff room and become less tired,Les docteurs et les infirmieres se reposent dans cette salle et deviennent moins fatigues
+TOOLTIP_RESEARCH,Doctors with Research skills can discover new drugs and machines in the Research Room,Les medecins ayant la competence de recherche peuvent decouvrir de nouveaux medicaments et de nouvelles salles
+TOOLTIP_TOILETS,Build toilets to stop Patients making a mess in your hospital!,Construisez des toilettes pour eviter que les patients se sement le desordre dans votre hopital !
 TOOLTIP_CANCEL_ROOMS,Abort this requester and return to game,Annule et retourne en jeu
 TAB_DOCTOR,Doctor,Docteur
 TAB_NURSE,Nurse,Infirmiere

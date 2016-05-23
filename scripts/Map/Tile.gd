@@ -1,5 +1,6 @@
 extends Spatial
 
+onready var game = get_node("/root/Game")
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
 
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }

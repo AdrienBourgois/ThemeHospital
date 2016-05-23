@@ -14,6 +14,7 @@ var gp_office = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.red,
 	"COST": 2500,
+	"TOOLTIP": "TOOLTIP_GP",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -24,6 +25,7 @@ var general_diagnosis = {
 	"SIZE_MIN": 5,
 	"COLOR": colors.white,
 	"COST": 1000,
+	"TOOLTIP": "TOOLTIP_GENERAL_DIAGNOSIS",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -34,6 +36,7 @@ var cardiogram = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.red,
 	"COST": 1500,
+	"TOOLTIP": "TOOLTIP_CARDIOGRAM",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -44,6 +47,7 @@ var psychiatric = {
 	"SIZE_MIN": 5,
 	"COLOR": colors.blue,
 	"COST": 2500,
+	"TOOLTIP": "TOOLTIP_PSYCHIATRIC",
 	"RESSOURCES": {}, 
 	"OBJECTS": {}
 }
@@ -54,6 +58,7 @@ var pharmacy = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.pink,
 	"COST": 1500,
+	"TOOLTIP": "TOOLTIP_PHARMACY",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -64,6 +69,7 @@ var ward = {
 	"SIZE_MIN": 6,
 	"COLOR": colors.yellow,
 	"COST": 2000,
+	"TOOLTIP": "TOOLTIP_WARD",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -74,6 +80,7 @@ var operating = {
 	"SIZE_MIN": 6,
 	"COLOR": colors.white,
 	"COST": 8000,
+	"TOOLTIP": "TOOLTIP_OPERATING",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -84,6 +91,7 @@ var inflation = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.purple,
 	"COST": 4000,
+	"TOOLTIP": "TOOLTIP_INFLATION",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -94,6 +102,7 @@ var tongue = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.purple,
 	"COST": 3000,
+	"TOOLTIP": "TOOLTIP_TONGUE",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -104,6 +113,7 @@ var staff_room = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.brown,
 	"COST": 1500,
+	"TOOLTIP": "TOOLTIP_STAFF_ROOM",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -114,6 +124,7 @@ var toilets = {
 	"SIZE_MIN": 4,
 	"COLOR": colors.black,
 	"COST": 1500,
+	"TOOLTIP": "TOOLTIP_TOILETS",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -124,6 +135,7 @@ var research = {
 	"SIZE_MIN": 5,
 	"COLOR": colors.white,
 	"COST": 5000,
+	"TOOLTIP": "TOOLTIP_RESEARCH",
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -177,3 +189,25 @@ var type_rooms = {
 	"TYPE_CLINICS": clinics,
 	"TYPE_FACILITIES": facilities
 }
+
+func getRoomFromId(room_id):
+	if (room_id == 0):
+		return lobby
+	elif (room_id == 1):
+		return gp_office
+	elif (room_id == 2):
+		return general_diagnosis
+	elif (room_id == 10):
+		return psychiatric
+	elif (room_id == 11):
+		return pharmacy
+	elif (room_id == 12):
+		return ward
+	elif (room_id == 13):
+		return operating
+	elif (room_id == 20):
+		return inflation
+	elif (room_id == 30):
+		return staff_room
+	elif (room_id == 31):
+		return toilets

@@ -58,7 +58,8 @@ func createSaveDict():
 	save_dict = {
 	PLAYER = gamescn.player.createStatsDict(),
 	CALENDAR = gamescn.calendar.createStatsDict(),
-	OBJECTS = gamescn.createObjectsDict()
+	OBJECTS = gamescn.createObjectsDict(),
+	MAP = gamescn.map.createStatsDict()
 	}
 	return save_dict
 
