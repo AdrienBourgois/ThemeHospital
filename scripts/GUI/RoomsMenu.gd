@@ -5,6 +5,7 @@ var map
 var confirm_build
 var is_type_selected = false
 var rooms_types
+var price
 onready var node_label = get_node("Rooms/Label")
 onready var node_text_label = get_node("Text/Label")
 onready var node_cost_label = get_node("Rooms/Cost")
@@ -57,6 +58,8 @@ func disconnect_buttons(buttons):
 
 func rooms_pressed(room):
 	clean_buttons()
+	
+	price = room.COST
 	
 	if (is_type_selected == true):
 		confirm_build.show()
