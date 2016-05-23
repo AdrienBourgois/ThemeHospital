@@ -13,9 +13,12 @@ var map_reference = null
 func _init(from, to, _type, _map_reference):
 	map_reference = _map_reference
 	type = _type
+	
 	tiles = map_reference.get_list(from, to)
+	
 	for tile in tiles:
 		tile.update(type)
+	
 	for tile in tiles:
 		tile.update_walls("Up")
 		tile.update_walls("Left")

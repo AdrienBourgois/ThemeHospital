@@ -177,23 +177,3 @@ var type_rooms = {
 	"TYPE_CLINICS": clinics,
 	"TYPE_FACILITIES": facilities
 }
-
-func getRoomFromId(room_id):
-	if (room_id == 0):
-		return lobby
-	elif (room_id == 1):
-		return gp_office
-	elif (room_id == 2):
-		return general_diagnosis
-	elif (room_id == 10):
-		return psychiatric
-	elif (room_id == 11):
-		return pharmacy
-	elif (room_id == 12):
-		return ward
-	elif (room_id == 20):
-		return inflation
-	elif (room_id == 30):
-		return staff_room
-	elif (room_id == 31):
-		return toilets
