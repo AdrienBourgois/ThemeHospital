@@ -16,8 +16,8 @@ var client_states = {
 
 func _process(delta):
 	if (client_states.is_connected):
-		checkForDisconnection()
 		checkForMessage()
+		checkForDisconnection()
 		checkForPacketToSend()
 	elif (client_states.is_connecting):
 		checkSocketStatus()
@@ -34,6 +34,7 @@ func connectToServer(ip_address, port):
 func checkSocketStatus():
 	if (socket == null):
 		set_process(false)
+		return
 	
 	var connection_status = socket.get_status()
 	
@@ -59,13 +60,13 @@ func initializeConnection():
 	set_process(true)
 
 func checkForMessage():
-	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
+	if ( peer_stream != null && peer_stream.get_available_packet_count() > 0 ):
 		var message = peer_stream.get_var()
 		packet_interpreter.addClientPacket(message)
 
 
 func checkForDisconnection():
-	if (!socket.is_connected()):
+	if ( !socket.is_connected() ):
 		disconnectFromServer()
 		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
 		scene.displayUnavailableServer()
@@ -73,7 +74,7 @@ func checkForDisconnection():
 
 
 func checkForPacketToSend():
-	if (packet_list.size() > 0):
+	if ( packet_list.size() > 0 ):
 		if ( sendPacket(packet_list[0]) ):
 			packet_list.remove(0)
 
@@ -81,6 +82,8 @@ func sendPacket(packet):
 	if ( client_states.is_connected ):
 		peer_stream.put_var(packet)
 		return true
+	else:
+		return false
 
 func addMessage(message):
 	messages_list.push_back(message)
@@ -104,7 +107,6 @@ func resetClientStates():
 	client_states.is_host = false
 
 func disconnectFromServer():
-	set_process(false)
 	if (socket != null):
 		socket.disconnect()
 	

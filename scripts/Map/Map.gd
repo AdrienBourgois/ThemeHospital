@@ -139,7 +139,6 @@ func new_room(state, parameters):
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
 		new_room_type = {}
-		
 		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
@@ -171,6 +170,7 @@ func new_room(state, parameters):
 			tile.currently_create_room = false
 	
 	elif (state == "cancel"):
+		print("Cancel")
 		for tile in tiles:
 			tile.hover_off()
 			tile.currently_create_room = false

@@ -22,7 +22,7 @@ func _on_join_server_button_pressed():
 	if (port_node == null || ip_address_node == null):
 		return
 	
-	if ( !checkValidIpAddress() || !checkValidNickname()):
+	if ( !checkValidIpAddress() || !checkValidNickname() ):
 		return
 	
 	global_client.connectToServer(ip_address_node.get_text(), port_node.get_value())
