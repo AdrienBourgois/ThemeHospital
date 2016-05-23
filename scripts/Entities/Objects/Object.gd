@@ -24,7 +24,6 @@ func addToArray():
 	position.x = self.get_translation().x 
 	position.y = self.get_translation().y
 	position.z = self.get_translation().z
-	
 	var object_stats = []
 	object_stats.append(object_name)
 	object_stats.append(position.x)
