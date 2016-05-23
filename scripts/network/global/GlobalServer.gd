@@ -291,11 +291,27 @@ func mutePlayer(player_id, muted_player_id):
 			return
 
 func unmutePlayer(player_id, unmuted_player_id):
+	var unmuter_player = getArrayIndexFromId(player_id)
+	if (unmuter_player == null):
+		return
+	
+	for muted_player in range ( player_data[unmuter_player][6].size() ):
+		if (player_data[unmuter_player][6][muted_player] == unmuted_player_id):
+			var new_array = player_data[unmuter_player][6]
+			new_array.remove(muted_player)
+			player_data[unmuter_player][6] = new_array
+			return
+
+func getPlayerFromId(player_id):
 	for player in range ( player_data.size() ):
-		if (player_data[player][3] == player_id):
-			for muted_player in range ( player_data[player][6].size() ):
-				if (player_data[player][6][muted_player] == unmuted_player_id):
-					var new_array = player_data[player][6]
-					new_array.remove(muted_player)
-					player_data[player][6] = new_array
-					return
+		if ( player_data[player][3] == player_id):
+			return player_data[player]
+	
+	return null
+
+func getArrayIndexFromId(player_id):
+	for player in range ( player_data.size() ):
+		if ( player_data[player][3] == player_id ):
+			return player
+	
+	return -1
