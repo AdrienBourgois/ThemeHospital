@@ -124,6 +124,8 @@ func checkNicknamePacket(): #Packet 3
 	
 	if ( current_scene.get_name() == "lobby" ):
 		current_scene.displayNicknameMenu(nickname_is_ok)
+	else:
+		client_packets_list.insert(1, client_packets_list[0])
 
 
 func updateLobbyData(): #Packet 4
@@ -139,6 +141,8 @@ func updateLobbyData(): #Packet 4
 			scene.clearReadyPlayersLabel()
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
+	else:
+		client_packets_list.insert(1, client_packets_list[0])
 
 func updateMapRoom(): #Packet 5
 	var room_from = Vector2(tmpData[2].to_int(), tmpData[3].to_int())

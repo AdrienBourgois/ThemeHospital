@@ -16,11 +16,11 @@ func _on_launch_server_button_pressed():
 		displayInvalidNickname()
 		return
 	
-	if ( port_label_node != null ):
-		if (global_server.startServer(port_label_node.get_text().to_int())):
-			global_client.addPacket("/nickname " + nickname_line_edit_node.get_text())
-			get_tree().get_current_scene().queue_free()
-			get_tree().change_scene("res://scenes/network/Lobby.scn")
+	if ( port_label_node == null ):
+		return
+	
+	global_server.startServer(port_label_node.get_text().to_int())
+	global_client.addPacket("/nickname " + nickname_line_edit_node.get_text())
 
 
 func _on_back_to_main_menu_button_pressed():

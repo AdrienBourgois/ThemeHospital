@@ -70,6 +70,7 @@ TXT_HAPPINESS,Happiness,Joie
 TXT_TIRENESS,Tiredness,Fatigue
 TXT_SKILL,Skill, Capacite
 TXT_SALARY,Salary,Salaire
+TXT_EMPTY, --Empty--, --Vide--
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -173,12 +174,16 @@ CMD_RIGHT,[camera] right : ,[camera] droite :
 CMD_CHAT,[chat] show : ,[chat] afficher : 
 ROOM_GP,GP's Office,Medecine Generale
 ROOM_GENERAL_DIAGNOSIS,General Diagnosis,Diagnostic General
+ROOM_CARDIOGRAM,Cardiogram,Cardiogramme
 ROOM_INFLATION,Inflation,Gonflage
+ROOM_TONGUE,Slack Tongue Clinic,Salle d'Hyperlangue
 ROOM_PHARMACY,Pharmacy,Pharmacie
 ROOM_PSYCHIATRIC,Psychiatric,Psychiatrie
 ROOM_WARD,Ward,Salle d'Observation
+ROOM_OPERATING,Operating Theater,Salle d'Operation
 ROOM_TOILETS,Toilets,Toilettes
 ROOM_STAFF_ROOM,Staff Room,Salle de Repos
+ROOM_RESEARCH,Research Dept,Departement Recherches
 TYPE_DIAGNOSIS,Diagnosis,Diagnostic
 TYPE_TREATMENT,Treatment,Traitement
 TYPE_CLINICS,Clinics,Cliniques

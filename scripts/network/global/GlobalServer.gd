@@ -14,9 +14,6 @@ var server_states = {
 	game_started = false
 }
 
-func _ready():
-	set_process(true)
-
 func _process(delta):
 	if (server_states.server_connected):
 		checkForDisconnection()
@@ -30,27 +27,26 @@ func getSocket():
 
 
 func startServer(port):
+	set_process(true)
 	if (socket != null):
-		return false
+		set_process(false)
 	
 	socket = TCP_Server.new()
 	
 	if (socket.listen(port) == 0):
-		return initializeServer(port)
+		initializeServer(port)
 	else:
 		socket = null
-		return false
+		set_process(false)
 
 func initializeServer(port):
 	server_states.server_connected = true
 	server_states.looking_for_players = true
 	global_client.setHostClient(true)
 	
-	if (global_client.connectToServer("127.0.0.1", port)):
-		return true
-	else:
-		stopServer()
-		return false
+	global_client.connectToServer("127.0.0.1", port)
+	
+	
 
 
 func resetServerStates():
@@ -60,6 +56,7 @@ func resetServerStates():
 
 
 func stopServer():
+	set_process(false)
 	resetServerStates()
 	
 	socket.stop()
@@ -248,11 +245,13 @@ func updateClientsData():
 	
 	if ( root != null && root.get_name() == "lobby" ):
 		root.clearKickList()
-		for player in range ( player_data.size() ):
-			packet += " " + player_data[player][2]
-			if (player_data[player][3] != 0):
-				root.addPlayerKickList(player_data[player][2], player_data[player][3])
-			sendPacket(packet)
+	
+	for player in range ( player_data.size() ):
+		packet += " " + player_data[player][2]
+		if ( root != null && root.get_name() == "lobby" && player_data[player][3] != global_client.getClientId()):
+			root.addPlayerKickList(player_data[player][2], player_data[player][3])
+	
+	sendPacket(packet)
 
 
 func updateReadyPlayers():
