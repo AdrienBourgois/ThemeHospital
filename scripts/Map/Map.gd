@@ -170,7 +170,6 @@ func new_room(state, parameters):
 			tile.currently_create_room = false
 	
 	elif (state == "cancel"):
-		print("Cancel")
 		for tile in tiles:
 			tile.hover_off()
 			tile.currently_create_room = false
