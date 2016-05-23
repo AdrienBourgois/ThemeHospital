@@ -20,7 +20,7 @@ var gp_office = {
 
 var general_diagnosis = { 
 	"ID": 2,
-	"NAME": "general diagnosis",
+	"NAME": "ROOM_GENERAL_DIAGNOSIS",
 	"SIZE_MIN": 5,
 	"COLOR": colors.white,
 	"COST": 1000,
@@ -28,9 +28,19 @@ var general_diagnosis = {
 	"OBJECTS": {}
 }
 
+var cardiogram = { 
+	"ID": 3,
+	"NAME": "ROOM_CARDIOGRAM",
+	"SIZE_MIN": 4,
+	"COLOR": colors.red,
+	"COST": 1500,
+	"RESSOURCES": {},
+	"OBJECTS": {}
+}
+
 var psychiatric = { 
 	"ID": 10,
-	"NAME": "psychiatric",
+	"NAME": "ROOM_PSYCHIATRIC",
 	"SIZE_MIN": 5,
 	"COLOR": colors.blue,
 	"COST": 2500,
@@ -40,7 +50,7 @@ var psychiatric = {
 
 var pharmacy = { 
 	"ID": 11,
-	"NAME": "pharmacy",
+	"NAME": "ROOM_PHARMACY",
 	"SIZE_MIN": 4,
 	"COLOR": colors.pink,
 	"COST": 1500,
@@ -50,7 +60,7 @@ var pharmacy = {
 
 var ward = { 
 	"ID": 12,
-	"NAME": "ward",
+	"NAME": "ROOM_WARD",
 	"SIZE_MIN": 6,
 	"COLOR": colors.yellow,
 	"COST": 2000,
@@ -58,9 +68,19 @@ var ward = {
 	"OBJECTS": {}
 }
 
+var operating = {
+	"ID": 13,
+	"NAME": "ROOM_OPERATING",
+	"SIZE_MIN": 6,
+	"COLOR": colors.white,
+	"COST": 8000,
+	"RESSOURCES": {},
+	"OBJECTS": {}
+}
+
 var inflation = { 
 	"ID": 20,
-	"NAME": "inflation",
+	"NAME": "ROOM_INFLATION",
 	"SIZE_MIN": 4,
 	"COLOR": colors.purple,
 	"COST": 4000,
@@ -68,9 +88,19 @@ var inflation = {
 	"OBJECTS": {}
 }
 
+var tongue = {
+	"ID": 21,
+	"NAME": "ROOM_TONGUE",
+	"SIZE_MIN": 4,
+	"COLOR": colors.purple,
+	"COST": 3000,
+	"RESSOURCES": {},
+	"OBJECTS": {}
+}
+
 var staff_room = { 
 	"ID": 30,
-	"NAME": "staff room",
+	"NAME": "ROOM_STAFF_ROOM",
 	"SIZE_MIN": 4,
 	"COLOR": colors.brown,
 	"COST": 1500,
@@ -80,10 +110,20 @@ var staff_room = {
 
 var toilets = {
 	"ID": 31,
-	"NAME": "toilets",
+	"NAME": "ROOM_TOILETS",
 	"SIZE_MIN": 4,
 	"COLOR": colors.black,
 	"COST": 1500,
+	"RESSOURCES": {},
+	"OBJECTS": {}
+}
+
+var research = {
+	"ID": 32,
+	"NAME": "ROOM_RESEARCH",
+	"SIZE_MIN": 5,
+	"COLOR": colors.white,
+	"COST": 5000,
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -104,22 +144,26 @@ var pavement = {
 
 var diagnosis_rooms = {
 	"ROOM_GP": gp_office,
-	"ROOM_GENERAL_DIAGNOSIS": general_diagnosis
+	"ROOM_GENERAL_DIAGNOSIS": general_diagnosis,
+	"ROOM_CARDIOGRAM": cardiogram,
 }
 
 var treatment_rooms = {
 	"ROOM_PSYCHIATRIC": psychiatric,
 	"ROOM_PHARMACY": pharmacy,
-	"ROOM_WARD": ward
+	"ROOM_WARD": ward,
+	"ROOM_OPERATING": operating,
 }
 
 var clinics = {
-	"ROOM_INFLATION": inflation
+	"ROOM_INFLATION": inflation,
+	"ROOM_TONGUE": tongue,
 }
 
 var facilities = {
 	"ROOM_STAFF_ROOM": staff_room,
-	"ROOM_TOILETS": toilets
+	"ROOM_TOILETS": toilets,
+	"ROOM_RESEARCH": research,
 }
 
 var decorations = {
@@ -133,23 +177,3 @@ var type_rooms = {
 	"TYPE_CLINICS": clinics,
 	"TYPE_FACILITIES": facilities
 }
-
-func getRoomFromId(room_id):
-	if (room_id == 0):
-		return lobby
-	elif (room_id == 1):
-		return gp_office
-	elif (room_id == 2):
-		return general_diagnosis
-	elif (room_id == 10):
-		return psychiatric
-	elif (room_id == 11):
-		return pharmacy
-	elif (room_id == 12):
-		return ward
-	elif (room_id == 20):
-		return inflation
-	elif (room_id == 30):
-		return staff_room
-	elif (room_id == 31):
-		return toilets
