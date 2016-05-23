@@ -70,6 +70,7 @@ TXT_HAPPINESS,Happiness,Joie
 TXT_TIRENESS,Tiredness,Fatigue
 TXT_SKILL,Skill, Capacite
 TXT_SALARY,Salary,Salaire
+TXT_EMPTY, --Empty--, --Vide--
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
