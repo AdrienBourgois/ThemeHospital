@@ -66,7 +66,7 @@ func checkForMessage():
 
 func checkForDisconnection():
 	if (!socket.is_connected()):
-		client_states.is_connected = false
+		disconnectFromServer()
 		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
 		scene.displayUnavailableServer()
 		get_tree().get_current_scene().add_child(scene, true)
@@ -104,6 +104,7 @@ func resetClientStates():
 	client_states.is_host = false
 
 func disconnectFromServer():
+	set_process(false)
 	if (socket != null):
 		socket.disconnect()
 	
