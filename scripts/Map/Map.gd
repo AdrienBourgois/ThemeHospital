@@ -47,8 +47,8 @@ func loadData():
 		rooms.append(room)
 		createRoomData()
 
-	print(new_room_from, " ", new_room_to)
 	resetStatsDict()
+
 
 func create_map(file_path):
 	path = file_path
