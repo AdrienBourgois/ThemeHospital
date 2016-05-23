@@ -48,7 +48,8 @@ func loadObjects():
 		self.add_child(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		node.global_translate(Vector3(current[1], current[2], 0))  
+		node.set_translation(Vector3(current[1], current[2], current[3])) 
+		node.addToArray()
 
 func getObjectArray():
 	return objects_array
