@@ -14,10 +14,13 @@ var client_states = {
 	is_host = false
 } setget ,getClientStates
 
+func _ready():
+	set_process(true)
+
 func _process(delta):
 	if (client_states.is_connected):
-		checkForDisconnection()
 		checkForMessage()
+		checkForDisconnection()
 		checkForPacketToSend()
 	elif (client_states.is_connecting):
 		checkSocketStatus()
@@ -28,26 +31,28 @@ func connectToServer(ip_address, port):
 		socket = StreamPeerTCP.new()
 		var status_connection = socket.connect(ip_address, port)
 		
-		checkSocketStatus()
+		return checkSocketStatus()
 
 
 func checkSocketStatus():
 	if (socket == null):
-		set_process(false)
+		return false
 	
 	var connection_status = socket.get_status()
 	
 	if (connection_status == StreamPeerTCP.STATUS_CONNECTED):
 		initializeConnection()
+		
+		return true
 	elif (connection_status == StreamPeerTCP.STATUS_CONNECTING):
 		var root = get_tree().get_current_scene()
 		
 		if ( root != null && root.get_name() == "client_settings_gui" ):
 			root.display_connecting_to_server()
 		
-		set_process(true)
+		return false
 	else:
-		set_process(false)
+		return false
 
 
 func initializeConnection():
@@ -55,8 +60,6 @@ func initializeConnection():
 	client_states.is_connecting = false
 	peer_stream = PacketPeerStream.new()
 	peer_stream.set_stream_peer(socket)
-	
-	set_process(true)
 
 func checkForMessage():
 	if (peer_stream != null && peer_stream.get_available_packet_count() > 0):
@@ -66,7 +69,7 @@ func checkForMessage():
 
 func checkForDisconnection():
 	if (!socket.is_connected()):
-		disconnectFromServer()
+		client_states.is_connected = false
 		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
 		scene.displayUnavailableServer()
 		get_tree().get_current_scene().add_child(scene, true)
@@ -104,7 +107,6 @@ func resetClientStates():
 	client_states.is_host = false
 
 func disconnectFromServer():
-	set_process(false)
 	if (socket != null):
 		socket.disconnect()
 	

@@ -7,14 +7,15 @@ var packet_list = Array() setget addPacket
 var current_available_id = 0
 onready var global_client = get_node("/root/GlobalClient")
 onready var packet_interpreter = get_node("/root/PacketInterpreter")
-var thread = null
-var mutex = null
 
 var server_states = {
 	server_connected = false,
 	looking_for_players = false,
 	game_started = false
 }
+
+func _ready():
+	set_process(true)
 
 func _process(delta):
 	if (server_states.server_connected):
@@ -23,44 +24,33 @@ func _process(delta):
 		checkForMessage()
 		checkForPacketToSend()
 
-func run(arg):
-	mutex.lock()
-	
-	while ( server_states.server_connected ):
-		checkForDisconnection()
-		checkForIncomingConnection()
-		checkForMessage()
-		checkForPacketToSend()
-	
-	mutex.unlock()
-
 
 func getSocket():
 	return socket
 
 
 func startServer(port):
-	initializeThread()
-	
 	if (socket != null):
-		return
+		return false
 	
 	socket = TCP_Server.new()
 	
 	if (socket.listen(port) == 0):
-		initializeServer(port)
+		return initializeServer(port)
 	else:
-		mutex.unlock()
 		socket = null
+		return false
 
 func initializeServer(port):
 	server_states.server_connected = true
 	server_states.looking_for_players = true
-	thread.start(self,"run", 0)
-	
 	global_client.setHostClient(true)
 	
-	global_client.connectToServer("127.0.0.1", port)
+	if (global_client.connectToServer("127.0.0.1", port)):
+		return true
+	else:
+		stopServer()
+		return false
 
 
 func resetServerStates():
@@ -71,16 +61,12 @@ func resetServerStates():
 
 func stopServer():
 	resetServerStates()
-	thread.wait_to_finish()
 	
 	socket.stop()
 	player_data.clear()
 	packet_list.clear()
 	
 	socket = null
-	mutex = null
-	thread = null
-	
 	current_available_id = 0
 
 
@@ -262,13 +248,11 @@ func updateClientsData():
 	
 	if ( root != null && root.get_name() == "lobby" ):
 		root.clearKickList()
-	
-	for player in range ( player_data.size() ):
-		packet += " " + player_data[player][2]
-		if ( root != null && root.get_name() == "lobby" && player_data[player][3] != global_client.getClientId()):
-			root.addPlayerKickList(player_data[player][2], player_data[player][3])
-	
-	sendPacket(packet)
+		for player in range ( player_data.size() ):
+			packet += " " + player_data[player][2]
+			if (player_data[player][3] != 0):
+				root.addPlayerKickList(player_data[player][2], player_data[player][3])
+			sendPacket(packet)
 
 
 func updateReadyPlayers():
@@ -314,10 +298,3 @@ func unmutePlayer(player_id, unmuted_player_id):
 					new_array.remove(muted_player)
 					player_data[player][6] = new_array
 					return
-
-func initializeThread():
-	if ( thread == null ):
-		thread = Thread.new()
-	
-	if ( mutex == null ):
-		mutex = Mutex.new()
