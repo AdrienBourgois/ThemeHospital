@@ -10,6 +10,7 @@ func _ready():
 	setUsername()
 
 func _on_launch_server_button_pressed():
+	global_server.stopServer()
 	var nickname = nickname_line_edit_node.get_text()
 	
 	if ( !checkValidNickname(nickname) ):

@@ -35,7 +35,6 @@ func checkPacketToInterpret():
 
 func parsePacket(packet):
 	storeData(packet)
-	
 	var keyword = tmpData[0]
 	
 	if (keyword == "/game"):
@@ -179,6 +178,7 @@ func kickedFromServer(): #Packet 7
 		get_tree().get_current_scene().add_child(scene, true)
 
 func updatePlayerContainer(): #Packet 8
+	print("Bonsoir")
 	if ( current_parsing.client ):
 		var root = get_tree().get_current_scene()
 		
