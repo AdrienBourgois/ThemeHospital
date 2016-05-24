@@ -22,6 +22,7 @@ func _ready():
 	for type in rooms_types:		
 		buttons[button_number].set_text(type)
 		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
+		
 		button_number += 1
 
 func _on_Cancel_pressed():
@@ -35,6 +36,7 @@ func clean_buttons():
 	var buttons
 	for number_button in range(10):
 		buttons = get_node("Rooms/Button" + str(number_button))
+		
 		buttons.set_text("")
 		buttons.set_tooltip("")
 		
@@ -44,17 +46,14 @@ func clean_buttons():
 	node_cost_label.set_text("")
 
 func disconnect_buttons(buttons):
-	if buttons.is_connected("mouse_enter", self, "enter_rooms"):
-		buttons.disconnect("mouse_enter", self, "enter_rooms")
-	
-	if buttons.is_connected("mouse_exit", self, "exit_rooms"):
-		buttons.disconnect("mouse_exit", self, "exit_rooms")
-	
-	if buttons.is_connected("pressed", self, "rooms_pressed"):
-		buttons.disconnect("pressed", self, "rooms_pressed")
-	
-	if buttons.is_connected("pressed", self, "type_rooms_pressed") == true:
-		buttons.disconnect("pressed", self, "type_rooms_pressed")
+	disconnect_func(buttons, "mouse_enter", "enter_rooms")
+	disconnect_func(buttons, "mouse_exit", "exit_rooms")
+	disconnect_func(buttons, "pressed", "rooms_pressed")
+	disconnect_func(buttons, "pressed", "type_rooms_pressed")
+
+func disconnect_func(buttons, type, method):
+	if buttons.is_connected(type, self, method):
+		buttons.disconnect(type, self, method)
 
 func rooms_pressed(room):
 	clean_buttons()

@@ -139,7 +139,6 @@ func new_room(state, parameters):
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
 		new_room_type = {}
-		
 		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
@@ -191,10 +190,8 @@ func new_room(state, parameters):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
 			for tile in previous_current_selection:
-				tile.hover_off()
-			
-			createRoomData()
-			
+				tile.hover_off()			
+			createRoomData()		
 			new_room_from = Vector2(-1,-1)
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)
