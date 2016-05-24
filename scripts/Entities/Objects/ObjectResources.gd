@@ -28,6 +28,14 @@ func createObject(name):
 		node = objectscn.instance()
 	return node
 
+func createRoomObject(name):
+	var node
+	if (name == "ROOM_GP"):
+		node = deskscn.instance()
+	else:
+		node = objectscn.instance()
+	return node
+
 func returnPlant():
 	var node = plantscn.instance()
 	return node

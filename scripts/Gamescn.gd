@@ -16,7 +16,7 @@ onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
 
-onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getResources
+onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
@@ -62,7 +62,7 @@ func getObjectsNodesArray():
 func getObjectArray():
 	return objects_array
 
-func getResources():
+func getObjectResources():
 	return object_ressources
 
 func _input(event):

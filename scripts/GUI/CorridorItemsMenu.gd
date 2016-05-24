@@ -17,7 +17,7 @@ onready var radiator_label = radiator.get_node("Label")
 onready var drink_label = drink.get_node("Label")
 onready var fire_label = fire.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
-onready var object_resources = gamescn.getResources()
+onready var object_resources = gamescn.getObjectResources()
 
 var items_count_array = []
 var number_of_buttons = 2
@@ -52,6 +52,7 @@ func _on_Accept_pressed():
 			var node = object_resources.array_scn[count].instance()
 			gamescn.add_child(node)
 			var node_info = []
+			
 			items_count_array[count] -= 1
 			gamescn.player.money -= node.price
 		count += 1
