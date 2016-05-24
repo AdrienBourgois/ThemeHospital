@@ -10,6 +10,8 @@ var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
 var deskscn = preload("res://scenes/Entities/Objects/Desk.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
 
+var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
+
 func createObject(name):
 	var node
 	if (name == "Bench"):
@@ -32,6 +34,8 @@ func createRoomObject(name):
 	var node
 	if (name == "ROOM_GP"):
 		node = deskscn.instance()
+	elif (name == "ROOM_TOILETS"):
+		node = toiletsscn.instance()
 	else:
 		node = objectscn.instance()
 	return node
