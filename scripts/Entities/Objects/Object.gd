@@ -28,11 +28,13 @@ func updateStats():
 	position.x = self.get_translation().x 
 	position.y = self.get_translation().y
 	position.z = self.get_translation().z
+	rotation = self.get_rotation().y
 	object_stats = {
 	NAME = object_name,
 	X = position.x,
 	Y = position.y,
-	Z = position.z
+	Z = position.z,
+	ROTATION = rotation
 	}
 	return object_stats
 

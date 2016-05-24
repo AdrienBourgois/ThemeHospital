@@ -47,7 +47,8 @@ func loadObjects():
 		objects_nodes_array.append(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		node.set_translation(Vector3(current.X, current.Y, current.Z)) 
+		node.set_translation(Vector3(current.X, current.Y, current.Z))
+		node.set_rotation(Vector3(0, current.ROTATION, 0))
 		node.addToArray()
 
 func updateObjectsArray():

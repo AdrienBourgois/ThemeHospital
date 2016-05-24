@@ -12,6 +12,7 @@ onready var stats = {}
 var cube_scale
 
 export var position = Vector3(0,0,0) setget setPosition, getPosition 
+export var rotation = 0
 
 var is_selected = false
 var can_selected = true
