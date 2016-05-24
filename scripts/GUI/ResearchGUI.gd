@@ -1,22 +1,10 @@
-extends Panel
 
-var global_value
-var cure_equipment = 20
-var diagnosis = 20
-var drugs = 20
-var improvements = 20
-var specialisation = 20
+extends Control
 
-onready var informations = get_node("Informations")
+var global_value = 0
 
 func _ready():
-	global_value = cure_equipment + diagnosis + drugs + improvements + specialisation
-	set_values()
+	for i in range(get_node("Container").get_child_count()):
+		var value = get_node("Container").get_child(i).get_value()
+		global_value += value
 
-func set_values():
-	informations.get_node("CureEquipement").set_value(cure_equipment)
-	informations.get_node("DiagnosisEquipment").set_value(diagnosis)
-	informations.get_node("DrugResearch").set_value(drugs)
-	informations.get_node("Improvements").set_value(improvements)
-	informations.get_node("Specialisation").set_value(specialisation)
-	get_node("Total").set_value(global_value)
