@@ -8,10 +8,15 @@ var missed_messages_label = null
 onready var messages_list_label = get_node("./chat_box/messages_list_label")
 onready var message_line_edit = get_node("./chat_box/message_line_edit")
 onready var send_message_button = get_node("./chat_box/send_message_button")
+onready var move_button = get_node("./move_button")
 var chat_settings = null
 var never_show_chat = false
 var last_messages_list_size = 0
 var messages_missed = 0
+var move_button_pressed_x = null
+var move_button_pressed_y = null
+var mouse_viewport_x = 0
+var mouse_viewport_y = 0
 
 func _ready():
 	checkMultiplayer()
@@ -98,3 +103,41 @@ func toggleSendMessageButton( boolean ):
 	else:
 		send_message_button.set_hidden(boolean)
 		message_line_edit.set_margin(MARGIN_RIGHT, 0.787)
+
+func _on_move_button_input_event( ev ):
+	if ( move_button.is_pressed() ):
+		getMoveButtonPressed( ev.pos )
+		
+		mouse_viewport_x = get_viewport().get_mouse_pos().x
+		mouse_viewport_y = get_viewport().get_mouse_pos().y
+		checkInGameChatPos(Vector2(mouse_viewport_x - move_button_pressed_x, mouse_viewport_y - move_button_pressed_y))
+	elif ( !move_button.is_pressed() ):
+		resetMoveButton()
+
+func getMoveButtonPressed( pos ):
+	if ( move_button_pressed_x == null && move_button_pressed_y == null ):
+			move_button_pressed_x = pos.x
+			move_button_pressed_y = pos.y
+
+func resetMoveButton():
+	move_button_pressed_x = null
+	move_button_pressed_y = null
+
+func checkInGameChatPos(pos):
+	var window_size_x = OS.get_window_size().x
+	var window_size_y = OS.get_window_size().y
+	
+	if ( pos.x <= -1):
+		pos.x = 0
+	if ( pos.y <= -1):
+		pos.y = 0
+	if ( pos.x + get_size().x >= window_size_x ):
+		pos.x = window_size_x - get_size().x
+	if ( pos.y + get_size().y >= window_size_y ):
+		pos.y = window_size_y - get_size().y
+	
+	print("window size x = ", window_size_x)
+	print("size x ",  pos.x + get_size().x)
+	
+	set_pos(pos)
+
