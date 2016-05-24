@@ -10,6 +10,7 @@ onready var chat_settings_button = get_node("./Chat_settings_button")
 onready var chat_settings_control = chat_settings_button.get_node("Control")
 onready var chat_visibility_checkbox = get_node("./Chat_settings_button/Control/Chat_settings_box/Hide_chat_checkbox")
 onready var player_container = chat_settings_button.get_node("Control/Chat_settings_box/Mute_button/Player_container")
+onready var mute_button = chat_settings_button.get_node("Control/Chat_settings_box/Mute_button")
 onready var options_menu_res = preload("res://scenes/GUI/OptionsMenu.scn")
 var in_game_chat = null
 
@@ -49,6 +50,10 @@ func initChatSettings():
 
 func _on_Chat_settings_button_toggled( pressed ):
 	chat_settings_control.set_hidden(!pressed)
+	
+	if ( !pressed ):
+		mute_button.set_pressed(false)
+		_on_Mute_button_toggled(false)
 
 
 func setChatVisibility( boolean ):

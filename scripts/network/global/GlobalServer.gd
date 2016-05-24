@@ -69,13 +69,13 @@ func stopServer():
 
 
 func kickPlayer(player_id):
-	for player in range ( player_data.size() ):
-		if (player_data[player] != null && player_id == player_data[player][3]):
-			sendInfo(player_data[player][2] + " MSG_KICKED") 
-			sendTargetedPacket(player_data[player][3], "/game 7")
-			player_data[player][5] = true
-			updateServerData()
-			return
+	var player = getArrayIndexFromId(player_id)
+	
+	if (player_data[player] != null && player_id == player_data[player][3]):
+		sendTargetedPacket(player_data[player][3], "/game 7")
+		player_data[player][5] = true
+		updateServerData()
+		return
 
 
 func checkForDisconnection():
@@ -143,12 +143,13 @@ func setNickname(player_id, nickname):
 		sendInfo("MSG_CLIENT_CHOOSING_NAME")
 		return
 	
-	for player in range (player_data.size()):
-		if (player_data[player][3] == player_id):
-			player_data[player][2] = nickname
-			sendInfo(nickname + " MSG_JOINED")
-			sendTargetedPacket(player_id, "/game 3 1")
-			updateServerData()
+	var player = getArrayIndexFromId(player_id)
+	
+	if (player != -1):
+		player_data[player][2] = nickname
+		sendInfo(nickname + " MSG_JOINED")
+		sendTargetedPacket(player_id, "/game 3 1")
+		updateServerData()
 
 
 func checkNicknameAlreadyTaken(nickname):
@@ -162,15 +163,17 @@ func checkNicknameAlreadyTaken(nickname):
 func setPlayerReady(player_id, boolean):
 	var root = get_tree().get_current_scene()
 	
-	for player in range (player_data.size()):
-		if (player_data[player][3] == player_id):
-			player_data[player][4] = boolean
-			if (boolean):
-				sendInfo(player_data[player][2] + " MSG_READY")
-				pass
-			else:
-				sendInfo(player_data[player][2] + " MSG_NOT_READY")
-				pass
+	var player = getArrayIndexFromId(player_id)
+	
+	if (player == -1):
+		return
+	
+	player_data[player][4] = boolean
+	
+	if ( boolean ):
+		sendInfo(player_data[player][2] + " MSG_READY")
+	else:
+		sendInfo(player_data[player][2] + " MSG_NOT_READY")
 	
 	checkPlayersReady()
 	updateReadyPlayers()
@@ -201,10 +204,11 @@ func checkPlayersReady():
 func sendMessageToAll(from_client_id, message):
 	var new_message = "/chat "
 	
-	for player in range(player_data.size()):
-		if (player_data[player][3] == from_client_id):
-			new_message += player_data[player][2] + ": " + message
-			sendMessage(from_client_id, new_message)
+	var player = getArrayIndexFromId(from_client_id)
+	
+	if ( player != -1 ):
+		new_message += player_data[player][2] + ": " + message
+		sendMessage(from_client_id, new_message)
 
 func sendMessage(from_client_id, message):
 	for player in range ( player_data.size() ):
@@ -225,10 +229,10 @@ func sendInfo(message):
 
 
 func sendTargetedPacket(to_client_id, packet):
-	for player in range (player_data.size()):
-		if ( player_data[player][3] == to_client_id ):
-			player_data[player][1].put_var(packet)
-			return
+	var player = getArrayIndexFromId(to_client_id)
+	
+	if (player != -1):
+		player_data[player][1].put_var(packet)
 
 
 func sendPacket(packet):
@@ -291,11 +295,27 @@ func mutePlayer(player_id, muted_player_id):
 			return
 
 func unmutePlayer(player_id, unmuted_player_id):
+	var unmuter_player = getArrayIndexFromId(player_id)
+	if (unmuter_player == null):
+		return
+	
+	for muted_player in range ( player_data[unmuter_player][6].size() ):
+		if (player_data[unmuter_player][6][muted_player] == unmuted_player_id):
+			var new_array = player_data[unmuter_player][6]
+			new_array.remove(muted_player)
+			player_data[unmuter_player][6] = new_array
+			return
+
+func getPlayerFromId(player_id):
 	for player in range ( player_data.size() ):
-		if (player_data[player][3] == player_id):
-			for muted_player in range ( player_data[player][6].size() ):
-				if (player_data[player][6][muted_player] == unmuted_player_id):
-					var new_array = player_data[player][6]
-					new_array.remove(muted_player)
-					player_data[player][6] = new_array
-					return
+		if ( player_data[player][3] == player_id):
+			return player_data[player]
+	
+	return null
+
+func getArrayIndexFromId(player_id):
+	for player in range ( player_data.size() ):
+		if ( player_data[player][3] == player_id ):
+			return player
+	
+	return -1
