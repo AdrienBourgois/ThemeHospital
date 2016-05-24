@@ -13,13 +13,17 @@ func createObject(name):
 	if (name == "Object"):
 		node = objectscn.instance()
 	elif (name == "Bench"):
-		node = objectscn.instance()
+		node = benchscn.instance()
 	elif (name == "Plant"):
-		node = objectscn.instance()
+		node = plantscn.instance()
 	elif (name == "Radiator"):
-		node = objectscn.instance()
+		node = radiatorscn.instance()
 	elif (name == "Drink" or name == "DrinkMachine"):
-		node = objectscn.instance()
+		node = drinkscn.instance()
 	elif (name == "Fire" or name == "FireExtinguisher"):
-		node = objectscn.instance()
+		node = firescn.instance()
+	return node
+
+func returnPlant():
+	var node = plantscn.instance()
 	return node
