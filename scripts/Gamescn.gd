@@ -17,12 +17,6 @@ onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
 
 onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getResources
-onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
-onready var benchscn = preload("res://scenes/Entities/Objects/Bench.scn")
-onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
-onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
-onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
-onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
