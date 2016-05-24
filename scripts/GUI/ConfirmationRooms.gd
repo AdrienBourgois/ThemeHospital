@@ -23,10 +23,9 @@ func _on_Accept_pressed():
 		map.sendRoomToServer()
 	else:
 		if (map.new_room("create", null)):
+			player.money -= node_rooms_menu.price
 			var desk = desk_res.instance()
 			gamescn.add_child(desk)
 	self.hide()
-	
-	player.money -= node_rooms_menu.price
 	
 	node_rooms_menu.is_type_selected = false
