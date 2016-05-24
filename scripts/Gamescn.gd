@@ -45,13 +45,13 @@ func createObjectsDict():
 
 func loadObjects():
 	for current in objects.OBJECTS: 
-		var node = object_ressources.createObject(current[0])
+		var node = object_ressources.createObject(current.NAME)
 		if (!node):
 			return
 		self.add_child(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		node.set_translation(Vector3(current[1], current[2], current[3])) 
+		node.set_translation(Vector3(current.X, current.Y, current.Z)) 
 		node.addToArray()
 
 func getObjectArray():

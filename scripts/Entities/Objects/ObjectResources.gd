@@ -10,9 +10,7 @@ var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
 
 func createObject(name):
 	var node
-	if (name == "Object"):
-		node = objectscn.instance()
-	elif (name == "Bench"):
+	if (name == "Bench"):
 		node = benchscn.instance()
 	elif (name == "Plant"):
 		node = plantscn.instance()
@@ -22,6 +20,8 @@ func createObject(name):
 		node = drinkscn.instance()
 	elif (name == "Fire" or name == "FireExtinguisher"):
 		node = firescn.instance()
+	else:
+		node = objectscn.instance()
 	return node
 
 func returnPlant():

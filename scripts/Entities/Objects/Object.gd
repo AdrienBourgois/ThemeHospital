@@ -23,11 +23,12 @@ func addToArray():
 	position.x = self.get_translation().x 
 	position.y = self.get_translation().y
 	position.z = self.get_translation().z
-	var object_stats = []
-	object_stats.append(object_name)
-	object_stats.append(position.x)
-	object_stats.append(position.y)
-	object_stats.append(position.z)
+	var object_stats = {
+	NAME = object_name,
+	X = position.x,
+	Y = position.y,
+	Z = position.z
+	}
 	gamescn.objects_array.append(object_stats)
 
 func setName(value):
