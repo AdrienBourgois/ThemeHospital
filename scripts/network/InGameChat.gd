@@ -55,8 +55,8 @@ func toggleVisibility():
 			updateMissedMessage()
 
 
-func toggleControlsVisibility():
-	in_game_chat_controls.set_hidden(in_game_chat_controls.is_visible())
+func setControlsVisibility( boolean ):
+	in_game_chat_controls.set_hidden( !boolean )
 
 
 func updateChat():
