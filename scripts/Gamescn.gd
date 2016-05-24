@@ -21,6 +21,7 @@ onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
 var in_game_gui
+var objects_nodes_array = [] setget, getObjectsNodesArray
 
 export var map_size = Vector2(0, 0)
 
@@ -43,10 +44,19 @@ func loadObjects():
 		if (!node):
 			return
 		self.add_child(node)
+		objects_nodes_array.append(node)
 		node.can_selected = false
 		node.set_process_input(false)
 		node.set_translation(Vector3(current.X, current.Y, current.Z)) 
 		node.addToArray()
+
+func updateObjectsArray():
+	objects_array.clear()
+	for current in objects_nodes_array:
+		current.addToArray()
+
+func getObjectsNodesArray():
+	return objects_nodes_array
 
 func getObjectArray():
 	return objects_array
