@@ -8,6 +8,7 @@ var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
 var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
 var deskscn = preload("res://scenes/Entities/Objects/Desk.scn")
+var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
 
 func createObject(name):
 	var node
