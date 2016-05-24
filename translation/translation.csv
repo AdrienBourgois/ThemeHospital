@@ -71,6 +71,7 @@ TXT_TIRENESS,Tiredness,Fatigue
 TXT_SKILL,Skill, Capacite
 TXT_SALARY,Salary,Salaire
 TXT_EMPTY, --Empty--, --Vide--
+TXT_CONTROL_ACTIVATED,Window's control activated,Controle de la fenetre active
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
