@@ -9,6 +9,7 @@ onready var messages_list_label = get_node("./chat_box/messages_list_label")
 onready var message_line_edit = get_node("./chat_box/message_line_edit")
 onready var send_message_button = get_node("./chat_box/send_message_button")
 onready var move_button = get_node("./move_button")
+onready var resize_button = get_node("./resize_button")
 var chat_settings = null
 var never_show_chat = false
 var last_messages_list_size = 0
@@ -114,10 +115,10 @@ func _on_move_button_input_event( ev ):
 	elif ( !move_button.is_pressed() ):
 		resetMoveButton()
 
-func getMoveButtonPressed( pos ):
+func getMoveButtonPressed( mouse_pos ):
 	if ( move_button_pressed_x == null && move_button_pressed_y == null ):
-			move_button_pressed_x = pos.x
-			move_button_pressed_y = pos.y
+			move_button_pressed_x = mouse_pos.x
+			move_button_pressed_y = mouse_pos.y
 
 func resetMoveButton():
 	move_button_pressed_x = null
@@ -136,8 +137,37 @@ func checkInGameChatPos(pos):
 	if ( pos.y + get_size().y >= window_size_y ):
 		pos.y = window_size_y - get_size().y
 	
-	print("window size x = ", window_size_x)
-	print("size x ",  pos.x + get_size().x)
-	
 	set_pos(pos)
 
+
+func _on_resize_button_input_event( ev ):
+	if ( resize_button.is_pressed() ):
+		getResizeButtonPressed( ev.pos )
+		
+		print("mouse button x", move_button_pressed_x)
+		print("move button y", move_button_pressed_y)
+		
+		mouse_viewport_x = get_viewport().get_mouse_pos().x
+		mouse_viewport_y = get_viewport().get_mouse_pos().y
+		checkInGameChatSize(Vector2(mouse_viewport_x + move_button_pressed_x, mouse_viewport_y + move_button_pressed_y))
+	elif ( !resize_button.is_pressed() ):
+		resetMoveButton()
+
+
+func getResizeButtonPressed( mouse_pos ):
+	if ( move_button_pressed_x == null && move_button_pressed_y == null ):
+		move_button_pressed_x = resize_button.get_size().x - mouse_pos.x
+		move_button_pressed_y = resize_button.get_size().y - mouse_pos.y
+
+
+func checkInGameChatSize( mouse_pos ):
+	var final_size_x = mouse_pos.x - get_pos().x
+	var final_size_y = mouse_pos.y - get_pos().y
+	
+	if (get_viewport().get_mouse_pos().x > OS.get_window_size().x):
+		final_size_x = OS.get_window_size().x - get_pos().x
+	if (get_viewport().get_mouse_pos().y > OS.get_window_size().y):
+		final_size_y = OS.get_window_size().y - get_pos().y
+	
+	set_size( Vector2( final_size_x, final_size_y ) )
+	resize_button.set_pos(Vector2(get_size().x - resize_button.get_size().x, get_size().y - resize_button.get_size().y))
