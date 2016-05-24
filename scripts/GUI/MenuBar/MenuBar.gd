@@ -94,3 +94,7 @@ func _on_Mute_button_toggled( pressed ):
 
 func _on_Move_chat_button_toggled( pressed ):
 	in_game_chat.setControlsVisibility( pressed )
+
+
+func _on_Reset_chat_button_pressed():
+	in_game_chat.resetChatPos()
