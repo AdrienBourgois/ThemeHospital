@@ -16,17 +16,12 @@ onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
 
-onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getResources
-onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
-onready var benchscn = preload("res://scenes/Entities/Objects/Bench.scn")
-onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
-onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
-onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
-onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
+onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
 var in_game_gui
+var objects_nodes_array = [] setget, getObjectsNodesArray
 
 export var map_size = Vector2(0, 0)
 
@@ -49,15 +44,25 @@ func loadObjects():
 		if (!node):
 			return
 		self.add_child(node)
+		objects_nodes_array.append(node)
 		node.can_selected = false
 		node.set_process_input(false)
-		node.set_translation(Vector3(current.X, current.Y, current.Z)) 
+		node.set_translation(Vector3(current.X, current.Y, current.Z))
+		node.set_rotation(Vector3(0, current.ROTATION, 0))
 		node.addToArray()
+
+func updateObjectsArray():
+	objects_array.clear()
+	for current in objects_nodes_array:
+		current.addToArray()
+
+func getObjectsNodesArray():
+	return objects_nodes_array
 
 func getObjectArray():
 	return objects_array
 
-func getResources():
+func getObjectResources():
 	return object_ressources
 
 func _input(event):

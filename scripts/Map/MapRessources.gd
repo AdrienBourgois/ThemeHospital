@@ -197,25 +197,10 @@ var type_rooms = {
 	"TYPE_FACILITIES": facilities
 }
 
+var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, operating, inflation, tongue, staff_room, toilets, research, grass, pavement, plot]
+
 func getRoomFromId(room_id):
-	if (room_id == 0):
-		return lobby
-	elif (room_id == 1):
-		return gp_office
-	elif (room_id == 2):
-		return general_diagnosis
-	elif (room_id == 10):
-		return psychiatric
-	elif (room_id == 11):
-		return pharmacy
-	elif (room_id == 12):
-		return ward
-	elif (room_id == 13):
-		return operating
-	elif (room_id == 20):
-		return inflation
-	elif (room_id == 30):
-		return staff_room
-	elif (room_id == 31):
-		return toilets
-	return
+	for current in rooms_array:
+		if (current.ID == room_id):
+			return current
+	return lobby

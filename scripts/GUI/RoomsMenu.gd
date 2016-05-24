@@ -19,7 +19,7 @@ func _ready():
 	var button_number = 0
 	var buttons = get_node("Types").get_children()
 	
-	for type in rooms_types:		
+	for type in rooms_types:
 		buttons[button_number].set_text(type)
 		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
 		
