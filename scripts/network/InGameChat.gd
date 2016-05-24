@@ -15,11 +15,8 @@ var chat_settings = null
 var never_show_chat = false
 var last_messages_list_size = 0
 var messages_missed = 0
-var move_button_pressed_x = null
-var move_button_pressed_y = null
-var mouse_viewport_x = 0
-var mouse_viewport_y = 0
-var boolean_test = false
+var vector_move_button = null
+var vector_viewport = 0
 
 func _ready():
 	checkMultiplayer()
@@ -125,25 +122,25 @@ func toggleSendMessageButton( boolean ):
 
 
 func _on_move_button_input_event( ev ):
+	if (ev.type == 1):
+		return
+	
 	if ( move_button.is_pressed() ):
 		getMoveButtonPressed( ev.pos )
 		
-		mouse_viewport_x = get_viewport().get_mouse_pos().x
-		mouse_viewport_y = get_viewport().get_mouse_pos().y
-		checkInGameChatPos(Vector2(mouse_viewport_x - move_button_pressed_x, mouse_viewport_y - move_button_pressed_y))
+		vector_viewport = Vector2(get_viewport().get_mouse_pos().x, get_viewport().get_mouse_pos().y)
+		checkInGameChatPos(Vector2(vector_viewport.x - vector_move_button.x, vector_viewport.y - vector_move_button.y))
 	elif ( !move_button.is_pressed() ):
 		resetMoveButton()
 
 
 func getMoveButtonPressed( mouse_pos ):
-	if ( move_button_pressed_x == null && move_button_pressed_y == null ):
-			move_button_pressed_x = mouse_pos.x
-			move_button_pressed_y = mouse_pos.y
+	if ( vector_move_button == null ):
+			vector_move_button = Vector2(mouse_pos.x, mouse_pos.y)
 
 
 func resetMoveButton():
-	move_button_pressed_x = null
-	move_button_pressed_y = null
+	vector_move_button = null
 
 
 func checkInGameChatPos(pos):
@@ -166,17 +163,15 @@ func _on_resize_button_input_event( ev ):
 	if ( resize_button.is_pressed() ):
 		getResizeButtonPressed( ev.pos )
 		
-		mouse_viewport_x = get_viewport().get_mouse_pos().x
-		mouse_viewport_y = get_viewport().get_mouse_pos().y
-		checkInGameChatSize(Vector2(mouse_viewport_x + move_button_pressed_x, mouse_viewport_y + move_button_pressed_y))
+		vector_viewport = Vector2(get_viewport().get_mouse_pos().x, get_viewport().get_mouse_pos().y)
+		checkInGameChatSize(Vector2(vector_viewport.x + vector_move_button.x, vector_viewport.y + vector_move_button.y))
 	elif ( !resize_button.is_pressed() ):
 		resetMoveButton()
 
 
 func getResizeButtonPressed( mouse_pos ):
-	if ( move_button_pressed_x == null && move_button_pressed_y == null ):
-		move_button_pressed_x = resize_button.get_size().x - mouse_pos.x
-		move_button_pressed_y = resize_button.get_size().y - mouse_pos.y
+	if ( vector_move_button == null):
+		vector_move_button = Vector2(resize_button.get_size().x - mouse_pos.x, resize_button.get_size().y - mouse_pos.y)
 
 
 func checkInGameChatSize( mouse_pos ):
@@ -191,9 +186,9 @@ func checkInGameChatSize( mouse_pos ):
 	set_size( Vector2( final_size_x, final_size_y ) )
 	resize_button.set_pos(Vector2(get_size().x - resize_button.get_size().x, get_size().y - resize_button.get_size().y))
 
-func _on_in_game_chat_controls_mouse_enter():
-	boolean_test = true
-
-
-func _on_in_game_chat_controls_mouse_exit():
-	boolean_test = false
+func resetChatPos():
+	set_size(Vector2(400,280))
+	set_margin(MARGIN_LEFT, 0.596)
+	set_margin(MARGIN_TOP, 0.033)
+	set_margin(MARGIN_RIGHT, 0.986)
+	set_margin(MARGIN_BOTTOM, 0.5)
