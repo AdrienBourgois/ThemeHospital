@@ -11,21 +11,13 @@ onready var plant = panel.get_node("Plant")
 onready var radiator = panel.get_node("Radiator")
 onready var drink = panel.get_node("Drink")
 onready var fire = panel.get_node("Fire")
-
 onready var bench_label = bench.get_node("Label")
 onready var plant_label = plant.get_node("Label")
 onready var radiator_label = radiator.get_node("Label")
 onready var drink_label = drink.get_node("Label")
 onready var fire_label = fire.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label]
-
-onready var objectscn = preload("res://scenes/Entities/Objects/Object.scn")
-onready var benchscn = preload("res://scenes/Entities/Objects/Bench.scn")
-onready var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
-onready var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
-onready var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
-onready var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
-onready var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
+onready var object_resources = gamescn.getResources()
 
 var items_count_array = []
 var number_of_buttons = 2
@@ -57,7 +49,7 @@ func _on_Accept_pressed():
 	updateValues()
 	while (count < max_count):
 		while (items_count_array[count] > 0):
-			var node = array_scn[count].instance()
+			var node = object_resources.array_scn[count].instance()
 			gamescn.add_child(node)
 			var node_info = []
 			items_count_array[count] -= 1
