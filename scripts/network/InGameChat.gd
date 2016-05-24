@@ -19,12 +19,12 @@ var move_button_pressed_x = null
 var move_button_pressed_y = null
 var mouse_viewport_x = 0
 var mouse_viewport_y = 0
-
+var boolean_test = false
 
 func _ready():
 	checkMultiplayer()
 	toggleVisibility()
-	
+	set_process_input(true)
 
 
 func _process(delta):
@@ -190,3 +190,10 @@ func checkInGameChatSize( mouse_pos ):
 	
 	set_size( Vector2( final_size_x, final_size_y ) )
 	resize_button.set_pos(Vector2(get_size().x - resize_button.get_size().x, get_size().y - resize_button.get_size().y))
+
+func _on_in_game_chat_controls_mouse_enter():
+	boolean_test = true
+
+
+func _on_in_game_chat_controls_mouse_exit():
+	boolean_test = false
