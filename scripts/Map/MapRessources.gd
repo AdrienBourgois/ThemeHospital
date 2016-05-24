@@ -204,6 +204,8 @@ func getRoomFromId(room_id):
 		return gp_office
 	elif (room_id == 2):
 		return general_diagnosis
+	elif (room_id == 3):
+		return cardiogram
 	elif (room_id == 10):
 		return psychiatric
 	elif (room_id == 11):
@@ -214,8 +216,18 @@ func getRoomFromId(room_id):
 		return operating
 	elif (room_id == 20):
 		return inflation
+	elif (room_id == 21):
+		return tongue
 	elif (room_id == 30):
 		return staff_room
 	elif (room_id == 31):
 		return toilets
+	elif (room_id == 32):
+		return research
+	elif (room_id == 40):
+		return grass
+	elif (room_id == 41):
+		return pavement
+	elif (room_id == 41):
+		return plot
 	return
