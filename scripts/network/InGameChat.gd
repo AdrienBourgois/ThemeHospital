@@ -8,8 +8,9 @@ var missed_messages_label = null
 onready var messages_list_label = get_node("./chat_box/messages_list_label")
 onready var message_line_edit = get_node("./chat_box/message_line_edit")
 onready var send_message_button = get_node("./chat_box/send_message_button")
-onready var move_button = get_node("./in_game_chat_controls/move_button")
-onready var resize_button = get_node("./in_game_chat_controls/resize_button")
+onready var in_game_chat_controls = get_node("./in_game_chat_controls")
+onready var move_button = in_game_chat_controls.get_node("./move_button")
+onready var resize_button = in_game_chat_controls.get_node("./resize_button")
 var chat_settings = null
 var never_show_chat = false
 var last_messages_list_size = 0
@@ -52,6 +53,10 @@ func toggleVisibility():
 		if (is_visible()):
 			messages_missed = 0
 			updateMissedMessage()
+
+
+func toggleControlsVisibility():
+	in_game_chat_controls.set_hidden(in_game_chat_controls.is_visible())
 
 
 func updateChat():

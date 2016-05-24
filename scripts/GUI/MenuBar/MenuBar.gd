@@ -91,3 +91,6 @@ func mutePlayer(boolean, player_id):
 
 func _on_Mute_button_toggled( pressed ):
 	player_container.set_hidden(!pressed)
+
+func _on_Move_chat_button_toggled( pressed ):
+	in_game_chat.toggleControlsVisibility()
