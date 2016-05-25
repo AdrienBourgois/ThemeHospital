@@ -65,7 +65,6 @@ func createLabelForContainer(text):
 
 func destroyBoxContainer():
 	for child in range ( box_container.get_child_count() ):
-		print(box_container.get_child(0))
 		box_container.get_child(0).remove_and_skip()
 
 
