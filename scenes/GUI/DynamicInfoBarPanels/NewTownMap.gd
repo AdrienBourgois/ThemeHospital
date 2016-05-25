@@ -4,6 +4,7 @@ extends Control
 onready var game = get_node("/root/Game")
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
+onready var money_box = get_node("./Panel/MoneyBox")
 onready var increase_heat_button = get_node("./Panel/HospitalManager/IncreaseHeatButton")
 onready var decrease_heat_button = get_node("./Panel/HospitalManager/DecreaseHeatButton")
 onready var heat_level_progress_bar = get_node("./Panel/HospitalManager/HeatLevelProgressBar")
@@ -31,3 +32,7 @@ func _on_QuitButton_pressed():
 	
 	set_hidden(true)
 	hud.set_hidden(false)
+
+
+func _on_TownMap_visibility_changed():
+	money_box.updateMoney()
