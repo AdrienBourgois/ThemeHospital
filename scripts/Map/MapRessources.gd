@@ -16,7 +16,7 @@ var gp_office = {
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_GP",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -29,7 +29,7 @@ var general_diagnosis = {
 	"COST": 1000,
 	"TOOLTIP": "TOOLTIP_GENERAL_DIAGNOSIS",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -42,7 +42,7 @@ var cardiogram = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_CARDIOGRAM",
 	"UNLOCK": false,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -55,7 +55,7 @@ var psychiatric = {
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_PSYCHIATRIC",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {}, 
 	"OBJECTS": {}
 }
@@ -68,7 +68,7 @@ var pharmacy = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_PHARMACY",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -81,7 +81,7 @@ var ward = {
 	"COST": 2000,
 	"TOOLTIP": "TOOLTIP_WARD",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -94,7 +94,7 @@ var operating = {
 	"COST": 8000,
 	"TOOLTIP": "TOOLTIP_OPERATING",
 	"UNLOCK": false,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -107,7 +107,7 @@ var inflation = {
 	"COST": 4000,
 	"TOOLTIP": "TOOLTIP_INFLATION",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -120,7 +120,7 @@ var tongue = {
 	"COST": 3000,
 	"TOOLTIP": "TOOLTIP_TONGUE",
 	"UNLOCK": false,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -133,7 +133,7 @@ var staff_room = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_STAFF_ROOM",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -146,7 +146,7 @@ var toilets = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_TOILETS",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -159,7 +159,7 @@ var research = {
 	"COST": 5000,
 	"TOOLTIP": "TOOLTIP_RESEARCH",
 	"UNLOCK": true,
-	"STAFF": {},
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
