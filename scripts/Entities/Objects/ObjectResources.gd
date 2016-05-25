@@ -46,7 +46,7 @@ func createRoomObject(name):
 		node = deskscn.instance()
 	elif (name == "ROOM_TOILETS" or name == "Toilets"):
 		node = toiletsscn.instance()
-	elif (name == "ROOM_GENERAL_DIAGNOSIS" or name == "CrashTrollet"):
+	elif (name == "ROOM_GENERAL_DIAGNOSIS" or name == "CrashTrolley"):
 		node = crash_trolley_scn.instance()
 	elif (name == "ROOM_PHARMACY" or name == "PharmacyCabinet"):
 		node = pharmacy_cabinet_scn.instance()
@@ -62,7 +62,7 @@ func createRoomObject(name):
 		node = gasbottlescn.instance()
 	elif (name == "ROOM_TONGUE" or name == "TongueMachine"):
 		node = tongue_machine_scn.instance()
-	elif (name == "ROOM_STAFF_ROOM" or name == "Bed"):
+	elif (name == "ROOM_STAFF_ROOM" or name == "Sofa"):
 		node = sofascn.instance()
 	elif (name == "ROOM_RESEARCH" or name == "ResearchMachine"):
 		node = research_machine_scn.instance()
