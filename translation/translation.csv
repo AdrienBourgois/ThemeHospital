@@ -214,6 +214,7 @@ TAB_NURSE,Nurse,Infirmiere
 TAB_HANDYMEN,Handymen,Concierge
 TAB_RECEPTIONIST,Receptionist,Receptioniste
 COST,Cost : ,Cout : 
+QUIT_RESEARCH,Close Research screen,Ferme l'ecran des Recherches
 LABEL_RESEARCH_TOTAL,Allocated Amount :,Total Alloue :
 LABEL_RESEARCH_CURE,Cure Equipment :,Machines de Soin :
 LABEL_RESEARCH_DIAGNOSIS,Diagnosis Equipment :,Diagnostics :
