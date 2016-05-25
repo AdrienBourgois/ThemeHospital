@@ -5,11 +5,15 @@ export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
 export var expense_per_month = 0
 export var in_room_object = false
+export var room_id = 0
 
 var object_stats = {}
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
+		var type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
+		if (type.ID != 0 and type.ID != 40 and type.ID != room_id):
+			return
 		can_selected = false
 		set_process_input(false)
 		if (object_stats.empty()):
