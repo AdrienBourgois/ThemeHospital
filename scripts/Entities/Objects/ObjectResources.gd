@@ -54,7 +54,7 @@ func createRoomObject(name):
 		node = psychiatricscn.instance()
 	elif (name == "ROOM_WARD" or name == "Bed"):
 		node = bedscn.instance()
-	elif (name == "ROOM_CARDIOGRAM" or name == "TreadMill"):
+	elif (name == "ROOM_CARDIOGRAM" or name == "Treadmill"):
 		node = treadmillscn.instance()
 	elif (name == "ROOM_OPERATING" or name == "OperatingTheater"):
 		node = operatingscn.instance()
