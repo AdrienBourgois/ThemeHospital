@@ -172,6 +172,8 @@ CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
 CMD_RIGHT,[camera] right : ,[camera] droite :
 CMD_CHAT,[chat] show : ,[chat] afficher : 
+CMD_FULLSCREEN,[screen] fullscreen : ,[ecran] plein ecran : 
+CMD_SCREENSHOT,[screen] screenshot : ,[ecran] capture d'ecran : 
 ROOM_GP,GP's Office,Medecine Generale
 ROOM_GENERAL_DIAGNOSIS,General Diagnosis,Diagnostic General
 ROOM_CARDIOGRAM,Cardiogram,Cardiogramme
