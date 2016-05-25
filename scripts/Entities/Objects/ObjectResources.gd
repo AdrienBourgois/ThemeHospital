@@ -50,21 +50,21 @@ func createRoomObject(name):
 		node = crash_trolley_scn.instance()
 	elif (name == "ROOM_PHARMACY" or name == "PharmacyCabinet"):
 		node = pharmacy_cabinet_scn.instance()
-	elif (name == "ROOM_PSYCHIATRIC"):
+	elif (name == "ROOM_PSYCHIATRIC" or name == "Psychiatric"):
 		node = psychiatricscn.instance()
-	elif (name == "ROOM_WARD"):
+	elif (name == "ROOM_WARD" or name == "Bed"):
 		node = bedscn.instance()
-	elif (name == "ROOM_CARDIOGRAM"):
+	elif (name == "ROOM_CARDIOGRAM" or name == "TreadMill"):
 		node = treadmillscn.instance()
-	elif (name == "ROOM_OPERATING"):
+	elif (name == "ROOM_OPERATING" or name == "OperatingTheater"):
 		node = operatingscn.instance()
-	elif (name == "ROOM_INFLATION"):
+	elif (name == "ROOM_INFLATION" or name == "GasBottle"):
 		node = gasbottlescn.instance()
-	elif (name == "ROOM_TONGUE"):
+	elif (name == "ROOM_TONGUE" or name == "TongueMachine"):
 		node = tongue_machine_scn.instance()
-	elif (name == "ROOM_STAFF_ROOM"):
+	elif (name == "ROOM_STAFF_ROOM" or name == "Bed"):
 		node = sofascn.instance()
-	elif (name == "ROOM_RESEARCH"):
+	elif (name == "ROOM_RESEARCH" or name == "ResearchMachine"):
 		node = research_machine_scn.instance()
 	else:
 		node = objectscn.instance()
