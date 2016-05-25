@@ -1,4 +1,5 @@
 
+onready var game = get_node("/root/Game")
 onready var player = game.scene.get_node("Player")
 onready var box_container = get_node("./Money/HBoxContainer")
 
