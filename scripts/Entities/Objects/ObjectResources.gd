@@ -8,12 +8,22 @@ var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
 var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
 var deskscn = preload("res://scenes/Entities/Objects/Desk.scn")
+var crash_trolley_scn = preload("res://scenes/Entities/Objects/CrashTrolley.scn")
+var pharmacy_cabinet_scn = preload("res://scenes/Entities/Objects/PharmacyCabinet.scn")
+var psychiatricscn = preload("res://scenes/Entities/Objects/Psychiatric.scn")
+var bedscn = preload("res://scenes/Entities/Objects/Bed.scn")
+var treadmillscn = preload("res://scenes/Entities/Objects/Treadmill.scn")
+var operatingscn = preload("res://scenes/Entities/Objects/OperatingTheater.scn")
+var gasbottlescn = preload("res://scenes/Entities/Objects/GasBottle.scn")
+var tongue_machine_scn = preload("res://scenes/Entities/Objects/TongueMachine.scn")
+var sofascn = preload("res://scenes/Entities/Objects/Sofa.scn")
+var research_machine_scn = preload("res://scenes/Entities/Objects/ResearchMachine.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
 
 func createObject(name):
-	var node
+	var node = null
 	if (name == "Bench"):
 		node = benchscn.instance()
 	elif (name == "Plant"):
@@ -27,15 +37,35 @@ func createObject(name):
 	elif (name == "Desk"):
 		node = deskscn.instance()
 	else:
-		node = objectscn.instance()
+		node = createRoomObject(name)
 	return node
 
 func createRoomObject(name):
-	var node
+	var node = null
 	if (name == "ROOM_GP"):
 		node = deskscn.instance()
-	elif (name == "ROOM_TOILETS"):
+	elif (name == "ROOM_TOILETS" or name == "Toilets"):
 		node = toiletsscn.instance()
+	elif (name == "ROOM_GENERAL_DIAGNOSIS" or name == "CrashTrolley"):
+		node = crash_trolley_scn.instance()
+	elif (name == "ROOM_PHARMACY" or name == "PharmacyCabinet"):
+		node = pharmacy_cabinet_scn.instance()
+	elif (name == "ROOM_PSYCHIATRIC" or name == "Psychiatric"):
+		node = psychiatricscn.instance()
+	elif (name == "ROOM_WARD" or name == "Bed"):
+		node = bedscn.instance()
+	elif (name == "ROOM_CARDIOGRAM" or name == "Treadmill"):
+		node = treadmillscn.instance()
+	elif (name == "ROOM_OPERATING" or name == "OperatingTheater"):
+		node = operatingscn.instance()
+	elif (name == "ROOM_INFLATION" or name == "GasBottle"):
+		node = gasbottlescn.instance()
+	elif (name == "ROOM_TONGUE" or name == "TongueMachine"):
+		node = tongue_machine_scn.instance()
+	elif (name == "ROOM_STAFF_ROOM" or name == "Sofa"):
+		node = sofascn.instance()
+	elif (name == "ROOM_RESEARCH" or name == "ResearchMachine"):
+		node = research_machine_scn.instance()
 	else:
 		node = objectscn.instance()
 	return node

@@ -42,7 +42,7 @@ func loadObjects():
 	for current in objects.OBJECTS: 
 		var node = object_ressources.createObject(current.NAME)
 		if (!node):
-			return
+			return 
 		self.add_child(node)
 		objects_nodes_array.append(node)
 		node.can_selected = false

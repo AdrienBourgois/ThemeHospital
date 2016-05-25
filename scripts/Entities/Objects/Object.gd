@@ -20,6 +20,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object):
 			return
+		gamescn.updateObjectsArray()
 		is_selected = true
 		can_selected = true
 		set_process_input(true)

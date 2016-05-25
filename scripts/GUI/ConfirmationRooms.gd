@@ -28,7 +28,6 @@ func _on_Accept_pressed():
 		if (map.new_room("create", null)):
 			player.money -= node_rooms_menu.price
 			var node = object_resources.createRoomObject(map.getActualRoomTypeName())
-			#var desk = desk_res.instance()
 			gamescn.add_child(node)
 	self.hide()
 	
