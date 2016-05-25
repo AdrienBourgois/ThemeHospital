@@ -12,10 +12,10 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		can_selected = false
 		set_process_input(false)
+		gamescn.updateObjectsArray()
 		if (object_stats.empty()):
 			addToArray()
-		else:
-			gamescn.updateObjectsArray()
+	
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object):
