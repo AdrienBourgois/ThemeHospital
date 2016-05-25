@@ -44,6 +44,7 @@ func blink():
 	if (idx > blink_number):
 		timer.stop()
 		self.cube.show()
+		idx = 0
 	idx += 1
 
 func error():
