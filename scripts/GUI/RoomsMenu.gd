@@ -76,7 +76,7 @@ func type_rooms_pressed(type):
 	
 	for rooms in type:
 		buttons = get_node("Rooms/Button" + str(number_button))
-		
+#		if (type[rooms].UNLOCK == true):
 		buttons.set_text(type[rooms].NAME)
 		buttons.set_tooltip(type[rooms].TOOLTIP)
 		
