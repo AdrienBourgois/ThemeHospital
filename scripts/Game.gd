@@ -7,6 +7,7 @@ onready var file = File.new()
 onready var dir = Directory.new() 
 onready var config = {}
 onready var preloader = preload("res://scenes/LoadingScreen.scn")
+onready var screenshot_manager = preload("res://scenes/ScreenshotManager.scn").instance()
 var loader
 
 onready var default_config = {
@@ -47,11 +48,14 @@ signal build_timer_timeout
 
 var action_list = []
 
+
 func _ready():
 	set_process_input(true)
-	set_process(true)
 
 func _input(event):
+	if event.is_action_pressed("screenshot"):
+		root.add_child(screenshot_manager)
+		screenshot_manager.screen()
 	if event.is_action_pressed("fullscreen"):
 		if config.fullscreen:
 			config.fullscreen = false

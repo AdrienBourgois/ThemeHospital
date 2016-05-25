@@ -42,7 +42,7 @@ func loadObjects():
 	for current in objects.OBJECTS: 
 		var node = object_ressources.createObject(current.NAME)
 		if (!node):
-			return
+			return 
 		self.add_child(node)
 		objects_nodes_array.append(node)
 		node.can_selected = false
@@ -70,6 +70,8 @@ func _input(event):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
+	if (event.is_action_released("info")):
+		print(map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type)
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  

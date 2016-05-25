@@ -8,6 +8,7 @@ onready var label = get_node("Label")
 
 onready var status = get_node("../../../Status")
 onready var town_map = get_node("../../../TownMap")
+onready var research = get_node("../../../Research")
 
 func _ready():
 	for idx in buttons.get_children():
@@ -23,3 +24,8 @@ func _on_Status_pressed():
 func _on_Town_Map_pressed():
 	hud.hide()
 	town_map.show()
+
+func _on_Research_pressed():
+	hud.hide()
+	research.show()
+	set_pause_mode(true)
