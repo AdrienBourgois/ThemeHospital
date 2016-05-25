@@ -2,6 +2,8 @@ extends Control
 
 export var value = 20
 export var text = ""
+export var tooltip_less = ""
+export var tooltip_more = ""
 
 onready var node_bar = get_node("ProgressBar")
 onready var node_label = get_node("Label")
@@ -10,6 +12,8 @@ onready var node_parent_research = get_parent().get_parent()
 func _ready():
 	node_bar.set_value(value)
 	node_label.set_text(text)
+	get_node("ButtonLess").set_tooltip(tooltip_less)
+	get_node("ButtonMore").set_tooltip(tooltip_more)
 
 
 func _on_ButtonMore_pressed():

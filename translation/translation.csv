@@ -214,3 +214,19 @@ TAB_NURSE,Nurse,Infirmiere
 TAB_HANDYMEN,Handymen,Concierge
 TAB_RECEPTIONIST,Receptionist,Receptioniste
 COST,Cost : ,Cout : 
+LABEL_RESEARCH_TOTAL,Allocated Amount :,Total Alloue :
+LABEL_RESEARCH_CURE,Cure Equipment :,Machines de Soin :
+LABEL_RESEARCH_DIAGNOSIS,Diagnosis Equipment :,Diagnostics :
+LABEL_RESEARCH_DRUGS,Drug Research :,Medicaments :
+LABEL_RESEARCH_IMPROVEMENTS,Improvements :,Amelioration des Machines :
+TOOLTIP_RESEARCH_TOTAL,Amount of budget allocated,Total du budget alloue
+TOOLTIP_RESEARCH_CURE_LESS,Decrease Cure percentage,Reduit la recherche sur les machines de soin
+TOOLTIP_RESEARCH_DIAGNOSIS_LESS,Decrease Diagnosis percentage,Reduit la recherche sur les diagnostics
+TOOLTIP_RESEARCH_DRUGS_LESS,Decrease Drugs percentage,Reduit la recherche sur les medicaments
+TOOLTIP_RESEARCH_IMPROVEMENTS_LESS,Decrease Improvements percentage,Reduit la recherche sur les ameliorations
+TOOLTIP_RESEARCH_SPECIALISATION_LESS,Decrease Special percentage,Reduit la recherche specifique
+TOOLTIP_RESEARCH_CURE_MORE,Increase Cure research percentage,Augmente la recherche pour les machines de soin
+TOOLTIP_RESEARCH_DIAGNOSIS_MORE,Increase diagnosis research percentage,Augmente la recherche pour les diagnostics
+TOOLTIP_RESEARCH_DRUGS_MORE,Increase drugs research percentage,Augmente la recherche pour les medicaments
+TOOLTIP_RESEARCH_IMPROVEMENTS_MORE,Increase improvements research percentage,Augmente la recherche pour les ameliorations
+TOOLTIP_RESEARCH_SPECIALISATION_MORE,Increase special research percentage,Augmente la recherche specifique
