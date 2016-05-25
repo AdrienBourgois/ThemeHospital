@@ -12,6 +12,7 @@ var crash_trolley_scn = preload("res://scenes/Entities/Objects/CrashTrolley.scn"
 var pharmacy_cabinet_scn = preload("res://scenes/Entities/Objects/PharmacyCabinet.scn")
 var psychiatricscn = preload("res://scenes/Entities/Objects/Psychiatric.scn")
 var bedscn = preload("res://scenes/Entities/Objects/Bed.scn")
+var treadmillscn = preload("res://scenes/Entities/Objects/Treadmill.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
@@ -48,6 +49,8 @@ func createRoomObject(name):
 		node = psychiatricscn.instance()
 	elif (name == "ROOM_WARD"):
 		node = bedscn.instance()
+	elif (name == "ROOM_CARDIOGRAM"):
+		node = treadmillscn.instance()
 	else:
 		node = objectscn.instance()
 	return node
