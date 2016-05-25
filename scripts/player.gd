@@ -38,7 +38,7 @@ func initObjectives():
 
 func loadData():
 	name = stats.NAME
-	money = stats.MONEY
+	money = int(stats.MONEY)
 	expense = stats.EXPENSE
 	heal_patients = stats.HEAL_PATIENTS
 	total_patients = stats.TOTAL_PATIENTS
