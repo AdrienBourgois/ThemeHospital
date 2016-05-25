@@ -21,10 +21,11 @@ func _ready():
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		var type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
-		if (type.ID != room_id and in_room_object):
-			error()
-			return
-		if (type.ID != 0 and type.ID != 40 and type.ID != room_id):
+		if (in_room_object):
+			if (type.ID != room_id):
+				error()
+				return
+		if (type.ID == 40):
 			error()
 			return
 		can_selected = false
