@@ -1,16 +1,16 @@
 ,en,fr
 MSG_JOINED,joined the server,vient de se connecter
-MSG_KICKED,has been kicked from server,a ete expulse du serveur
-MSG_LEFT,left the lobby,a quitte la session
-MSG_READY,is ready to play,est pret a jouer
-MSG_NOT_READY,is  no longer ready,n'est plus pret
+MSG_KICKED,has been kicked from server,a été expulsé du serveur
+MSG_LEFT,left the lobby,a quitté la session
+MSG_READY,is ready to play,est prêt a jouer
+MSG_NOT_READY,is  no longer ready,n'est plus prêt
 MSG_CLIENT_CHOOSING_NAME,A new client is choosing a nickname,Un nouveau client choisit son pseudo
-TXT_SACK,Are you sure you want to sack this member of staff?, Etes-vous sur de vouloir renvoyer cet employe?
+TXT_SACK,Are you sure you want to sack this member of staff?, Êtes-vous sur de vouloir renvoyer cet employé?
 TXT_PORT,Port:,Port:
 TXT_NICKNAME,Nickname:,Pseudo:
 TXT_IP_ADDRESS,IP address,Addresse IP
-TXT_CONNECTED_CLIENTS,Connected clients:,Clients connectes:
-TXT_READY,Players ready:,Joueurs prets:
+TXT_CONNECTED_CLIENTS,Connected clients:,Clients connectés:
+TXT_READY,Players ready:,Joueurs prêts:
 TXT_CHAT,Chat:,Chat:
 TXT_NICKNAME_TAKEN,Nickname already taken,Ce pseudo est deja pris
 TXT_NEW_NICKNAME,Please choose a new one,Choisissez-en un autre:
@@ -19,13 +19,13 @@ TXT_WARNING_CONNECTING, Connection to server ..., Connexion au serveur ...
 TXT_SERVER_UNAVAILABLE,Server is no longer available,Le serveur n'est plus disponible
 TXT_REDIRECT,You're going to be redirected to main menu,Retour au menu principal
 TXT_INVALID_NICKNAME,Invalid nickname,Pseudo invalide
-TXT_MINIMUM_CHARACTER,Your nickname must contain at least 1 character,Votre pseudo doit contenir au moins 1 caractere
+TXT_MINIMUM_CHARACTER,Your nickname must contain at least 1 character,Votre pseudo doit contenir au moins 1 caractère
 TXT_CONNECT_SERVER,Connecting to server. Please wait ...,Connection au serveur en cours. Veuillez patienter...
 TXT_INVALID_SERVER,Couldn't connect to server,Connection impossible
 TXT_CHECK_IP,Please check the IP address and the port you entered are valid,Veuillez verfier que l'adresse IP et le port sont valides
 TXT_CLICK_CANCEL,Click to cancel,Cliquez pour annuler
 TXT_INFO,Information,Information
-TXT_SELECTING_MAP,The host is choosing a map,L'hote choisit une carte
+TXT_SELECTING_MAP,The host is choosing a map,L'hôte choisit une carte
 TXT_PLEASE_WAIT,Please wait.,Veuillez patienter.
 TXT_SLOWEST,SLOWEST,LA PLUS LENTE
 TXT_SLOWER,SLOWER,PLUS LENT
@@ -33,22 +33,22 @@ TXT_NORMAL,NORMAL,NORMAL
 TXT_MAX,MAX,MAX
 TXT_SOME_MORE,AND THEN SOME MORE,ET TOUJOURS PLUS
 TXT_JANUARY,Januray,Janvier
-TXT_FEBRUARY,February,Fevrier
+TXT_FEBRUARY,February,Février
 TXT_MARCH,March,Mars
 TXT_APRIL,April,Avril
 TXT_MAY,May,Mai
 TXT_JUNE,June,Juin
 TXT_JULY,July,Juillet
-TXT_AUGUST,August,Aout
+TXT_AUGUST,August,Août
 TXT_SEPTEMBER,September,Septembre
 TXT_OCTOBER,October,Octobre
 TXT_NOVEMBER,November,Novembre
-TXT_DECEMBER,December,Decembre
+TXT_DECEMBER,December,Décembre
 TXT_PLEASE_CONFIRM,Please confirm ...,Veuillez confirmer ...
-TXT_MAP_SELECTED,The map you have selected is ,La carte selectionnee est 
+TXT_MAP_SELECTED,The map you have selected is ,La carte selectionnée est 
 TXT_CONFIRM,Confirm your choice.,Veuillez confirmer votre choix.
 TXT_ENTERNAME, Please enter your username :, Veuillez entrer vore pseudo :
-TXT_BUILD, Rooms, Pieces
+TXT_BUILD, Rooms, Pièces
 TXT_EDIT, Edit, Editer
 TXT_BENCH, Bench, Banc
 TXT_PLANT, Plant, Plante
@@ -59,19 +59,19 @@ TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
 TXT_COUNT,Count : ,Nombre : 
 TXT_SPEED,Speed : ,Vitesse : 
-TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez ete expulse du serveur
+TXT_KICKED_FROM_SERVER,You've been kicked from server,Vous avez été expulsé du serveur
 TXT_SAVING, Saving game..., Sauvegarde en cours...
-TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminee !
+TXT_SAVECOMPLETE, Save complete !, Sauvegarde terminée !
 TXT_CHAT_SETTINGS,Chat settings,Options du tchat
-TXT_HIDE_SEND_BTN,Hide send button,Cacher bouton envoyer
+TXT_HIDE_SEND_BTN,Hide send button,Cacher le bouton envoyer
 TXT_DISPLAY_CHAT,Display chat,Afficher le tchat
-TXT_WIN,You win! Congratulation!,Vous avez gagne! Felicitation!
+TXT_WIN,You win! Congratulation!,Vous avez gagné! Félicitation!
 TXT_HAPPINESS,Happiness,Joie
 TXT_TIRENESS,Tiredness,Fatigue
-TXT_SKILL,Skill, Capacite
+TXT_SKILL,Skill,Capacité
 TXT_SALARY,Salary,Salaire
-TXT_EMPTY, --Empty--, --Vide--
-TXT_CONTROL_ACTIVATED,Window's control activated,Controle de la fenetre active
+TXT_EMPTY,--Empty--,--Vide--
+TXT_CONTROL_ACTIVATED,Window's control activated,Contrôle de la fenêtre active
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
@@ -101,80 +101,82 @@ MENU_QUIT,Quit,Quitter
 MENU_LAUNCH_SERVER,Launch server,Lancer le serveur
 MENU_BACK_TO_MAIN_MENU,Back to main menu,Retourner au menu principal
 MENU_CONNECT,Connect to server,Se connecter au serveur
-MENU_HOST_GAME,Host game,Heberger la partie
+MENU_HOST_GAME,Host game,Héberger la partie
 MENU_JOIN_SERVER,Join game,Rejoindre la partie
-MENU_DISCONNECT,Disconnect,Deconnexion
+MENU_DISCONNECT,Disconnect,Déconnexion
 IGMENU_BACKTOGAME,Back to game,Reprendre la partie
 IGMENU_SAVEGAME,Save game,Sauvegarder
 IGMENU_BACKTOMENU,Back to menu,Retourner au menu
-OPTIONS_FULLSCREEN,Fullscreen,Plein ecran
-OPTIONS_ENABLE,Enable,Active
-OPTIONS_DISABLE,Disable,Desactive
+OPTIONS_FULLSCREEN,Fullscreen,Plein écran
+OPTIONS_ENABLE,Enable,Activer
+OPTIONS_DISABLE,Disable,Désactiver
 OPTIONS_LANGUAGE,Language,Langage
 OPTIONS_APPLY,Apply,Appliquer
 OPTIONS_TUTO,Tutorial,Tutoriel
-OPTIONS_CAMERA, Move camera with mouse : ,Deplacer la camera avec la souris : 
+OPTIONS_CAMERA, Move camera with mouse : ,Déplacer la caméra avec la souris : 
 BTN_SEND,Send,Envoyer
 BTN_SEND_AGAIN,Here we go again,Envoyer le pseudo
-BTN_READY,Ready,Pret
+BTN_READY,Ready,Prêt
 BTN_KICK,Kick,Kicker joueur
 BTN_START_GAME,Start game,Lancer la partie
-BTN_DISCONNECT,Disconnect server,Se deconnecter
+BTN_DISCONNECT,Disconnect server,Se déconnecter
 BTN_CONFIRM,Confirm,Confirmer
 BTN_CANCEL,Cancel,Annuler
-BTN_GO,Go!,Pret!
-BTN_MOVE_CHAT,Move chat,Deplacer le tchat
+BTN_GO,Go!,Prêt!
+BTN_MOVE_CHAT,Move chat,Déplacer le tchat
 BTN_MUTE,Mute,Rendre muet
 BTN_ROOMS,Rooms,Salles
 BTN_ITEMS,Items,Objets
-BTN_EDIT,Edit,Editer
+BTN_EDIT,Edit,Éditer
 BTN_HIRE,Hire,Engager
 BTN_STAFF,Staff, Personnel
 BTN_MAP,Map,Carte
-BTN_DRUGS,Drugs,Medicament
+BTN_DRUGS,Drugs,Médicament
 BTN_RESEARCH,Research,Recherches
 BTN_STATUS,Status,Statut
 BTN_CHARTS,Charts,Graphiques
 BTN_POLICY,Policy,Politique
-BTN_RETRY,Retry,Reessayer
+BTN_RETRY,Retry,Réessayer
 BTN_GRAB,Grab,Attraper
 BTN_SACK,Sack,Virer
 BTN_BANK,Bank,Banque
 BTN_RESET_CHAT,Reset chat,Par defaut
+BTN_PREV,Previous,Précédent
+BTN_NEXT,Next,Suivant
 TIP_BUILD_ROOM,Build room,Construire salle
-TIP_CORRIDOR_ITEMS,Place corridor items,Placer objets dans le couloir
+TIP_CORRIDOR_ITEMS,Place corridor items,Placer un objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
-TIP_HIRE_STAFF,Hire staff,Engager Personnel
+TIP_HIRE_STAFF,Hire staff,Engager du Personnel
 TIP_BANK,Bank balance,Solde bancaire
 TIP_STAFF_MANAGEMENT,Staff management,Gestion du personnel
 TIP_TOWN_MAP,Town map,Carte de la ville
-TIP_DRUG_CASEBOOK,Drug casebook,Liste de remedes
+TIP_DRUG_CASEBOOK,Drug casebook,Liste de remèdes
 TIP_RESEARCH,Research,Recherches
 TIP_STATUS,Status,Statut
 TIP_CHARTS,Charts,Graphiques
 TIP_POLICY,Policy,Politique
 CHARTS_OBJECTIVES,Objectives : ,Objectifs : 
 CHARTS_MONEY,Money : ,Argent : 
-CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients soignes :
-CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignes : 
+CHARTS_HEAL_PATIENTS_PERCENT,Heal patients percent : ,Pourcentage de patients soignés :
+CHARTS_HEAL_PATIENTS,Heal Patients : ,Patients soignés : 
 CHARTS_HOSPITAL_VALUE,Hospital value : ,Valeur de l'hopital :
-TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour deplacer la camera placez la souris sur les bords de l'ecran ou utiliser les fleches
-TUTO_LEFT_CLICK,Left click on a staff allow to see her characteritics,Clique-gauche sur un employe permet de voir ses caracteristiques
-TUTO_RIGHT_CLICK,Right click allows to take a staff or object to move it. If a staff or object is taken it allows to rotate it,Clique droit permet de prendre un employe ou un objet pour le deplacer. Si un employe ou un objet est deja pris il permet de le tourner
+TUTO_MOVE_CAM,To move camera put your mouse on the screen edges or use arrow,Pour déplacer la camera placez la souris sur les bords de l'écran ou utiliser les flèches
+TUTO_LEFT_CLICK,Left click on a staff allow to see her characteritics,Clique-gauche sur un employé permet de voir ses caractéristiques
+TUTO_RIGHT_CLICK,Right click allows to take a staff or object to move it. If a staff or object is taken it allows to rotate it,Clique droit permet de prendre un employé ou un objet pour le déplacer. Si un employé ou un objet est deja pris il permet de le tourner
 TUTO_BUILD_ROOMS,button [Rooms] allows to build rooms,Le bouton [Salles] permet de construire des salles
-TUTO_CORRIDOR_ITEMS,button [Items] allows to buy corridor items,Le bouton [Objets] permet d'acheter des objets a poser dans le couloir
+TUTO_CORRIDOR_ITEMS,button [Items] allows to buy corridor items,Le bouton [Objets] permet d'acheter des objets à poser dans le couloir
 TUTO_HIRE,button [Hire] allows to hire staff,Le bouton [Engager] permet d'engager du personnel
-TUTO_INFO_BAR,info bar is display if cursor is on control panel,La barre d'information est affichee si le curseur est sur le panneau de controle
-TUTO_TOWN_MAP,button [Map] allows to see map and manage heat,Le bouton [Carte] permet de voir la carte et de gerer la chaleur
+TUTO_INFO_BAR,info bar is display if cursor is on control panel,La barre d'information est affichée si le curseur est sur le panneau de contrôle
+TUTO_TOWN_MAP,button [Map] allows to see map and manage heat,Le bouton [Carte] permet de voir la carte et de gérer la chaleur
 TUTO_STATUS,button [Status] allows to consult objectives and player progress,Le bouton [Statut] permet de consulter les objectifs et la progression du joueur
-TUTO_GO,button [go] or timeout allow to start patient spawn,Le bouton [pret] ou la fin du chrono permettent l'apparition des patients
+TUTO_GO,button [go] or timeout allow to start patient spawn,Le bouton [prêt] ou la fin du chrono permettent l'apparition des patients
 TUTO_SPEED,button [speed] allows to change game speed from [slowest] to [and then some more],Le bouton [vitesse] permet de changer la vitesse du jeu de [la plus lente] a [et toujours plus]
 CMD_UP,[camera] up : ,[camera] haut : 
 CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 
 CMD_RIGHT,[camera] right : ,[camera] droite :
 CMD_CHAT,[chat] show : ,[chat] afficher : 
-ROOM_GP,GP's Office,Medecine Generale
+ROOM_GP,GP's Office,Médecine Générale
 ROOM_GENERAL_DIAGNOSIS,General Diagnosis,Diagnostic General
 ROOM_CARDIOGRAM,Cardiogram,Cardiogramme
 ROOM_INFLATION,Inflation,Gonflage
@@ -182,35 +184,43 @@ ROOM_TONGUE,Slack Tongue Clinic,Salle d'Hyperlangue
 ROOM_PHARMACY,Pharmacy,Pharmacie
 ROOM_PSYCHIATRIC,Psychiatric,Psychiatrie
 ROOM_WARD,Ward,Salle d'Observation
-ROOM_OPERATING,Operating Theater,Bloc Operatoire
+ROOM_OPERATING,Operating Theater,Bloc Opératoire
 ROOM_TOILETS,Toilets,Toilettes
 ROOM_STAFF_ROOM,Staff Room,Salle de Repos
-ROOM_RESEARCH,Research Dept,Departement Recherches
+ROOM_RESEARCH,Research Dept,Département de la Recherche
 TYPE_DIAGNOSIS,Diagnosis,Diagnostic
 TYPE_TREATMENT,Treatment,Traitement
 TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
-TOOLTIP_TREATMENT,Select General Treatment Room,Selectionne les salles de Traitement
-TOOLTIP_FACILITIES,Select Special Facility room,Selectionne les Locaux
-TOOLTIP_CLINICS,Select Specialist Clinics room,Selectionne les Cliniques
-TOOLTIP_DIAGNOSIS,Select Diagnosis room,Selectionne les salle de Diagnostics
+TOOLTIP_TREATMENT,Select General Treatment Room,Sélectionne les salles de Traitement
+TOOLTIP_FACILITIES,Select Special Facility room,Sélectionne les Locaux
+TOOLTIP_CLINICS,Select Specialist Clinics room,Sélectionne les Cliniques
+TOOLTIP_DIAGNOSIS,Select Diagnosis room,Sélectionne les salle de Diagnostics
 TOOLTIP_GP,Patients receive their initial consultation and results in the GP's Office,Les patients reçoivent leur consultation et les premiers résultats dans cette salle
-TOOLTIP_GENERAL_DIAGNOSIS,A doctor uses the General Diagnosis Room for basic diagnosis of patients. Cheap and often very effective,Un medecin utilise le diagnostic general pour le diagnostic de base des patients. Pas cher et souvent tres efficace
-TOOLTIP_CARDIOGRAM,A Doctor uses the Cardio Room to diagnose Patients,Un docteur utilise cette salle pour faire des diagnostics suplementaires
-TOOLTIP_PHARMACY,The Nurse dispenses drugs to cure patients in a Pharmacy,L'infirmiere distribue des medicaments pour soigner les patients
-TOOLTIP_WARD,Wards are usefull for both diagnosis and treatment. Patients are sent here for observation and also recover from operations in a Ward with a nurse,Les salles d'observation sont utiles a la fois pour le diagnostic et le traitement. Les patients sont envoyes ici pour observation et apres operation pour recuperer. Requiert une infirmiere
-TOOLTIP_PSYCHIATRIC,The Psychiatry Room cures mad patients and helps in the diagnosis of others patients but needs a Doctor with Psychiatry skills,La salle de psychiatrie guerit les patients fou et aide dans le diagnostic des autres patients. Requiert un docteur avec des competences de Psychiatre
-TOOLTIP_OPERATING,The Operating Theatre needs two doctors with surgery skills,La salle d'operation requiert 2 docteurs avec des competences en chirurgie
-TOOLTIP_INFLATION,A Doctor uses the Inflator Room to cure patients with Bloaty Heads, Un docteur utilise cette salle pour guerir les patients atteins d'Encéphalantiasis
-TOOLTIP_TONGUE,A doctor uses the Tonuge-Clicing Room to cure Slack Tongues,Un docteur utilise cette salle pour guerir un patient atteint d'hyperlangue
-TOOLTIP_STAFF_ROOM,Doctors and Nurses relax in the staff room and become less tired,Les docteurs et les infirmieres se reposent dans cette salle et deviennent moins fatigues
-TOOLTIP_RESEARCH,Doctors with Research skills can discover new drugs and machines in the Research Room,Les medecins ayant la competence de recherche peuvent decouvrir de nouveaux medicaments et de nouvelles salles
-TOOLTIP_TOILETS,Build toilets to stop Patients making a mess in your hospital!,Construisez des toilettes pour eviter que les patients se sement le desordre dans votre hopital !
+TOOLTIP_GENERAL_DIAGNOSIS,A doctor uses the General Diagnosis Room for basic diagnosis of patients. Cheap and often very effective,Un medecin utilise le diagnostic general pour le diagnostic de base des patients. Pas cher et souvent très efficace
+TOOLTIP_CARDIOGRAM,A Doctor uses the Cardio Room to diagnose Patients,Un docteur utilise cette salle pour faire des diagnostics supplémentaires
+TOOLTIP_PHARMACY,The Nurse dispenses drugs to cure patients in a Pharmacy,L'infirmière distribue des médicaments pour soigner les patients
+TOOLTIP_WARD,Wards are usefull for both diagnosis and treatment. Patients are sent here for observation and also recover from operations in a Ward with a nurse,Les salles d'observation sont utiles a la fois pour le diagnostic et le traitement. Les patients sont envoyés ici pour observation et après opération pour recupérer. Requiert une infirmière
+TOOLTIP_PSYCHIATRIC,The Psychiatry Room cures mad patients and helps in the diagnosis of others patients but needs a Doctor with Psychiatry skills,La salle de psychiatrie guérit les patients fou et aide dans le diagnostic des autres patients. Requiert un docteur avec des compétences de Psychiatre
+TOOLTIP_OPERATING,The Operating Theatre needs two doctors with surgery skills,La salle d'opération requiert 2 docteurs avec des compétences en chirurgie
+TOOLTIP_INFLATION,A Doctor uses the Inflator Room to cure patients with Bloaty Heads, Un docteur utilise cette salle pour guérir les patients atteins d'Encéphalantiasis
+TOOLTIP_TONGUE,A doctor uses the Tonuge-Clicing Room to cure Slack Tongues,Un docteur utilise cette salle pour guérir un patient atteint d'hyperlangue
+TOOLTIP_STAFF_ROOM,Doctors and Nurses relax in the staff room and become less tired,Les docteurs et les infirmières se reposent dans cette salle et deviennent moins fatigués
+TOOLTIP_RESEARCH,Doctors with Research skills can discover new drugs and machines in the Research Room,Les médecins ayant la compétence de recherche peuvent decouvrir de nouveaux médicaments et de nouvelles salles
+TOOLTIP_TOILETS,Build toilets to stop Patients making a mess in your hospital!,Construisez des toilettes pour eviter que les patients ne sement le désordre dans votre hopital !
 TOOLTIP_CANCEL_ROOMS,Abort this requester and return to game,Annule et retourne en jeu
+TOOLTIP_DOCTOR_HIRE,View Doctors available for hire,Liste des Docteurs prêt à être employés
+TOOLTIP_NURSE_HIRE,View Nurses available for hire,Liste des Infirmières prêtes à être employés
+TOOLTIP_HANDYMEN_HIRE,View Handymen available for hire,Liste des Concierges prêts à être employés
+TOOLTIP_RECEPTIONIST_HIRE,View Receptionists available for hire,Liste des Récéptionistes prêtes à être employés
+TOOLTIP_PREVIOUS,View previous person,Personne précédante
+TOOLTIP_HIRE,Hire person,Engager la personne
+TOOLTIP_EXIT,Cancel,Annuler
+TOOLTIP_NEXT,View next person,Personne suivante
 TAB_DOCTOR,Doctor,Docteur
-TAB_NURSE,Nurse,Infirmiere
+TAB_NURSE,Nurse,Infirmière
 TAB_HANDYMEN,Handymen,Concierge
-TAB_RECEPTIONIST,Receptionist,Receptioniste
+TAB_RECEPTIONIST,Receptionist,Récéptioniste
 COST,Cost : ,Cout : 

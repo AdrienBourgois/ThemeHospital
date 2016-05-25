@@ -35,7 +35,7 @@ PATIENT = 1
 onready var patient_res = preload("res://scenes/Entities/Human/Patient.scn")
 
 onready var patient_array = []
-onready var staff_array = []
+onready var staff_array = [[],[],[],[]]
 
 func _ready():
 	randomize()
@@ -59,7 +59,7 @@ func generateStaffIdAndDataArray():
 	var id = 0
 	for i in range(28):
 		id = randi()%4
-		staff_array.push_back(generateStaffData(id))
+		staff_array[id].push_back(generateStaffData(id))
 
 func generatePatientData():
 	var patient_data = {}
