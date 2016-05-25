@@ -3,7 +3,7 @@ extends Button
 
 onready var game = get_node("/root/Game")
 onready var heat_manager = game.scene.heat_manager
-
+#
 func _on_DecreaseHeatPower_pressed():
 	if heat_manager.heat_ray > 1:
 		heat_manager.heat_ray -= 1

@@ -16,7 +16,7 @@ onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
 onready var global_server = get_node("/root/GlobalServer")
 
-onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getResources
+onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
@@ -42,7 +42,7 @@ func loadObjects():
 	for current in objects.OBJECTS: 
 		var node = object_ressources.createObject(current.NAME)
 		if (!node):
-			return
+			return 
 		self.add_child(node)
 		objects_nodes_array.append(node)
 		node.can_selected = false
@@ -62,7 +62,7 @@ func getObjectsNodesArray():
 func getObjectArray():
 	return objects_array
 
-func getResources():
+func getObjectResources():
 	return object_ressources
 
 func _input(event):
@@ -70,6 +70,8 @@ func _input(event):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
+	if (event.is_action_released("info")):
+		print(map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type)
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  

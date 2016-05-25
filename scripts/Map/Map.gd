@@ -17,6 +17,7 @@ var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
 var new_room_type = {}
+var actual_room_type_name = "grass" setget, getActualRoomTypeName
 
 var size_x = 0
 var size_y = 0
@@ -48,7 +49,6 @@ func loadData():
 		createRoomData()
 
 	resetStatsDict()
-
 
 func create_map(file_path):
 	path = file_path
@@ -83,6 +83,9 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+
+func getActualRoomTypeName():
+	return actual_room_type_name
 
 func get_tile(coords):
 	for tile in tiles:
@@ -190,8 +193,9 @@ func new_room(state, parameters):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
 			for tile in previous_current_selection:
-				tile.hover_off()			
-			createRoomData()		
+				tile.hover_off()
+			createRoomData()
+			actual_room_type_name = new_room_type.NAME
 			new_room_from = Vector2(-1,-1)
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)

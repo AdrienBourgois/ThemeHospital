@@ -109,7 +109,6 @@ func getMultiplayer():
 func goToScene(scene):
 	loader = preloader.instance()
 	var current_scene = root.get_child(root.get_child_count() - 1)
-	print(current_scene.get_name())
 	loader.setCurrentScene(current_scene)
 	root.add_child(loader)
 	loader.goToScene(scene)

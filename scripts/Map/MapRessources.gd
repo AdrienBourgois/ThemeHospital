@@ -15,6 +15,8 @@ var gp_office = {
 	"COLOR": colors.red,
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_GP",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -26,6 +28,8 @@ var general_diagnosis = {
 	"COLOR": colors.white,
 	"COST": 1000,
 	"TOOLTIP": "TOOLTIP_GENERAL_DIAGNOSIS",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -37,6 +41,8 @@ var cardiogram = {
 	"COLOR": colors.red,
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_CARDIOGRAM",
+	"UNLOCK": false,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -48,6 +54,8 @@ var psychiatric = {
 	"COLOR": colors.blue,
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_PSYCHIATRIC",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {}, 
 	"OBJECTS": {}
 }
@@ -59,6 +67,8 @@ var pharmacy = {
 	"COLOR": colors.pink,
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_PHARMACY",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -70,6 +80,8 @@ var ward = {
 	"COLOR": colors.yellow,
 	"COST": 2000,
 	"TOOLTIP": "TOOLTIP_WARD",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -81,6 +93,8 @@ var operating = {
 	"COLOR": colors.white,
 	"COST": 8000,
 	"TOOLTIP": "TOOLTIP_OPERATING",
+	"UNLOCK": false,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -92,6 +106,8 @@ var inflation = {
 	"COLOR": colors.purple,
 	"COST": 4000,
 	"TOOLTIP": "TOOLTIP_INFLATION",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -103,6 +119,8 @@ var tongue = {
 	"COLOR": colors.purple,
 	"COST": 3000,
 	"TOOLTIP": "TOOLTIP_TONGUE",
+	"UNLOCK": false,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -114,6 +132,8 @@ var staff_room = {
 	"COLOR": colors.brown,
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_STAFF_ROOM",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -125,6 +145,8 @@ var toilets = {
 	"COLOR": colors.black,
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_TOILETS",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
@@ -136,6 +158,8 @@ var research = {
 	"COLOR": colors.white,
 	"COST": 5000,
 	"TOOLTIP": "TOOLTIP_RESEARCH",
+	"UNLOCK": true,
+	"STAFF": [],
 	"RESSOURCES": {},
 	"OBJECTS": {}
 }
