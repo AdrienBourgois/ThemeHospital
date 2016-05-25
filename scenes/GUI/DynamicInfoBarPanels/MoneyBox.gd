@@ -3,22 +3,23 @@ onready var game = get_node("/root/Game")
 onready var player = game.scene.get_node("Player")
 onready var box_container = get_node("./Money/HBoxContainer")
 
-func _ready():
+func updateMoney():
+	destroyBoxContainer()
 	splitMoney()
 
 func splitMoney():
 	var money = player.money
-	var moneyArray = Array()
+	var money_array = Array()
 	
 	while (money != 0):
-		moneyArray.push_back(money%10)
+		money_array.push_back(money%10)
 		money = money/10
 	
-	if (moneyArray.size() > 7):
+	if (money_array.size() > 7):
 		return
 	
-	moneyArray = reverseArray(moneyArray)
-	displayMoney(moneyArray)
+	money_array = reverseArray(money_array)
+	displayMoney(money_array)
 
 func displayMoney(money_array):
 	addEmptyLabels(7 - money_array.size())
@@ -60,6 +61,12 @@ func createLabelForContainer(text):
 	label.set_text(text)
 	
 	return label
+
+
+func destroyBoxContainer():
+	for child in range ( box_container.get_child_count() ):
+		print(box_container.get_child(0))
+		box_container.get_child(0).remove_and_skip()
 
 
 func reverseArray(array):
