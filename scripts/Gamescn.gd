@@ -44,7 +44,6 @@ func loadObjects():
 		if (!node):
 			return 
 		self.add_child(node)
-		objects_nodes_array.append(node)
 		node.can_selected = false
 		node.set_process_input(false)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
