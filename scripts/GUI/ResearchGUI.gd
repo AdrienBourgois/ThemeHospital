@@ -54,3 +54,4 @@ func get_diagnosis_locked():
 			diagnosis_array.append(diagnosis[rooms])
 	
 	return diagnosis_array
+
