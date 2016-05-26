@@ -231,3 +231,35 @@ TOOLTIP_RESEARCH_DIAGNOSIS_MORE,Increase diagnosis research percentage,Augmente 
 TOOLTIP_RESEARCH_DRUGS_MORE,Increase drugs research percentage,Augmente la recherche pour les medicaments
 TOOLTIP_RESEARCH_IMPROVEMENTS_MORE,Increase improvements research percentage,Augmente la recherche pour les ameliorations
 TOOLTIP_RESEARCH_SPECIALISATION_MORE,Increase special research percentage,Augmente la recherche specifique
+NAME_INVISIBILITY,Invisibility,Invisibilitee
+NAME_BLOATY,Bloaty Head,Encéphalantiasis
+NAME_TONGUE,Slack Tongue,Hyperlangue
+NAME_SLEEPING,Sleeping Illness,Roupillance
+NAME_UNCOMMON,Uncommon Cold,Catarhume
+NAME_TV,TV Personalities,Téléincarnation
+NAME_HEAPED,Heaped Piles,Rectoïdes
+NAME_SQUITS,The Squits,Courante
+DESC_INVISIBILITY,Patients suffer no discomfort. Indeed many use the condition to play practical jokes on their families,le patient ne souffre pas mais utilise son état pour faire des farces.
+DESC_BLOATY,Very uncomfortable for the sufferer,affreux maux de tête.
+DESC_TONGUE,Tongue swells to five times its original length,la langue s’étire jusqu’à cinq fois sa longueur normale.
+DESC_SLEEPING,Overwhelming desire to crash out everywhere,tendance irrépressible à tomber de sommeil.
+DESC_UNCOMMON,Runny nose sneezing and discoloured lungs,nez qui coule - éternuements - poumons décolorés.
+DESC_TV,Delusions of being able to present a cookery show,avoir l’illusion d’être capable de présenter une émission de cuisine.
+DESC_HEAPED,Patient feels like he/she is sitting on a bag of marbles,impression de s’asseoir sur un sac de billes.
+DESC_SQUITS,Ugh. Surely you can guess,Hum. Vous voyez le genre.
+CAUSE_INVISIBILITY,Being bitten by a radioactive (and invisible) ant,morsure par une fourmi radioactive (et invisible).
+CAUSE_BLOATY,Sniffing cheese and drinking unpurified rainwater,avoir reniflé du fromage et bu de l’eau de pluie.
+CAUSE_TONGUE,Chronic overdiscussion of soap operas,trop de discussions sur les romans-feuilletons.
+CAUSE_SLEEPING,Overactive sleep gland in the roof of the mouth,hypertrophie de la glande palatale de Morphée.
+CAUSE_UNCOMMON,Small particles of snot in the air,divers trucmuches volant dans l’air.
+CAUSE_TV,Daytime television,abus de programmes télévisés.
+CAUSE_HEAPED,Standing around by water coolers,s’être assis sur un jet de jacuzzi.
+CAUSE_SQUITS,Eating pizza found under the cooker,avoir mangé de la pizza ramassée derrière la cuisinière.
+TREATMENT_INVISIBILITY,A colourful liquid drunk in the Pharmacy soon restores the patient to full observability,faire boire au patient un liquide coloré dispensé à la pharmacie pour le rendre visible.
+TREATMENT_BLOATY,The swollen head is popped. Then reinflated to the correct PSI using a clever machine,éclater la tête et la regonfler avec une astucieuse machine.
+TREATMENT_TONGUE,The tongue is placed in the Slicer Machine and removed quickly. Efficiently and painfully,placer la langue dans un taille-langue puis la couper rapidement et douloureusement.
+TREATMENT_SLEEPING,A high dosage of powerful stimulant is administered by a Nurse,administration d’une forte dose de puissant stimulant.
+TREATMENT_UNCOMMON,A big swig of uncommon cough medicine made from special ingredients in the Pharmacy will cure this,absorption d’un sirop spécial préparé à la pharmacie.
+TREATMENT_TV,A trained Psychiatrist must convince the patient to sell their TV and buy a radio,un psychiatre doit convaincre le patient de vendre sa télévision.
+TREATMENT_HEAPED,A pleasant powerfully acidic drink dissolves the piles from the inside,dissolution des rectoïdes de l’intérieur grâce à une potion agréable mais très acide.
+TREATMENT_SQUITS,A glutinous mix of stringy pharmaceutical chemicals solidify the patients innards,un mélange gluant de substances synthétiques est administré au patient pour solidifier son contenu.
