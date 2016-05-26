@@ -34,8 +34,6 @@ func set_global_value():
 func _on_Quit_pressed():
 	self.hide()
 	hud.show()
-	
-	set_pause_mode(false)
 
 func get_staff_in_research():
 	if research_room.STAFF.empty():
