@@ -2,6 +2,7 @@
 extends "../Entity.gd"
 
 onready var timer = get_node("Timer")
+onready var available = get_node("Available")
 
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
@@ -31,6 +32,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			return
 		can_selected = false
 		set_process_input(false)
+		available.hide()
 		if (object_stats.empty()):
 			addToArray()
 		else:
@@ -40,6 +42,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		if (in_room_object):
 			return
 		gamescn.updateObjectsArray()
+		available.on()
 		is_selected = true
 		can_selected = true
 		set_process_input(true)
@@ -54,6 +57,7 @@ func blink():
 
 func error():
 	timer.start()
+	available.off()
 	game.feedback.display("TOOLTIP_OBJECT_ERROR")
 
 func updateStats():
