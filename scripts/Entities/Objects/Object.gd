@@ -25,7 +25,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			if (type.ID != room_id):
 				error()
 				return
-		if (type.ID != 0):
+		elif (type.ID != 0):
 			error()
 			return
 		can_selected = false
