@@ -52,7 +52,7 @@ func _on_Accept_pressed():
 			var node = object_resources.array_scn[count].instance()
 			gamescn.add_child(node)
 			var node_info = []
-			
+			node.available.on()
 			items_count_array[count] -= 1
 			gamescn.player.money -= node.price
 		count += 1

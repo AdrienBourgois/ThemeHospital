@@ -2,7 +2,7 @@
 extends "../Entity.gd"
 
 onready var timer = get_node("Timer")
-onready var available = get_node("Available")
+onready var available = get_node("Available") setget, getAvailable
 
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
@@ -77,6 +77,9 @@ func updateStats():
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getAvailable():
+	return available
 
 func setName(value):
 	object_name = value
