@@ -5,7 +5,14 @@ var invisibility = {
 	"DESCRIPTION": "DESC_INVISIBILITY",
 	"CAUSE": "CAUSE_INVISIBILITY",
 	"TREATMENT": "TREATMENT_INVISIBILITY",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 1400,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var bloaty_head = {
@@ -13,7 +20,14 @@ var bloaty_head = {
 	"DESCRIPTION": "DESC_BLOATY",
 	"CAUSE": "CAUSE_BLOATY",
 	"TREATMENT": "TREATMENT_BLOATY",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 850,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var slack_tongue = {
@@ -21,7 +35,14 @@ var slack_tongue = {
 	"DESCRIPTION": "DESC_TONGUE",
 	"CAUSE": "CAUSE_TONGUE",
 	"TREATMENT": "TREATMENT_TONGUE",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 900,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var sleeping_illness = {
@@ -29,7 +50,14 @@ var sleeping_illness = {
 	"DESCRIPTION": "DESC_SLEEPING",
 	"CAUSE": "CAUSE_SLEEPING",
 	"TREATMENT": "TREATMENT_SLEEPING",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 750,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var uncommon_cold = {
@@ -37,7 +65,14 @@ var uncommon_cold = {
 	"DESCRIPTION": "DESC_UNCOMMON",
 	"CAUSE": "CAUSE_UNCOMMON",
 	"TREATMENT": "TREATMENT_UNCOMMON",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 300,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var TV_personalities = {
@@ -45,7 +80,14 @@ var TV_personalities = {
 	"DESCRIPTION": "DESC_TV",
 	"CAUSE": "CAUSE_TV",
 	"TREATMENT": "TREATMENT_TV",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 800,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var heaped_piles = {
@@ -53,7 +95,14 @@ var heaped_piles = {
 	"DESCRIPTION": "DESC_HEAPED",
 	"CAUSE": "CAUSE_HEAPED",
 	"TREATMENT": "TREATMENT_HEAPED",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 400,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var the_squits = {
@@ -61,7 +110,14 @@ var the_squits = {
 	"DESCRIPTION": "DESC_SQUITS",
 	"CAUSE": "CAUSE_SQUITS",
 	"TREATMENT": "TREATMENT_SQUITS",
+	"FOUND": false,
+	"TREATMENT_FOUND": false,
+	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 400,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
 }
 
 var cure_at_pharmacy = {
