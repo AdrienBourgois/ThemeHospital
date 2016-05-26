@@ -12,9 +12,17 @@ staff_buttons.get_node("VBoxContainer/Receptionist")]
 func waitToAdd(type, id):
 	get_parent().get_parent().hide()
 	addBodyStaff(type, id)
+	for i in range(buttons_array.size()):
+		buttons_array[i].set_pressed(false)
+	get_parent().get_parent().get_node("StaffInformation/ShowingStaffInfo").hide()
+
 
 func addBodyStaff(type, idx):
 	hire_manager.createStaffBody(type, idx)
+	hire_manager.staff_array[type].remove(idx)
+	for i in range(buttons_array.size()):
+		if buttons_array[i].is_pressed():
+			staff_buttons.getAndShowInformation(type, 0)
 
 func _on_Hire_pressed():
 	for i in range(buttons_array.size()):
