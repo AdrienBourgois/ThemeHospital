@@ -33,6 +33,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		can_selected = false
 		set_process_input(false)
 		available.hide()
+		available.timer.stop()
 		if (object_stats.empty()):
 			addToArray()
 		else:
