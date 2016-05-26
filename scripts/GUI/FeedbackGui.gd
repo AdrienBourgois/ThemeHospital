@@ -12,6 +12,7 @@ func _ready():
 func _input(event):
 	if event.is_action_released("left_click") && mouse_on_it == true:
 		hide()
+		mouse_on_it = false
 
 func display(txt):
 	if game.config.tutorial :
