@@ -70,8 +70,10 @@ TXT_HAPPINESS,Happiness,Joie
 TXT_TIRENESS,Tiredness,Fatigue
 TXT_SKILL,Skill,Capacité
 TXT_SALARY,Salary,Salaire
-TXT_EMPTY,--Empty--,--Vide--
-TXT_CONTROL_ACTIVATED,Window's control activated,Contrôle de la fenêtre active
+TXT_EMPTY, --Empty--, --Vide--
+TXT_CONTROL_ACTIVATED,Window's control activated,Controle de la fenetre active
+TXT_SCREENSHOT_NAME,Enter screenshot name : ,Entrez le nom de la capture d'ecran : 
+TXT_CONFIRM,Please confirm,Confirmation
 SAVE, Save, Sauvegarder
 SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide

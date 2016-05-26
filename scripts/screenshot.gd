@@ -11,12 +11,15 @@ onready var save_path = "res://saves/"
 onready var username_path = save_path + game.username
 onready var directory_path = username_path + "/screens/"
 onready var popup = get_node("ConfirmationDialog")
-onready var line_edit= get_node("ConfirmationDialog/LineEdit")
+onready var line_edit = get_node("ConfirmationDialog/LineEdit")
+onready var cancel = popup.get_cancel()
 
 func _ready():
-	print(save_path)
-	print(username_path)
-	print(directory_path)
+	set_process(true)
+
+func process():
+	#if cancel.is_pressed():
+	#	get_parent().remove_child(self)
 	pass
 
 
