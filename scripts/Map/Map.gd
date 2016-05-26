@@ -70,8 +70,6 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
-	
-	test_path()
 
 func get_tile(coords):
 	for tile in tiles:
@@ -187,6 +185,7 @@ func new_room(state, parameters):
 			new_room_type = {}
 		else:
 			print("New room is not valid !")
+			test_path()
 			new_room("cancel", null)
 
 func can_go(from, direction):
@@ -230,4 +229,6 @@ func getResources():
 var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
 
 func test_path():
-	var path = PathFinding_res.new(Vector2(5,5), Vector2(39,39), self)
+	print("Start")
+	var path = PathFinding_res.new(Vector2(33,4), Vector2(33,31), self)
+	print("End")
