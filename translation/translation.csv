@@ -245,6 +245,7 @@ TOOLTIP_RESEARCH_DIAGNOSIS_MORE,Increase diagnosis research percentage,Augmente 
 TOOLTIP_RESEARCH_DRUGS_MORE,Increase drugs research percentage,Augmente la recherche pour les medicaments
 TOOLTIP_RESEARCH_IMPROVEMENTS_MORE,Increase improvements research percentage,Augmente la recherche pour les ameliorations
 TOOLTIP_RESEARCH_SPECIALISATION_MORE,Increase special research percentage,Augmente la recherche specifique
+TOOLTIP_OBJECT_ERROR, You can't put this object here !, Vous ne pouvez pas placer un objet ici
 NAME_INVISIBILITY,Invisibility,Invisibilitee
 NAME_BLOATY,Bloaty Head,Encéphalantiasis
 NAME_TONGUE,Slack Tongue,Hyperlangue
