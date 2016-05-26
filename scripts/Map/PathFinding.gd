@@ -54,7 +54,7 @@ func _init(_from, _to, _map):
 							came_from[current.neighbours[neighbour]] = current
 							#print("Add neighbour : ", current.neighbours[neighbour].x, " - ", current.neighbours[neighbour].y)
 				closed_list.append(current)
-		print_time("Tile")
+		#print_time("Tile")
 	print("Tiles tested : ", closed_list.size())
 	#print("Any Path !")
 

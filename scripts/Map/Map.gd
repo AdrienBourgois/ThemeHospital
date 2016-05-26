@@ -189,7 +189,7 @@ func new_room(state, parameters):
 			new_room("cancel", null)
 
 func can_go(from, direction):
-	var tile_from = get_tile(from)
+	var tile_from = columns[from.x][from.y]
 	if (direction == "Up"):
 		var tile_to = tile_from.neighbours.Up
 		if (tile_to == null):
@@ -230,5 +230,5 @@ var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
 
 func test_path():
 	print("Start")
-	var path = PathFinding_res.new(Vector2(33,4), Vector2(33,31), self)
+	var path = PathFinding_res.new(Vector2(0,39), Vector2(39,39), self)
 	print("End")
