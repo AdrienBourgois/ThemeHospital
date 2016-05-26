@@ -18,6 +18,7 @@ func _ready():
 	timer.set_autostart(false)
 	timer.set_wait_time(0.01)
 	timer.connect("timeout", self, "blink")
+	gamescn.objects_nodes_array.append(self)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
