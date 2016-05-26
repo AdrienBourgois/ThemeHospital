@@ -42,7 +42,7 @@ func createObject(name):
 
 func createRoomObject(name):
 	var node = null
-	if (name == "ROOM_GP"):
+	if (name == "ROOM_GP" or name == "Desk"):
 		node = deskscn.instance()
 	elif (name == "ROOM_TOILETS" or name == "Toilets"):
 		node = toiletsscn.instance()

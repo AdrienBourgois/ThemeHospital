@@ -1,6 +1,7 @@
 
 extends "../Entity.gd"
 
+onready var feedback = game.getFeedback()
 onready var timer = get_node("Timer")
 
 export var object_name = " " setget setName, getName
@@ -25,7 +26,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			if (type.ID != room_id):
 				error()
 				return
-		if (type.ID != 0):
+		elif (type.ID != 0):
 			error()
 			return
 		can_selected = false
@@ -53,6 +54,7 @@ func blink():
 
 func error():
 	timer.start()
+	feedback.display("TOOLTIP_OBJECT_ERROR")
 
 func updateStats():
 	position.x = self.get_translation().x 

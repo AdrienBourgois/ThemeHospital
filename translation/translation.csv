@@ -249,6 +249,7 @@ TOOLTIP_DOCTOR_SENIORITY,Doctor's seniority(Junior - Doctor - Consultant),Ancien
 TOOLTIP_SKILL,Staff ability,Compétence du staff
 TOOLTIP_DOCTOR_SPECIALITIES,Doctor's Extra Qualifications,Spécialité du docteur
 TOOLTIP_SALARY,Salary,Salaire
+TOOLTIP_OBJECT_ERROR, You can't put this object here !, Vous ne pouvez pas placer un objet ici
 NAME_INVISIBILITY,Invisibility,Invisibilitee
 NAME_BLOATY,Bloaty Head,Encéphalantiasis
 NAME_TONGUE,Slack Tongue,Hyperlangue

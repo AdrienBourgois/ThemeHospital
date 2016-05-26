@@ -32,7 +32,6 @@ func _ready():
 
 
 func _process(delta):
-	checkTuto()
 	checkPlus()
 	checkMinus()
 
