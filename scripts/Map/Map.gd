@@ -70,6 +70,8 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+	
+	test_path()
 
 func get_tile(coords):
 	for tile in tiles:
@@ -187,9 +189,45 @@ func new_room(state, parameters):
 			print("New room is not valid !")
 			new_room("cancel", null)
 
+func can_go(from, direction):
+	var tile_from = get_tile(from)
+	if (direction == "Up"):
+		var tile_to = tile_from.neighbours.Up
+		if (tile_to == null):
+			return false
+		if(tile_from.walls_types.Up == 1 or tile_from.walls_types.Up == 2 or tile_to.walls_types.Down == 1 or tile_to.walls_types.Down == 2):
+			return false
+	elif (direction == "Down"):
+		var tile_to = tile_from.neighbours.Down
+		if (tile_to == null):
+			return false
+		if(tile_from.walls_types.Down == 1 or tile_from.walls_types.Down == 2 or tile_to.walls_types.Up == 1 or tile_to.walls_types.Up == 2):
+			return false
+	elif (direction == "Right"):
+		var tile_to = tile_from.neighbours.Right
+		if (tile_to == null):
+			return false
+		if(tile_from.walls_types.Right == 1 or tile_from.walls_types.Right == 2 or tile_to.walls_types.Left == 1 or tile_to.walls_types.Left == 2):
+			return false
+	elif (direction == "Left"):
+		var tile_to = tile_from.neighbours.Left
+		if (tile_to == null):
+			return false
+		if(tile_from.walls_types.Left == 1 or tile_from.walls_types.Left == 2 or tile_to.walls_types.Right == 1 or tile_to.walls_types.Right == 2):
+			return false
+	
+	return true
+
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
 	global_client.addPacket(packet)
 
 func getResources():
 	return ressources
+
+#------------------------------------------------------------------------------------------------#
+
+var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
+
+func test_path():
+	var path = PathFinding_res.new(Vector2(5,5), Vector2(39,39), self)
