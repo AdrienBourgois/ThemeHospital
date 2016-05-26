@@ -10,7 +10,7 @@ onready var skill_bar = showing_staff_information.get_node("SkillBar")
 onready var salary = showing_staff_information.get_node("Salary")
 onready var doctor_speciality = showing_staff_information.get_node("DoctorSpeciality")
 onready var doctor_seniority = showing_staff_information.get_node("DoctorSeniority")
-onready var text_description = showing_staff_information.get_node("TextDesciption")
+onready var text_description = showing_staff_information.get_node("TextDescription")
 onready var speciality_array = [doctor_speciality.get_node("Speciality/NoSpeciality"),
 doctor_speciality.get_node("Speciality/Psychiatrist"), 
 doctor_speciality.get_node("Speciality/Researcher"),

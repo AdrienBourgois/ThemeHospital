@@ -10,7 +10,7 @@ staff_buttons.get_node("VBoxContainer/Handymen"),
 staff_buttons.get_node("VBoxContainer/Receptionist")]
 
 func waitToAdd(type, id):
-	get_parent().get_parent().get_parent().hide()
+	get_parent().get_parent().hide()
 	addBodyStaff(type, id)
 
 func addBodyStaff(type, idx):
