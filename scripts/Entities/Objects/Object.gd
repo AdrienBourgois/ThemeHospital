@@ -1,7 +1,6 @@
 
 extends "../Entity.gd"
 
-onready var feedback = game.getFeedback()
 onready var timer = get_node("Timer")
 
 export var object_name = " " setget setName, getName
@@ -54,7 +53,7 @@ func blink():
 
 func error():
 	timer.start()
-	feedback.display("TOOLTIP_OBJECT_ERROR")
+	game.feedback.display("TOOLTIP_OBJECT_ERROR")
 
 func updateStats():
 	position.x = self.get_translation().x 
