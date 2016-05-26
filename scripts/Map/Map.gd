@@ -70,6 +70,7 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+		tile.staticBody.connect("input_event", tile, "_input_path")
 
 func get_tile(coords):
 	for tile in tiles:
@@ -228,7 +229,5 @@ func getResources():
 
 var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
 
-func test_path():
-	print("Start")
-	var path = PathFinding_res.new(Vector2(0,39), Vector2(39,39), self)
-	print("End")
+func test_path(x, y):
+	var path = PathFinding_res.new(Vector2(23,17), Vector2(x,y), self)
