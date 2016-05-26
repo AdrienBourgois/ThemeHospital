@@ -28,4 +28,3 @@ func _on_Town_Map_pressed():
 func _on_Research_pressed():
 	hud.hide()
 	research.show()
-	set_pause_mode(true)
