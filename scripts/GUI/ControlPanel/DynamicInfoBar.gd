@@ -1,4 +1,3 @@
-
 extends Control
 
 onready var game = get_node("/root/Game")
