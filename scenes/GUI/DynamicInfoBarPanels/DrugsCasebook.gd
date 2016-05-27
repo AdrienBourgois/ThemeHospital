@@ -27,7 +27,8 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
-var boolean = false
+var concentrate_research = false
+var is_timer_finish = true
 
 func _ready():
 	connect_all_buttons()
@@ -42,7 +43,7 @@ func update():
 	if (self.is_visible()):
 		node_reputation.set_text(str(reputation_value))
 		
-		if (boolean == false):
+		if (is_timer_finish == true):
 			node_treatment.set_text(str(treatment_charge))
 		else:
 			node_treatment.set_text(str(percent) + "%")
@@ -64,7 +65,14 @@ func connect_all_buttons():
 			
 			button.set_text(diseases_list[disease].NAME)
 			button.connect("pressed", self, "disease_pressed",[diseases_list[disease]])
-#			node_button_less.connect("pressed", self, "
+			
+			node_button_less.set_click_on_press(true)
+			
+			if (!node_button_less.is_connected("pressed", self, "decrease_cost")):
+				node_button_less.connect("pressed", self, "decrease_cost", [diseases_list[disease]])
+			
+			if (!node_button_more.is_connected("pressed", self, "increase_cost")):
+				node_button_more.connect("pressed", self, "increase_cost", [diseases_list[disease]])
 
 func disease_pressed(disease):
 	treatment_charge = disease.COST
@@ -75,11 +83,35 @@ func disease_pressed(disease):
 	fatalities = disease.FATALITIES
 	turned_away = disease.TURNED_AWAY
 
-#func decrease_cost(disease):
-#	boolean = true
-#	disease.PERCENT -= 1
-#	get_node("Timer").start()
-#
-#func _on_Timer_timeout():
-#	boolean = false
-#	print("timer")
+func decrease_cost(disease):
+	is_timer_finish = false
+	if (disease.PERCENT > 0):
+		disease.PERCENT -= 1
+		percent = disease.PERCENT
+		
+		disease.COST = percentage_calculation(disease.COST, percent)
+		treatment_charge = disease.COST
+		
+		get_node("Timer").start()
+
+func increase_cost(disease):
+	is_timer_finish = false
+	
+	disease.PERCENT += 1
+	percent = disease.PERCENT
+	
+	disease.COST = percentage_calculation(disease.COST, percent)
+	print("disease",disease.COST)
+	treatment_charge = disease.COST
+	
+	get_node("Timer").start()
+
+func _on_Timer_timeout():
+	is_timer_finish = true
+
+func percentage_calculation(value, percent):
+	var new_value = value * (percent / 100.0)
+	return int(new_value)
+
+func _on_Concentrate_research_pressed():
+	concentrate_research = true
