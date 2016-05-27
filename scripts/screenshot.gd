@@ -17,13 +17,12 @@ onready var cancel = popup.get_cancel()
 func _ready():
 	set_process(true)
 
-func process():
-	#if cancel.is_pressed():
-	#	get_parent().remove_child(self)
-	pass
+func _process(delta):
+	if cancel.is_pressed():
+		queue_free()
 
 
-func screen():
+func makeScreenshot():
 	root.queue_screen_capture()
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
@@ -62,4 +61,4 @@ func checkDirectories(dir):
 func _on_ConfirmationDialog_confirmed():
 	path = line_edit.get_text()
 	screenshot.save_png(directory_path + path)
-	get_parent().remove_child(self)
+	queue_free()
