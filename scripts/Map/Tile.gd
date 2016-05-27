@@ -11,6 +11,7 @@ var neighbours = { "Up": null, "Left": null, "Down": null, "Right": null }
 
 var x = 0
 var y = 0
+var occupied = false setget setOccupied, getOccupied
 
 var room_material = FixedMaterial.new()
 var wall_material = FixedMaterial.new()
@@ -92,6 +93,12 @@ func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 
 func _current_select():
 	get_parent().new_room("current", Vector2(x, y))
+
+func setOccupied(boolean):
+	occupied = boolean
+
+func getOccupied():
+	return occupied
 
 func get_all_neighbour():
 	var map = get_parent()

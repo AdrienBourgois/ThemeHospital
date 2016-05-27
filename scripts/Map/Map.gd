@@ -6,6 +6,7 @@ var columns = []
 var tiles = []
 var rooms = []
 var rooms_save = []
+var occupied_tiles = []
 onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
@@ -32,7 +33,8 @@ func _ready():
 func createStatsDict():
 	stats = {
 	MAP_PATH = map_path,
-	ROOMS = rooms_save
+	ROOMS = rooms_save,
+	OCCUPIED_TILES = getOccupiedTiles()
 	}
 	return stats
 
@@ -219,6 +221,17 @@ func createRoomData():
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
 	global_client.addPacket(packet)
+
+func getOccupiedTiles():
+	occupied_tiles.clear()
+	for current in tiles:
+		if (current.getOccupied()):
+			var tile_data = {
+			X = current.x,
+			Y = current.y
+			}
+			occupied_tiles.append(tile_data)
+	return occupied_tiles
 
 func getResources():
 	return ressources
