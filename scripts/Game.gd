@@ -7,7 +7,8 @@ onready var file = File.new()
 onready var dir = Directory.new() 
 onready var config = {}
 onready var preloader = preload("res://scenes/LoadingScreen.scn")
-onready var screenshot_manager = preload("res://scenes/ScreenshotManager.scn").instance()
+onready var screenshot_preloader = preload("res://scenes/ScreenshotManager.scn")
+var screenshot_manager
 var loader
 
 onready var default_config = {
@@ -52,10 +53,17 @@ var action_list = []
 func _ready():
 	set_process_input(true)
 
+#func initScreenshots():
+#	screenshot_manager = screenshot_preloader.instance()
+#	root.add_child(screenshot_manager)
+
 func _input(event):
 	if event.is_action_pressed("screenshot"):
+		screenshot_manager = screenshot_preloader.instance()
 		root.add_child(screenshot_manager)
-		screenshot_manager.screen()
+		screenshot_manager.makeScreenshot()
+		print("static : ", OS.get_static_memory_usage())
+		print("dynamic : ", OS.get_dynamic_memory_usage())
 	if event.is_action_pressed("fullscreen"):
 		if config.fullscreen:
 			config.fullscreen = false
