@@ -53,17 +53,11 @@ var action_list = []
 func _ready():
 	set_process_input(true)
 
-#func initScreenshots():
-#	screenshot_manager = screenshot_preloader.instance()
-#	root.add_child(screenshot_manager)
-
 func _input(event):
 	if event.is_action_pressed("screenshot"):
 		screenshot_manager = screenshot_preloader.instance()
 		root.add_child(screenshot_manager)
 		screenshot_manager.makeScreenshot()
-		print("static : ", OS.get_static_memory_usage())
-		print("dynamic : ", OS.get_dynamic_memory_usage())
 	if event.is_action_pressed("fullscreen"):
 		if config.fullscreen:
 			config.fullscreen = false
