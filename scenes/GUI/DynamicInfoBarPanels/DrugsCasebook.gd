@@ -33,7 +33,7 @@ func connect():
 			node_container.add_child(button)
 			
 			button.set_text(diseases_list[disease].NAME)
-			buttons.connect("pressed", self, "disease_pressed",[type[rooms]])
+#			buttons.connect("pressed", self, "disease_pressed",[type[rooms]])
 			
 
 func disease_pressed():
