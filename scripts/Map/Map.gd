@@ -24,12 +24,12 @@ var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
 
 var cube = TestCube.new()
+var cube_pos = Vector2(23,23)
 
 func _ready():
 	create_map("res://Maps/Map1.lvl")
 	add_child(cube)
 	cube.set_scale(Vector3(0.2,0.2,0.2))
-	cube.set_translation(Vector3(0,0.2,0))
 
 func createStatsDict():
 	for current in tiles:
@@ -201,14 +201,13 @@ func sendRoomToServer():
 func getResources():
 	return ressources
 
-#------------------------------------------------------------------------------------------------#
-
 var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
 
 func test_path(x, y):
-	var path_finding = PathFinding_res.new(Vector2(23,17), Vector2(x,y), self)
+	var path_finding = PathFinding_res.new(cube_pos, Vector2(x,y), self)
 	add_child(path_finding)
 	if(path_finding.found):
-		path_finding.animate(cube, 5)
+		path_finding.animate(cube, 0.1)
+		cube_pos = Vector2(x,y)
 	else:
 		path_finding.queue_free()

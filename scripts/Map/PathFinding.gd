@@ -14,11 +14,14 @@ var open_list = []
 var found = false
 var path_nodes = []
 
-var current_point = null
-var current_point_number = 0
-var speed = 1
-var curve = null
+var curve = Curve3D
+var current_point = Vector3()
+var next_point = Vector3()
+var next_point_number = 0
+
 var node = null
+
+var speed = 1
 var delta_sum = 0
 
 func _init(_from, _to, _map):
@@ -44,56 +47,51 @@ func _init(_from, _to, _map):
 							came_from[current.neighbours[neighbour]] = current
 				closed_list.append(current)
 	
-	print("--> Total Time : ", OS.get_ticks_msec() - total_time)
+	#print("--> Total Time : ", OS.get_ticks_msec() - total_time)
 
 func reconstruct():
-	print(current)
 	path_nodes.append(current)
 	var previous = current
 	
 	while(previous != from):
 		previous = came_from[previous]
 		path_nodes.push_front(previous)
-	
-#	for node in open_list:
-#		node.room_material.set_parameter(0, colors.black)
-#	
-#	for node in closed_list:
-#		node.room_material.set_parameter(0, colors.orange)
-	
-	for node in path_nodes:
-		node.room_material.set_parameter(0, colors.red)
 
 func create_curve():
 	curve = Curve3D.new()
 	
 	for node in path_nodes:
-		curve.add_point(node.get_translation() + Vector3(0.5,0.5,0.5))
+		curve.add_point(node.get_translation())
 
 func animate(_node, _speed):
 	node = _node
 	speed = _speed
 	create_curve()
-	set_fixed_process(true)
-	current_point_number = 0
-	current_point = curve.get_point_pos(current_point_number)
+	
+	var size_node = node.get_scale()
+	
+	next_point_number = 1
+	current_point = curve.get_point_pos(0)
+	next_point = curve.get_point_pos(1)
 	node.set_translation(current_point)
+	
+	set_fixed_process(true)
 
 func _fixed_process(delta):
-	#node.set_translation(current_point)
-	
 	delta_sum += delta
 	
-	if (delta_sum >= 1):
+	node.set_translation(current_point + ((next_point - current_point) * (delta_sum / speed)))
+	
+	if (delta_sum >= speed):
 		delta_sum = 0
-		current_point_number += 1
-		if(current_point_number < curve.get_point_count()):
-			current_point = curve.get_point_pos(current_point_number)
+		next_point_number += 1
+		if(next_point_number < curve.get_point_count()):
+			current_point = curve.get_point_pos(next_point_number - 1)
+			next_point = curve.get_point_pos(next_point_number)
 			node.set_translation(current_point)
-			print("Next point")
 		else:
+			node.set_translation(next_point)
 			set_fixed_process(false)
-			print("Finish")
 			queue_free()
 
 func can_go(from, direction):
