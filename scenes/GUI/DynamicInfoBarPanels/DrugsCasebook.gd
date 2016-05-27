@@ -1,10 +1,11 @@
 extends Panel
 
+
 onready var gamescn = get_node("/root/Game").scene
+onready var camera = gamescn.camera
 onready var reputation_value = gamescn.player.reputation
 onready var disease = gamescn.diseases
 onready var diseases_list = disease.list_diseases
-
 onready var hud = get_parent().get_node("HUD")
 
 onready var node_reputation = get_node("Book/Informations/Reputation/values")
@@ -28,6 +29,7 @@ func _ready():
 func _on_Quit_pressed():
 	self.hide()
 	hud.show()
+	camera.pause = false
 
 func update():
 	node_reputation.set_text(str(reputation_value))
