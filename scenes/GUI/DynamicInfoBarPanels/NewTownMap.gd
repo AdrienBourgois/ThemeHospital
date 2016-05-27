@@ -2,6 +2,7 @@
 extends Control
 
 onready var game = get_node("/root/Game")
+onready var camera = game.scene.camera
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
 onready var money_box = get_node("./Panel/MoneyBox")
@@ -32,6 +33,7 @@ func _on_QuitButton_pressed():
 	
 	set_hidden(true)
 	hud.set_hidden(false)
+	camera.pause = false
 
 
 func _on_TownMap_visibility_changed():
