@@ -295,3 +295,5 @@ TOOLTIP_CASEBOOK_MONEY,Total earned to date,Total des gains a ce jour
 TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
 TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
 TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
+TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
+TOOLITP_CASEBOOK_DOWN,Scroll up,Defile vers le bas

@@ -1,4 +1,3 @@
-
 extends Control
 
 onready var control_panel = get_parent()

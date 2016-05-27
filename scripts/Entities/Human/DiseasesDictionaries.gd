@@ -110,7 +110,7 @@ var the_squits = {
 	"DESCRIPTION": "DESC_SQUITS",
 	"CAUSE": "CAUSE_SQUITS",
 	"TREATMENT": "TREATMENT_SQUITS",
-	"FOUND": false,
+	"FOUND": true,
 	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 400,
@@ -118,6 +118,17 @@ var the_squits = {
 	"RECOVERIES": 0,
 	"FATALITIES": 0,
 	"TURNED_AWAY": 0,
+}
+
+var list_diseases = {
+	"SQUITS": the_squits,
+	"HEAPED": heaped_piles,
+	"UNCOMMON": uncommon_cold,
+	"INVISIBILITY": invisibility,
+	"SLEEPING": sleeping_illness,
+	"TONGUE": slack_tongue,
+	"BLOATY": bloaty_head,
+	"TV": TV_personalities,
 }
 
 var cure_at_pharmacy = {
