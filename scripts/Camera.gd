@@ -12,6 +12,7 @@ var rotation_limit = Vector3(0,45,45)
 var position
 var rotation
 var movement = Vector3(0,0,0)
+var pause = false setget setPause,getPause
 export var speed = 2.5
 
 
@@ -26,21 +27,23 @@ func _ready():
 
 
 func _fixed_process(delta):
-	if game.config.move_cam_with_mouse:
-		checkMouseMove()
-	checkInputMove()
-	move()
-	checkLimit()
+	if !pause:
+		if game.config.move_cam_with_mouse:
+			checkMouseMove()
+		checkInputMove()
+		move()
+		checkLimit()
 
 
 func _input(event):
-	set_rotation(Vector3(0,0,0))
-	if event.is_action_pressed("zoom"):
-		translate(Vector3(0, -1, 0))
-	if event.is_action_pressed("dezoom"):
-		translate(Vector3(0, 1, 0))
+	if !pause:
+		set_rotation(Vector3(0,0,0))
+		if event.is_action_pressed("zoom"):
+			translate(Vector3(0, -1, 0))
+		if event.is_action_pressed("dezoom"):
+			translate(Vector3(0, 1, 0))
 	
-	set_rotation(rotation)
+		set_rotation(rotation)
 
 
 func checkInputMove():
@@ -101,3 +104,9 @@ func move():
 	var new_pos = get_translation() - movement * speed * delta
 	set_translation(new_pos)
 	movement = Vector3(0,0,0)
+
+func setPause(state):
+	pause = state
+
+func getPause():
+	return pause

@@ -1,9 +1,11 @@
 extends Control
 
+
 onready var container = get_node("Container")
 onready var total = get_node("Total")
 onready var hud = get_parent().get_node("HUD")
 
+onready var camera = get_node("/root/Game").scene.camera
 onready var map = get_node("/root/Game").scene.map
 
 onready var rooms_ressources = map.ressources
@@ -34,6 +36,7 @@ func set_global_value():
 func _on_Quit_pressed():
 	self.hide()
 	hud.show()
+	camera.pause = false
 
 func get_staff_in_research():
 	if research_room.STAFF.empty():

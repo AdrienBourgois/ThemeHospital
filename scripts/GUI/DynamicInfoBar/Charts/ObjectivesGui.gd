@@ -2,6 +2,7 @@
 extends Control
 
 onready var game = get_node("/root/Game")
+onready var camera = game.scene.camera
 var player
 var objectives
 onready var reputation_bar = get_node("ReputationBar")

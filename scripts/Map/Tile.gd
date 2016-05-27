@@ -7,7 +7,7 @@ const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 
 var room_type = {}
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
-var neighbour = { "Up": null, "Left": null, "Down": null, "Right": null }
+var neighbours = { "Up": null, "Left": null, "Down": null, "Right": null }
 
 var x = 0
 var y = 0
@@ -54,8 +54,8 @@ func update(_room_type):
 	room_material.set_parameter(0, room_type.COLOR)
 
 func update_walls(direction):
-	if (neighbour[direction] != null):
-		if (neighbour[direction].room_type != room_type):
+	if (neighbours[direction] != null):
+		if (neighbours[direction].room_type != room_type):
 			change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
@@ -96,10 +96,10 @@ func _current_select():
 func get_all_neighbour():
 	var map = get_parent()
 	if ((y - 1) > 0):
-		neighbour.Up = map.columns[x][y - 1]
+		neighbours.Up = map.columns[x][y - 1]
 	if ((y + 1) < map.size_y):
-		neighbour.Down = map.columns[x][y + 1]
+		neighbours.Down = map.columns[x][y + 1]
 	if ((x - 1) > 0):
-		neighbour.Left = map.columns[x - 1][y]
+		neighbours.Left = map.columns[x - 1][y]
 	if ((x + 1) < map.size_x):
-		neighbour.Right = map.columns[x + 1][y]
+		neighbours.Right = map.columns[x + 1][y]
