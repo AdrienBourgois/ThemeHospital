@@ -16,6 +16,7 @@ func _input(event):
 	if event.is_action("enter") && checkIfUsernameCorrect():
 		game.username = line_edit.get_text()
 		game.config.username = game.username
+#		game.initScreenshots()
 		saver.setInit()
 		get_tree().get_current_scene().queue_free()
 		get_tree().change_scene("res://scenes/GUI/MainMenu.scn")

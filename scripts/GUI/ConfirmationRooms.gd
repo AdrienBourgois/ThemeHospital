@@ -29,6 +29,7 @@ func _on_Accept_pressed():
 			player.money -= node_rooms_menu.price
 			var node = object_resources.createRoomObject(map.getActualRoomTypeName())
 			gamescn.add_child(node)
+			node.available.on()
 	self.hide()
 	
 	node_rooms_menu.is_type_selected = false

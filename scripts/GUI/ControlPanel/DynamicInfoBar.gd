@@ -1,4 +1,3 @@
-
 extends Control
 
 onready var control_panel = get_parent()
@@ -9,6 +8,7 @@ onready var label = get_node("Label")
 onready var status = get_node("../../../Status")
 onready var town_map = get_node("../../../TownMap")
 onready var research = get_node("../../../Research")
+onready var casebook = get_node("../../../Casebook")
 
 func _ready():
 	for idx in buttons.get_children():
@@ -28,3 +28,7 @@ func _on_Town_Map_pressed():
 func _on_Research_pressed():
 	hud.hide()
 	research.show()
+
+func _on_Drug_Casebook_pressed():
+	hud.hide()
+	casebook.show()

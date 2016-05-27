@@ -7,7 +7,7 @@ var invisibility = {
 	"CAUSE": "CAUSE_INVISIBILITY",
 	"TREATMENT": "TREATMENT_INVISIBILITY",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": false,
+	"FOUND": true,
 	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 1400,
@@ -119,7 +119,7 @@ var the_squits = {
 	"CAUSE": "CAUSE_SQUITS",
 	"TREATMENT": "TREATMENT_SQUITS",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": false,
+	"FOUND": true,
 	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"COST": 400,
@@ -128,3 +128,31 @@ var the_squits = {
 	"FATALITIES": 0,
 	"TURNED_AWAY": 0,
 }
+
+var list_diseases = {
+	"SQUITS": the_squits,
+	"HEAPED": heaped_piles,
+	"UNCOMMON": uncommon_cold,
+	"INVISIBILITY": invisibility,
+	"SLEEPING": sleeping_illness,
+	"TONGUE": slack_tongue,
+	"BLOATY": bloaty_head,
+	"TV": TV_personalities,
+}
+
+var cure_at_pharmacy = [
+	the_squits,
+	heaped_piles,
+	uncommon_cold,
+	invisibility,
+	sleeping_illness
+]
+
+var cure_at_clinics = [
+	slack_tongue,
+	bloaty_head
+]
+
+var cure_at_psychiatric = [
+	TV_personalities
+]

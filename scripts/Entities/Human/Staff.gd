@@ -7,6 +7,7 @@ var skill
 var salary
 var seniority
 var specialities
+
 export var fixing_machinery = 50.0
 export var watering_plants = 50.0
 export var sweeping_litter = 50.0
@@ -19,11 +20,13 @@ export var max_value = 100
 
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
 onready var entity_manager = game.scene.entity_manager
+var patients
 
 func _ready():
 	get_node("Timer").start()
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	patients = get_tree().get_nodes_in_group("Patients")
 	diagnostic()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
 		count += 1
@@ -33,8 +36,17 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			staff_information_gui.show()
 
 func diagnostic():
-	if entity_manager.get_child_count() > 1:
-		print(entity_manager.get_child(get_child_count() - 1))
+	if !get_tree().get_nodes_in_group("Patients").empty():
+		if patients[patients.size() - 1].disease.disease_type["FOUND"] == false:
+			sendToGeneralDiag(patients)
+			goToGD(self)
+
+func sendToGeneralDiag(patient):
+	print("go to the GD!")
+
+func goToGD(doctor):
+	if doctor.id == 0:
+		print("I'm going to GD!")
 
 func _on_Timer_timeout():
 	entity_manager.checkGlobalTemperature(self)

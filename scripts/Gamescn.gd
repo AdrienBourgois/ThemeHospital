@@ -10,6 +10,7 @@ onready var calendar = get_node("Calendar")
 onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
+onready var diseases = get_node("Diseases")
 onready var hire_manager = get_node("HireManager")
 onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
@@ -44,7 +45,6 @@ func loadObjects():
 		if (!node):
 			return 
 		self.add_child(node)
-		objects_nodes_array.append(node)
 		node.can_selected = false
 		node.set_process_input(false)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
