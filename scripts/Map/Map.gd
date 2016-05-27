@@ -202,6 +202,7 @@ func new_room(state, parameters):
 			new_room_type = {}
 			return true
 		else:
+			print("New room is not valid !")
 			new_room("cancel", null)
 		return false
 
