@@ -27,6 +27,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
+		map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].setOccupied(true) 
 		can_selected = false
 		set_process_input(false)
 		available.hide()
@@ -49,9 +50,9 @@ func checkAvailableProcess():
 	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
-	elif (type.ID != 0):
+	elif (!in_room_object and type.ID != 0):
 		available.off()
-	else:
+	else: 
 		available.on()
 
 func checkAvailable():
