@@ -22,6 +22,8 @@ func _ready():
 	gamescn.objects_nodes_array.append(self)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	if (is_selected and can_selected):
+		checkAvailableProcess()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
@@ -42,6 +44,15 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		is_selected = true
 		can_selected = true
 		set_process_input(true)
+
+func checkAvailableProcess():
+	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
+	if (in_room_object and type.ID != room_id):
+		available.off()
+	elif (type.ID != 0):
+		available.off()
+	else:
+		available.on()
 
 func checkAvailable():
 	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
