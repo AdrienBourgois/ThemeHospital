@@ -28,8 +28,10 @@ func _on_Accept_pressed():
 		if (map.new_room("create", null)):
 			player.money -= node_rooms_menu.price
 			var node = object_resources.createRoomObject(map.getActualRoomTypeName())
+			node.is_selected = true
+			node.can_selected = true
+			node.set_process_input(true)
 			gamescn.add_child(node)
-			node.available.on()
 	self.hide()
 	
 	node_rooms_menu.is_type_selected = false
