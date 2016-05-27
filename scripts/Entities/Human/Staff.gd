@@ -24,12 +24,17 @@ func _ready():
 	get_node("Timer").start()
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	diagnostic()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
 		count += 1
 		if count >= 2:
 			get_parent().staff_selected = self
 			staff_information_gui._ready()
 			staff_information_gui.show()
+
+func diagnostic():
+	if entity_manager.get_child_count() > 1:
+		print(entity_manager.get_child(get_child_count() - 1))
 
 func _on_Timer_timeout():
 	entity_manager.checkGlobalTemperature(self)

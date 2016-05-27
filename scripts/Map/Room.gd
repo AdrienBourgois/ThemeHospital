@@ -7,6 +7,7 @@ var size_y = 0
 var type = 0
 var construted = 0
 var present_staff = []
+var present_patient = []
 
 var map_reference = null
 
