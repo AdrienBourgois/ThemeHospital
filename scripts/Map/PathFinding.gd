@@ -23,12 +23,18 @@ var node = null
 
 var speed = 1
 var delta_sum = 0
+var animation_completed = false
 
-func _init(_from, _to, _map):
-	map = _map
-	from = map.columns[_from.x][_from.y]
-	to = map.columns[_to.x][_to.y]
-	
+func _init(_from, _to, _node, _speed, _map):
+	if (_from != _to):
+		map = _map
+		from = map.columns[_from.x][_from.y]
+		to = map.columns[_to.x][_to.y]
+		node = _node
+		speed = _speed
+		path_finding()
+
+func path_finding():
 	open_list.append(from)
 	
 	while(open_list.size() && !found):
@@ -47,6 +53,7 @@ func _init(_from, _to, _map):
 							came_from[current.neighbours[neighbour]] = current
 				closed_list.append(current)
 	
+	animate()
 	#print("--> Total Time : ", OS.get_ticks_msec() - total_time)
 
 func reconstruct():
@@ -63,9 +70,7 @@ func create_curve():
 	for node in path_nodes:
 		curve.add_point(node.get_translation())
 
-func animate(_node, _speed):
-	node = _node
-	speed = _speed
+func animate():
 	create_curve()
 	
 	var size_node = node.get_scale()
@@ -92,7 +97,7 @@ func _fixed_process(delta):
 		else:
 			node.set_translation(next_point)
 			set_fixed_process(false)
-			queue_free()
+			animation_completed = true
 
 func can_go(from, direction):
 	var tile_from = map.columns[from.x][from.y]

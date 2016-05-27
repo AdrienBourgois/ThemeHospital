@@ -89,10 +89,6 @@ func _input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("left_click")):
 		get_parent().new_room("to", Vector2(x, y))
 
-func _input_path( camera, event, click_pos, click_normal, shape_idx ):
-	if(event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click")):
-		get_parent().test_path(x, y)
-
 func _current_select():
 	get_parent().new_room("current", Vector2(x, y))
 
