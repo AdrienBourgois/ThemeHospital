@@ -23,8 +23,13 @@ var size_y = 0
 var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
 
+var cube = TestCube.new()
+
 func _ready():
 	create_map("res://Maps/Map1.lvl")
+	add_child(cube)
+	cube.set_scale(Vector3(0.2,0.2,0.2))
+	cube.set_translation(Vector3(0,0.2,0))
 
 func createStatsDict():
 	for current in tiles:
@@ -189,35 +194,6 @@ func new_room(state, parameters):
 			test_path()
 			new_room("cancel", null)
 
-func can_go(from, direction):
-	var tile_from = columns[from.x][from.y]
-	if (direction == "Up"):
-		var tile_to = tile_from.neighbours.Up
-		if (tile_to == null):
-			return false
-		if(tile_from.walls_types.Up == 1 or tile_from.walls_types.Up == 2 or tile_to.walls_types.Down == 1 or tile_to.walls_types.Down == 2):
-			return false
-	elif (direction == "Down"):
-		var tile_to = tile_from.neighbours.Down
-		if (tile_to == null):
-			return false
-		if(tile_from.walls_types.Down == 1 or tile_from.walls_types.Down == 2 or tile_to.walls_types.Up == 1 or tile_to.walls_types.Up == 2):
-			return false
-	elif (direction == "Right"):
-		var tile_to = tile_from.neighbours.Right
-		if (tile_to == null):
-			return false
-		if(tile_from.walls_types.Right == 1 or tile_from.walls_types.Right == 2 or tile_to.walls_types.Left == 1 or tile_to.walls_types.Left == 2):
-			return false
-	elif (direction == "Left"):
-		var tile_to = tile_from.neighbours.Left
-		if (tile_to == null):
-			return false
-		if(tile_from.walls_types.Left == 1 or tile_from.walls_types.Left == 2 or tile_to.walls_types.Right == 1 or tile_to.walls_types.Right == 2):
-			return false
-	
-	return true
-
 func sendRoomToServer():
 	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
 	global_client.addPacket(packet)
@@ -230,4 +206,9 @@ func getResources():
 var PathFinding_res = preload("res://scripts/Map/PathFinding.gd")
 
 func test_path(x, y):
-	var path = PathFinding_res.new(Vector2(23,17), Vector2(x,y), self)
+	var path_finding = PathFinding_res.new(Vector2(23,17), Vector2(x,y), self)
+	add_child(path_finding)
+	if(path_finding.found):
+		path_finding.animate(cube, 5)
+	else:
+		path_finding.queue_free()
