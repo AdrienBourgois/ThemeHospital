@@ -25,3 +25,12 @@ func getName():
 
 func getType():
 	return type
+
+func get_pharmacy_disease():
+	return pharmacy
+
+func get_psychatric_disease():
+	return psychatric
+
+func get_clinics_disease():
+	return clinics
