@@ -3,10 +3,10 @@ extends Node
 onready var name = "" setget ,getName
 onready var type = "" setget ,getType
 
-onready var diseases = preload("res://scripts/Entities/Human/DiseasesDictionaries.gd").new()
-onready var pharmacy = diseases.cure_at_pharmacy
-onready var psychatric = diseases.cure_at_psychiatric
-onready var clinics = diseases.cure_at_clinics
+onready var disease = get_node("/root/Game").scene.diseases
+onready var pharmacy = disease.cure_at_pharmacy
+onready var psychatric = disease.cure_at_psychiatric
+onready var clinics = disease.cure_at_clinics
 onready var disease_array = [pharmacy, psychatric, clinics]
 onready var disease_type_array = ["pharmacy", "psychatric", "clinics"]
 
