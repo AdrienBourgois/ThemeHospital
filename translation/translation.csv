@@ -282,3 +282,16 @@ TREATMENT_UNCOMMON,A big swig of uncommon cough medicine made from special ingre
 TREATMENT_TV,A trained Psychiatrist must convince the patient to sell their TV and buy a radio,un psychiatre doit convaincre le patient de vendre sa télévision.
 TREATMENT_HEAPED,A pleasant powerfully acidic drink dissolves the piles from the inside,dissolution des rectoïdes de l’intérieur grâce à une potion agréable mais très acide.
 TREATMENT_SQUITS,A glutinous mix of stringy pharmaceutical chemicals solidify the patients innards,un mélange gluant de substances synthétiques est administré au patient pour solidifier son contenu.
+TREATMENT_CASEBOOK,treatment charge,cout du traitement
+MONEY_CASEBOOK,money earned,argent gagne
+RECOVERIES_CASEBOOK,recoveries,soignes
+FATALITIES_CASEBOOK,fatalities,morts
+TURNED_CASEBOOK,turned away,renvoyes chez eux
+TOOLTIP_REPUTATION_CASEBOOK,Cure or Diagnosis Reputation,Reputation de l'hopital
+TOOLTIP_TREATMENT_CASEBOOK,Cost,Cout
+TOOLTIP_CASEBOOK_BUTTON_LESS,Decrease amount,Diminue le cout
+TOOLTIP_CASEBOOK_BUTTON_MORE,Increase amount,Augmente le cout
+TOOLTIP_CASEBOOK_MONEY,Total earned to date,Total des gains a ce jour
+TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
+TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
+TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
