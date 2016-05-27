@@ -49,9 +49,9 @@ func checkAvailableProcess():
 	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
-	elif (type.ID != 0):
+	elif (!in_room_object and type.ID != 0):
 		available.off()
-	else:
+	else: 
 		available.on()
 
 func checkAvailable():
