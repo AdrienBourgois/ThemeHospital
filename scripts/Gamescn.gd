@@ -72,7 +72,8 @@ func _input(event):
 		saver.quicksave()
 		saving_game.showComplete()
 	if (event.is_action_released("info")):
-		print(map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type)
+		print("TAMERE : ", map.tile_on_cursor)
+		print("TONPERE : ", map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].getOccupied())
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  
