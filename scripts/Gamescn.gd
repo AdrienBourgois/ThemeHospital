@@ -4,12 +4,14 @@ extends Node
 onready var game = get_node("/root/Game")
 onready var saver = get_node("/root/Save")
 onready var loader = get_node("/root/Load")
+onready var camera = get_node("Camera")
 onready var player = get_node("Player")
 onready var objectives = get_node("Objectives")
 onready var calendar = get_node("Calendar")
 onready var in_game_gui_res = preload("res://scenes/GUI/InGameGui.scn")
 onready var map = get_node("Map")
 onready var entity_manager = get_node("EntityManager")
+onready var diseases = get_node("Diseases")
 onready var hire_manager = get_node("HireManager")
 onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
@@ -70,7 +72,8 @@ func _input(event):
 		saver.quicksave()
 		saving_game.showComplete()
 	if (event.is_action_released("info")):
-		print(map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type)
+		print("TAMERE : ", map.tile_on_cursor)
+		print("TONPERE :", map.getTileOnCursorNode().getObject())
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  

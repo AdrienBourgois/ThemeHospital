@@ -104,8 +104,6 @@ func optimizeMapSize():
 		new_size = Vector2(test_x * scale, test_y * scale)
 		
 		if (plot_manager.get_size().x < new_size.x || plot_manager.get_size().y < new_size.y):
-			print(plot_manager.get_size())
-			print(new_size)
 			node2d.set_scale(Vector2(scale - 1, scale - 1))
 			return
 		

@@ -31,7 +31,7 @@ func updateValues():
 	items_count_array.append(fire.getValue())
 
 func resetvalues():
-	var default_text = "Count : 0"
+	var default_text = tr("TXT_COUNT") + "0"
 	bench.setValue(0)
 	plant.setValue(0)
 	radiator.setValue(0)
@@ -41,7 +41,7 @@ func resetvalues():
 		current.set_text(default_text)
 
 func countString(value):
-	var count_string = "Count : " + str(value)
+	var count_string = tr("TXT_COUNT") + str(value)
 
 func _on_Accept_pressed():
 	var max_count = panel.get_child_count() - number_of_buttons
@@ -53,6 +53,10 @@ func _on_Accept_pressed():
 			gamescn.add_child(node)
 			var node_info = []
 			node.available.on()
+			node.is_selected = true
+			node.can_selected = true
+			node.set_process_input(true)
+			
 			items_count_array[count] -= 1
 			gamescn.player.money -= node.price
 		count += 1
