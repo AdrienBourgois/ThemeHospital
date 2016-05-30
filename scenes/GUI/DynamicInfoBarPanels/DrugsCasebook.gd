@@ -27,6 +27,7 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
+var pos_container
 var concentrate_research = false
 var is_timer_finish = true
 
@@ -77,6 +78,7 @@ func connect_all_buttons():
 func disease_pressed(disease):
 	treatment_charge = disease.COST
 	percent = disease.PERCENT
+	print("Disease : ", disease, "    Percent : ", percent)
 	money_earned = disease.MONEY_EARNED
 	
 	recoveries = disease.RECOVERIES
@@ -86,6 +88,7 @@ func disease_pressed(disease):
 func decrease_cost(disease):
 	is_timer_finish = false
 	if (disease.PERCENT > 0):
+		print("DISEASE TAMER : ", disease)
 		disease.PERCENT -= 1
 		percent = disease.PERCENT
 		
@@ -101,7 +104,6 @@ func increase_cost(disease):
 	percent = disease.PERCENT
 	
 	disease.COST = percentage_calculation(disease.COST, percent)
-	print("disease",disease.COST)
 	treatment_charge = disease.COST
 	
 	get_node("Timer").start()
@@ -115,3 +117,30 @@ func percentage_calculation(value, percent):
 
 func _on_Concentrate_research_pressed():
 	concentrate_research = true
+
+
+func _on_Up_pressed():
+	pos_container = node_container.get_pos()
+	
+	for button in node_container.get_children():
+		if button.get_global_pos().y > 112 and button.is_visible() == false:
+			print(button.get_global_pos().y)
+			button.show()
+			
+		elif (button.get_global_pos().y < 112):
+			button.hide()
+			
+		node_container.set_pos(Vector2(pos_container.x, pos_container.y - 10))
+
+
+func _on_Down_pressed():
+	pos_container = node_container.get_pos()
+	
+	for button in node_container.get_children():
+		if button.get_global_pos().y < 495 and button.is_visible() == false:
+			button.show()
+		
+		elif (button.get_global_pos().y > 495):
+			button.hide()
+		
+		node_container.set_pos(Vector2(pos_container.x, pos_container.y + 10))
