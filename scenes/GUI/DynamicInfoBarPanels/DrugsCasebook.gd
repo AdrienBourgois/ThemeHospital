@@ -27,7 +27,6 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
-var current_disease
 var pos_container
 var concentrate_research = false
 var is_timer_finish = true
@@ -83,8 +82,7 @@ func disease_pressed(disease):
 	
 	node_timer.connect("timeout", self, "timer_timeout", [disease])
 	
-	current_disease = disease
-	treatment_charge = disease.COST
+	treatment_charge = disease.NEW_COST
 	percent = disease.PERCENT
 	money_earned = disease.MONEY_EARNED
 	
@@ -104,16 +102,16 @@ func decrease_cost(disease):
 func increase_cost(disease):
 	is_timer_finish = false
 	
-	current_disease.PERCENT += 1
-	percent = current_disease.PERCENT
+	disease.PERCENT += 1
+	percent = disease.PERCENT
 	
 	node_timer.start()
 
 func timer_timeout(disease):
 	is_timer_finish = true
 	
-	disease.COST = percentage_calculation(disease.COST, percent)
-	treatment_charge = disease.COST
+	disease.NEW_COST = percentage_calculation(disease.DEFAULT_COST, percent)
+	treatment_charge = disease.NEW_COST
 
 
 func percentage_calculation(value, percent):
@@ -127,7 +125,7 @@ func _on_Up_pressed():
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
-		if button.get_global_pos().y > 112 and button.is_visible() == false:
+		if button.get_global_pos().y > 112 and button.get_global_pos().y < 495 and button.is_visible() == false:
 			button.show()
 			
 		elif (button.get_global_pos().y < 112):
@@ -140,7 +138,7 @@ func _on_Down_pressed():
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
-		if button.get_global_pos().y < 495 and button.is_visible() == false:
+		if button.get_global_pos().y < 495 and button.get_global_pos().y > 112 and button.is_visible() == false:
 			button.show()
 		
 		elif (button.get_global_pos().y > 495):
