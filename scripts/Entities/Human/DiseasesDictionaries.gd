@@ -21,7 +21,7 @@ var bloaty_head = {
 	"DESCRIPTION": "DESC_BLOATY",
 	"CAUSE": "CAUSE_BLOATY",
 	"TREATMENT": "TREATMENT_BLOATY",
-	"FOUND": false,
+	"FOUND": true,
 	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
@@ -129,7 +129,7 @@ var the_squits = {
 }
 
 var list_diseases = {
-	"SQUITS": the_squits,
+	"NAME_SQUITS": the_squits,
 	"HEAPED": heaped_piles,
 	"UNCOMMON": uncommon_cold,
 	"INVISIBILITY": invisibility,
