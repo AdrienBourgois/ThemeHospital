@@ -45,7 +45,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		available.on()
 		var vector_pos = Vector2(get_translation().x, get_translation().z)
 		map.getTile(vector_pos).setObject(null)
-		#map.getTileOnCursorNode().setObject(null)
 		
 		is_selected = true
 		can_selected = true
