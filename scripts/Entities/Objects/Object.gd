@@ -25,10 +25,9 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if (is_selected and can_selected):
 		checkAvailableProcess()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
-		var tile = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y]
 		if (!checkAvailable()):
 			return
-
+		map.getTileOnCursorNode().setObject(self)
 		can_selected = false
 		set_process_input(false)
 		available.hide()
@@ -41,8 +40,13 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object):
 			return
+		print(get_translation())
 		gamescn.updateObjectsArray()
 		available.on()
+		var vector_pos = Vector2(get_translation().x, get_translation().z)
+		map.getTile(vector_pos).setObject(null)
+		#map.getTileOnCursorNode().setObject(null)
+		
 		is_selected = true
 		can_selected = true
 		set_process_input(true)
@@ -64,6 +68,9 @@ func checkAvailable():
 			error()
 			return false
 	elif (type.ID != 0):
+		error()
+		return false
+	elif (map.getTileOnCursorNode().getObject()):
 		error()
 		return false
 	return true

@@ -73,7 +73,7 @@ func _input(event):
 		saving_game.showComplete()
 	if (event.is_action_released("info")):
 		print("TAMERE : ", map.tile_on_cursor)
-		print("TONPERE : ", map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].getOccupied())
+		print("TONPERE :", map.getTileOnCursorNode().getObject())
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  
