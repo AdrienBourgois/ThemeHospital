@@ -2,6 +2,7 @@
 extends Control
 
 onready var game = get_node("/root/Game")
+onready var global_client = get_node("/root/GlobalClient")
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
 onready var money_box = get_node("./Panel/MoneyBox")
@@ -111,15 +112,34 @@ func optimizeMapSize():
 		scale += 1
 
 func _on_PlotManager_input_event( ev ):
-	var size = Vector2(test_x * node2d.get_scale().x, test_y * node2d.get_scale().y)
-	
 	if ( Input.is_action_pressed("left_click") ):
-		var width = size.x / test_x
-		var height = size.y / test_y
-		
-		for tile in tiles:
-			if ( tile.x * width < ev.pos.x && (tile.x * width) + width > ev.pos.x):
-				if ( tile.y * height < ev.pos.y && (tile.y * height) + height > ev.pos.y):
-					if (tile.type == "Lobby"):
-						print("corridor found")
-						return
+		checkMousePos( ev.pos )
+
+func checkMousePos( pos ):
+	var size = Vector2(test_x * node2d.get_scale().x, test_y * node2d.get_scale().y)
+	var width = size.x / test_x
+	var height = size.y / test_y
+	
+	for tile in tiles:
+		if ( tile.x * width < pos.x && (tile.x * width) + width > pos.x):
+			if ( tile.y * height < pos.y && (tile.y * height) + height > pos.y):
+				buyPlot(tile)
+				return
+
+
+func buyPlot( tile ):
+	if ( tile.type == "Lobby" ):
+		if ( game.getMultiplayer() ):
+			global_client.addPacket("/game 10")
+		else:
+			print("Buying plot")
+
+func toggleAuctionMenuVisibility():
+	get_node("AuctionMenu").set_hidden(get_node("AuctionMenu").is_visible())
+
+func _on_Control_draw():
+	get_node("AuctionMenu/Timer").start()
+
+
+func _on_Timer_timeout():
+	toggleAuctionMenuVisibility()

@@ -97,6 +97,8 @@ func parseGame():
 		updatePlayerContainer()
 	elif ( packet_id == "9" ):
 		muteUnmutePlayer()
+	elif ( packet_id == "10" ):
+		displayAuctionMenu()
 
 
 func playerIdPacket(): #Packet 0
@@ -178,7 +180,6 @@ func kickedFromServer(): #Packet 7
 		get_tree().get_current_scene().add_child(scene, true)
 
 func updatePlayerContainer(): #Packet 8
-	print("Bonsoir")
 	if ( current_parsing.client ):
 		var root = get_tree().get_current_scene()
 		
@@ -198,6 +199,16 @@ func muteUnmutePlayer(): #Packet 9
 		global_server.unmutePlayer(current_player_id, tmpData[3])
 	elif (tmpData[2] == "1"):
 		global_server.mutePlayer(current_player_id, tmpData[3])
+
+func displayAuctionMenu(): #Packet 10
+	if ( current_parsing.server ):
+		global_server.addPacket("/game 10")
+	elif ( current_parsing.client ):
+		var root = get_tree().get_current_scene()
+		
+		if ( root != null && root.get_name() == "GameScene" ):
+			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility()
+			
 
 func setNickname(): 
 	if ( current_parsing.server ):
