@@ -53,7 +53,7 @@ func loadObjects():
 		node.addToArray()
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
-				tile.setObject(node)
+				node.setAvailableTile(true)
 
 func updateObjectsArray():
 	objects_array.clear()
