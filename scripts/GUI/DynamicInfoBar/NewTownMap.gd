@@ -5,7 +5,7 @@ onready var game = get_node("/root/Game")
 onready var global_client = get_node("/root/GlobalClient")
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
-onready var money_box = get_node("./Panel/MoneyBox")
+onready var money_container = get_node("./Panel/MoneyBox/DynamicMoney/MoneyBox/MoneyContainer")
 onready var increase_heat_button = get_node("./Panel/HospitalManager/IncreaseHeatButton")
 onready var decrease_heat_button = get_node("./Panel/HospitalManager/DecreaseHeatButton")
 onready var heat_level_progress_bar = get_node("./Panel/HospitalManager/HeatLevelProgressBar")
@@ -93,7 +93,7 @@ func _on_QuitButton_pressed():
 
 
 func _on_TownMap_visibility_changed():
-	money_box.updateMoney()
+	money_container.updateMoney()
 
 
 func optimizeMapSize():
