@@ -62,7 +62,6 @@ func setAvailableTile(boolean):
 		tile.neighbours.Right.setObject(node)
 	else:
 		tile.neighbours.Down.setObject(node)
-		print(tile.neighbours.Down.getObject())
 
 func checkAvailableProcess():
 	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
