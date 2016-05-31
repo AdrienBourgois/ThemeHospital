@@ -54,6 +54,7 @@ func loadObjects():
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
 				node.setAvailableTile(true)
+			
 
 func updateObjectsArray():
 	objects_array.clear()
@@ -77,6 +78,7 @@ func _input(event):
 	if (event.is_action_released("info")):
 		print("TAMERE : ", map.tile_on_cursor)
 		print("TONPERE :", map.getTileOnCursorNode().getObject())
+		print("TYPE : ", map.getTileOnCursorNode().room_type)
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  
