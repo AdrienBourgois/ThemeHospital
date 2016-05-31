@@ -29,10 +29,14 @@ onready var percent = 100
 
 var pos_container
 var concentrate_research = false
+var disease_selected = false
 var is_timer_finish = true
 
 func _ready():
-	connect_diseases_buttons()
+	get_node("Book/Buttons/Down").set_text("BUTTON_DOWN_NAME")
+	get_node("Book/Buttons/Up").set_text("BUTTON_UP_NAME")
+	
+	connectDiseasesButtonsAndTimer()
 	set_process(true)
 
 func _on_Quit_pressed():
@@ -57,7 +61,7 @@ func update():
 func _process(delta):
 	update()
 
-func connect_diseases_buttons():
+func connectDiseasesButtonsAndTimer():
 	var button
 	for disease in diseases_list:
 		if (diseases_list[disease].FOUND == true):
@@ -67,21 +71,20 @@ func connect_diseases_buttons():
 			
 			button.set_text(diseases_list[disease].NAME)
 			button.connect("pressed", self, "disease_pressed",[diseases_list[disease]])
+		
+		disconnectFunc("timeout", node_timer, "timer_timeout")
+		
+		node_timer.connect("timeout", self, "timer_timeout", [diseases_list[disease]])
 
 func disease_pressed(disease):
-	disconnect_buttons(node_button_less, "decrease_cost")
-	disconnect_buttons(node_button_more, "increase_cost")
+	disconnectFunc("pressed", node_button_less, "decrease_cost")
+	disconnectFunc("pressed", node_button_more, "increase_cost")
 	
 	if (!node_button_less.is_connected("pressed", self, "decrease_cost")):
 		node_button_less.connect("pressed", self, "decrease_cost", [disease])
 		
 	if (!node_button_more.is_connected("pressed", self, "increase_cost")):
 		node_button_more.connect("pressed", self, "increase_cost", [disease])
-	
-	if (node_timer.is_connected("timeout", self, "timer_timeout")):
-		node_timer.disconnect("timeout", self, "timer_timeout")
-	
-	node_timer.connect("timeout", self, "timer_timeout", [disease])
 	
 	treatment_charge = disease.NEW_COST
 	percent = disease.PERCENT
@@ -90,6 +93,9 @@ func disease_pressed(disease):
 	recoveries = disease.RECOVERIES
 	fatalities = disease.FATALITIES
 	turned_away = disease.TURNED_AWAY
+	
+	disease_selected = true
+
 
 func decrease_cost(disease):
 	is_timer_finish = false
@@ -109,11 +115,11 @@ func increase_cost(disease):
 	node_timer.start()
 
 func timer_timeout(disease):
-	is_timer_finish = true
+	if (disease_selected == true):
+		disease.NEW_COST = percentage_calculation(disease.DEFAULT_COST, percent)
+		treatment_charge = disease.NEW_COST
 	
-	disease.NEW_COST = percentage_calculation(disease.DEFAULT_COST, percent)
-	treatment_charge = disease.NEW_COST
-
+	is_timer_finish = true
 
 func percentage_calculation(value, percent):
 	var new_value = value * (percent / 100.0)
@@ -123,6 +129,8 @@ func _on_Concentrate_research_pressed():
 	concentrate_research = true
 
 func _on_Up_pressed():
+	is_timer_finish = false
+	
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
@@ -133,9 +141,12 @@ func _on_Up_pressed():
 			button.hide()
 			
 		node_container.set_pos(Vector2(pos_container.x, pos_container.y - 10))
-
+	
+	node_timer.start()
 
 func _on_Down_pressed():
+	is_timer_finish = false
+	
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
@@ -146,7 +157,9 @@ func _on_Down_pressed():
 			button.hide()
 		
 		node_container.set_pos(Vector2(pos_container.x, pos_container.y + 10))
+	
+	node_timer.start()
 
-func disconnect_buttons(button, method):
-	if button.is_connected("pressed", self, method):
-		button.disconnect("pressed", self, method)
+func disconnectFunc(type, button, method):
+	if button.is_connected(type, self, method):
+		button.disconnect(type, self, method)
