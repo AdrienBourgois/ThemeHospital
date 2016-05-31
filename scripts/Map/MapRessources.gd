@@ -1,6 +1,6 @@
 extends Node
 
-var lobby = { 
+var lobby = {
 	"ID": 0,
 	"NAME": "lobby",
 	"COLOR": colors.grey,
@@ -8,7 +8,7 @@ var lobby = {
 	"OBJECTS": {}
 }
 
-var gp_office = { 
+var gp_office = {
 	"ID": 1,
 	"NAME": "ROOM_GP",
 	"SIZE_MIN": 4,
@@ -21,7 +21,7 @@ var gp_office = {
 	"OBJECTS": {}
 }
 
-var general_diagnosis = { 
+var general_diagnosis = {
 	"ID": 2,
 	"NAME": "ROOM_GENERAL_DIAGNOSIS",
 	"SIZE_MIN": 5,
@@ -34,7 +34,7 @@ var general_diagnosis = {
 	"OBJECTS": {}
 }
 
-var cardiogram = { 
+var cardiogram = {
 	"ID": 3,
 	"NAME": "ROOM_CARDIOGRAM",
 	"SIZE_MIN": 4,
@@ -47,7 +47,7 @@ var cardiogram = {
 	"OBJECTS": {}
 }
 
-var psychiatric = { 
+var psychiatric = {
 	"ID": 10,
 	"NAME": "ROOM_PSYCHIATRIC",
 	"SIZE_MIN": 5,
@@ -60,7 +60,7 @@ var psychiatric = {
 	"OBJECTS": {}
 }
 
-var pharmacy = { 
+var pharmacy = {
 	"ID": 11,
 	"NAME": "ROOM_PHARMACY",
 	"SIZE_MIN": 4,
@@ -73,7 +73,7 @@ var pharmacy = {
 	"OBJECTS": {}
 }
 
-var ward = { 
+var ward = {
 	"ID": 12,
 	"NAME": "ROOM_WARD",
 	"SIZE_MIN": 6,
@@ -99,7 +99,7 @@ var operating = {
 	"OBJECTS": {}
 }
 
-var inflation = { 
+var inflation = {
 	"ID": 20,
 	"NAME": "ROOM_INFLATION",
 	"SIZE_MIN": 4,
@@ -125,7 +125,7 @@ var tongue = {
 	"OBJECTS": {}
 }
 
-var staff_room = { 
+var staff_room = {
 	"ID": 30,
 	"NAME": "ROOM_STAFF_ROOM",
 	"SIZE_MIN": 4,
@@ -188,6 +188,8 @@ var plot = {
 var diagnosis_rooms = {
 	"GP": gp_office,
 	"GENERAL_DIAGNOSIS": general_diagnosis,
+	"WARD": ward,
+	"PSYCHIATRIC": psychiatric,
 	"CARDIOGRAM": cardiogram,
 }
 
@@ -215,6 +217,7 @@ var decorations = {
 }
 
 var type_rooms = {
+
 	"TYPE_TREATMENT": treatment_rooms,
 	"TYPE_DIAGNOSIS": diagnosis_rooms,
 	"TYPE_CLINICS": clinics,
