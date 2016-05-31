@@ -117,7 +117,7 @@ func checkAvailable():
 	var node = map.getTile(vector_pos)
 	type = node.room_type
 	if (in_room_object):
-		if (type.ID != room_id):
+		if (type.ID != room_id and checkAvaiblableTile()):
 			error()
 			return false
 	elif (type.ID != 0):
