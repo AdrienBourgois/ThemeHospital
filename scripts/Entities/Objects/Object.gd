@@ -14,6 +14,8 @@ var object_stats = {}
 var blink_number = 10
 var idx = 0
 var type = {}
+var vector_pos
+var tile
 
 func _ready():
 	timer.set_autostart(false)
@@ -50,9 +52,7 @@ func setAvailableTile(boolean):
 	var node = null
 	if (boolean):
 		node = self
-	var vector_pos = Vector2(get_translation().x, get_translation().z)
-	var rotation = get_rotation()
-	var tile = map.getTile(vector_pos)
+	updateTilePosition()
 	tile.setObject(node)
 	if (int(rotation.y) == int(deg2rad(-90))):
 		tile.neighbours.Left.setObject(node)
@@ -63,26 +63,73 @@ func setAvailableTile(boolean):
 	else:
 		tile.neighbours.Down.setObject(node)
 
+func updateTilePosition():
+	vector_pos = Vector2(get_translation().x, get_translation().z)
+	rotation = get_rotation()
+	tile = map.getTile(vector_pos)
+
+func checkAvailableTileType():
+	updateTilePosition()
+	if (tile.getObject()):
+		return false
+	elif (int(rotation.y) == int(deg2rad(-90)) and tile.room_type.ID != room_id):
+		return false
+	elif (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.room_type.ID != room_id):
+		return false
+	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.room_type.ID != room_id):
+		return false
+	elif (int(rotation.y) == int(deg2rad(90)) and tile.neighbours.Right.room_type.ID != room_id):
+		return false
+	elif (int(rotation.y) == int(deg2rad(0)) and tile.neighbours.Down.room_type.ID != room_id):
+		return false
+	else:
+		return true
+
+func checkAvaiblableTile():
+	updateTilePosition()
+	if (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.getObject()):
+		return false
+	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.getObject()):
+		return false
+	elif (int(rotation.y) == int(deg2rad(90)) and tile.neighbours.Right.getObject()):
+		return false
+	elif (int(rotation.y) == int(deg2rad(0)) and tile.neighbours.Down.getObject()):
+		return false
+	else:
+		return true
+
 func checkAvailableProcess():
-	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
+	updateTilePosition()
+	type = map.getTile(vector_pos).room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
+	elif (!checkAvaiblableTile()):
+		available.off()
 	elif (!in_room_object and type.ID != 0):
+		available.off()
+	elif (!checkAvailableTileType()):
 		available.off()
 	else: 
 		available.on()
 
 func checkAvailable():
-	var node = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y]
+	updateTilePosition()
+	var node = map.getTile(vector_pos)
 	type = node.room_type
 	if (in_room_object):
-		if (type.ID != room_id):
+		if (type.ID != room_id and checkAvaiblableTile()):
 			error()
 			return false
 	elif (type.ID != 0):
 		error()
 		return false
 	elif (map.getTileOnCursorNode().getObject()):
+		error()
+		return false
+	elif (!checkAvaiblableTile()):
+		error()
+		return false
+	elif (!checkAvailableTileType()):
 		error()
 		return false
 	return true
