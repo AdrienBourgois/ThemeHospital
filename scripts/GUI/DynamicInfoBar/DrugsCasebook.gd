@@ -16,7 +16,10 @@ onready var node_money = node_informations.get_node("MoneyEarned/values")
 onready var node_recoveries = node_informations.get_node("Recoveries/values")
 onready var node_fatalities = node_informations.get_node("Fatalities/values")
 onready var node_turned = node_informations.get_node("TurnedAway/values")
+onready var node_selector = get_node("Book/Buttons/Selector")
 
+onready var node_button_up = get_node("Book/Buttons/Up")
+onready var node_button_down = get_node("Book/Buttons/Down")
 onready var node_button_less = node_informations.get_node("TreatmentCharge/ButtonLess")
 onready var node_button_more = node_informations.get_node("TreatmentCharge/ButtonMore")
 
@@ -27,14 +30,16 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
+onready var pos_selector = node_selector.get_global_pos()
+
 var pos_container
 var concentrate_research = false
 var disease_selected = false
 var is_timer_finish = true
 
 func _ready():
-	get_node("Book/Buttons/Down").set_text("BUTTON_DOWN_NAME")
-	get_node("Book/Buttons/Up").set_text("BUTTON_UP_NAME")
+	node_button_down.set_text("BUTTON_DOWN_NAME")
+	node_button_up.set_text("BUTTON_UP_NAME")
 	
 	connectDiseasesButtonsAndTimer()
 	set_process(true)
@@ -67,7 +72,7 @@ func connectDiseasesButtonsAndTimer():
 		if (diseases_list[disease].FOUND == true):
 			button = Button.new()
 			node_container.add_child(button)
-			
+			button.set_global_pos(Vector2(node_selector.get_global_pos()))
 			
 			button.set_text(diseases_list[disease].NAME)
 			button.connect("pressed", self, "diseasePressed",[diseases_list[disease]])
@@ -128,33 +133,59 @@ func _on_Concentrate_research_pressed():
 
 func _on_Up_pressed():
 	is_timer_finish = false
+	var button_pos
 	
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
-		if button.get_global_pos().y > 112 and button.get_global_pos().y < 495 and button.is_visible() == false:
+		button_pos = button.get_global_pos()
+		
+		if button_pos.y > node_button_up.get_global_pos().y + 100 and button_pos.y < node_button_down.get_global_pos().y - 100 and button.is_visible() == false:
 			button.show()
-			
-		elif (button.get_global_pos().y < 112):
+		
+		elif (button_pos.y < node_button_up.get_global_pos().y + 100):
 			button.hide()
-			
-		node_container.set_pos(Vector2(pos_container.x, pos_container.y - 10))
+		
+#		if button_pos.y == pos_selector.y - 18:
+#			button.set_toggle_mode(true)
+#			button.set_pressed(true)
+#		
+#		else:
+#			button.set_pressed(false)
+#			button.set_toggle_mode(false)
+#		
+		button.set_global_pos(Vector2(button_pos.x, button_pos.y + 23))
+#		
+#		print(button.get_text(), " : ", button_pos.y)
 	
 	node_timer.start()
 
 func _on_Down_pressed():
 	is_timer_finish = false
+	var button_pos
 	
 	pos_container = node_container.get_pos()
 	
 	for button in node_container.get_children():
-		if button.get_global_pos().y < 495 and button.get_global_pos().y > 112 and button.is_visible() == false:
+		button_pos = button.get_global_pos()
+		
+		if button_pos.y < node_button_down.get_global_pos().y - 100 and button_pos.y > node_button_up.get_global_pos().y + 100 and button.is_visible() == false:
 			button.show()
 		
-		elif (button.get_global_pos().y > 495):
+		elif (button_pos.y > node_button_down.get_global_pos().y - 100):
 			button.hide()
-		
-		node_container.set_pos(Vector2(pos_container.x, pos_container.y + 10))
+#		
+#		if button_pos.y == pos_selector.y + 18:
+#			button.set_toggle_mode(true)
+#			button.set_pressed(true)
+#		
+#		else:
+#			button.set_pressed(false)
+#			button.set_toggle_mode(false)
+#		
+		button.set_global_pos(Vector2(button_pos.x, button_pos.y - 23))
+#		
+#		print(button.get_text(), " : ", button_pos.y)
 	
 	node_timer.start()
 
