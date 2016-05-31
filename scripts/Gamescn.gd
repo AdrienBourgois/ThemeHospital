@@ -78,7 +78,6 @@ func _input(event):
 	if (event.is_action_released("info")):
 		print("TAMERE : ", map.tile_on_cursor)
 		print("TONPERE :", map.getTileOnCursorNode().getObject())
-		print("TYPE : ", map.getTileOnCursorNode().room_type)
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  
