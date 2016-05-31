@@ -117,6 +117,7 @@ func disconnectFromServer():
 	disconnectServer()
 	resetClientStates()
 	
+	players_list.clear()
 	client_id = null
 	peer_stream = null
 	socket = null

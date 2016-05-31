@@ -7,6 +7,7 @@ var packet_list = Array() setget addPacket
 var current_available_id = 0
 onready var global_client = get_node("/root/GlobalClient")
 onready var packet_interpreter = get_node("/root/PacketInterpreter")
+onready var server_data_base = get_node("/root/ServerDataBase")
 
 var server_states = {
 	server_connected = false,
@@ -324,6 +325,7 @@ func sendGameStartedWithPlayerData():
 	var packet = "/game 2 0"
 	
 	for player in range ( player_data.size() ):
+		server_data_base.addPlayer( player_data[player][2], player_data[player][3])
 		packet += " " + player_data[player][2] + " " + str(player_data[player][3])
 	
 	sendPacket(packet)
