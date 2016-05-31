@@ -207,6 +207,7 @@ func displayAuctionMenu(): #Packet 10
 		var root = get_tree().get_current_scene()
 		
 		if ( root != null && root.get_name() == "GameScene" ):
+			root.get_node("./In_game_gui/TownMap").set_hidden(false)
 			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility()
 			
 
