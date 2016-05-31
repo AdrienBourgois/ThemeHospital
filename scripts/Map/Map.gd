@@ -232,7 +232,7 @@ func sendRoomToServer():
 func getOccupiedTiles():
 	occupied_tiles.clear()
 	for current in tiles:
-		if (current.getOccupied()):
+		if (current.getObject()):
 			var tile_data = {
 			X = current.x,
 			Y = current.y
