@@ -70,21 +70,19 @@ func connectDiseasesButtonsAndTimer():
 			
 			
 			button.set_text(diseases_list[disease].NAME)
-			button.connect("pressed", self, "disease_pressed",[diseases_list[disease]])
+			button.connect("pressed", self, "diseasePressed",[diseases_list[disease]])
 		
-		disconnectFunc("timeout", node_timer, "timer_timeout")
+		disconnectFunc("timeout", node_timer, "timerTimeout")
 		
-		node_timer.connect("timeout", self, "timer_timeout", [diseases_list[disease]])
+		node_timer.connect("timeout", self, "timerTimeout", [diseases_list[disease]])
 
-func disease_pressed(disease):
-	disconnectFunc("pressed", node_button_less, "decrease_cost")
-	disconnectFunc("pressed", node_button_more, "increase_cost")
+func diseasePressed(disease):
+	disconnectFunc("pressed", node_button_less, "decreaseCost")
+	disconnectFunc("pressed", node_button_more, "increaseCost")
 	
-	if (!node_button_less.is_connected("pressed", self, "decrease_cost")):
-		node_button_less.connect("pressed", self, "decrease_cost", [disease])
-		
-	if (!node_button_more.is_connected("pressed", self, "increase_cost")):
-		node_button_more.connect("pressed", self, "increase_cost", [disease])
+	node_button_less.connect("pressed", self, "decreaseCost", [disease])
+	
+	node_button_more.connect("pressed", self, "increaseCost", [disease])
 	
 	treatment_charge = disease.NEW_COST
 	percent = disease.PERCENT
@@ -97,7 +95,7 @@ func disease_pressed(disease):
 	disease_selected = true
 
 
-func decrease_cost(disease):
+func decreaseCost(disease):
 	is_timer_finish = false
 	
 	if (disease.PERCENT > 0):
@@ -106,7 +104,7 @@ func decrease_cost(disease):
 		
 		node_timer.start()
 
-func increase_cost(disease):
+func increaseCost(disease):
 	is_timer_finish = false
 	
 	disease.PERCENT += 1
@@ -114,14 +112,14 @@ func increase_cost(disease):
 	
 	node_timer.start()
 
-func timer_timeout(disease):
+func timerTimeout(disease):
 	if (disease_selected == true):
-		disease.NEW_COST = percentage_calculation(disease.DEFAULT_COST, percent)
+		disease.NEW_COST = percentageCalculation(disease.DEFAULT_COST, percent)
 		treatment_charge = disease.NEW_COST
 	
 	is_timer_finish = true
 
-func percentage_calculation(value, percent):
+func percentageCalculation(value, percent):
 	var new_value = value * (percent / 100.0)
 	return int(new_value)
 

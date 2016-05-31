@@ -19,14 +19,14 @@ func _ready():
 func _on_ButtonMore_pressed():
 	addition()
 	node_bar.set_value(value)
-	node_parent_research.set_global_value()
+	node_parent_research.setGlobalValue()
 	
 	return value
 
 func _on_ButtonLess_pressed():
 	substraction()
 	node_bar.set_value(value)
-	node_parent_research.set_global_value()
+	node_parent_research.setGlobalValue()
 	
 	return value
 
@@ -44,5 +44,5 @@ func substraction():
 	else:
 		return
 
-func get_value():
+func getValue():
 	return value

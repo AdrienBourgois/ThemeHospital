@@ -19,16 +19,16 @@ var clinics_array = []
 var diagnosis_array = []
 
 func _ready():
-	set_global_value()
+	setGlobalValue()
 	
-	get_clinics_locked()
-	get_diagnosis_locked()
+	getClinicsLocked()
+	getDiagnosisLocked()
 
-func set_global_value():
+func setGlobalValue():
 	global_value = 0
 	
 	for i in range(container.get_child_count()):
-		var value = container.get_child(i).get_value()
+		var value = container.get_child(i).getValue()
 		global_value += value
 		
 		total.set_value(global_value)
@@ -38,23 +38,22 @@ func _on_Quit_pressed():
 	hud.show()
 	camera.pause = false
 
-func get_staff_in_research():
+func getStaffInResearchRoom():
 	if research_room.STAFF.empty():
 		return
 	else:
 		return research_room.STAFF
 
-func get_clinics_locked():
+func getClinicsLocked():
 	for rooms in clinics:
 		if (clinics[rooms].UNLOCK == false):
 			clinics_array.append(clinics[rooms])
 	
 	return clinics_array
 
-func get_diagnosis_locked():
+func getDiagnosisLocked():
 	for rooms in diagnosis:
 		if (diagnosis[rooms].UNLOCK == false):
 			diagnosis_array.append(diagnosis[rooms])
 	
 	return diagnosis_array
-
