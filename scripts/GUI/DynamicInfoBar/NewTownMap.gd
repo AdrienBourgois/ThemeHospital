@@ -10,6 +10,7 @@ onready var increase_heat_button = get_node("./Panel/HospitalManager/IncreaseHea
 onready var decrease_heat_button = get_node("./Panel/HospitalManager/DecreaseHeatButton")
 onready var heat_level_progress_bar = get_node("./Panel/HospitalManager/HeatLevelProgressBar")
 onready var heating_bill_label = get_node("./Panel/HospitalManager/HeatingBillLabel")
+onready var auction_menu = get_node("./AuctionMenu")
 onready var plot_manager = get_node("./Panel/PlotManager/")
 var file_map = File.new()
 var node2d = Node2D.new()
@@ -132,12 +133,7 @@ func buyPlot( tile ):
 		else:
 			print("Buying plot")
 
-func toggleAuctionMenuVisibility():
-	get_node("AuctionMenu").set_hidden(get_node("AuctionMenu").is_visible())
-
-func _on_Control_draw():
-	get_node("AuctionMenu/Timer").start()
-
-
-func _on_Timer_timeout():
-	toggleAuctionMenuVisibility()
+func toggleAuctionMenuVisibility( value ):
+	auction_menu.set_hidden(get_node("AuctionMenu").is_visible())
+	auction_menu.setPlotValue( value )
+	

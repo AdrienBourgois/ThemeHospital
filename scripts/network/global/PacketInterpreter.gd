@@ -208,8 +208,15 @@ func displayAuctionMenu(): #Packet 10
 		
 		if ( root != null && root.get_name() == "GameScene" ):
 			root.get_node("./In_game_gui/TownMap").set_hidden(false)
-			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility()
-			
+			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility( 4200 )
+
+
+func acceptBid(): #Packet 11
+	if ( current_parsing.server ):
+		pass
+	elif ( current_parsing.client ):
+		pass
+
 
 func setNickname(): 
 	if ( current_parsing.server ):
