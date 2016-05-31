@@ -14,6 +14,8 @@ var object_stats = {}
 var blink_number = 10
 var idx = 0
 var type = {}
+var vector_pos
+var tile
 
 func _ready():
 	timer.set_autostart(false)
@@ -50,9 +52,7 @@ func setAvailableTile(boolean):
 	var node = null
 	if (boolean):
 		node = self
-	var vector_pos = Vector2(get_translation().x, get_translation().z)
-	var rotation = get_rotation()
-	var tile = map.getTile(vector_pos)
+	updateTilePosition()
 	tile.setObject(node)
 	if (int(rotation.y) == int(deg2rad(-90))):
 		tile.neighbours.Left.setObject(node)
@@ -63,10 +63,13 @@ func setAvailableTile(boolean):
 	else:
 		tile.neighbours.Down.setObject(node)
 
+func updateTilePosition():
+	vector_pos = Vector2(get_translation().x, get_translation().z)
+	rotation = get_rotation()
+	tile = map.getTile(vector_pos)
+
 func checkAvailableTileType():
-	var vector_pos = Vector2(get_translation().x, get_translation().z)
-	var rotation = get_rotation()
-	var tile = map.getTile(vector_pos)
+	updateTilePosition()
 	if (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.room_type.ID != room_id):
 		return false
 	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.room_type.ID != room_id):
@@ -79,9 +82,7 @@ func checkAvailableTileType():
 		return true
 
 func checkAvaiblableTile():
-	var vector_pos = Vector2(get_translation().x, get_translation().z)
-	var rotation = get_rotation()
-	var tile = map.getTile(vector_pos)
+	updateTilePosition()
 	if (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.getObject()):
 		return false
 	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.getObject()):
