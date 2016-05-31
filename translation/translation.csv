@@ -287,6 +287,10 @@ MONEY_CASEBOOK,money earned,argent gagne
 RECOVERIES_CASEBOOK,recoveries,soignes
 FATALITIES_CASEBOOK,fatalities,morts
 TURNED_CASEBOOK,turned away,renvoyes chez eux
+CURE,Cure,Traitement
+BUTTON_UP_NAME,Up,Haut
+BUTTON_DOWN_NAME,Down,Bas
+CONCENTRATE_RESEARCH,Concentrate Research,Focus sur la recherche
 TOOLTIP_REPUTATION_CASEBOOK,Cure or Diagnosis Reputation,Reputation de l'hopital
 TOOLTIP_TREATMENT_CASEBOOK,Cost,Cout
 TOOLTIP_CASEBOOK_BUTTON_LESS,Decrease amount,Diminue le cout
@@ -296,4 +300,4 @@ TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
 TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
 TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
 TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
-TOOLITP_CASEBOOK_DOWN,Scroll up,Defile vers le bas
+TOOLTIP_CASEBOOK_DOWN,Scroll up,Defile vers le bas
