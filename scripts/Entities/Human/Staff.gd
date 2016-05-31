@@ -21,11 +21,9 @@ func _ready():
 	print("READY")
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
-	print("ID[",id,"] | Name[", name, "] | Skill[", skill, "] | Salary[", salary, "]")
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
 		count += 1
 		if count >= 2:
-			
 			get_parent().staff_selected = self
 			staff_information_gui._ready()
 			staff_information_gui.show()
