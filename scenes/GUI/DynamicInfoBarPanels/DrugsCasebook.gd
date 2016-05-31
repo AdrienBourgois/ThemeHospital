@@ -64,6 +64,7 @@ func connect_diseases_buttons():
 			button = Button.new()
 			node_container.add_child(button)
 			
+			
 			button.set_text(diseases_list[disease].NAME)
 			button.connect("pressed", self, "disease_pressed",[diseases_list[disease]])
 
