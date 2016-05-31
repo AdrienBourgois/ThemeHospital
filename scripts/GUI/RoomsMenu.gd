@@ -21,18 +21,18 @@ func _ready():
 	
 	for type in rooms_types:
 		buttons[button_number].set_text(type)
-		buttons[button_number].connect("pressed", self, "type_rooms_pressed", [rooms_types[type]])
+		buttons[button_number].connect("pressed", self, "typeRoomsPressed", [rooms_types[type]])
 		
 		button_number += 1
 
 func _on_Cancel_pressed():
 	self.hide()
-	clean_buttons()
+	cleanButtons()
 	
 	is_type_selected = false
 	node_label.set_text("PICK_DPT")
 
-func clean_buttons():
+func cleanButtons():
 	var buttons
 	for number_button in range(10):
 		buttons = get_node("Rooms/Button" + str(number_button))
@@ -40,23 +40,23 @@ func clean_buttons():
 		buttons.set_text("")
 		buttons.set_tooltip("")
 		
-		disconnect_buttons(buttons)
+		disconnectButtons(buttons)
 	
 	node_text_label.set_text("")
 	node_cost_label.set_text("")
 
-func disconnect_buttons(buttons):
-	disconnect_func(buttons, "mouse_enter", "enter_rooms")
-	disconnect_func(buttons, "mouse_exit", "exit_rooms")
-	disconnect_func(buttons, "pressed", "rooms_pressed")
-	disconnect_func(buttons, "pressed", "type_rooms_pressed")
+func disconnectButtons(buttons):
+	disconnectFunc(buttons, "mouse_enter", "enterRooms")
+	disconnectFunc(buttons, "mouse_exit", "exitRooms")
+	disconnectFunc(buttons, "pressed", "roomsPressed")
+	disconnectFunc(buttons, "pressed", "typeRoomsPressed")
 
-func disconnect_func(buttons, type, method):
+func disconnectFunc(buttons, type, method):
 	if buttons.is_connected(type, self, method):
 		buttons.disconnect(type, self, method)
 
-func rooms_pressed(room):
-	clean_buttons()
+func roomsPressed(room):
+	cleanButtons()
 	
 	price = room.COST
 	
@@ -67,9 +67,9 @@ func rooms_pressed(room):
 	if (is_type_selected == true):
 		map.new_room("new", room)
 
-func type_rooms_pressed(type):
+func typeRoomsPressed(type):
 	node_label.set_text("PICK_ROOM")
-	clean_buttons()
+	cleanButtons()
 	
 	var number_button = 0
 	var buttons
@@ -80,22 +80,22 @@ func type_rooms_pressed(type):
 		buttons.set_text(type[rooms].NAME)
 		buttons.set_tooltip(type[rooms].TOOLTIP)
 		
-		mouse_enter_on_room(type, rooms, number_button)
-		buttons.connect("pressed", self, "rooms_pressed",[type[rooms]])
+		mouseEnterOnRoom(type, rooms, number_button)
+		buttons.connect("pressed", self, "roomsPressed",[type[rooms]])
 		number_button += 1
 	
 	is_type_selected = true
 
-func mouse_enter_on_room(type, rooms, number_button):
+func mouseEnterOnRoom(type, rooms, number_button):
 	var buttons = get_node("Rooms/Button" + str(number_button))
 	
-	buttons.connect("mouse_enter", self, "enter_rooms", [type[rooms]])
-	buttons.connect("mouse_exit", self, "exit_rooms")
+	buttons.connect("mouse_enter", self, "enterRooms", [type[rooms]])
+	buttons.connect("mouse_exit", self, "exitRooms")
 
-func enter_rooms(type):
+func enterRooms(type):
 	node_text_label.set_text(type.NAME)
 	node_cost_label.set_text(tr("COST") + str(type.COST) + "$")
 
-func exit_rooms():
+func exitRooms():
 	node_text_label.set_text("")
 	node_cost_label.set_text("")
