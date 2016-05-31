@@ -24,6 +24,7 @@ var size_x = 0
 var size_y = 0
 var position
 
+var tile_on_cursor_node = null setget, getTileOnCursorNode
 var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
 
@@ -85,6 +86,12 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+
+func getTile(vector2):
+	return columns[vector2.x][vector2.y]
+
+func getTileOnCursorNode():
+	return columns[tile_on_cursor.x][tile_on_cursor.y]
 
 func getActualRoomTypeName():
 	return actual_room_type_name
@@ -225,7 +232,7 @@ func sendRoomToServer():
 func getOccupiedTiles():
 	occupied_tiles.clear()
 	for current in tiles:
-		if (current.getOccupied()):
+		if (current.getObject()):
 			var tile_data = {
 			X = current.x,
 			Y = current.y

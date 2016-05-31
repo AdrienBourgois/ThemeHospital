@@ -51,6 +51,10 @@ func loadObjects():
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
 		node.set_rotation(Vector3(0, current.ROTATION, 0))
 		node.addToArray()
+		for tile in map.tiles:
+			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
+				node.setAvailableTile(true)
+			
 
 func updateObjectsArray():
 	objects_array.clear()
@@ -72,7 +76,8 @@ func _input(event):
 		saver.quicksave()
 		saving_game.showComplete()
 	if (event.is_action_released("info")):
-		print(map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type)
+		print("TAMERE : ", map.tile_on_cursor)
+		print("TONPERE :", map.getTileOnCursorNode().getObject())
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  
