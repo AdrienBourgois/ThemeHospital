@@ -115,6 +115,11 @@ func gameStartedPacket(): #Packet 2
 	var scene = tmpData[2]
 	
 	if (scene == "0"):
+		var current_data = 3
+		for data in range ( (tmpData.size()-2)/2 ):
+			global_client.addPlayerInList(tmpData[current_data], tmpData[current_data+1].to_int())
+			current_data += 2
+		
 		get_tree().get_current_scene().queue_free()
 		get_tree().change_scene("res://scenes/network/MapSelect.scn")
 	elif (scene == "1"):

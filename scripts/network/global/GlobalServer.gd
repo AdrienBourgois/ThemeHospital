@@ -319,3 +319,11 @@ func getArrayIndexFromId(player_id):
 			return player
 	
 	return -1
+
+func sendGameStartedWithPlayerData():
+	var packet = "/game 2 0"
+	
+	for player in range ( player_data.size() ):
+		packet += " " + player_data[player][2] + " " + str(player_data[player][3])
+	
+	sendPacket(packet)
