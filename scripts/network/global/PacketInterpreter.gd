@@ -225,9 +225,9 @@ func acceptBid(): #Packet 11
 		return
 	
 	if ( current_parsing.server ):
-		global_server.addPacket("/game 11")
+		global_server.addPacket("/game 11 " + str(current_player_id))
 	elif ( current_parsing.client ):
-		root.get_node("./In_game_gui/TownMap").auction_menu.updateNextBid()
+		root.get_node("./In_game_gui/TownMap").auction_menu.updateNextBid( tmpData[2].to_int() )
 
 
 func setNickname(): 
