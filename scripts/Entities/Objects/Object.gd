@@ -27,10 +27,9 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
-		map.getTileOnCursorNode().setObject(self)
-		setAvailableTile(true)
 		can_selected = false
 		set_process_input(false)
+		setAvailableTile(true)
 		available.hide()
 		available.timer.stop()
 		if (object_stats.empty()):
@@ -42,26 +41,27 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		if (in_room_object):
 			return
 		available.on()
-		var vector_pos = Vector2(get_translation().x, get_translation().z)
-		map.getTile(vector_pos).setObject(null)
-		
 		is_selected = true
 		can_selected = true
+		setAvailableTile(false)
 		set_process_input(true)
 
 func setAvailableTile(boolean):
-	if (!boolean):
-		return
+	var node = null
+	if (boolean):
+		node = self
+	var vector_pos = Vector2(get_translation().x, get_translation().z)
 	var rotation = get_rotation()
-	var tile = map.getTileOnCursorNode()
+	var tile = map.getTile(vector_pos)
+	tile.setObject(node)
 	if (int(rotation.y) == int(deg2rad(-90))):
-		tile.neighbours.Left.setObject(self)
+		tile.neighbours.Left.setObject(node)
 	elif (int(rotation.x) == int(deg2rad(-180))):
-		tile.neighbours.Up.setObject(self)
+		tile.neighbours.Up.setObject(node)
 	elif (int(rotation.y) == int(deg2rad(90))):
-		tile.neighbours.Right.setObject(self)
+		tile.neighbours.Right.setObject(node)
 	else:
-		tile.neighbours.Down.setObject(self)
+		tile.neighbours.Down.setObject(node)
 
 func checkAvailableProcess():
 	type = map.columns[map.tile_on_cursor.x][map.tile_on_cursor.y].room_type
