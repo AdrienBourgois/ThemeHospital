@@ -30,6 +30,7 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
+var basic_pos_button = 0
 var button_pos
 var pos_container
 var pos_selector
@@ -74,22 +75,13 @@ func _process(delta):
 
 func connectDiseasesButtonsAndTimer():
 	var button
-	var pos = 0
+	
 	for disease in diseases_list:
 		if (diseases_list[disease].FOUND == true):
 			button = Button.new()
 			node_container.add_child(button)
 			
-			button.set_margin(MARGIN_LEFT, 0)
-			button.set_margin(MARGIN_TOP, 0)
-			button.set_margin(MARGIN_BOTTOM, 19)
-			button.set_margin(MARGIN_RIGHT, size_container.x)
-			
-			button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + 5) + pos - pos_container.y))
-			
-			button.set_text(diseases_list[disease].NAME)
-			button.connect("pressed", self, "diseasePressed",[diseases_list[disease]])
-			pos += 23.0
+			configDiseasesButtons(button, diseases_list, disease)
 		
 		disconnectFunc("timeout", node_timer, "timerTimeout")
 		
@@ -150,13 +142,14 @@ func _on_Up_pressed():
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
-		print("Button : ", button_pos.y)
+#		print("Button : ", button_pos.y)
 		
 		if (button_pos.y < pos_container.y or button_pos.y > size_container.y):
 			button.hide()
 		
 		else:
 			button.show() 
+		
 #		if button_pos.y == pos_selector.y - 18:
 #			button.set_toggle_mode(true)
 #			button.set_pressed(true)
@@ -175,13 +168,14 @@ func _on_Down_pressed():
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
-		print("Button : ", button_pos.y)
+#		print("Button : ", button_pos.y)
 		
-		if (button_pos.y < pos_container.y or button_pos.y > (size_container.y - node_button_down.get_size().y)):
+		if button_pos.y < pos_container.y or button_pos.y > (size_container.y - node_button_down.get_size().y):
 			button.hide()
 		
 		else:
 			button.show() 
+		
 #		if button_pos.y == pos_selector.y + 18:
 #			button.set_toggle_mode(true)
 #			button.set_pressed(true)
@@ -197,3 +191,21 @@ func _on_Down_pressed():
 func disconnectFunc(type, button, method):
 	if button.is_connected(type, self, method):
 		button.disconnect(type, self, method)
+
+func configDiseasesButtons(button, diseases_list, disease):
+	button.set_margin(MARGIN_LEFT, 0)
+	button.set_margin(MARGIN_TOP, 0)
+	button.set_margin(MARGIN_BOTTOM, 19)
+	button.set_margin(MARGIN_RIGHT, size_container.x)
+	
+	button.set_anchor(MARGIN_LEFT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_BOTTOM, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_RIGHT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_TOP, ANCHOR_RATIO)
+	
+	button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + 5) + basic_pos_button - pos_container.y))
+	
+	button.set_text(diseases_list[disease].NAME)
+	button.connect("pressed", self, "diseasePressed",[diseases_list[disease]])
+	
+	basic_pos_button += 23.0
