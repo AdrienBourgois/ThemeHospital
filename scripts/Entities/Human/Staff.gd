@@ -11,6 +11,8 @@ export var happiness = 100.0
 export var tireness = 100.0
 export var count = 0
 
+onready var tile = map.columns[get_translation().x/1][get_translation().z/1]
+
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
 onready var entity_manager = game.scene.entity_manager
 

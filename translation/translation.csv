@@ -55,6 +55,7 @@ TXT_PLANT, Plant, Plante
 TXT_RADIATOR, Radiator, Radiateur
 TXT_DRINK, Drink Machine, Distributeur de boissons
 TXT_FIRE, Fire Extinguisher, Extincteur
+TXT_RECEPTION_DESK, Reception Desk, Accueil
 TXT_ACCEPT, Accept, Accepter
 TXT_BUY, Buy, Acheter
 TXT_COUNT,Count : ,Nombre : 

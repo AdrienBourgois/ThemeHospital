@@ -17,16 +17,17 @@ doctor_speciality.get_node("Speciality/Researcher"),
 doctor_speciality.get_node("Speciality/Surgeon")]
 
 func getAndShowInformation(type, idx):
-	for speciality in speciality_array:
-		speciality.hide()
-	doctor_seniority.hide()
-	doctor_speciality.hide()
-	if type == 0:
-		doctor_seniority.show()
-		doctor_speciality.show()
-		speciality_array[entity_manager.staff_array[type][idx]["specialities"]].show()
-		doctor_seniority.get_node("SenioritySelector").set_val(entity_manager.staff_array[type][idx]["seniority"])
-	name.set_text(entity_manager.staff_array[type][idx]["name"])
-	skill_bar.set_val(entity_manager.staff_array[type][idx]["skill"])
-	salary.set_text(str(entity_manager.staff_array[type][idx]["salary"]))
-	showing_staff_information.show()
+	if entity_manager.staff_array[type].empty() == false:
+		for speciality in speciality_array:
+			speciality.hide()
+		doctor_seniority.hide()
+		doctor_speciality.hide()
+		if type == 0:
+			doctor_seniority.show()
+			doctor_speciality.show()
+			speciality_array[entity_manager.staff_array[type][idx]["specialities"]].show()
+			doctor_seniority.get_node("SenioritySelector").set_val(entity_manager.staff_array[type][idx]["seniority"])
+		name.set_text(entity_manager.staff_array[type][idx]["name"])
+		skill_bar.set_val(entity_manager.staff_array[type][idx]["skill"])
+		salary.set_text(str(entity_manager.staff_array[type][idx]["salary"]))
+		showing_staff_information.show()
