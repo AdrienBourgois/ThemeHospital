@@ -14,7 +14,7 @@ onready var entity_manager = get_parent()
 onready var child_count = entity_manager.get_child_count()
 
 func _ready():
-	get_node("Timer").start()
+	get_node("CheckStatsTimer").start()
 	count = 0
 	set_process(true)
 

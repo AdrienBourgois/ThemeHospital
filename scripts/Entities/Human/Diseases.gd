@@ -10,14 +10,16 @@ onready var clinics = disease.cure_at_clinics
 onready var disease_array = [pharmacy, psychatric, clinics]
 onready var disease_type_array = ["pharmacy", "psychatric", "clinics"]
 
+var disease_type
+
 func _ready():
 	randomize()
 	setDisease()
 
 func setDisease():
 	var rand_type = randi()%2
-	var disease_type = disease_array[rand_type]
-	disease_type[randi()%disease_type.size()]
+	disease_type = disease_array[rand_type]
+	disease_type = disease_type[randi()%disease_type.size()]
 	disease_type_array[rand_type]
 
 func getName():

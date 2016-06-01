@@ -1,27 +1,24 @@
 
 extends "../Entity.gd"
 
-var id
-var name
-var skill
-var salary
-var seniority
-var specialities
-export var fixing_machinery = 50.0
-export var watering_plants = 50.0
-export var sweeping_litter = 50.0
+export var id = 0 setget getID, setID
+export var name = "" setget getName, setName
+export var skill = 0 setget getSkill, setSkill
+export var salary = 0 setget getSalary, setSalary
+
 export var warmth = 50.0
 export var happiness = 100.0
 export var tireness = 100.0
 export var count = 0
-export var delta = 5.0
-export var max_value = 100
 
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
 onready var entity_manager = game.scene.entity_manager
 
 func _ready():
+	connect("input_event", self, "_on_Staff_input_event")
 	get_node("Timer").start()
+	
+	print("READY")
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
@@ -31,42 +28,26 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			staff_information_gui._ready()
 			staff_information_gui.show()
 
-func _on_Timer_timeout():
-	entity_manager.checkGlobalTemperature(self)
-	tireness -= 1
+func getName():
+	return name
+ 
+func setName(val):
+	name = val
 
-func increaseFixingMachinery():
-	fixing_machinery += delta
-	if fixing_machinery > max_value:
-		fixing_machinery = max_value
-	return fixing_machinery
+func getID():
+	return id
 
-func increaseWateringPlants():
-	watering_plants += delta
-	if watering_plants > max_value:
-		watering_plants = max_value
-	return watering_plants
+func setID(val):
+	id = val
 
-func increaseSweepingLitter():
-	sweeping_litter += delta
-	if sweeping_litter > max_value:
-		sweeping_litter = max_value
-	return sweeping_litter
+func getSkill():
+	return skill
 
-func decreaseFixingMachinery():
-	fixing_machinery -= delta
-	if fixing_machinery < 0.0:
-		fixing_machinery = 0.0
-	return fixing_machinery
+func setSkill(val):
+	skill = val
 
-func decreaseWateringPlants():
-	watering_plants -= delta
-	if watering_plants < 0.0:
-		watering_plants = 0.0
-	return watering_plants
+func getSalary():
+	return salary
 
-func decreaseSweepingLitter():
-	sweeping_litter -= delta
-	if sweeping_litter < 0.0:
-		sweeping_litter = 0.0
-	return sweeping_litter
+func setSalary(val):
+	salary = val

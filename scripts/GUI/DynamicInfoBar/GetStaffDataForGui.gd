@@ -4,6 +4,7 @@ extends Panel
 onready var game = get_node("/root/Game")
 onready var staff_selected = game.scene.hire_manager.staff_selected
 onready var speciality_selected = [
+get_node("DoctorGui/Speciality/NoSpeciality"),
 get_node("DoctorGui/Speciality/PsychiatrisString"), 
 get_node("DoctorGui/Speciality/ResearcherString"),
 get_node("DoctorGui/Speciality/SurgeonString")]
@@ -27,7 +28,6 @@ func _process(delta):
 		handymen_gui.hide()
 	doctor_gui.hide()
 	name_staff.set_text(staff_selected.name)
-	print("TONPERE : ", staff_selected.name)
 	happiness.set_val(staff_selected.happiness)
 	tireness.set_val(staff_selected.tireness)
 	skill.set_val(staff_selected.skill)
@@ -36,7 +36,7 @@ func _process(delta):
 		doctor_gui.show()
 		for i in speciality_selected:
 			i.hide()
-		seniority.set_val(staff_selected.seniority)
+		seniority.set_val(staff_selected.seniority )
 		if staff_selected.specialities != 0:
 			speciality_selected[staff_selected.specialities].show()
 	elif staff_selected.id == 2:
