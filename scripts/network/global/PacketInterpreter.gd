@@ -7,6 +7,7 @@ var server_packets_list = Array() setget addClientPacket,getClientPacketsList
 var current_player_id = null
 onready var global_client = get_node("/root/GlobalClient")
 onready var global_server = get_node("/root/GlobalServer")
+onready var server_data_base = get_node("/root/ServerDataBase")
 
 var current_parsing = {
 	server = false,
@@ -99,6 +100,10 @@ func parseGame():
 		muteUnmutePlayer()
 	elif ( packet_id == "10" ):
 		displayAuctionMenu()
+	elif ( packet_id == "11" ):
+		acceptBid()
+	elif ( packet_id == "12" ):
+		setCurrentMoney()
 
 
 func playerIdPacket(): #Packet 0
@@ -113,6 +118,11 @@ func gameStartedPacket(): #Packet 2
 	var scene = tmpData[2]
 	
 	if (scene == "0"):
+		var current_data = 3
+		for data in range ( (tmpData.size()-2)/2 ):
+			global_client.addPlayerInList(tmpData[current_data], tmpData[current_data+1].to_int())
+			current_data += 2
+		
 		get_tree().get_current_scene().queue_free()
 		get_tree().change_scene("res://scenes/network/MapSelect.scn")
 	elif (scene == "1"):
@@ -207,8 +217,31 @@ func displayAuctionMenu(): #Packet 10
 		var root = get_tree().get_current_scene()
 		
 		if ( root != null && root.get_name() == "GameScene" ):
-			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility()
-			
+			root.get_node("./In_game_gui/TownMap").set_hidden(false)
+			root.get_node("./In_game_gui/TownMap").toggleAuctionMenuVisibility( 4200 )
+			server_data_base.setAuctionSale( 4200 )
+
+
+func acceptBid(): #Packet 11
+	var root = get_tree().get_current_scene()
+	
+	if ( root == null || root.get_name() != "GameScene" ):
+		return
+	
+	if ( current_parsing.server ):
+		if ( ServerDataBase.acceptPlayerBid( current_player_id ) ):
+			global_server.addPacket("/game 11 " + str(current_player_id))
+	elif ( current_parsing.client ):
+		root.get_node("./In_game_gui/TownMap").auction_menu.updateNextBid( tmpData[2].to_int() )
+
+
+func setCurrentMoney(): #Packet 12
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "GameScene" ):
+		var money = tmpData[2].to_int()
+		root.get_node("Player").setMoney(money)
+
 
 func setNickname(): 
 	if ( current_parsing.server ):
