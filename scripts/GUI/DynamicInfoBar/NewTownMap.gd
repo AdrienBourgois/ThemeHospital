@@ -5,11 +5,12 @@ onready var game = get_node("/root/Game")
 onready var global_client = get_node("/root/GlobalClient")
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
-onready var money_box = get_node("./Panel/MoneyBox")
+onready var money_container = get_node("./Panel/MoneyBox/DynamicMoney/MoneyBox/MoneyContainer")
 onready var increase_heat_button = get_node("./Panel/HospitalManager/IncreaseHeatButton")
 onready var decrease_heat_button = get_node("./Panel/HospitalManager/DecreaseHeatButton")
 onready var heat_level_progress_bar = get_node("./Panel/HospitalManager/HeatLevelProgressBar")
 onready var heating_bill_label = get_node("./Panel/HospitalManager/HeatingBillLabel")
+onready var auction_menu = get_node("./AuctionMenu")
 onready var plot_manager = get_node("./Panel/PlotManager/")
 var file_map = File.new()
 var node2d = Node2D.new()
@@ -93,7 +94,7 @@ func _on_QuitButton_pressed():
 
 
 func _on_TownMap_visibility_changed():
-	money_box.updateMoney()
+	money_container.updateMoney()
 
 
 func optimizeMapSize():
@@ -132,12 +133,7 @@ func buyPlot( tile ):
 		else:
 			print("Buying plot")
 
-func toggleAuctionMenuVisibility():
-	get_node("AuctionMenu").set_hidden(get_node("AuctionMenu").is_visible())
-
-func _on_Control_draw():
-	get_node("AuctionMenu/Timer").start()
-
-
-func _on_Timer_timeout():
-	toggleAuctionMenuVisibility()
+func toggleAuctionMenuVisibility( value ):
+	auction_menu.set_hidden(get_node("AuctionMenu").is_visible())
+	auction_menu.setPlotValue( value )
+	

@@ -16,6 +16,7 @@ var idx = 0
 var type = {}
 var vector_pos
 var tile
+export var big_object = false
 
 func _ready():
 	timer.set_autostart(false)
@@ -68,6 +69,14 @@ func updateTilePosition():
 	rotation = get_rotation()
 	tile = map.getTile(vector_pos)
 
+func checkAvailableBigObjectTile():
+	for current in cube.get_children():
+		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
+		var current_tile = map.getTile(current_position)
+		if (current_tile.getObject() or current_tile.room_type.ID != room_id):
+			return false
+	return true
+
 func checkAvailableTileType():
 	updateTilePosition()
 	if (tile.getObject()):
@@ -103,6 +112,8 @@ func checkAvailableProcess():
 	type = map.getTile(vector_pos).room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
+	elif (in_room_object and !checkAvailableBigObjectTile()):
+		available.off()
 	elif (!checkAvaiblableTile()):
 		available.off()
 	elif (!in_room_object and type.ID != 0):
@@ -117,6 +128,10 @@ func checkAvailable():
 	var node = map.getTile(vector_pos)
 	type = node.room_type
 	if (in_room_object):
+		if (big_object):
+			if (!checkAvailableBigObjectTile()):
+				error()
+				return false
 		if (type.ID != room_id and checkAvaiblableTile()):
 			error()
 			return false
