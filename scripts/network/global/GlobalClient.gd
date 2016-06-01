@@ -6,6 +6,7 @@ var peer_stream = null
 var client_id = null setget setClientId,getClientId
 var messages_list = Array() setget addMessage,getMessagesList
 var packet_list = Array() setget addPacket
+var players_list = Array() setget addPlayerInList,getPlayersList
 onready var packet_interpreter = get_node("/root/PacketInterpreter")
 
 var client_states = {
@@ -116,6 +117,7 @@ func disconnectFromServer():
 	disconnectServer()
 	resetClientStates()
 	
+	players_list.clear()
 	client_id = null
 	peer_stream = null
 	socket = null
@@ -139,3 +141,13 @@ func mutePlayer(player_id):
 
 func unmutePlayer(player_id):
 	addPacket("/game 9 0 " + str(player_id))
+
+func addPlayerInList( player_name, player_id ):
+	var player = Array()
+	player.push_back(player_name)
+	player.push_back(player_id)
+	
+	players_list.push_back(player)
+
+func getPlayersList():
+	return players_list

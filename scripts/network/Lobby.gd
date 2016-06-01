@@ -98,7 +98,7 @@ func _on_ready_button_toggled( pressed ):
 
 
 func _on_start_game_button_pressed():
-	global_server.addPacket("/game 2 0")
+	global_server.sendGameStartedWithPlayerData()
 
 
 func _on_kick_button_pressed():
