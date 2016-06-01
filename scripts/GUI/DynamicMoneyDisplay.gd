@@ -18,7 +18,7 @@ func updateMoney():
 	splitMoney()
 
 func splitMoney():
-	money = player.money
+	money = int(player.money)
 	var money_array = Array()
 	
 	while (money != 0):
