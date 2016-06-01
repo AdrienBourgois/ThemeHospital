@@ -3,8 +3,9 @@ extends Control
 
 onready var global_client = get_node("/root/GlobalClient")
 
-onready var next_bid_label = get_node("./BidBox/NextBidLabel")
+onready var next_bid_label = get_node("./BidBox/NextBidPanel/NextBidLabel")
 onready var time_left_label = get_node("./BidBox/TimeLeftBar")
+onready var best_offer_panel = get_node("./LastBidBox/BestOfferPanel")
 onready var player_container = get_node("./PlayerListBox/PlayerContainer")
 onready var timer = get_node("./Timer")
 
@@ -50,6 +51,8 @@ func updateNextBid( player_id ):
 	for player in range ( player_bid_data.size() ):
 		if ( player_bid_data[player][1] == player_id):
 			player_bid_data[player][2] = next_bid_value
+			best_offer_panel.get_node("PlayerNameLabel").set_text(player_bid_data[player][0])
+			best_offer_panel.get_node("PlayerBidLabel").set_text(str(next_bid_value))
 			pass
 	
 	setLabels()
@@ -57,6 +60,8 @@ func updateNextBid( player_id ):
 	timer.start()
 	next_bid_value = next_bid_value + ( plot_value * 10 )/100
 	next_bid_label.set_text(str(next_bid_value))
+	
+	
 
 
 

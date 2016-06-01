@@ -241,8 +241,6 @@ func setCurrentMoney(): #Packet 12
 	if ( root != null && root.get_name() == "GameScene" ):
 		var money = tmpData[2].to_int()
 		root.get_node("Player").setMoney(money)
-	
-	
 
 
 func setNickname(): 
