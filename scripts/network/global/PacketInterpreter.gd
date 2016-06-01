@@ -102,6 +102,8 @@ func parseGame():
 		displayAuctionMenu()
 	elif ( packet_id == "11" ):
 		acceptBid()
+	elif ( packet_id == "12" ):
+		setCurrentMoney()
 
 
 func playerIdPacket(): #Packet 0
@@ -231,6 +233,16 @@ func acceptBid(): #Packet 11
 			global_server.addPacket("/game 11 " + str(current_player_id))
 	elif ( current_parsing.client ):
 		root.get_node("./In_game_gui/TownMap").auction_menu.updateNextBid( tmpData[2].to_int() )
+
+
+func setCurrentMoney(): #Packet 12
+	var root = get_tree().get_current_scene()
+	
+	if ( root != null && root.get_name() == "GameScene" ):
+		var money = tmpData[2].to_int()
+		root.get_node("Player").setMoney(money)
+	
+	
 
 
 func setNickname(): 

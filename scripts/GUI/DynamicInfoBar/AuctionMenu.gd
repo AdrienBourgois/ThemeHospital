@@ -20,6 +20,7 @@ func _process(delta):
 
 func _on_Timer_timeout():
 	set_process(false)
+	timer.set_active(false)
 	plot_value = 0
 	next_bid_value = 0
 	next_bid_label.set_text("")
@@ -38,6 +39,7 @@ func updateTimeLeft():
 func _on_AuctionMenu_draw():
 	setLabels()
 	timer.start()
+	timer.set_active(true)
 	set_process(true)
 
 func _on_AcceptBidButton_pressed():
@@ -70,7 +72,6 @@ func getPlotValue():
 	return plot_value
 
 func setLabels():
-	print( player_bid_data.size() )
 	for player in range ( player_bid_data.size() ):
 		player_container.get_child(player).get_node("./PlayerNameLabel").set_text(player_bid_data[player][0])
 		player_container.get_child(player).get_node("./PlayerBidLabel").set_text(str(player_bid_data[player][2]))
