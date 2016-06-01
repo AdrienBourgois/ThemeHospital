@@ -30,6 +30,7 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
+var button_pos
 var pos_container
 var pos_selector
 var size_container
@@ -145,12 +146,11 @@ func _on_Concentrate_research_pressed():
 
 func _on_Up_pressed():
 	is_timer_finish = false
-	var button_pos
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
-#		print("Button : ", button_pos.y)
+		print("Button : ", button_pos.y)
 		
 		if (button_pos.y < pos_container.y or button_pos.y > size_container.y):
 			button.hide()
@@ -171,14 +171,13 @@ func _on_Up_pressed():
 
 func _on_Down_pressed():
 	is_timer_finish = false
-	var button_pos
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
+		print("Button : ", button_pos.y)
+		
 		if (button_pos.y < pos_container.y or button_pos.y > (size_container.y - node_button_down.get_size().y)):
-#			print("Button : ", button_pos.y)
-			
 			button.hide()
 		
 		else:
