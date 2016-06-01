@@ -31,7 +31,7 @@ onready var turned_away = 0
 onready var percent = 100
 
 var basic_pos_button = 0
-var button_pos
+var button_pos = 0
 var pos_container
 var pos_selector
 var size_container
@@ -141,24 +141,22 @@ func _on_Up_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
+		button_pos.y -= 23
+		button.set_pos(button_pos)
 		
-#		print("Button : ", button_pos.y)
-		
-		if (button_pos.y < pos_container.y or button_pos.y > size_container.y):
+		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
 		
 		else:
 			button.show() 
 		
-#		if button_pos.y == pos_selector.y - 18:
-#			button.set_toggle_mode(true)
-#			button.set_pressed(true)
-#		
-#		else:
-#			button.set_pressed(false)
-#			button.set_toggle_mode(false)
+		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
 		
-		button.set_pos(Vector2(button_pos.x, button_pos.y - 23))
+		else:
+			button.set_pressed(false)
+			button.set_toggle_mode(false)
 	
 	node_timer.start()
 
@@ -167,25 +165,23 @@ func _on_Down_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
+		button_pos.y += 23
+		button.set_pos(button_pos)
 		
-#		print("Button : ", button_pos.y)
-		
-		if button_pos.y < pos_container.y or button_pos.y > (size_container.y - node_button_down.get_size().y):
+		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
 		
 		else:
 			button.show() 
 		
-#		if button_pos.y == pos_selector.y + 18:
-#			button.set_toggle_mode(true)
-#			button.set_pressed(true)
-#		
-#		else:
-#			button.set_pressed(false)
-#			button.set_toggle_mode(false)
+		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
 		
-		button.set_pos(Vector2(button_pos.x, button_pos.y + 23))
-	
+		else:
+			button.set_pressed(false)
+			button.set_toggle_mode(false)
+	 
 	node_timer.start()
 
 func disconnectFunc(type, button, method):

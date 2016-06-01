@@ -191,7 +191,7 @@ ROOM_WARD,Ward,Salle d'Observation
 ROOM_OPERATING,Operating Theater,Bloc Opératoire
 ROOM_TOILETS,Toilets,Toilettes
 ROOM_STAFF_ROOM,Staff Room,Salle de Repos
-ROOM_RESEARCH,Research Dept,Département de la Recherche
+ROOM_RESEARCH,Research Dept,Département de Recherche
 TYPE_DIAGNOSIS,Diagnosis,Diagnostic
 TYPE_TREATMENT,Treatment,Traitement
 TYPE_CLINICS,Clinics,Cliniques
