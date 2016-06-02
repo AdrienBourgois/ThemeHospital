@@ -112,7 +112,7 @@ func checkAvailableProcess():
 	type = map.getTile(vector_pos).room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
-	elif (in_room_object and !checkAvailableBigObjectTile()):
+	elif (big_object and !checkAvailableBigObjectTile()):
 		available.off()
 	elif (!checkAvaiblableTile()):
 		available.off()
@@ -132,7 +132,7 @@ func checkAvailable():
 			if (!checkAvailableBigObjectTile()):
 				error()
 				return false
-		if (type.ID != room_id and checkAvaiblableTile()):
+		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
 			error()
 			return false
 	elif (type.ID != 0):
