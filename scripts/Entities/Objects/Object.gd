@@ -3,6 +3,7 @@ extends "../Entity.gd"
 
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
+onready var temp_array = gamescn.getTempObjectsNodesArray()
 
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
@@ -35,6 +36,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		setAvailableTile(true)
 		available.hide()
 		available.timer.stop()
+		nextObject()
 		if (object_stats.empty()):
 			addToArray()
 		else:
@@ -48,6 +50,12 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		can_selected = true
 		setAvailableTile(false)
 		set_process_input(true)
+
+func nextObject():
+	if (!temp_array.empty()):
+		temp_array.pop_front()
+		if (!temp_array.empty()):
+			temp_array[0].show()
 
 func setAvailableTile(boolean):
 	var node = null
