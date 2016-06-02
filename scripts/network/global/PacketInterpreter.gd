@@ -166,12 +166,13 @@ func updateMapRoom(): #Packet 5
 		var root = get_tree().get_current_scene()
 		if (root != null && root.get_name() == "GameScene"):
 			var map = root.get_node("Map")
-			if (map.get_name() != null):
+			if (map.get_name() != null && server_data_base.removeMoney( map.getResources().getCostFromId(room_id), current_player_id )):
 				map.new_room("new", map.getResources().getRoomFromId(room_id))
 				map.new_room("from", room_from)
 				map.new_room("current", room_to)
 				map.new_room("to", room_to)
 				map.new_room("create", null)
+				
 
 func updateMapItems(): #Packet 6
 	if (current_parsing.server):

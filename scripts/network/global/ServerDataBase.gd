@@ -2,13 +2,18 @@
 extends Node
 
 onready var global_server = get_node("/root/GlobalServer")
+onready var entity_manager = ResourceLoader.load("res://scripts/Entities/EntityManager.gd")
+
 var players_array = Array() setget addPlayer,getPlayerArray
 var employee_data = Array() setget addEmployee,getEmployeeArray
 var map_objectives = Array() setget setMapObjectives,getMapObjectives
 var auction_sale = Array() setget setAuctionSale,getAuctionSale
+var items_list = Array() setget addItemInList,getItemsList
+var current_item_id = 0
 var is_auction_active = false
 var auction_sale_beginning = 0
 var timer = null
+
 
 func _process(delta):
 	checkForAuctionEnding()
@@ -36,11 +41,23 @@ func addEmployee():
 func getEmployeeArray():
 	return employee_data
 
+
 func setMapObjectives():
 	pass
 
 func getMapObjectives():
 	return map_objectives
+
+
+func addItemInList( item_name, player_id, rotation, position ):
+	var item_info = Array()
+	item_info.push_back( getItemNameWithId(item_name) )
+	item_info.push_back( player_id )
+	item_info.push_back( rotation )
+	item_info.push_back( position )
+
+func getItemsList():
+	return items_list
 
 
 func addMoney( money_value, player_id ):
@@ -53,8 +70,13 @@ func addMoney( money_value, player_id ):
 func removeMoney( money_value, player_id ):
 	for player in range ( players_array.size() ):
 		if ( players_array[player][0] == player_id ):
-			players_array[player][2] -= money_value
-			sendPacketMoney()
+			if ( (players_array[player][2] - money_value) > 0):
+				players_array[player][2] -= money_value
+				sendPacketMoney()
+				return true
+			else:
+				return false
+	return false
 
 func setAuctionSale( plot_value ):
 	auction_sale.clear()
@@ -108,3 +130,16 @@ func sendPacketMoney():
 	for player in range ( players_array.size() ):
 		var packet = "/game 12 " + str(players_array[player][2])
 		global_server.sendTargetedPacket(players_array[player][0], packet)
+
+
+func getItemNameWithId( item_name ):
+	var new_name = item_name + "_" + current_item_id
+	current_item_id += 1
+	
+	return new_name
+
+func createStaff():
+	entity_manager = entity_manager.new()
+	entity_manager._ready()
+	employee_data = entity_manager.getStaffArray()
+	print("Bonsoir ", employee_data)
