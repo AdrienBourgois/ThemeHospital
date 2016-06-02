@@ -51,6 +51,12 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		setAvailableTile(false)
 		set_process_input(true)
 
+func hideOtherObjects():
+	for current in temp_array:
+		current.hide()
+	if (!temp_array.empty()):
+		temp_array[0].show()
+
 func nextObject():
 	if (!temp_array.empty()):
 		temp_array.pop_front()

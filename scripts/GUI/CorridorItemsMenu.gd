@@ -61,8 +61,9 @@ func _on_Accept_pressed():
 			items_count_array[count] -= 1
 			gamescn.player.money -= node.price
 		count += 1
-	hideOtherObjects()
-	resetvalues()
+	if (!temp_array.empty()):
+		temp_array[0].hideOtherObjects()
+	resetvalues() 
 	self.hide()
 
 func hideOtherObjects():
