@@ -3,6 +3,7 @@ extends "../Entity.gd"
 
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
+onready var temp_array = gamescn.getTempObjectsNodesArray()
 
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
@@ -32,22 +33,37 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			return
 		can_selected = false
 		set_process_input(false)
+		gamescn.setHaveObject(false)
 		setAvailableTile(true)
 		available.hide()
 		available.timer.stop()
+		nextObject()
 		if (object_stats.empty()):
 			addToArray()
 		else:
 			gamescn.updateObjectsArray()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
-		if (in_room_object):
+		if (in_room_object or gamescn.getHaveObject()):
 			return
 		available.on()
 		is_selected = true
 		can_selected = true
+		gamescn.setHaveObject(true)
 		setAvailableTile(false)
 		set_process_input(true)
+
+func hideOtherObjects():
+	for current in temp_array:
+		current.hide()
+	if (!temp_array.empty()):
+		temp_array[0].show()
+
+func nextObject():
+	if (!temp_array.empty()):
+		temp_array.pop_front()
+		if (!temp_array.empty()):
+			temp_array[0].show()
 
 func setAvailableTile(boolean):
 	var node = null
@@ -112,7 +128,7 @@ func checkAvailableProcess():
 	type = map.getTile(vector_pos).room_type
 	if (in_room_object and type.ID != room_id):
 		available.off()
-	elif (in_room_object and !checkAvailableBigObjectTile()):
+	elif (big_object and !checkAvailableBigObjectTile()):
 		available.off()
 	elif (!checkAvaiblableTile()):
 		available.off()
@@ -132,7 +148,7 @@ func checkAvailable():
 			if (!checkAvailableBigObjectTile()):
 				error()
 				return false
-		if (type.ID != room_id and checkAvaiblableTile()):
+		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
 			error()
 			return false
 	elif (type.ID != 0):
