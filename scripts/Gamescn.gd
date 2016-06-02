@@ -25,6 +25,7 @@ onready var objects = {}
 var in_game_gui
 var objects_nodes_array = [] setget, getObjectsNodesArray
 var temp_objects_nodes_array = [] setget, getTempObjectsNodesArray
+var have_object = false setget setHaveObject, getHaveObject
 
 export var map_size = Vector2(0, 0)
 
@@ -61,6 +62,12 @@ func updateObjectsArray():
 	objects_array.clear()
 	for current in objects_nodes_array:
 		current.addToArray()
+
+func setHaveObject(boolean):
+	have_object = boolean
+
+func getHaveObject():
+	return have_object
 
 func getTempObjectsNodesArray():
 	return temp_objects_nodes_array
