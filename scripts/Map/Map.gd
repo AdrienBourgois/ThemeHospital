@@ -143,6 +143,8 @@ func is_new_room_valid():
 	for tile in previous_current_selection:
 		if (tile.room_type.ID != ressources.lobby.ID):
 			return false
+		if (tile.getObject()):
+			return false
 	return true
 
 func new_room(state, parameters):

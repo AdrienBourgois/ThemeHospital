@@ -3,8 +3,8 @@ extends Panel
 onready var gamescn = get_node("/root/Game").scene
 onready var camera = gamescn.camera
 onready var reputation_value = gamescn.player.reputation
-onready var disease = gamescn.diseases
-onready var diseases_list = disease.list_diseases
+onready var game_disease = gamescn.diseases
+onready var diseases_list = game_disease.list_diseases
 onready var hud = get_parent().get_node("HUD")
 
 onready var node_informations = get_node("Book/Informations")
@@ -30,9 +30,14 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
-onready var pos_selector = node_selector.get_global_pos()
-
+var array_diseases_buttons = []
+var dis_idx = 0
+var basic_pos_button = 0
+var button_pos = 0
 var pos_container
+var pos_selector
+var size_container
+
 var concentrate_research = false
 var disease_selected = false
 var is_timer_finish = true
@@ -40,6 +45,10 @@ var is_timer_finish = true
 func _ready():
 	node_button_down.set_text("BUTTON_DOWN_NAME")
 	node_button_up.set_text("BUTTON_UP_NAME")
+	
+	pos_container = node_container.get_pos()
+	pos_selector = node_selector.get_pos()
+	size_container = node_container.get_size()
 	
 	connectDiseasesButtonsAndTimer()
 	set_process(true)
@@ -68,59 +77,65 @@ func _process(delta):
 
 func connectDiseasesButtonsAndTimer():
 	var button
+	
 	for disease in diseases_list:
 		if (diseases_list[disease].FOUND == true):
 			button = Button.new()
 			node_container.add_child(button)
-			button.set_global_pos(Vector2(node_selector.get_global_pos()))
 			
-			button.set_text(diseases_list[disease].NAME)
-			button.connect("pressed", self, "diseasePressed",[diseases_list[disease]])
+			array_diseases_buttons.push_back(diseases_list[disease])
+			
+			configDiseasesButtons(button, diseases_list, disease)
 		
 		disconnectFunc("timeout", node_timer, "timerTimeout")
 		
-		node_timer.connect("timeout", self, "timerTimeout", [diseases_list[disease]])
+		node_timer.connect("timeout", self, "timerTimeout")
+	
+	node_button_down.connect("pressed", self, "onButtonDownPressed")
+	node_button_up.connect("pressed", self, "onButtonUpPressed")
 
-func diseasePressed(disease):
+func diseasePressed():
 	disconnectFunc("pressed", node_button_less, "decreaseCost")
 	disconnectFunc("pressed", node_button_more, "increaseCost")
+	disconnectFunc("pressed", node_button_down, "onButtonDownPressed")
+	disconnectFunc("pressed", node_button_up, "onButtonUpPressed")
 	
-	node_button_less.connect("pressed", self, "decreaseCost", [disease])
+	node_button_less.connect("pressed", self, "decreaseCost")
+	node_button_more.connect("pressed", self, "increaseCost")
+	node_button_down.connect("pressed", self, "onButtonDownPressed")
+	node_button_up.connect("pressed", self, "onButtonUpPressed")
 	
-	node_button_more.connect("pressed", self, "increaseCost", [disease])
+	treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
+	percent = array_diseases_buttons[dis_idx].PERCENT
+	money_earned = array_diseases_buttons[dis_idx].MONEY_EARNED
 	
-	treatment_charge = disease.NEW_COST
-	percent = disease.PERCENT
-	money_earned = disease.MONEY_EARNED
-	
-	recoveries = disease.RECOVERIES
-	fatalities = disease.FATALITIES
-	turned_away = disease.TURNED_AWAY
+	recoveries = array_diseases_buttons[dis_idx].RECOVERIES
+	fatalities = array_diseases_buttons[dis_idx].FATALITIES
+	turned_away = array_diseases_buttons[dis_idx].TURNED_AWAY
 	
 	disease_selected = true
 
-
-func decreaseCost(disease):
+func decreaseCost():
 	is_timer_finish = false
 	
-	if (disease.PERCENT > 0):
-		disease.PERCENT -= 1
-		percent = disease.PERCENT
+	if (array_diseases_buttons[dis_idx].PERCENT > 0):
+		array_diseases_buttons[dis_idx].PERCENT -= 1
+		percent = array_diseases_buttons[dis_idx].PERCENT
 		
 		node_timer.start()
 
-func increaseCost(disease):
+func increaseCost():
 	is_timer_finish = false
 	
-	disease.PERCENT += 1
-	percent = disease.PERCENT
+	array_diseases_buttons[dis_idx].PERCENT += 1
+	percent = array_diseases_buttons[dis_idx].PERCENT
 	
 	node_timer.start()
 
-func timerTimeout(disease):
+func timerTimeout():
 	if (disease_selected == true):
-		disease.NEW_COST = percentageCalculation(disease.DEFAULT_COST, percent)
-		treatment_charge = disease.NEW_COST
+		array_diseases_buttons[dis_idx].NEW_COST = percentageCalculation(array_diseases_buttons[dis_idx].DEFAULT_COST, percent)
+		treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
 	
 	is_timer_finish = true
 
@@ -131,64 +146,78 @@ func percentageCalculation(value, percent):
 func _on_Concentrate_research_pressed():
 	concentrate_research = true
 
-func _on_Up_pressed():
-	is_timer_finish = false
-	var button_pos
-	
-	pos_container = node_container.get_pos()
-	
-	for button in node_container.get_children():
-		button_pos = button.get_global_pos()
-		
-		if button_pos.y > node_button_up.get_global_pos().y + 100 and button_pos.y < node_button_down.get_global_pos().y - 100 and button.is_visible() == false:
-			button.show()
-		
-		elif (button_pos.y < node_button_up.get_global_pos().y + 100):
-			button.hide()
-		
-#		if button_pos.y == pos_selector.y - 18:
-#			button.set_toggle_mode(true)
-#			button.set_pressed(true)
-#		
-#		else:
-#			button.set_pressed(false)
-#			button.set_toggle_mode(false)
-#		
-		button.set_global_pos(Vector2(button_pos.x, button_pos.y + 23))
-#		
-#		print(button.get_text(), " : ", button_pos.y)
-	
-	node_timer.start()
-
-func _on_Down_pressed():
-	is_timer_finish = false
-	var button_pos
-	
-	pos_container = node_container.get_pos()
-	
-	for button in node_container.get_children():
-		button_pos = button.get_global_pos()
-		
-		if button_pos.y < node_button_down.get_global_pos().y - 100 and button_pos.y > node_button_up.get_global_pos().y + 100 and button.is_visible() == false:
-			button.show()
-		
-		elif (button_pos.y > node_button_down.get_global_pos().y - 100):
-			button.hide()
-#		
-#		if button_pos.y == pos_selector.y + 18:
-#			button.set_toggle_mode(true)
-#			button.set_pressed(true)
-#		
-#		else:
-#			button.set_pressed(false)
-#			button.set_toggle_mode(false)
-#		
-		button.set_global_pos(Vector2(button_pos.x, button_pos.y - 23))
-#		
-#		print(button.get_text(), " : ", button_pos.y)
-	
-	node_timer.start()
-
 func disconnectFunc(type, button, method):
 	if button.is_connected(type, self, method):
 		button.disconnect(type, self, method)
+
+func configDiseasesButtons(button, diseases_list, disease):
+	button.set_margin(MARGIN_LEFT, 0)
+	button.set_margin(MARGIN_TOP, 0)
+	button.set_margin(MARGIN_BOTTOM, 19)
+	button.set_margin(MARGIN_RIGHT, size_container.x)
+	
+	button.set_anchor(MARGIN_LEFT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_BOTTOM, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_RIGHT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_TOP, ANCHOR_RATIO)
+	
+	button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + 5) + basic_pos_button - pos_container.y))
+	
+	button.set_text(diseases_list[disease].NAME)
+	button.connect("pressed", self, "diseasePressed")
+	
+	basic_pos_button += 23.0
+
+func onButtonDownPressed():
+	is_timer_finish = false
+	
+	for button in node_container.get_children():
+		button_pos = button.get_pos()
+		button_pos.y += 23
+		button.set_pos(button_pos)
+		
+		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
+			button.hide()
+		
+		else:
+			button.show() 
+		
+		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
+			if (dis_idx > 0):
+				dis_idx -= 1
+			button.emit_signal("pressed")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
+		
+		else:
+			button.set_pressed(false)
+			button.set_toggle_mode(false)
+	 
+	node_timer.start()
+
+func onButtonUpPressed():
+	is_timer_finish = false
+	
+	for button in node_container.get_children():
+		button_pos = button.get_pos()
+		button_pos.y -= 23
+		button.set_pos(button_pos)
+		
+		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
+			button.hide()
+		
+		else:
+			button.show() 
+		
+		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
+			if dis_idx < array_diseases_buttons.size() - 1:
+				dis_idx += 1
+			button.emit_signal("pressed")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
+		
+		else:
+			button.set_pressed(false)
+			button.set_toggle_mode(false)
+	
+	node_timer.start()
