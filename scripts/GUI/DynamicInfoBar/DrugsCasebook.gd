@@ -20,8 +20,6 @@ onready var node_selector = get_node("Book/Buttons/Selector")
 
 onready var node_button_up = get_node("Book/Buttons/Up")
 onready var node_button_down = get_node("Book/Buttons/Down")
-onready var node_button_less = node_informations.get_node("TreatmentCharge/ButtonLess")
-onready var node_button_more = node_informations.get_node("TreatmentCharge/ButtonMore")
 
 onready var treatment_charge = 0
 onready var money_earned = 0
@@ -39,13 +37,9 @@ var pos_selector
 var size_container
 
 var concentrate_research = false
-var disease_selected = false
 var is_timer_finish = true
 
 func _ready():
-	node_button_down.set_text("BUTTON_DOWN_NAME")
-	node_button_up.set_text("BUTTON_UP_NAME")
-	
 	pos_container = node_container.get_pos()
 	pos_selector = node_selector.get_pos()
 	size_container = node_container.get_size()
@@ -86,25 +80,8 @@ func connectDiseasesButtonsAndTimer():
 			array_diseases_buttons.push_back(diseases_list[disease])
 			
 			configDiseasesButtons(button, diseases_list, disease)
-		
-		disconnectFunc("timeout", node_timer, "timerTimeout")
-		
-		node_timer.connect("timeout", self, "timerTimeout")
-	
-	node_button_down.connect("pressed", self, "onButtonDownPressed")
-	node_button_up.connect("pressed", self, "onButtonUpPressed")
 
 func diseasePressed():
-	disconnectFunc("pressed", node_button_less, "decreaseCost")
-	disconnectFunc("pressed", node_button_more, "increaseCost")
-	disconnectFunc("pressed", node_button_down, "onButtonDownPressed")
-	disconnectFunc("pressed", node_button_up, "onButtonUpPressed")
-	
-	node_button_less.connect("pressed", self, "decreaseCost")
-	node_button_more.connect("pressed", self, "increaseCost")
-	node_button_down.connect("pressed", self, "onButtonDownPressed")
-	node_button_up.connect("pressed", self, "onButtonUpPressed")
-	
 	treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
 	percent = array_diseases_buttons[dis_idx].PERCENT
 	money_earned = array_diseases_buttons[dis_idx].MONEY_EARNED
@@ -112,32 +89,6 @@ func diseasePressed():
 	recoveries = array_diseases_buttons[dis_idx].RECOVERIES
 	fatalities = array_diseases_buttons[dis_idx].FATALITIES
 	turned_away = array_diseases_buttons[dis_idx].TURNED_AWAY
-	
-	disease_selected = true
-
-func decreaseCost():
-	is_timer_finish = false
-	
-	if (array_diseases_buttons[dis_idx].PERCENT > 0):
-		array_diseases_buttons[dis_idx].PERCENT -= 1
-		percent = array_diseases_buttons[dis_idx].PERCENT
-		
-		node_timer.start()
-
-func increaseCost():
-	is_timer_finish = false
-	
-	array_diseases_buttons[dis_idx].PERCENT += 1
-	percent = array_diseases_buttons[dis_idx].PERCENT
-	
-	node_timer.start()
-
-func timerTimeout():
-	if (disease_selected == true):
-		array_diseases_buttons[dis_idx].NEW_COST = percentageCalculation(array_diseases_buttons[dis_idx].DEFAULT_COST, percent)
-		treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
-	
-	is_timer_finish = true
 
 func percentageCalculation(value, percent):
 	var new_value = value * (percent / 100.0)
@@ -145,10 +96,6 @@ func percentageCalculation(value, percent):
 
 func _on_Concentrate_research_pressed():
 	concentrate_research = true
-
-func disconnectFunc(type, button, method):
-	if button.is_connected(type, self, method):
-		button.disconnect(type, self, method)
 
 func configDiseasesButtons(button, diseases_list, disease):
 	button.set_margin(MARGIN_LEFT, 0)
@@ -167,8 +114,42 @@ func configDiseasesButtons(button, diseases_list, disease):
 	button.connect("pressed", self, "diseasePressed")
 	
 	basic_pos_button += 23.0
+	
+	button_pos = button.get_pos()
+	
+	if button_pos.y == (pos_selector.y + 5.0) - pos_container.y:
+		button.emit_signal("pressed")
+		button.set_toggle_mode(true)
+		button.set_pressed(true)
 
-func onButtonDownPressed():
+func _on_Up_pressed():
+	is_timer_finish = false
+	
+	for button in node_container.get_children():
+		button_pos = button.get_pos()
+		button_pos.y -= 23
+		button.set_pos(button_pos)
+		
+		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
+			button.hide()
+		
+		else:
+			button.show() 
+		
+		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
+			if dis_idx < array_diseases_buttons.size() - 1:
+				dis_idx += 1
+			button.emit_signal("pressed")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
+		
+		else:
+			button.set_pressed(false)
+			button.set_toggle_mode(false)
+	
+	node_timer.start()
+
+func _on_Down_pressed():
 	is_timer_finish = false
 	
 	for button in node_container.get_children():
@@ -195,29 +176,25 @@ func onButtonDownPressed():
 	 
 	node_timer.start()
 
-func onButtonUpPressed():
+func _on_Timer_timeout():
+	array_diseases_buttons[dis_idx].NEW_COST = percentageCalculation(array_diseases_buttons[dis_idx].DEFAULT_COST, percent)
+	treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
+	
+	is_timer_finish = true
+
+func _on_DecreaseCost_pressed():
 	is_timer_finish = false
 	
-	for button in node_container.get_children():
-		button_pos = button.get_pos()
-		button_pos.y -= 23
-		button.set_pos(button_pos)
+	if (array_diseases_buttons[dis_idx].PERCENT > 0):
+		array_diseases_buttons[dis_idx].PERCENT -= 1
+		percent = array_diseases_buttons[dis_idx].PERCENT
 		
-		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
-			button.hide()
-		
-		else:
-			button.show() 
-		
-		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
-			if dis_idx < array_diseases_buttons.size() - 1:
-				dis_idx += 1
-			button.emit_signal("pressed")
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
-		
-		else:
-			button.set_pressed(false)
-			button.set_toggle_mode(false)
+		node_timer.start()
+
+func _on_IncreaseCost_pressed():
+	is_timer_finish = false
+	
+	array_diseases_buttons[dis_idx].PERCENT += 1
+	percent = array_diseases_buttons[dis_idx].PERCENT
 	
 	node_timer.start()
