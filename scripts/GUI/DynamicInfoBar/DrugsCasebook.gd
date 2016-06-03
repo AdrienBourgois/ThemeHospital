@@ -127,8 +127,11 @@ func _on_Up_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
-		button_pos.y -= 23
-		button.set_pos(button_pos)
+		print("Dis_idx up : ", dis_idx)
+		if (dis_idx > 0):
+			button_pos.y += 23
+			button.set_pos(button_pos)
+			print("Up pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -137,11 +140,14 @@ func _on_Up_pressed():
 			button.show() 
 		
 		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
-			if dis_idx < array_diseases_buttons.size() - 1:
-				dis_idx += 1
-			button.emit_signal("pressed")
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
+			print("condition if")
+			if (dis_idx > 0):
+				print("Dis_idx in up after : ", dis_idx)
+				dis_idx -= 1
+				print("Dis_idx in up after : ", dis_idx)
+				button.emit_signal("pressed")
+				button.set_toggle_mode(true)
+				button.set_pressed(true)
 		
 		else:
 			button.set_pressed(false)
@@ -154,8 +160,10 @@ func _on_Down_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
-		button_pos.y += 23
-		button.set_pos(button_pos)
+		if dis_idx < array_diseases_buttons.size() - 1:
+			button_pos.y -= 23
+			button.set_pos(button_pos)
+			print("Down pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -164,11 +172,13 @@ func _on_Down_pressed():
 			button.show() 
 		
 		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
-			if (dis_idx > 0):
-				dis_idx -= 1
-			button.emit_signal("pressed")
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
+			if dis_idx < array_diseases_buttons.size() - 1:
+				print("Dis_idx in down b4 : ", dis_idx)
+				dis_idx += 1
+				print("Dis_idx in down after : ", dis_idx)
+				button.emit_signal("pressed")
+				button.set_toggle_mode(true)
+				button.set_pressed(true)
 		
 		else:
 			button.set_pressed(false)
