@@ -55,6 +55,8 @@ func addItemInList( item_name, player_id, rotation, position ):
 	item_info.push_back( player_id )
 	item_info.push_back( rotation )
 	item_info.push_back( position )
+	
+	items_list.push_back(item_info)
 
 func getItemsList():
 	return items_list
@@ -85,7 +87,7 @@ func setAuctionSale( plot_value ):
 	auction_sale.push_back(null)
 	auction_sale.push_back(0)
 	
-	get_auction_menu_timer()
+	getAuctionMenuTimer()
 	is_auction_active = true
 	set_process(true)
 
@@ -119,7 +121,7 @@ func checkForAuctionEnding():
 		set_process(false)
 
 
-func get_auction_menu_timer():
+func getAuctionMenuTimer():
 	if (timer == null):
 		var root = get_tree().get_current_scene()
 		
@@ -133,13 +135,16 @@ func sendPacketMoney():
 
 
 func getItemNameWithId( item_name ):
-	var new_name = item_name + "_" + current_item_id
+	var new_name = item_name + "_" + str(current_item_id)
 	current_item_id += 1
 	
 	return new_name
+
+
+func getLastItemName():
+	return items_list[items_list.size()-1][0]
 
 func createStaff():
 	entity_manager = entity_manager.new()
 	entity_manager._ready()
 	employee_data = entity_manager.getStaffArray()
-	print("Bonsoir ", employee_data)

@@ -160,28 +160,53 @@ func updateMapRoom(): #Packet 5
 	var room_to = Vector2(tmpData[4].to_int(), tmpData[5].to_int())
 	var room_id = tmpData[6].to_int()
 	
+	var root = get_tree().get_current_scene()
+	var map = null
+	
+	if (root != null && root.get_name() == "GameScene"):
+		map = root.get_node("Map")
+	else:
+		return
+	
 	if (current_parsing.server):
-		global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
+		if ( server_data_base.removeMoney( map.getResources().getCostFromId(room_id), current_player_id  )):
+			global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
 	elif (current_parsing.client):
-		var root = get_tree().get_current_scene()
-		if (root != null && root.get_name() == "GameScene"):
-			var map = root.get_node("Map")
-			if (map.get_name() != null && server_data_base.removeMoney( map.getResources().getCostFromId(room_id), current_player_id )):
-				map.new_room("new", map.getResources().getRoomFromId(room_id))
-				map.new_room("from", room_from)
-				map.new_room("current", room_to)
-				map.new_room("to", room_to)
-				map.new_room("create", null)
-				
+		if ( map.get_name() != null ):
+			map.new_room("new", map.getResources().getRoomFromId(room_id))
+			map.new_room("from", room_from)
+			map.new_room("current", room_to)
+			map.new_room("to", room_to)
+			map.new_room("create", null)
 
 func updateMapItems(): #Packet 6
-	if (current_parsing.server):
-		global_server.addPacket("/game 6 " + tmpData[2] + " " + tmpData[3])
+	if ( current_parsing.server ):
+		var item_type = tmpData[2]
+		var rotation = tmpData[3].to_float()
+		var position = Vector3(tmpData[4].to_int(), 0,  tmpData[5].to_int())
+		
+		server_data_base.addItemInList(item_type, current_player_id, rotation, position)
+		
+		var packet = "/game 6 " + str(current_player_id) + " " + item_type + " " + server_data_base.getLastItemName() + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
+		
+		global_server.addPacket(packet)
 	else:
-		var corridor = get_tree().get_current_scene().get_node("./In_game_gui/HUD/CorridorItemsMenu")
-		var node = ResourceLoader.load("res://scenes/Entities/Objects/Object.scn").instance()
-		corridor.add_child(node)
-		node.setMultiplayer(tmpData[2].to_int(), tmpData[3].to_int())
+		var root = get_tree().get_current_scene()
+		
+		if (root != null && root.get_name() == "GameScene"):
+			var item_from = tmpData[2].to_int()
+			
+			if ( item_from == global_client.getClientId() ):
+				root.setNameFirstItemTempArray(tmpData[3])
+				root.setUpFirstItemTempArray()
+				root.setHaveObject(false)
+				print("X :", tmpData[6], " Z :", tmpData[7] )
+			else:
+				var node = root.getObjectResources().createObject(tmpData[3])
+				root.add_child(node)
+				node.setObjectStats(tmpData[3], tmpData[5], tmpData[6], tmpData[7])
+				node.set_name(tmpData[4])
+				node.setUpItem()
 
 func kickedFromServer(): #Packet 7
 	if ( current_parsing.client ):

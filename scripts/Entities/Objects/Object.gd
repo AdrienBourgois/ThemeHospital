@@ -1,6 +1,7 @@
 
 extends "../Entity.gd"
 
+onready var global_client = get_node("/root/GlobalClient")
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
 onready var temp_array = gamescn.getTempObjectsNodesArray()
@@ -31,21 +32,18 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
-		can_selected = false
-		set_process_input(false)
-		gamescn.setHaveObject(false)
-		setAvailableTile(true)
-		available.hide()
-		available.timer.stop()
-		nextObject()
-		if (object_stats.empty()):
-			addToArray()
-		else:
-			gamescn.updateObjectsArray()
+		
+		if ( game.getMultiplayer() ):
+			updateStats()
+			sendDataToServer()
+			return
+		
+		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object or gamescn.getHaveObject()):
 			return
+		print("Bonsoir monsieur")
 		available.on()
 		is_selected = true
 		can_selected = true
@@ -210,3 +208,40 @@ func setPrice(value):
 
 func getPrice():
 	return price
+
+func sendDataToServer():
+	updateStats()
+	
+	var rotation = str(object_stats.ROTATION)
+	var x = str(object_stats.X)
+	var z = str(object_stats.Z)
+	
+	var packet = "/game 6 " + object_name + " " + rotation + " " + x + " " + z
+	
+	global_client.addPacket(packet)
+
+func setObjectStats(object_name, rotation, position_x, position_z):
+	object_stats = {
+	NAME = object_name,
+	X = position_x,
+	Y = 0,
+	Z = position_z,
+	ROTATION = rotation
+	}
+	
+	set_rotation(Vector3(0, rotation.to_float(), 0))
+	set_translation(Vector3(position_x, 0.5, position_z))
+
+func setUpItem():
+	can_selected = false
+	set_process_input(false)
+	gamescn.setHaveObject(false)
+	setAvailableTile(true)
+	available.hide()
+	available.timer.stop()
+	nextObject()
+	
+	if (object_stats.empty()):
+		addToArray()
+	else:
+		gamescn.updateObjectsArray()
