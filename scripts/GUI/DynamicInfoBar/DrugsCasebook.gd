@@ -28,7 +28,7 @@ onready var fatalities = 0
 onready var turned_away = 0
 onready var percent = 100
 
-var array_diseases_buttons = []
+var array_diseases = []
 var dis_idx = 0
 var basic_pos_button = 0
 var button_pos = 0
@@ -37,6 +37,7 @@ var pos_selector
 var size_container
 
 var concentrate_research = false
+var disease_selected = false
 var is_timer_finish = true
 
 func _ready():
@@ -71,24 +72,34 @@ func _process(delta):
 
 func connectDiseasesButtonsAndTimer():
 	var button
+	var button_number = -1
+	
 	
 	for disease in diseases_list:
 		if (diseases_list[disease].FOUND == true):
+			
+			if array_diseases.size() > button_number:
+				button_number += 1
+			
 			button = Button.new()
 			node_container.add_child(button)
+			button.set_meta("button_number", button_number)
 			
-			array_diseases_buttons.push_back(diseases_list[disease])
+			array_diseases.push_back(diseases_list[disease])
 			
-			configDiseasesButtons(button, diseases_list, disease)
+			configDiseasesButtons(button, diseases_list[disease].NAME)
+			
 
-func diseasePressed():
-	treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
-	percent = array_diseases_buttons[dis_idx].PERCENT
-	money_earned = array_diseases_buttons[dis_idx].MONEY_EARNED
+func diseasePressed(button):
+	treatment_charge = array_diseases[button.get_meta("button_number")].NEW_COST
+	percent = array_diseases[button.get_meta("button_number")].PERCENT
+	money_earned = array_diseases[button.get_meta("button_number")].MONEY_EARNED
 	
-	recoveries = array_diseases_buttons[dis_idx].RECOVERIES
-	fatalities = array_diseases_buttons[dis_idx].FATALITIES
-	turned_away = array_diseases_buttons[dis_idx].TURNED_AWAY
+	recoveries = array_diseases[button.get_meta("button_number")].RECOVERIES
+	fatalities = array_diseases[button.get_meta("button_number")].FATALITIES
+	turned_away = array_diseases[button.get_meta("button_number")].TURNED_AWAY
+	
+	disease_selected = true
 
 func percentageCalculation(value, percent):
 	var new_value = value * (percent / 100.0)
@@ -97,7 +108,7 @@ func percentageCalculation(value, percent):
 func _on_Concentrate_research_pressed():
 	concentrate_research = true
 
-func configDiseasesButtons(button, diseases_list, disease):
+func configDiseasesButtons(button, disease_name):
 	button.set_margin(MARGIN_LEFT, 0)
 	button.set_margin(MARGIN_TOP, 0)
 	button.set_margin(MARGIN_BOTTOM, 19)
@@ -110,10 +121,12 @@ func configDiseasesButtons(button, diseases_list, disease):
 	
 	button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + 5) + basic_pos_button - pos_container.y))
 	
-	button.set_text(diseases_list[disease].NAME)
-	button.connect("pressed", self, "diseasePressed")
+	button.set_text(disease_name)
+	button.connect("pressed", self, "diseasePressed", [button])
 	
 	basic_pos_button += 23.0
+#	dis_idx += 1
+#	print(dis_idx)
 	
 	button_pos = button.get_pos()
 	
@@ -160,7 +173,7 @@ func _on_Down_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
-		if dis_idx < array_diseases_buttons.size() - 1:
+		if dis_idx < array_diseases.size() - 1:
 			button_pos.y -= 23
 			button.set_pos(button_pos)
 			print("Down pos")
@@ -172,14 +185,14 @@ func _on_Down_pressed():
 			button.show() 
 		
 		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
-			if dis_idx < array_diseases_buttons.size() - 1:
+			if dis_idx < array_diseases.size() - 1:
 				print("Dis_idx in down b4 : ", dis_idx)
 				dis_idx += 1
 				print("Dis_idx in down after : ", dis_idx)
 				button.emit_signal("pressed")
 				button.set_toggle_mode(true)
 				button.set_pressed(true)
-		
+#		
 		else:
 			button.set_pressed(false)
 			button.set_toggle_mode(false)
@@ -187,24 +200,27 @@ func _on_Down_pressed():
 	node_timer.start()
 
 func _on_Timer_timeout():
-	array_diseases_buttons[dis_idx].NEW_COST = percentageCalculation(array_diseases_buttons[dis_idx].DEFAULT_COST, percent)
-	treatment_charge = array_diseases_buttons[dis_idx].NEW_COST
+	if disease_selected == true:
+		array_diseases[dis_idx].NEW_COST = percentageCalculation(array_diseases[dis_idx].DEFAULT_COST, percent)
+		treatment_charge = array_diseases[dis_idx].NEW_COST
+		print("Timer")
 	
+	print("End timer")
 	is_timer_finish = true
 
 func _on_DecreaseCost_pressed():
 	is_timer_finish = false
 	
-	if (array_diseases_buttons[dis_idx].PERCENT > 0):
-		array_diseases_buttons[dis_idx].PERCENT -= 1
-		percent = array_diseases_buttons[dis_idx].PERCENT
+	if (array_diseases[dis_idx].PERCENT > 0):
+		array_diseases[dis_idx].PERCENT -= 1
+		percent = array_diseases[dis_idx].PERCENT
 		
 		node_timer.start()
 
 func _on_IncreaseCost_pressed():
 	is_timer_finish = false
 	
-	array_diseases_buttons[dis_idx].PERCENT += 1
-	percent = array_diseases_buttons[dis_idx].PERCENT
+	array_diseases[dis_idx].PERCENT += 1
+	percent = array_diseases[dis_idx].PERCENT
 	
 	node_timer.start()
