@@ -3,8 +3,8 @@ extends Panel
 onready var gamescn = get_node("/root/Game").scene
 onready var camera = gamescn.camera
 onready var reputation_value = gamescn.player.reputation
-onready var game_disease = gamescn.diseases
-onready var diseases_list = game_disease.list_diseases
+onready var game_diseases = gamescn.diseases
+onready var diseases_list = game_diseases.list_diseases
 onready var hud = get_parent().get_node("HUD")
 
 onready var node_informations = get_node("Book/Informations")
@@ -20,6 +20,8 @@ onready var node_selector = get_node("Book/Buttons/Selector")
 
 onready var node_button_up = get_node("Book/Buttons/Up")
 onready var node_button_down = get_node("Book/Buttons/Down")
+onready var node_decrease = node_informations.get_node("TreatmentCharge/DecreaseCost")
+onready var node_increase = node_informations.get_node("TreatmentCharge/IncreaseCost")
 
 onready var treatment_charge = 0
 onready var money_earned = 0
@@ -74,7 +76,6 @@ func connectDiseasesButtonsAndTimer():
 	var button
 	var button_number = -1
 	
-	
 	for disease in diseases_list:
 		if (diseases_list[disease].FOUND == true):
 			
@@ -88,9 +89,16 @@ func connectDiseasesButtonsAndTimer():
 			array_diseases.push_back(diseases_list[disease])
 			
 			configDiseasesButtons(button, diseases_list[disease].NAME)
-			
 
 func diseasePressed(button):
+	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
+	disconnectFunc("pressed", node_increase, "increaseCostPressed")
+	disconnectFunc("timeout", node_timer, "timerTimeout")
+	
+	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_diseases[button.get_meta("button_number")]])
+	node_increase.connect("pressed", self, "increaseCostPressed", [array_diseases[button.get_meta("button_number")]])
+	node_timer.connect("timeout", self, "timerTimeout", [array_diseases[button.get_meta("button_number")]])
+	
 	treatment_charge = array_diseases[button.get_meta("button_number")].NEW_COST
 	percent = array_diseases[button.get_meta("button_number")].PERCENT
 	money_earned = array_diseases[button.get_meta("button_number")].MONEY_EARNED
@@ -125,8 +133,6 @@ func configDiseasesButtons(button, disease_name):
 	button.connect("pressed", self, "diseasePressed", [button])
 	
 	basic_pos_button += 23.0
-#	dis_idx += 1
-#	print(dis_idx)
 	
 	button_pos = button.get_pos()
 	
@@ -140,7 +146,11 @@ func _on_Up_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
-		print("Dis_idx up : ", dis_idx)
+		
+		disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
+		disconnectFunc("pressed", node_increase, "increaseCostPressed")
+		disconnectFunc("timeout", node_timer, "timerTimeout")
+		
 		if (dis_idx > 0):
 			button_pos.y += 23
 			button.set_pos(button_pos)
@@ -153,14 +163,18 @@ func _on_Up_pressed():
 			button.show() 
 		
 		if button_pos.y == (pos_selector.y + 5) - pos_container.y:
-			print("condition if")
 			if (dis_idx > 0):
-				print("Dis_idx in up after : ", dis_idx)
+				print("Dis_idx up : ", dis_idx)
 				dis_idx -= 1
 				print("Dis_idx in up after : ", dis_idx)
-				button.emit_signal("pressed")
-				button.set_toggle_mode(true)
-				button.set_pressed(true)
+			
+			node_decrease.connect("pressed", self, "decreaseCostPressed", [array_diseases[dis_idx]])
+			node_increase.connect("pressed", self, "increaseCostPressed", [array_diseases[dis_idx]])
+			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
+			
+			button.emit_signal("pressed")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
 		
 		else:
 			button.set_pressed(false)
@@ -173,6 +187,11 @@ func _on_Down_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
+		
+		disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
+		disconnectFunc("pressed", node_increase, "increaseCostPressed")
+		disconnectFunc("timeout", node_timer, "timerTimeout")
+		
 		if dis_idx < array_diseases.size() - 1:
 			button_pos.y -= 23
 			button.set_pos(button_pos)
@@ -189,38 +208,44 @@ func _on_Down_pressed():
 				print("Dis_idx in down b4 : ", dis_idx)
 				dis_idx += 1
 				print("Dis_idx in down after : ", dis_idx)
-				button.emit_signal("pressed")
-				button.set_toggle_mode(true)
-				button.set_pressed(true)
-#		
+			
+			node_decrease.connect("pressed", self, "decreaseCostPressed", [array_diseases[dis_idx]])
+			node_increase.connect("pressed", self, "increaseCostPressed", [array_diseases[dis_idx]])
+			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
+			
+			button.emit_signal("pressed")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
+		
 		else:
 			button.set_pressed(false)
 			button.set_toggle_mode(false)
 	 
 	node_timer.start()
 
-func _on_Timer_timeout():
-	if disease_selected == true:
-		array_diseases[dis_idx].NEW_COST = percentageCalculation(array_diseases[dis_idx].DEFAULT_COST, percent)
-		treatment_charge = array_diseases[dis_idx].NEW_COST
-		print("Timer")
+func disconnectFunc(type, button, method):
+	if button.is_connected(type, self, method):
+		button.disconnect(type, self, method)
+
+func timerTimeout(disease):
+	disease.NEW_COST = percentageCalculation(disease.DEFAULT_COST, percent)
+	treatment_charge = disease.NEW_COST
 	
-	print("End timer")
 	is_timer_finish = true
 
-func _on_DecreaseCost_pressed():
+func increaseCostPressed(disease_selected):
 	is_timer_finish = false
 	
-	if (array_diseases[dis_idx].PERCENT > 0):
-		array_diseases[dis_idx].PERCENT -= 1
-		percent = array_diseases[dis_idx].PERCENT
-		
-		node_timer.start()
-
-func _on_IncreaseCost_pressed():
-	is_timer_finish = false
-	
-	array_diseases[dis_idx].PERCENT += 1
-	percent = array_diseases[dis_idx].PERCENT
+	disease_selected.PERCENT += 1
+	percent = disease_selected.PERCENT
 	
 	node_timer.start()
+
+func decreaseCostPressed(disease_selected):
+	is_timer_finish = false
+	
+	if (disease_selected.PERCENT > 0):
+		disease_selected.PERCENT -= 1
+		percent = disease_selected.PERCENT
+		
+		node_timer.start()
