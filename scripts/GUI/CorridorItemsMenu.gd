@@ -20,6 +20,7 @@ onready var fire_label = fire.get_node("Label")
 onready var reception_desk_label = reception_desk.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label, reception_desk_label]
 onready var object_resources = gamescn.getObjectResources()
+onready var temp_array = gamescn.getTempObjectsNodesArray()
 
 var items_count_array = []
 var number_of_buttons = 2
@@ -56,17 +57,25 @@ func _on_Accept_pressed():
 			var node = object_resources.array_scn[count].instance()
 			gamescn.add_child(node)
 			var node_info = []
+			temp_array.append(node)
 			node.available.on()
 			node.is_selected = true
 			node.can_selected = true
 			node.set_process_input(true)
-			
 			items_count_array[count] -= 1
 			gamescn.player.money -= node.price
 		count += 1
-		
-	resetvalues()
+	if (!temp_array.empty()):
+		temp_array[0].hideOtherObjects()
+		gamescn.setHaveObject(true)
+	resetvalues() 
 	self.hide()
+
+func hideOtherObjects():
+	for current in temp_array:
+		current.hide()
+	if (!temp_array.empty()):
+		temp_array[0].show()
 
 func _on_Close_pressed():
 	self.hide()

@@ -1,0 +1,42 @@
+#include "StateMachine.h"
+
+
+StateMachine::StateMachine()
+{
+	this->owner = NULL;
+	this->current_state = NULL;
+}
+
+void StateMachine::setOwner(Node* new_owner)
+{
+	this->owner = new_owner;
+}
+
+void StateMachine::update()
+{
+	if (this->current_state)
+		this->current_state->execute(this->owner);
+}
+
+void StateMachine::setCurrentState(Node* n)
+{
+	this->current_state = dynamic_cast<State*>(n);
+}
+
+void StateMachine::changeState(Node* n)
+{
+	this->current_state->exit(this->owner);
+
+	this->current_state = dynamic_cast<State*>(n);
+
+	this->current_state->enter(this->owner);
+}
+
+void StateMachine::_bind_methods()
+{
+	ObjectTypeDB::bind_method("setOwner",&StateMachine::setOwner);
+	ObjectTypeDB::bind_method("getOwner",&StateMachine::getOwner);
+	ObjectTypeDB::bind_method("update",&StateMachine::update);
+	ObjectTypeDB::bind_method("setCurrentState",&StateMachine::setCurrentState);
+	ObjectTypeDB::bind_method("changeState",&StateMachine::changeState);
+}
