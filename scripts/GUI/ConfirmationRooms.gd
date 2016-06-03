@@ -32,6 +32,7 @@ func _on_Accept_pressed():
 				gamescn.add_child(current)
 		if (!temp_array.empty()):
 			temp_array[0].hideOtherObjects()
+			gamescn.setHaveObject(true)
 	self.hide()
 	
 	node_rooms_menu.is_type_selected = false

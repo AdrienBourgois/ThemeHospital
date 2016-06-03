@@ -33,6 +33,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			return
 		can_selected = false
 		set_process_input(false)
+		gamescn.setHaveObject(false)
 		setAvailableTile(true)
 		available.hide()
 		available.timer.stop()
@@ -43,11 +44,12 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			gamescn.updateObjectsArray()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
-		if (in_room_object):
+		if (in_room_object or gamescn.getHaveObject()):
 			return
 		available.on()
 		is_selected = true
 		can_selected = true
+		gamescn.setHaveObject(true)
 		setAvailableTile(false)
 		set_process_input(true)
 

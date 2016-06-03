@@ -63,6 +63,7 @@ func _on_Accept_pressed():
 		count += 1
 	if (!temp_array.empty()):
 		temp_array[0].hideOtherObjects()
+		gamescn.setHaveObject(true)
 	resetvalues() 
 	self.hide()
 

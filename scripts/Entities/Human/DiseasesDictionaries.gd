@@ -146,7 +146,7 @@ var the_squits = {
 }
 
 var list_diseases = {
-	"NAME_SQUITS": the_squits,
+	"SQUITS": the_squits,
 	"HEAPED": heaped_piles,
 	"UNCOMMON": uncommon_cold,
 	"INVISIBILITY": invisibility,
