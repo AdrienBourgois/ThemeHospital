@@ -42,6 +42,10 @@ func createObject(name):
 		node = receptiondeskscn.instance()
 	elif (name == "Desk"):
 		node = deskscn.instance()
+	elif (name == "GPChair"):
+		node = gp_chair_scn.instance()
+	elif (name == "Locker"):
+		node = locker_scn.instance()
 	else:
 		node = createRoomObject(name)
 	return node
