@@ -84,7 +84,6 @@ func animate():
 
 func _fixed_process(delta):
 	delta_sum += delta
-	
 	node.set_translation(current_point + ((next_point - current_point) * (delta_sum / speed)))
 	
 	if (delta_sum >= speed):

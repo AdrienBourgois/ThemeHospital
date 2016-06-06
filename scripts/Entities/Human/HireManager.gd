@@ -2,10 +2,10 @@
 extends Spatial
 
 onready var game = get_node("/root/Game")
-onready var staff_res = [load("res://scenes/Entities/Human/Doctor.scn"),
-load("res://scenes/Entities/Human/Nurse.scn"),
-load("res://scenes/Entities/Human/Handymen.scn"),
-load("res://scenes/Entities/Human/Receptionist.scn")]
+onready var staff_res = [preload("res://scenes/Entities/Human/Doctor.scn"),
+preload("res://scenes/Entities/Human/Nurse.scn"),
+preload("res://scenes/Entities/Human/Handymen.scn"),
+preload("res://scenes/Entities/Human/Receptionist.scn")]
 var staff_array
 var staff_body
 var staff_selected
