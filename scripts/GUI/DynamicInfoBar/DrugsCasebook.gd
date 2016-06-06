@@ -37,6 +37,9 @@ var button_pos = 0
 var pos_container
 var pos_selector
 var size_container
+var button_gap
+var first_button_pos
+var second_button_pos
 
 var concentrate_research = false
 var disease_selected = false
@@ -48,6 +51,12 @@ func _ready():
 	size_container = node_container.get_size()
 	
 	connectDiseasesButtonsAndTimer()
+	
+#	first_button_pos = node_container.get_child(0).get_pos()
+#	second_button_pos = node_container.get_child(1).get_pos()
+#	
+#	button_gap = second_button_pos.y - first_button_pos.y
+	
 	set_process(true)
 
 func _on_Quit_pressed():
@@ -61,9 +70,7 @@ func update():
 		
 		if (is_timer_finish == true):
 			node_treatment.set_text(str(treatment_charge))
-#			print("true")
 		else:
-#			print("false")
 			node_treatment.set_text(str(percent) + "%")
 		node_money.set_text(str(money_earned))
 		
@@ -142,13 +149,18 @@ func configDiseasesButtons(button, disease_name):
 func _on_Up_pressed():
 	is_timer_finish = false
 	
+	first_button_pos = node_container.get_child(0).get_pos()
+	second_button_pos = node_container.get_child(1).get_pos()
+	
+	button_gap = second_button_pos.y - first_button_pos.y
+	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
 		disconnect_all()
 		
 		if (dis_idx > 0):
-			button_pos.y += 23
+			button_pos.y += button_gap
 			button.set_pos(button_pos)
 			print("Up pos")
 		
@@ -183,13 +195,18 @@ func _on_Up_pressed():
 func _on_Down_pressed():
 	is_timer_finish = false
 	
+	first_button_pos = node_container.get_child(0).get_pos()
+	second_button_pos = node_container.get_child(1).get_pos()
+	
+	button_gap = second_button_pos.y - first_button_pos.y
+	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
 		disconnect_all()
 		
 		if dis_idx < array_diseases.size() - 1:
-			button_pos.y -= 23
+			button_pos.y -= button_gap
 			button.set_pos(button_pos)
 			print("Down pos")
 		
