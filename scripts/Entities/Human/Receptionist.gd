@@ -15,6 +15,10 @@ func put():
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(get_node("GoToDesk"))
 
+func take():
+	state_machine = get_node("StateMachine")
+	state_machine.changeState(get_node("GoToDesk"))
+
 func _fixed_process(delta):
 	if state_machine:
 		state_machine.update()

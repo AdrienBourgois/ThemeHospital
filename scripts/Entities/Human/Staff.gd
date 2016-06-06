@@ -26,6 +26,9 @@ func _ready():
 	get_node("Timer").start()
 	set_fixed_process(true)
 
+func take():
+	pass
+
 func put():
 	pass
 #	state_machine.setOwner(self)

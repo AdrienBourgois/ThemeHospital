@@ -20,6 +20,9 @@ var can_selected = true
 func put():
 	pass
 
+func take():
+	pass
+
 func _ready():
 	connect("input_event", self, "_on_Entity_input_event")
 	cube_scale = cube.get_scale()
@@ -52,10 +55,12 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		set_process_input(false)
 		position.x = self.get_translation().x
 		position.y = self.get_translation().y
+		print("TAMER")
 		put()
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		is_selected = true
 		can_selected = true
+		take()
 		set_process_input(true)
 
 func _input(event):
