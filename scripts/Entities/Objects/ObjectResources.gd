@@ -7,6 +7,7 @@ var plantscn = preload("res://scenes/Entities/Objects/Plant.scn")
 var radiatorscn = preload("res://scenes/Entities/Objects/Radiator.scn")
 var drinkscn = preload("res://scenes/Entities/Objects/DrinkMachine.scn") 
 var firescn = preload("res://scenes/Entities/Objects/Fire.scn")
+var receptiondeskscn = preload("res://scenes/Entities/Objects/ReceptionistDesk.scn")
 var deskscn = preload("res://scenes/Entities/Objects/Desk.scn")
 var crash_trolley_scn = preload("res://scenes/Entities/Objects/CrashTrolley.scn")
 var pharmacy_cabinet_scn = preload("res://scenes/Entities/Objects/PharmacyCabinet.scn")
@@ -18,7 +19,7 @@ var gasbottlescn = preload("res://scenes/Entities/Objects/GasBottle.scn")
 var tongue_machine_scn = preload("res://scenes/Entities/Objects/TongueMachine.scn")
 var sofascn = preload("res://scenes/Entities/Objects/Sofa.scn")
 var research_machine_scn = preload("res://scenes/Entities/Objects/ResearchMachine.scn")
-var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn]
+var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptiondeskscn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
 
@@ -34,6 +35,8 @@ func createObject(name):
 		node = drinkscn.instance()
 	elif (name == "Fire" or name == "FireExtinguisher"):
 		node = firescn.instance()
+	elif (name == "Reception Desk"):
+		node = receptiondeskscn.instance()
 	elif (name == "Desk"):
 		node = deskscn.instance()
 	else:

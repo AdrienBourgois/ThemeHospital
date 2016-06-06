@@ -6,6 +6,7 @@ onready var speciality_bonus_salary = [0, 20, 30, 40]
 onready var last_name = ["CRAMBLIN", "WARMOND", "CRABINGTON", "SCOTE", "WRIGHTSON", "HIGHTON", "BURMORE", "BANE", "KINGSMITH", "PETCLIFFE", "PODMAN", "FENTON", "GOLDBERRY", "BYSON", "WATERS", "WRIGHTMORE", "BYTON", "BINNWICK", "WYERS", "CURLAN", "BOYBAUM", "CRABELTON", "WATERSON", "HIGHLEY", "PODINGTON"]
 onready var first_name = ["A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. ", "I. ", "J. ", "K. ", "L. ", "M. ", "N. ", "O. ", "P. ", "Q. ", "R. ", "S. ", "T. ", "U. ", "V. ", "W. ", "X. ", "Y. ", "Z. "]
 var heats = []
+var nb_staff = 0
 
 onready var staff_id = {
 DOCTOR = 0,
@@ -39,7 +40,9 @@ onready var staff_array = [[],[],[],[]]
 
 func _ready():
 	randomize()
-	generateStaffIdAndDataArray()
+	nb_staff = 28
+	generateStaffIdAndDataArray(nb_staff)
+	print(staff_array[0].size() + staff_array[1].size() + staff_array[2].size() + staff_array[3].size())
 
 func generateStaffData(id):
 	var staff_data = {}
@@ -55,9 +58,9 @@ func generateStaffData(id):
 		staff_data["salary"] = calculateSalary(id, staff_data["skill"])
 	return staff_data
 
-func generateStaffIdAndDataArray():
+func generateStaffIdAndDataArray(nb_staff):
 	var id = 0
-	for i in range(28):
+	for i in range(nb_staff):
 		id = randi()%4
 		staff_array[id].push_back(generateStaffData(id))
 
@@ -107,3 +110,9 @@ func checkGlobalTemperature(node):
 		node.warmth = 60
 	else:
 		node.warmth -= 2
+
+
+func _on_CreateStaff_timeout():
+	if staff_array[0].size() + staff_array[1].size() + staff_array[2].size() + staff_array[3].size() <= 20:
+		nb_staff = randi()%8
+		generateStaffIdAndDataArray(nb_staff)
