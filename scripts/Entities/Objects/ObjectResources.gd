@@ -35,7 +35,7 @@ func createObject(name):
 		node = drinkscn.instance()
 	elif (name == "Fire" or name == "FireExtinguisher"):
 		node = firescn.instance()
-	elif (name == "Reception Desk"):
+	elif (name == "Reception Desk" or name == "ReceptionDesk"):
 		node = receptiondeskscn.instance()
 	elif (name == "Desk"):
 		node = deskscn.instance()
