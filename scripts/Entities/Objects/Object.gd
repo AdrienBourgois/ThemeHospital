@@ -17,6 +17,8 @@ var idx = 0
 var type = {}
 var vector_pos
 var tile
+var entity_interaction_tile setget, getEntityInteractionTile
+var entity = null setget setEntity, getEntity
 export var big_object = false
 
 func _ready():
@@ -65,21 +67,32 @@ func nextObject():
 		temp_array.pop_front()
 		if (!temp_array.empty()):
 			temp_array[0].show()
+			temp_array[0].available.on()
+			temp_array[0].is_selected = true
+			temp_array[0].can_selected = true
+			temp_array[0].gamescn.setHaveObject(true)
+			temp_array[0].set_process_input(true)
 
 func setAvailableTile(boolean):
 	var node = null
 	if (boolean):
 		node = self
+	else:
+		entity_interaction_tile = null
 	updateTilePosition()
 	tile.setObject(node)
 	if (int(rotation.y) == int(deg2rad(-90))):
-		tile.neighbours.Left.setObject(node)
+		entity_interaction_tile = tile.neighbours.Left
+		entity_interaction_tile.setObject(node)
 	elif (int(rotation.x) == int(deg2rad(-180))):
-		tile.neighbours.Up.setObject(node)
+		entity_interaction_tile = tile.neighbours.Up
+		entity_interaction_tile.setObject(node)
 	elif (int(rotation.y) == int(deg2rad(90))):
-		tile.neighbours.Right.setObject(node)
+		entity_interaction_tile = tile.neighbours.Right
+		entity_interaction_tile.setObject(node)
 	else:
-		tile.neighbours.Down.setObject(node)
+		entity_interaction_tile = tile.neighbours.Down
+		entity_interaction_tile.setObject(node)
 
 func updateTilePosition():
 	vector_pos = Vector2(get_translation().x, get_translation().z)
@@ -196,6 +209,15 @@ func updateStats():
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getEntity():
+	return entity
+
+func setEntity(pointer):
+	entity = pointer
+
+func getEntityInteractionTile():
+	return entity_interaction_tile
 
 func getAvailable():
 	return available

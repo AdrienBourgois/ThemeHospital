@@ -77,9 +77,10 @@ func animate():
 	
 	next_point_number = 1
 	current_point = curve.get_point_pos(0)
+	current_point.y = 0.5
 	next_point = curve.get_point_pos(1)
+	next_point.y = 0.5
 	node.set_translation(current_point)
-	
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -92,6 +93,8 @@ func _fixed_process(delta):
 		if(next_point_number < curve.get_point_count()):
 			current_point = curve.get_point_pos(next_point_number - 1)
 			next_point = curve.get_point_pos(next_point_number)
+			current_point.y = 0.5
+			next_point.y = 0.5
 			node.set_translation(current_point)
 		else:
 			node.set_translation(next_point)

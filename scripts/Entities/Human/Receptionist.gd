@@ -22,7 +22,7 @@ func _fixed_process(delta):
 func checkDesk():
 	if object_array.size() != 0:
 		for desk in object_array:
-			if desk.object_name == "Reception Desk" && !desk.is_occuped:
+			if desk.object_name == "ReceptionDesk" && !desk.is_occuped:
 				desk_occuped = desk
 				reception_desk_pos = Vector2(desk.get_translation().x, desk.get_translation().z)
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self, 0.2, map)

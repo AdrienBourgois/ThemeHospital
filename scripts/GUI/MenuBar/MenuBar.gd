@@ -35,11 +35,9 @@ func _on_Back_pressed():
 	checkForMultiplayerGame()
 	game.goToScene("res://scenes/GUI/MainMenu.scn")
 
-
 func checkForMultiplayerGame():
 	if (game.multiplayer):
 		global_client.disconnectFromServer()
-
 
 func initChatSettings():
 	if ( game.getMultiplayer() ):
