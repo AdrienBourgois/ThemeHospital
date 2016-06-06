@@ -133,9 +133,9 @@ func checkNicknamePacket(): #Packet 3
 	var nickname_is_ok = bool(tmpData[2].to_int())
 	var current_scene = get_tree().get_current_scene()
 	
-	if ( current_scene.get_name() == "lobby" ):
+	if ( current_scene != null && current_scene.get_name() == "lobby" ):
 		current_scene.displayNicknameMenu(nickname_is_ok)
-	else:
+	elif ( current_scene != null && current_scene.get_name() == "GameScene" ):
 		client_packets_list.insert(1, client_packets_list[0])
 
 
@@ -152,8 +152,8 @@ func updateLobbyData(): #Packet 4
 			scene.clearReadyPlayersLabel()
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
-	else:
-		client_packets_list.insert(1, client_packets_list[0])
+	elif (scene != null && scene.get_name() != "GameScene"):
+		client_packets_list.push_back(client_packets_list[0])
 
 
 func updateMapRoom(): #Packet 5
