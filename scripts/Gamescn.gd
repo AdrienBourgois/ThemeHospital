@@ -32,6 +32,7 @@ export var map_size = Vector2(0, 0)
 func _ready():
 	loader.gamescn = self
 	saver.gamescn = self
+	object_ressources.setTempArray(temp_objects_nodes_array)
 	loader.loadInit()
 	init()
 	set_process_input(true)

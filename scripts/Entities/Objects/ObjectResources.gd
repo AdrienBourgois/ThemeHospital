@@ -19,9 +19,12 @@ var gasbottlescn = preload("res://scenes/Entities/Objects/GasBottle.scn")
 var tongue_machine_scn = preload("res://scenes/Entities/Objects/TongueMachine.scn")
 var sofascn = preload("res://scenes/Entities/Objects/Sofa.scn")
 var research_machine_scn = preload("res://scenes/Entities/Objects/ResearchMachine.scn")
+var locker_scn = preload("res://scenes/Entities/Objects/Locker.scn")
+var gp_chair_scn = preload("res://scenes/Entities/Objects/GPChair.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptiondeskscn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
+var temp_array = null setget getTempArray, setTempArray
 
 func createObject(name):
 	var node = null
@@ -47,6 +50,10 @@ func createRoomObject(name):
 	var node = null
 	if (name == "ROOM_GP" or name == "Desk"):
 		node = deskscn.instance()
+		var locker = locker_scn.instance()
+		var gp_chair = gp_chair_scn.instance()
+		temp_array.append(locker)
+		temp_array.append(gp_chair)
 	elif (name == "ROOM_TOILETS" or name == "Toilets"):
 		node = toiletsscn.instance()
 	elif (name == "ROOM_GENERAL_DIAGNOSIS" or name == "CrashTrolley"):
@@ -72,6 +79,12 @@ func createRoomObject(name):
 	else:
 		node = objectscn.instance()
 	return node
+
+func getTempArray():
+	return temp_array
+
+func setTempArray(array):
+	temp_array = array
 
 func returnPlant():
 	var node = plantscn.instance()
