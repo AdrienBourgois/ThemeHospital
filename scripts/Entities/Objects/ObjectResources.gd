@@ -19,9 +19,13 @@ var gasbottlescn = preload("res://scenes/Entities/Objects/GasBottle.scn")
 var tongue_machine_scn = preload("res://scenes/Entities/Objects/TongueMachine.scn")
 var sofascn = preload("res://scenes/Entities/Objects/Sofa.scn")
 var research_machine_scn = preload("res://scenes/Entities/Objects/ResearchMachine.scn")
+var locker_scn = preload("res://scenes/Entities/Objects/Locker.scn")
+var gp_chair_scn = preload("res://scenes/Entities/Objects/GPChair.scn")
+var ward_desk_scn = preload("res://scenes/Entities/Objects/WardDesk.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptiondeskscn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
+var temp_array = null setget getTempArray, setTempArray
 
 func createObject(name):
 	var node = null
@@ -35,10 +39,16 @@ func createObject(name):
 		node = drinkscn.instance()
 	elif (name == "Fire" or name == "FireExtinguisher"):
 		node = firescn.instance()
-	elif (name == "Reception Desk"):
+	elif (name == "Reception Desk" or name == "ReceptionDesk"):
 		node = receptiondeskscn.instance()
 	elif (name == "Desk"):
 		node = deskscn.instance()
+	elif (name == "GPChair"):
+		node = gp_chair_scn.instance()
+	elif (name == "Locker"):
+		node = locker_scn.instance()
+	elif (name == "Bed"):
+		node = ward_desk_scn.instance()
 	else:
 		node = createRoomObject(name)
 	return node
@@ -47,16 +57,22 @@ func createRoomObject(name):
 	var node = null
 	if (name == "ROOM_GP" or name == "Desk"):
 		node = deskscn.instance()
+		var locker = locker_scn.instance()
+		var gp_chair = gp_chair_scn.instance()
+		temp_array.append(locker)
+		temp_array.append(gp_chair)
 	elif (name == "ROOM_TOILETS" or name == "Toilets"):
 		node = toiletsscn.instance()
 	elif (name == "ROOM_GENERAL_DIAGNOSIS" or name == "CrashTrolley"):
 		node = crash_trolley_scn.instance()
-	elif (name == "ROOM_PHARMACY" or name == "PharmacyCabinet"):
+	elif (name == "ROOM_PHARMACY"  or name == "PharmacyCabinet"):
 		node = pharmacy_cabinet_scn.instance()
 	elif (name == "ROOM_PSYCHIATRIC" or name == "Psychiatric"):
 		node = psychiatricscn.instance()
 	elif (name == "ROOM_WARD" or name == "Bed"):
 		node = bedscn.instance()
+		var ward_desk = ward_desk_scn.instance()
+		temp_array.append(ward_desk)
 	elif (name == "ROOM_CARDIOGRAM" or name == "Treadmill"):
 		node = treadmillscn.instance()
 	elif (name == "ROOM_OPERATING" or name == "OperatingTheater"):
@@ -72,6 +88,12 @@ func createRoomObject(name):
 	else:
 		node = objectscn.instance()
 	return node
+
+func getTempArray():
+	return temp_array
+
+func setTempArray(array):
+	temp_array = array
 
 func returnPlant():
 	var node = plantscn.instance()
