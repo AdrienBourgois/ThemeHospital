@@ -83,7 +83,7 @@ func getObjectResources():
 	return object_ressources
 
 func _input(event):
-	if (event.is_action_released("save")):
+	if (event.is_action_released("save") and !game.getMultiplayer()):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
