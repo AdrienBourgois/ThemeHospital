@@ -16,9 +16,7 @@ func setStaffArray(new_staff_array):
 func createStaffBody(type, index):
 	staff_body = staff_res[type].instance()
 	staff_body.setID(staff_array[type][index]["type"])
-	print(staff_body.getID())
 	staff_body.setName(staff_array[type][index]["name"])
-	print(staff_body.getName())
 	staff_body.setSkill(staff_array[type][index]["skill"])
 	staff_body.setSalary(staff_array[type][index]["salary"])
 	if staff_array[type][index]["type"] == 0:
