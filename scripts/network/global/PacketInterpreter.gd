@@ -183,31 +183,47 @@ func updateMapRoom(): #Packet 5
 
 func updateMapItems(): #Packet 6
 	if ( current_parsing.server ):
-		var item_type = tmpData[2]
-		var rotation = tmpData[3].to_float()
-		var position = Vector3(tmpData[4].to_int(), 0,  tmpData[5].to_int())
-		
-		server_data_base.addItemInList(item_type, current_player_id, rotation, position)
-		
-		var packet = "/game 6 " + str(current_player_id) + " " + item_type + " " + server_data_base.getLastItemName() + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
-		
-		global_server.addPacket(packet)
+		updateMapItemsFromServer()
 	elif ( current_parsing.client ):
-		var root = get_tree().get_current_scene()
+		updateMapItemsFromClient()
+
+func updateMapItemsFromServer():
+	var update_type = tmpData[2]
+	var item_name = tmpData[3]
+	var rotation = tmpData[4].to_float()
+	var position = Vector3(tmpData[5].to_int(), 0,  tmpData[6].to_int())
+	var packet = "/game 6 "
+	
+	if (update_type == "0"):
+		server_data_base.addItemInList(item_name, current_player_id, rotation, position)
+		packet += "0 " + str(current_player_id) + " " + item_name + " " + server_data_base.getLastItemName() + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
+	elif (update_type == "1"):
+		if ( server_data_base.moveItem( item_name, current_player_id, rotation, position) ):
+			packet += "1 " + item_name + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
+		else:
+			return
+	
+	global_server.addPacket(packet)
+
+func updateMapItemsFromClient():
+	var root = get_tree().get_current_scene()
+	
+	if (root != null && root.get_name() == "GameScene"):
+		var update_type = tmpData[2].to_int()
+		var item_from = tmpData[3].to_int()
 		
-		if (root != null && root.get_name() == "GameScene"):
-			var item_from = tmpData[2].to_int()
-			
+		if (update_type == 0):
 			if ( item_from == global_client.getClientId() ):
-				root.setNameFirstItemTempArray(tmpData[3])
+				root.setNameFirstItemTempArray(tmpData[5])
 				root.setUpFirstItemTempArray()
-				root.setHaveObject(false)
 			else:
-				var node = root.getObjectResources().createObject(tmpData[3])
+				var node = root.getObjectResources().createObject(tmpData[4])
 				root.add_child(node)
-				node.setObjectStats(tmpData[3], tmpData[5], tmpData[6], tmpData[7])
-				node.set_name(tmpData[4])
-				node.setUpItem()
+				node.setObjectStats(tmpData[4], tmpData[6], tmpData[7], tmpData[8])
+				node.set_name(tmpData[5])
+				node.setUpNetworkItem()
+		elif (update_type == 1):
+			root.moveItem(tmpData[3], tmpData[4], Vector3(tmpData[5], 0, tmpData[6]))
 
 
 func kickedFromServer(): #Packet 7

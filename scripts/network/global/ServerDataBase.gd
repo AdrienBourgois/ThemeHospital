@@ -58,6 +58,17 @@ func addItemInList( item_name, player_id, rotation, position ):
 	
 	items_list.push_back(item_info)
 
+
+func moveItem( item_name, player_id, new_rotation, new_position):
+	for item in range ( items_list.size() ):
+		if ( items_list[item][0] == item_name && items_list[item][1] == player_id):
+			items_list[item][2] = new_rotation
+			items_list[item][3] = new_position
+			return true
+	
+	return false
+
+
 func getItemsList():
 	return items_list
 

@@ -27,6 +27,7 @@ func _ready():
 	timer.connect("timeout", self, "blink")
 	gamescn.objects_nodes_array.append(self)
 
+
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if (is_selected and can_selected):
 		checkAvailableProcess()
@@ -34,9 +35,11 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		if (!checkAvailable()):
 			return
 		
-		if ( game.getMultiplayer() ):
-			updateStats()
-			sendDataToServer()
+		if ( game.getMultiplayer() && object_stats.empty()):
+			sendItemDataToServer("new")
+			return
+		elif ( game.getMultiplayer() && !object_stats.empty()):
+			sendItemDataToServer("move")
 			return
 		
 		setUpItem()
@@ -44,7 +47,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object or gamescn.getHaveObject()):
 			return
-		print("Bonsoir monsieur")
 		available.on()
 		is_selected = true
 		can_selected = true
@@ -63,6 +65,7 @@ func nextObject():
 		temp_array.pop_front()
 		if (!temp_array.empty()):
 			temp_array[0].show()
+			temp_array[0].object_stats.clear()
 
 func setAvailableTile(boolean):
 	var node = null
@@ -219,16 +222,27 @@ func setPrice(value):
 func getPrice():
 	return price
 
-func sendDataToServer():
+
+func sendItemDataToServer(action):
 	updateStats()
 	
 	var rotation = str(object_stats.ROTATION)
 	var x = str(object_stats.X)
 	var z = str(object_stats.Z)
 	
-	var packet = "/game 6 " + object_name + " " + rotation + " " + x + " " + z
+	var packet = "/game 6 "
+	
+	if ( action == "new" ):
+		packet += "0 " + object_name + " " + rotation + " " + x + " " + z
+	elif ( action == "move" ):
+		packet += "1 " + get_name() + " " + rotation + " " + x + " " + z
+	else:
+		return
+	
+	print(packet)
 	
 	global_client.addPacket(packet)
+
 
 func setObjectStats(object_name, rotation, position_x, position_z):
 	object_stats = {
@@ -241,6 +255,8 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))
 	set_translation(Vector3(position_x, 0.5, position_z))
+	print("new position for ", get_name(), " x: ", position_x, "  z: ", position_z)
+
 
 func setUpItem():
 	can_selected = false
@@ -255,3 +271,12 @@ func setUpItem():
 		addToArray()
 	else:
 		gamescn.updateObjectsArray()
+
+
+func setUpNetworkItem():
+	can_selected = false
+	set_process_input(false)
+	gamescn.setHaveObject(false)
+	setAvailableTile(true)
+	available.hide()
+	available.timer.stop()
