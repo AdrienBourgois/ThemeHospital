@@ -1,3 +1,4 @@
+
 extends Node
 
 export var map_path = "res://Maps/map1.lvl"
@@ -7,6 +8,7 @@ var tiles = []
 var rooms = []
 var rooms_save = []
 var occupied_tiles = []
+var corridor_tiles = []
 onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
@@ -76,6 +78,7 @@ func create_map(file_path):
 				tile.create(x, y, ressources.grass)
 			elif (tile_type == 1):
 				tile.create(x, y, ressources.lobby)
+				corridor_tiles.append(tile)
 			tile.set_translation(Vector3(x, 0, y))
 			tiles.append(tile)
 			column.append(tile)
@@ -205,6 +208,7 @@ func new_room(state, parameters):
 			rooms.append(room)
 			for tile in previous_current_selection:
 				tile.hover_off()
+				removeTileFormCorridor(tile)
 			createRoomData()
 			actual_room_type_name = new_room_type.NAME
 			new_room_from = Vector2(-1,-1)
@@ -250,3 +254,8 @@ func getSize():
 
 func getPosition():
 	return position
+
+func removeTileFormCorridor(tiles_to_remove):
+	var idx = corridor_tiles.find(tiles_to_remove)
+	if idx != -1:
+		corridor_tiles.remove(idx)

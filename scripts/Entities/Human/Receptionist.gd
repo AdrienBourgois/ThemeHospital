@@ -1,25 +1,39 @@
 
 extends "Staff.gd"
 
-var reception_desk = []
-onready var object_array = get_node("/root/Game").scene.getObjectArray()
 var reception_desk_pos
-onready var pathfinding = load("res://scripts/Map/PathFinding.gd") setget, getPath
+var desk_occuped
+export var x = 0
+export var y = 0
+onready var object_array = get_node("/root/Game").scene.getObjectsNodesArray()
 
 func _ready():
-	set_process(true)
+	set_fixed_process(true)
 
-func _process(delta):
-	if can_selected == false:
+func put():
+	state_machine = get_node("StateMachine")
+	state_machine.setOwner(self)
+	state_machine.setCurrentState(get_node("GoToDesk"))
+
+func take():
+	state_machine = get_node("StateMachine")
+	state_machine.changeState(get_node("GoToDesk"))
+
+func _fixed_process(delta):
+	if state_machine:
+		state_machine.update()
+
+func checkDesk():
+	if object_array.size() != 0:
 		for desk in object_array:
-			if desk["NAME"] == "Reception Desk":
-				reception_desk_pos = Vector3(desk["X"], desk["Y"], desk["Z"])
-				print("Self Pos[", Vector3(get_translation().x,0,get_translation().z), "] | Desk Pos[", map.columns[reception_desk_pos.x][reception_desk_pos.y], "]")
-				pathfinding.new(tile, map.columns[reception_desk_pos.x][reception_desk_pos.y], self, 1.0, map)
-				set_process(false)
+			if desk.object_name == "ReceptionDesk" && !desk.is_occuped:
+				desk_occuped = desk
+				reception_desk_pos = Vector2(desk.get_translation().x, desk.get_translation().z)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self, 0.2, map)
+				add_child(pathfinding)
+				return
+	state_machine.changeState(get_node("RandomMovement"))
 
-func getPath():
-	pass
-
-
-
+func checkEndPath():
+	if pathfinding.animation_completed == true:
+		state_machine.changeState(get_node("GoToDesk"))

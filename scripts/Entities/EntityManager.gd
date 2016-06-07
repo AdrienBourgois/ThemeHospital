@@ -42,7 +42,6 @@ func _ready():
 	randomize()
 	nb_staff = 28
 	generateStaffIdAndDataArray(nb_staff)
-#	print(staff_array[0].size() + staff_array[1].size() + staff_array[2].size() + staff_array[3].size())
 
 func generateStaffData(id):
 	var staff_data = {}

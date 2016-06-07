@@ -39,6 +39,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		setAvailableTile(true)
 		available.hide()
 		available.timer.stop()
+		put()
 		nextObject()
 		if (object_stats.empty()):
 			addToArray()
@@ -232,3 +233,6 @@ func setPrice(value):
 
 func getPrice():
 	return price
+
+func put():
+	pass
