@@ -134,7 +134,8 @@ func diseasePressed(button):
 					buttons.set_pressed(false)
 					buttons.set_toggle_mode(false)
 		else:
-			print("Equal")
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
 	
 	is_pressed = false
 	disease_selected = true
