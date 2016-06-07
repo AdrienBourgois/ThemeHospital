@@ -18,6 +18,7 @@ onready var entity_manager = game.scene.entity_manager
 onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
 var state_machine
 onready var random_movement_state = get_node("RandomMovement")
+onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 
 var pathfinding
 
@@ -26,20 +27,18 @@ func _ready():
 	get_node("Timer").start()
 	set_fixed_process(true)
 
+func displayInfo():
+	if state_machine:
+		info_bar.set_text(state_machine.getCurrentStateName())
+		pass
 func take():
 	pass
 
 func put():
 	pass
-#	state_machine.setOwner(self)
-#	state_machine.setCurrentState(random_movement_state)
 
 func checkEndPath():
 	pass
-
-#func _fixed_process(delta):
-#	if state_machine:
-#		state_machine.update()
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
