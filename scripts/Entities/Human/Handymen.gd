@@ -38,17 +38,28 @@ func put():
 	state_machine.setCurrentState(get_node("RandomMovement"))
 
 func checkWork():
-	if object_array.size() != 0:
-		for plant in object_array:
-			if plant.object_name == "Plant":
-				if plant.getThirst() <= 50:
-					state_machine.changeState(get_node("GoToWater"))
+	if checkPlantThirsty():
+		state_machine.changeState(get_node("GoToWater"))
 	elif hospital_sanity <= 50:
 		state_machine.changeState(get_node("GoToSweep"))
 	elif engine_broken <= 50:
 		state_machine.changeState(get_node("GoToRepare"))
 	else:
 		state_machine.changeState(get_node("RandomMovement"))
+
+func checkPlantThirsty():
+	if object_array.size() != 0:
+		for plant in object_array:
+			if plant.object_name == "Plant":
+				print(plant.getThirst())
+				if plant.getThirst() <= 50:
+					return true
+
+func watering():
+	if object_array.size() != 0:
+		for plant in object_array:
+			if plant.object_name == "Plant":
+				plant.setThirst() = 100
 
 func increaseFixingMachinery():
 	fixing_machinery += delta
@@ -85,7 +96,3 @@ func decreaseSweepingLitter():
 	if sweeping_litter < 0.0:
 		sweeping_litter = 0.0
 	return sweeping_litter
-
-func _on_Timer_timeout():
-	plant_thirsty -= 5
-	pass # replace with function body

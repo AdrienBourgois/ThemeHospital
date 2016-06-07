@@ -2,7 +2,7 @@
 extends State
 
 func enter(owner):
-	owner.plant_thirsty = 100
+	owner.watering()
 
 func execute(owner):
 	owner.checkEndPath()
