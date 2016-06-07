@@ -7,6 +7,7 @@ var columns = []
 var tiles = []
 var rooms = []
 var rooms_save = []
+var rooms_array = []
 var occupied_tiles = []
 var corridor_tiles = []
 onready var global_client = get_node("/root/GlobalClient")
