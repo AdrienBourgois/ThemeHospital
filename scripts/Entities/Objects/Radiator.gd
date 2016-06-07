@@ -1,9 +1,8 @@
 
 extends "Object.gd"
 
-onready var heat_manager = get_node("/root/Game").scene.heat_manager
-var heat_ray
+export var warm_power = 100
+export var radius = 5
 
 func _ready():
-	heat_manager.heats.append(self)
-	heat_manager._ready()
+	pass

@@ -3,8 +3,7 @@ extends Panel
 onready var gamescn = get_node("/root/Game").scene
 onready var camera = gamescn.camera
 onready var reputation_value = gamescn.player.reputation
-onready var game_diseases = gamescn.diseases
-onready var diseases_list = game_diseases.list_diseases
+onready var diseases_list = gamescn.diseases.list_diseases
 onready var hud = get_parent().get_node("HUD")
 
 onready var node_informations = get_node("Book/Informations")
@@ -115,32 +114,28 @@ func diseasePressed(button):
 	fatalities = array_diseases[button.get_meta("button_number")].FATALITIES
 	turned_away = array_diseases[button.get_meta("button_number")].TURNED_AWAY
 	
-#	if is_pressed == false:
-#		var idx = 0
-#		
-#		for buttons in node_container.get_children():
-#			if button.get_pos().y > pos_selector.y:
-#				button_pos = buttons.get_pos()
-#				button_pos.y -= button_gap
-#				
-#				print("if")
-#				node_container.get_child(idx).set_pos(button_pos)
-#				
-#			elif button.get_pos().y < pos_selector.y:
-#				button_pos = buttons.get_pos()
-#				button_pos.y += button_gap
-#				
-#				print("elif")
-#				print(idx)
-#				print(button_pos)
-#				
-#				node_container.get_child(idx).set_pos(button_pos)
-#			
-#			else:
-#				print("HEY")
-#			
-#			print("JE BOUCLE ALORS NTM ")
-#			idx += 1
+	if is_pressed == false:
+		var idx = 0
+		
+		button_pos = button.get_pos()
+		var selector_pos = pos_selector.y + selector_border_size - pos_container.y
+		var gap_button_selector = selector_pos - button_pos.y
+		
+		if button_pos.y != selector_pos:
+			for buttons in node_container.get_children():
+				button_pos = buttons.get_pos()
+				button_pos.y += gap_button_selector
+				buttons.set_pos(button_pos)
+				
+				if button_pos.y == selector_pos:
+					buttons.set_toggle_mode(true)
+					buttons.set_pressed(true)
+				else:
+					buttons.set_pressed(false)
+					buttons.set_toggle_mode(false)
+		else:
+			button.set_toggle_mode(true)
+			button.set_pressed(true)
 	
 	is_pressed = false
 	disease_selected = true
@@ -192,10 +187,10 @@ func _on_Up_pressed():
 		
 		is_pressed = true
 		
-		if (dis_idx > 0):
-			button_pos.y += button_gap
-			button.set_pos(button_pos)
-			print("Up pos")
+#		if (dis_idx > 0):
+		button_pos.y += button_gap
+		button.set_pos(button_pos)
+#			print("Up pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -240,11 +235,11 @@ func _on_Down_pressed():
 		
 		is_pressed = true
 		
-		if dis_idx < array_diseases.size() - 1:
-			button_pos.y -= button_gap
-			print("Down : ", button_pos)
-			button.set_pos(button_pos)
-			print("Down pos")
+#		if dis_idx < array_diseases.size() - 1:
+		button_pos.y -= button_gap
+#			print("Down : ", button_pos)
+		button.set_pos(button_pos)
+#			print("Down pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -254,6 +249,7 @@ func _on_Down_pressed():
 		
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if dis_idx < array_diseases.size() - 1:
+#				print("Dis_idx in down b4 : ", dis_idx)
 				dis_idx += 1
 #				print("Dis_idx in down after : ", dis_idx)
 			
