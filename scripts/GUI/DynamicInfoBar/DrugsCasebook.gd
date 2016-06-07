@@ -187,7 +187,6 @@ func _on_Up_pressed():
 #		if (dis_idx > 0):
 		button_pos.y += button_gap
 		button.set_pos(button_pos)
-#			print("Up pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
