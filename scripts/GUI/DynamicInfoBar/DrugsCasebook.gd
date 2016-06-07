@@ -130,14 +130,11 @@ func diseasePressed(button):
 				buttons.set_pos(button_pos)
 				
 				if button_pos.y == selector_pos:
-					buttons.set_toggle_mode(true)
-					buttons.set_pressed(true)
+					setButtonPressed(button, true, true)
 				else:
-					buttons.set_pressed(false)
-					buttons.set_toggle_mode(false)
+					setButtonPressed(button, false, false)
 		else:
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
+			setButtonPressed(button, true, true)
 	
 	is_pressed = false
 	disease_selected = true
@@ -171,9 +168,7 @@ func configDiseasesButtons(button, disease_name):
 	button_pos = button.get_pos()
 	
 	if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
-		button.emit_signal("pressed")
-		button.set_toggle_mode(true)
-		button.set_pressed(true)
+		ButtonPressed(button)
 
 func _on_Up_pressed():
 	is_timer_finish = false
@@ -202,9 +197,7 @@ func _on_Up_pressed():
 		
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if (dis_idx > 0):
-#				print("Dis_idx up : ", dis_idx)
 				dis_idx -= 1
-#				print("Dis_idx in up after : ", dis_idx)
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
@@ -213,13 +206,10 @@ func _on_Up_pressed():
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
 			
-			button.emit_signal("pressed")
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
+			ButtonPressed(button)
 		
 		else:
-			button.set_pressed(false)
-			button.set_toggle_mode(false)
+			setButtonPressed(button, false, false)
 	
 	node_timer.start()
 
@@ -251,9 +241,7 @@ func _on_Down_pressed():
 		
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if dis_idx < array_diseases.size() - 1:
-#				print("Dis_idx in down b4 : ", dis_idx)
 				dis_idx += 1
-#				print("Dis_idx in down after : ", dis_idx)
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
@@ -262,13 +250,10 @@ func _on_Down_pressed():
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
 			
-			button.emit_signal("pressed")
-			button.set_toggle_mode(true)
-			button.set_pressed(true)
+			ButtonPressed(button)
 		
 		else:
-			button.set_pressed(false)
-			button.set_toggle_mode(false)
+			setButtonPressed(button, false, false)
 	 
 	node_timer.start()
 
@@ -306,6 +291,14 @@ func disconnectDecreaseAndIncrease():
 func connectDecreaseAndIncrease(array_dis):
 	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_dis])
 	node_increase.connect("pressed", self, "increaseCostPressed", [array_dis])
+
+func ButtonPressed(button):
+	button.emit_signal("pressed")
+	setButtonPressed(button, true, true)
+
+func setButtonPressed(button, toggle, pressed):
+	button.set_toggle_mode(toggle)
+	button.set_pressed(pressed)
 
 func refreshVariablesIfSizeChange():
 	pos_container = node_container.get_pos()
