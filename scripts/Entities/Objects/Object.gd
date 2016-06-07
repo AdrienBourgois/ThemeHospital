@@ -19,6 +19,7 @@ var type = {}
 var vector_pos
 var tile
 var entity_interaction_tile setget, getEntityInteractionTile
+var entity = null setget setEntity, getEntity
 export var big_object = false
 
 func _ready():
@@ -65,7 +66,11 @@ func nextObject():
 		temp_array.pop_front()
 		if (!temp_array.empty()):
 			temp_array[0].show()
-			temp_array[0].object_stats.clear()
+#			temp_array[0].available.on()
+#			temp_array[0].is_selected = true
+#			temp_array[0].can_selected = true
+#			temp_array[0].gamescn.setHaveObject(true)
+#			temp_array[0].set_process_input(true)
 
 func setAvailableTile(boolean):
 	var node = null
@@ -203,6 +208,12 @@ func updateStats():
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getEntity():
+	return entity
+
+func setEntity(pointer):
+	entity = pointer
 
 func getEntityInteractionTile():
 	return entity_interaction_tile
