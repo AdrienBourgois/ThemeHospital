@@ -2,10 +2,11 @@
 extends State
 
 func enter(owner):
-	pass
+	owner.checkPlant()
 
 func execute(owner):
-	pass
+	if owner.pathfinding.animation_completed == true:
+		owner.state_machine.changeState(owner.get_node("Watering"))
 
 func exit(owner):
 	pass
