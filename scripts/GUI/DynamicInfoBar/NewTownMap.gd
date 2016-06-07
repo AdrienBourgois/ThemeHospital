@@ -2,6 +2,7 @@
 extends Control
 
 onready var game = get_node("/root/Game")
+onready var camera = game.scene.camera
 onready var global_client = get_node("/root/GlobalClient")
 onready var hud = null
 onready var heat_manager = game.scene.heat_manager
@@ -88,6 +89,7 @@ func _on_DecreaseHeatButton_pressed():
 func _on_QuitButton_pressed():
 	if (hud == null):
 		hud = get_tree().get_current_scene().get_node("./In_game_gui/HUD")
+	camera.pause = false
 	
 	set_hidden(true)
 	hud.set_hidden(false)
