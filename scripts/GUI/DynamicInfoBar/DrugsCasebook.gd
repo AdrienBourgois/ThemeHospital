@@ -46,6 +46,7 @@ var selector_border_size
 var concentrate_research = false
 var disease_selected = false
 var is_timer_finish = true
+var is_pressed = true
 
 func _ready():
 	pos_container = node_container.get_pos()
@@ -100,7 +101,10 @@ func connectDiseasesButtons():
 
 func diseasePressed(button):
 	disconnectDecreaseAndIncrease()
+	if node_timer.is_connected("timeout", self, "timerTimeout"):
+		node_timer.disconnect("timeout", self, "timerTimeout")
 	
+	node_timer.connect("timeout", self, "timerTimeout", [array_diseases[button.get_meta("button_number")]])
 	connectDecreaseAndIncrease(array_diseases[button.get_meta("button_number")])
 	
 	treatment_charge = array_diseases[button.get_meta("button_number")].NEW_COST
@@ -111,6 +115,34 @@ func diseasePressed(button):
 	fatalities = array_diseases[button.get_meta("button_number")].FATALITIES
 	turned_away = array_diseases[button.get_meta("button_number")].TURNED_AWAY
 	
+#	if is_pressed == false:
+#		var idx = 0
+#		
+#		for buttons in node_container.get_children():
+#			if button.get_pos().y > pos_selector.y:
+#				button_pos = buttons.get_pos()
+#				button_pos.y -= button_gap
+#				
+#				print("if")
+#				node_container.get_child(idx).set_pos(button_pos)
+#				
+#			elif button.get_pos().y < pos_selector.y:
+#				button_pos = buttons.get_pos()
+#				button_pos.y += button_gap
+#				
+#				print("elif")
+#				print(idx)
+#				print(button_pos)
+#				
+#				node_container.get_child(idx).set_pos(button_pos)
+#			
+#			else:
+#				print("HEY")
+#			
+#			print("JE BOUCLE ALORS NTM ")
+#			idx += 1
+	
+	is_pressed = false
 	disease_selected = true
 
 func percentageCalculation(value, percent):
@@ -158,12 +190,12 @@ func _on_Up_pressed():
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
-		disconnectDecreaseAndIncrease()
+		is_pressed = true
 		
 		if (dis_idx > 0):
 			button_pos.y += button_gap
 			button.set_pos(button_pos)
-#			print("Up pos")
+			print("Up pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -179,6 +211,7 @@ func _on_Up_pressed():
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
+			disconnectDecreaseAndIncrease()
 			
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
@@ -204,13 +237,14 @@ func _on_Down_pressed():
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
-		print(button_gap)
-		disconnectDecreaseAndIncrease()
+		
+		is_pressed = true
 		
 		if dis_idx < array_diseases.size() - 1:
 			button_pos.y -= button_gap
+			print("Down : ", button_pos)
 			button.set_pos(button_pos)
-#			print("Down pos")
+			print("Down pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -220,12 +254,12 @@ func _on_Down_pressed():
 		
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if dis_idx < array_diseases.size() - 1:
-#				print("Dis_idx in down b4 : ", dis_idx)
 				dis_idx += 1
 #				print("Dis_idx in down after : ", dis_idx)
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
+			disconnectDecreaseAndIncrease()
 			
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
