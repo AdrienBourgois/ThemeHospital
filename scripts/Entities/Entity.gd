@@ -49,7 +49,9 @@ func _process(delta):
 	if can_selected == true:
 		var cube_scale = cube.get_scale()
 		mouse_pos_3d = map.center_tile_on_cursor
-		set_translation(Vector3(mouse_pos_3d.x - cube_scale.x, cube_scale.y, mouse_pos_3d.y - cube_scale.z))
+		
+		var translate = map.tile_on_cursor
+		set_translation(Vector3(translate.x, cube_scale.y, translate.y))
 		set_process_input(true)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
