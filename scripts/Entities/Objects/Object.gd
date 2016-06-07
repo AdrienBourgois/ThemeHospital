@@ -1,6 +1,7 @@
 
 extends "../Entity.gd"
 
+onready var global_client = get_node("/root/GlobalClient")
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
 onready var temp_array = gamescn.getTempObjectsNodesArray()
@@ -33,6 +34,15 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
+		
+		if ( game.getMultiplayer() && object_stats.empty()):
+			sendItemDataToServer("new")
+			return
+		elif ( game.getMultiplayer() && !object_stats.empty()):
+			sendItemDataToServer("move")
+			return
+		
+		setUpItem()
 		can_selected = false
 		set_process_input(false)
 		gamescn.setHaveObject(false)
@@ -55,6 +65,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		gamescn.setHaveObject(true)
 		setAvailableTile(false)
 		set_process_input(true)
+		game.feedback.display("TOOLTIP_OBJECT_DESTROY")
 
 func hideOtherObjects():
 	for current in temp_array:
@@ -244,6 +255,64 @@ func setPrice(value):
 
 func getPrice():
 	return price
+
+func sendItemDataToServer(action):
+	updateStats()
+	
+	var rotation = str(object_stats.ROTATION)
+	var x = str(object_stats.X)
+	var z = str(object_stats.Z)
+	
+	var packet = "/game 6 "
+	
+	if ( action == "new" ):
+		packet += "0 " + object_name + " " + rotation + " " + x + " " + z
+	elif ( action == "move" ):
+		packet += "1 " + get_name() + " " + rotation + " " + x + " " + z
+	else:
+		return
+	
+	print(packet)
+	
+	global_client.addPacket(packet)
+
+
+func setObjectStats(object_name, rotation, position_x, position_z):
+	object_stats = {
+	NAME = object_name,
+	X = position_x,
+	Y = 0,
+	Z = position_z,
+	ROTATION = rotation
+	}
+	
+	set_rotation(Vector3(0, rotation.to_float(), 0))
+	set_translation(Vector3(position_x, 0.5, position_z))
+	print("new position for ", get_name(), " x: ", position_x, "  z: ", position_z)
+
+
+func setUpItem():
+	can_selected = false
+	set_process_input(false)
+	gamescn.setHaveObject(false)
+	setAvailableTile(true)
+	available.hide()
+	available.timer.stop()
+	nextObject()
+	
+	if (object_stats.empty()):
+		addToArray()
+	else:
+		gamescn.updateObjectsArray()
+
+
+func setUpNetworkItem():
+	can_selected = false
+	set_process_input(false)
+	gamescn.setHaveObject(false)
+	setAvailableTile(true)
+	available.hide()
+	available.timer.stop()
 
 func put():
 	pass
