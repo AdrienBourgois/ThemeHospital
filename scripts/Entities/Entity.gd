@@ -41,6 +41,9 @@ func createStatsDict():
 func rotate():
 	self.rotate_y(deg2rad(90))
 
+func displayInfo():
+	pass
+
 func _process(delta):
 	var cube_scale = cube.get_scale()
 	if can_selected == true:
@@ -52,6 +55,7 @@ func _process(delta):
 		set_process_input(true)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	displayInfo()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		can_selected = false
 		set_process_input(false)

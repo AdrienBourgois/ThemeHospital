@@ -18,14 +18,17 @@
 			void enter(Node*);
 			void execute(Node*);
 			void exit(Node*);
-
+			void setName(String);
+			String getName() const;
+		
 		protected:
 			static void _bind_methods();
 
 		private:
-			StringName str_enter;
-			StringName str_execute;
-			StringName str_exit;
+			StringName 	str_enter;
+			StringName 	str_execute;
+			StringName 	str_exit;
+			String		name;
 	};
 
 #endif

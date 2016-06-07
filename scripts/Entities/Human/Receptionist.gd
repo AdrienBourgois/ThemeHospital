@@ -5,7 +5,7 @@ var reception_desk_pos
 var desk_occuped
 export var x = 0
 export var y = 0
-onready var object_array = get_node("/root/Game").scene.getObjectsNodesArray()
+onready var object_array = game.scene.getObjectsNodesArray()
 
 func _ready():
 	set_fixed_process(true)
