@@ -17,7 +17,6 @@ onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInform
 onready var entity_manager = game.scene.entity_manager
 onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
 var state_machine
-onready var random_movement_state = get_node("RandomMovement")
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 
 var pathfinding
@@ -29,8 +28,8 @@ func _ready():
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text(state_machine.getCurrentStateName())
-		pass
+		info_bar.set_text(get_name() + " : " + state_machine.getCurrentStateName())
+
 func take():
 	pass
 
@@ -77,3 +76,5 @@ func getSalary():
 
 func setSalary(val):
 	salary = val
+	
+	

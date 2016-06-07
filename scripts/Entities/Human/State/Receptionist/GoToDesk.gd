@@ -6,7 +6,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed:
-		owner.state_machine.changeState(owner.get_node("AtDesk"))
+		owner.state_machine.changeState(owner.states.at_desk)
 
 func exit(owner):
 	pass
