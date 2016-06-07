@@ -59,7 +59,8 @@ func watering():
 	if object_array.size() != 0:
 		for plant in object_array:
 			if plant.object_name == "Plant":
-				plant.setThirst() = 100
+				if plant_pos == Vector2(get_translation().x, get_translation().z):
+					plant.setThirst(100)
 
 func increaseFixingMachinery():
 	fixing_machinery += delta
