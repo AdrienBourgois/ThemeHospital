@@ -26,6 +26,9 @@ func _ready():
 	timer.set_wait_time(0.01)
 	timer.connect("timeout", self, "blink")
 	gamescn.objects_nodes_array.append(self)
+	
+func _process(delta):
+	pass
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if (is_selected and can_selected):
@@ -55,6 +58,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		gamescn.setHaveObject(true)
 		setAvailableTile(false)
 		set_process_input(true)
+		game.feedback.display("TOOLTIP_OBJECT_DESTROY")
 
 func hideOtherObjects():
 	for current in temp_array:
