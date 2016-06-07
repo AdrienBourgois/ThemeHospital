@@ -12,4 +12,5 @@ func execute(owner):
 	pass
 
 func exit(owner):
-	owner.desk_occuped.is_occuped = false
+	if owner.desk_occuped:
+		owner.desk_occuped.is_occuped = false

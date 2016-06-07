@@ -99,6 +99,13 @@ func updateTilePosition():
 	rotation = get_rotation()
 	tile = map.getTile(vector_pos)
 
+func checkNeighbours():
+	if (!tile):
+		return false
+	elif (!tile.neighbours.Left or !tile.neighbours.Right or !tile.neighbours.Up or !tile.neighbours.Down):
+		return false
+	return true
+
 func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
@@ -109,6 +116,8 @@ func checkAvailableBigObjectTile():
 
 func checkAvailableTileType():
 	updateTilePosition()
+	if (!checkNeighbours()):
+		return false
 	if (tile.getObject()):
 		return false
 	elif (int(rotation.y) == int(deg2rad(-90)) and tile.room_type.ID != room_id):
@@ -126,6 +135,8 @@ func checkAvailableTileType():
 
 func checkAvaiblableTile():
 	updateTilePosition()
+	if (!checkNeighbours()):
+		return false
 	if (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.getObject()):
 		return false
 	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.getObject()):
