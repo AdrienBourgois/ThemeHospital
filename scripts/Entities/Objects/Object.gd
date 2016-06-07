@@ -42,7 +42,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			sendItemDataToServer("move")
 			return
 		
-		setUpItem()
 		can_selected = false
 		set_process_input(false)
 		gamescn.setHaveObject(false)
@@ -66,6 +65,10 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		setAvailableTile(false)
 		set_process_input(true)
 		game.feedback.display("TOOLTIP_OBJECT_DESTROY")
+
+func _input(event):
+	if (event.is_action_released("delete")):
+		self.queue_free()
 
 func hideOtherObjects():
 	for current in temp_array:
