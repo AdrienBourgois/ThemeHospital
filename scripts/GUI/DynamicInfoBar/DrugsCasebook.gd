@@ -54,6 +54,8 @@ func _ready():
 	
 	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
 	
+	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
+	
 	connectDiseasesButtons()
 	
 	set_process(true)
@@ -304,3 +306,10 @@ func disconnectDecreaseAndIncrease():
 func connectDecreaseAndIncrease(array_dis):
 	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_dis])
 	node_increase.connect("pressed", self, "increaseCostPressed", [array_dis])
+
+func refreshVariablesIfSizeChange():
+	pos_container = node_container.get_pos()
+	pos_selector = node_selector.get_pos()
+	size_container = node_container.get_size()
+	
+	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
