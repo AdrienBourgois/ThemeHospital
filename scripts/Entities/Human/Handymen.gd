@@ -4,11 +4,11 @@ extends "Staff.gd"
 export var fixing_machinery = 50.0
 export var watering_plants = 50.0
 export var sweeping_litter = 50.0
-export var plant_thirsty = 100
 export var hospital_sanity = 100
 export var engine_broken = 100
 
 onready var object_array = game.scene.getObjectsNodesArray()
+
 
 var delta = 5.0
 var max_value = 100.0
@@ -30,7 +30,6 @@ func checkPlant():
 func _fixed_process(delta):
 	if state_machine:
 		state_machine.update()
-	print(plant_thirsty)
 
 func put():
 	get_node("Timer").start()
@@ -39,8 +38,11 @@ func put():
 	state_machine.setCurrentState(get_node("RandomMovement"))
 
 func checkWork():
-	if plant_thirsty <= 50:
-		state_machine.changeState(get_node("GoToWater"))
+	if object_array.size() != 0:
+		for plant in object_array:
+			if plant.object_name == "Plant":
+				if plant.getThirst() <= 50:
+					state_machine.changeState(get_node("GoToWater"))
 	elif hospital_sanity <= 50:
 		state_machine.changeState(get_node("GoToSweep"))
 	elif engine_broken <= 50:
