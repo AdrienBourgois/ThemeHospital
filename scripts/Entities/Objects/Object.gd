@@ -28,7 +28,6 @@ func _ready():
 	timer.connect("timeout", self, "blink")
 	gamescn.objects_nodes_array.append(self)
 
-
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if (is_selected and can_selected):
 		checkAvailableProcess()
@@ -44,6 +43,18 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			return
 		
 		setUpItem()
+		can_selected = false
+		set_process_input(false)
+		gamescn.setHaveObject(false)
+		setAvailableTile(true)
+		available.hide()
+		available.timer.stop()
+		put()
+		nextObject()
+		if (object_stats.empty()):
+			addToArray()
+		else:
+			gamescn.updateObjectsArray()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object or gamescn.getHaveObject()):
@@ -54,6 +65,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		gamescn.setHaveObject(true)
 		setAvailableTile(false)
 		set_process_input(true)
+		game.feedback.display("TOOLTIP_OBJECT_DESTROY")
 
 func hideOtherObjects():
 	for current in temp_array:
@@ -66,11 +78,11 @@ func nextObject():
 		temp_array.pop_front()
 		if (!temp_array.empty()):
 			temp_array[0].show()
-#			temp_array[0].available.on()
-#			temp_array[0].is_selected = true
-#			temp_array[0].can_selected = true
-#			temp_array[0].gamescn.setHaveObject(true)
-#			temp_array[0].set_process_input(true)
+			temp_array[0].available.on()
+			temp_array[0].is_selected = true
+			temp_array[0].can_selected = true
+			temp_array[0].gamescn.setHaveObject(true)
+			temp_array[0].set_process_input(true)
 
 func setAvailableTile(boolean):
 	var node = null
@@ -98,6 +110,13 @@ func updateTilePosition():
 	rotation = get_rotation()
 	tile = map.getTile(vector_pos)
 
+func checkNeighbours():
+	if (!tile):
+		return false
+	elif (!tile.neighbours.Left or !tile.neighbours.Right or !tile.neighbours.Up or !tile.neighbours.Down):
+		return false
+	return true
+
 func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
@@ -108,6 +127,8 @@ func checkAvailableBigObjectTile():
 
 func checkAvailableTileType():
 	updateTilePosition()
+	if (!checkNeighbours()):
+		return false
 	if (tile.getObject()):
 		return false
 	elif (int(rotation.y) == int(deg2rad(-90)) and tile.room_type.ID != room_id):
@@ -125,6 +146,8 @@ func checkAvailableTileType():
 
 func checkAvaiblableTile():
 	updateTilePosition()
+	if (!checkNeighbours()):
+		return false
 	if (int(rotation.y) == int(deg2rad(-90)) and tile.neighbours.Left.getObject()):
 		return false
 	elif (int(rotation.x) == int(deg2rad(-180))and tile.neighbours.Up.getObject()):
@@ -233,7 +256,6 @@ func setPrice(value):
 func getPrice():
 	return price
 
-
 func sendItemDataToServer(action):
 	updateStats()
 	
@@ -291,3 +313,6 @@ func setUpNetworkItem():
 	setAvailableTile(true)
 	available.hide()
 	available.timer.stop()
+
+func put():
+	pass

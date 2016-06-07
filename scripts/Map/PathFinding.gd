@@ -54,7 +54,6 @@ func path_finding():
 				closed_list.append(current)
 	
 	animate()
-	#print("--> Total Time : ", OS.get_ticks_msec() - total_time)
 
 func reconstruct():
 	path_nodes.append(current)

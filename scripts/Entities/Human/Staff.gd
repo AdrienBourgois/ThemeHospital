@@ -15,12 +15,29 @@ onready var tile = map.columns[get_translation().x/1][get_translation().z/1]
 
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
 onready var entity_manager = game.scene.entity_manager
+onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
+var state_machine
+onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
+
+var pathfinding
 
 func _ready():
 	connect("input_event", self, "_on_Staff_input_event")
 	get_node("Timer").start()
-	
-	print("READY")
+	set_fixed_process(true)
+
+func displayInfo():
+	if state_machine:
+		info_bar.set_text(get_name() + " : " + state_machine.getCurrentStateName())
+
+func take():
+	pass
+
+func put():
+	pass
+
+func checkEndPath():
+	pass
 
 func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click"):
@@ -29,6 +46,11 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			get_parent().staff_selected = self
 			staff_information_gui._ready()
 			staff_information_gui.show()
+
+func moveTo():
+	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+	add_child(pathfinding)
 
 func getName():
 	return name
@@ -53,3 +75,5 @@ func getSalary():
 
 func setSalary(val):
 	salary = val
+	
+	

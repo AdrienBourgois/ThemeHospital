@@ -11,12 +11,17 @@
 
 		public:
 			StateMachine();
-			void setOwner(Node*);
-			Node* getOwner() const { return this->owner; }
-			void update();
-			void setCurrentState(Node*);
-			void changeState(Node*);
-			void returnToPreviousState();
+			~StateMachine();
+
+			void 	setOwner(Node*);
+			Node* 	getOwner() const { return this->owner; }
+			void 	update();
+			void 	setCurrentState(Node*);
+			void 	changeState(Node*);
+			void 	returnToPreviousState();
+
+			void 	setCurrentStateName(String);
+			String 	getCurrentStateName() const;
 
 		protected:
 			static void _bind_methods();

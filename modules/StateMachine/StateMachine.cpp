@@ -8,6 +8,13 @@ StateMachine::StateMachine()
 	this->previous_state = NULL;
 }
 
+StateMachine::~StateMachine()
+{
+	this->owner = NULL;
+    this->current_state = NULL;
+    this->previous_state = NULL;
+}
+
 void StateMachine::setOwner(Node* new_owner)
 {
 	this->owner = new_owner;
@@ -70,6 +77,16 @@ void StateMachine::returnToPreviousState()
 	ERR_FAIL_COND(!this->previous_state);
 }
 
+void StateMachine::setCurrentStateName(String new_name)
+{
+	this->current_state->setName(new_name);
+}
+
+String StateMachine::getCurrentStateName() const
+{
+	return this->current_state->getName();
+}
+
 void StateMachine::_bind_methods()
 {
 	ObjectTypeDB::bind_method("setOwner",&StateMachine::setOwner);
@@ -78,4 +95,7 @@ void StateMachine::_bind_methods()
 	ObjectTypeDB::bind_method("setCurrentState",&StateMachine::setCurrentState);
 	ObjectTypeDB::bind_method("changeState",&StateMachine::changeState);
 	ObjectTypeDB::bind_method("returnToPreviousState",&StateMachine::returnToPreviousState);
+
+	ObjectTypeDB::bind_method("setCurrentStateName",&StateMachine::setCurrentStateName);
+	ObjectTypeDB::bind_method("getCurrentStateName",&StateMachine::getCurrentStateName);
 }

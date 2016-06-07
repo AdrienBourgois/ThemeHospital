@@ -17,6 +17,12 @@ export var rotation = 0
 var is_selected = false
 var can_selected = true
 
+func put():
+	pass
+
+func take():
+	pass
+
 func _ready():
 	connect("input_event", self, "_on_Entity_input_event")
 	cube_scale = cube.get_scale()
@@ -35,23 +41,31 @@ func createStatsDict():
 func rotate():
 	self.rotate_y(deg2rad(90))
 
+func displayInfo():
+	pass
+
 func _process(delta):
 	var cube_scale = cube.get_scale()
 	if can_selected == true:
 		var cube_scale = cube.get_scale()
 		mouse_pos_3d = map.center_tile_on_cursor
-		set_translation(Vector3(mouse_pos_3d.x - cube_scale.x, cube_scale.y, mouse_pos_3d.y - cube_scale.z))
+		
+		var translate = map.tile_on_cursor
+		set_translation(Vector3(translate.x, cube_scale.y, translate.y))
 		set_process_input(true)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	displayInfo()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		can_selected = false
 		set_process_input(false)
 		position.x = self.get_translation().x
 		position.y = self.get_translation().y
+		put()
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		is_selected = true
 		can_selected = true
+		take()
 		set_process_input(true)
 
 func _input(event):
