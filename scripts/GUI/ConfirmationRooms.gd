@@ -18,11 +18,10 @@ func _on_Cancel_pressed():
 	node_rooms_menu.is_type_selected = false
 
 func _on_Accept_pressed():
-	if (game.getMultiplayer()):
+	if (game.getMultiplayer() && map.is_new_room_valid()):
 		map.sendRoomToServer()
-	
 	else:
-		if (map.new_room("create", null)):
+		if  (map.new_room("create", null)):
 			player.money -= node_rooms_menu.price
 			temp_array.append(object_resources.createRoomObject(map.getActualRoomTypeName()))
 			temp_array[0].is_selected = true

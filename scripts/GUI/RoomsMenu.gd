@@ -6,6 +6,10 @@ var confirm_build
 var is_type_selected = false
 var rooms_types
 var price
+
+onready var game = get_node("/root/Game")
+onready var player = game.scene.player
+
 onready var node_label = get_node("Rooms/Label")
 onready var node_text_label = get_node("Text/Label")
 onready var node_cost_label = get_node("Rooms/Cost")
@@ -56,16 +60,19 @@ func disconnectFunc(buttons, type, method):
 		buttons.disconnect(type, self, method)
 
 func roomsPressed(room):
-	cleanButtons()
+	if player.money >= room.COST:
+		cleanButtons()
 	
-	price = room.COST
+		price = room.COST
 	
-	if (is_type_selected == true):
-		confirm_build.show()
-		self.hide()
+		if (is_type_selected == true):
+			confirm_build.show()
+			self.hide()
 	
-	if (is_type_selected == true):
-		map.new_room("new", room)
+		if (is_type_selected == true):
+			map.new_room("new", room)
+	else:
+		game.feedback.display("FEEDBACK_ENOUGH_MONEY")
 
 func typeRoomsPressed(type):
 	node_label.set_text("PICK_ROOM")

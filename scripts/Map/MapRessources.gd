@@ -224,10 +224,17 @@ var type_rooms = {
 	"TYPE_FACILITIES": facilities
 }
 
-var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, operating, inflation, tongue, staff_room, toilets, research, grass, pavement, plot]
+var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, operating, inflation, tongue, staff_room, toilets, research, grass, pavement, plot] 
 
 func getRoomFromId(room_id):
 	for current in rooms_array:
 		if (current.ID == room_id):
 			return current
 	return lobby
+
+
+func getCostFromId(room_id):
+	for current in rooms_array:
+		if (current.ID == room_id):
+			return current.COST
+	return 0

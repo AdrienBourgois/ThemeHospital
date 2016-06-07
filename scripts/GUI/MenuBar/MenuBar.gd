@@ -28,7 +28,6 @@ func getInGameChat():
 	if ( in_game_chat == null):
 		in_game_chat = game.scene.get_node("in_game_chat")
 
-
 func _on_Back_pressed():
 	loader.gamescn = null
 	saver.gamescn = null

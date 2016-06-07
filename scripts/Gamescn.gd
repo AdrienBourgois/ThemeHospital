@@ -119,3 +119,11 @@ func initObjectives():
 func initInGameChat():
 	in_game_chat = in_game_chat.instance()
 	add_child(in_game_chat)
+
+func setNameFirstItemTempArray( item_name ):
+	temp_objects_nodes_array[0].set_name( item_name )
+
+func setUpFirstItemTempArray():
+	var node = temp_objects_nodes_array[0]
+	
+	node.setUpItem()
