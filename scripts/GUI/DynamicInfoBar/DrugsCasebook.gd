@@ -33,14 +33,16 @@ var array_diseases = []
 var dis_idx = 0
 var basic_pos_button = 0
 var button_pos = 0
+var button_gap = 0
+
 var pos_container
 var pos_selector
 var size_container
 
 var first_button_pos
 var second_button_pos
-var button_gap = 0
 var selector_border_size
+var selector_pos
 
 var concentrate_research = false
 var disease_selected = false
@@ -48,17 +50,28 @@ var is_timer_finish = true
 var is_pressed = true
 
 func _ready():
+	getElementsPositions()
+	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
+	
+	connectDiseasesButtons()
+	
+	calculateButtonsGap()
+	
+	set_process(true)
+
+func getElementsPositions():
 	pos_container = node_container.get_pos()
 	pos_selector = node_selector.get_pos()
 	size_container = node_container.get_size()
 	
 	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
+	selector_pos = pos_selector.y + selector_border_size - pos_container.y
+
+func calculateButtonsGap():
+	first_button_pos = node_container.get_child(0).get_pos()
+	second_button_pos = node_container.get_child(1).get_pos()
 	
-	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
-	
-	connectDiseasesButtons()
-	
-	set_process(true)
+	button_gap = second_button_pos.y - first_button_pos.y
 
 func _on_Quit_pressed():
 	self.hide()
@@ -120,7 +133,6 @@ func diseasePressed(button):
 		var idx = 0
 		
 		button_pos = button.get_pos()
-		var selector_pos = pos_selector.y + selector_border_size - pos_container.y
 		var gap_button_selector = selector_pos - button_pos.y
 		
 		if button_pos.y != selector_pos:
@@ -130,11 +142,11 @@ func diseasePressed(button):
 				buttons.set_pos(button_pos)
 				
 				if button_pos.y == selector_pos:
-					setButtonPressed(button, true, true)
+					setButtonPressed(buttons)
 				else:
-					setButtonPressed(button, false, false)
+					setPressedFalse(buttons)
 		else:
-			setButtonPressed(button, true, true)
+			setPressedFalse(button)
 	
 	is_pressed = false
 	disease_selected = true
@@ -168,23 +180,16 @@ func configDiseasesButtons(button, disease_name):
 	button_pos = button.get_pos()
 	
 	if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
-		ButtonPressed(button)
+		setButtonPressed(button)
 
 func _on_Up_pressed():
 	is_timer_finish = false
-	
-	first_button_pos = node_container.get_child(0).get_pos()
-	second_button_pos = node_container.get_child(1).get_pos()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
-	button_gap = second_button_pos.y - first_button_pos.y
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
 		is_pressed = true
 		
-#		if (dis_idx > 0):
 		button_pos.y += button_gap
 		button.set_pos(button_pos)
 		
@@ -205,32 +210,23 @@ func _on_Up_pressed():
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
 			
-			ButtonPressed(button)
+			setButtonPressed(button)
 		
 		else:
-			setButtonPressed(button, false, false)
+			setPressedFalse(button)
 	
 	node_timer.start()
 
 func _on_Down_pressed():
 	is_timer_finish = false
 	
-	first_button_pos = node_container.get_child(0).get_pos()
-	second_button_pos = node_container.get_child(1).get_pos()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
-	button_gap = second_button_pos.y - first_button_pos.y
-	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
 		is_pressed = true
 		
-#		if dis_idx < array_diseases.size() - 1:
 		button_pos.y -= button_gap
-#			print("Down : ", button_pos)
 		button.set_pos(button_pos)
-#			print("Down pos")
 		
 		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
 			button.hide()
@@ -249,10 +245,10 @@ func _on_Down_pressed():
 			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
 			connectDecreaseAndIncrease(array_diseases[dis_idx])
 			
-			ButtonPressed(button)
+			setButtonPressed(button)
 		
 		else:
-			setButtonPressed(button, false, false)
+			setPressedFalse(button)
 	 
 	node_timer.start()
 
@@ -291,17 +287,15 @@ func connectDecreaseAndIncrease(array_dis):
 	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_dis])
 	node_increase.connect("pressed", self, "increaseCostPressed", [array_dis])
 
-func ButtonPressed(button):
+func setButtonPressed(button):
 	button.emit_signal("pressed")
-	setButtonPressed(button, true, true)
+	button.set_toggle_mode(true)
+	button.set_pressed(true)
 
-func setButtonPressed(button, toggle, pressed):
-	button.set_toggle_mode(toggle)
-	button.set_pressed(pressed)
+func setPressedFalse(button):
+	button.set_pressed(false)
+	button.set_toggle_mode(false)
 
 func refreshVariablesIfSizeChange():
-	pos_container = node_container.get_pos()
-	pos_selector = node_selector.get_pos()
-	size_container = node_container.get_size()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
+	getElementsPositions()
+	calculateButtonsGap()
