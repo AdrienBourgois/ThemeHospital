@@ -10,6 +10,8 @@ var rooms_save = []
 var rooms_array = []
 var occupied_tiles = []
 var corridor_tiles = []
+
+onready var game = get_node("/root/Game/")
 onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
@@ -218,7 +220,7 @@ func new_room(state, parameters):
 			new_room_type = {}
 			return true
 		else:
-			print("New room is not valid !")
+			game.feedback.display("Room is not valid !")
 			new_room("cancel", null)
 		return false
 
