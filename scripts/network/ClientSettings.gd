@@ -94,19 +94,30 @@ func display_invalid_server():
 	invalid_popup.set_hidden(false)
 	invalid_popup.get_ok().grab_focus()
 
+
 func setUsername():
 	if (game != null):
 		nickname_node.set_text(game.getUsername())
 
-func _on_connecting_to_server_visibility_changed():
-	timer.start()
-	set_process(true)
-
 
 func _on_timer_timeout():
-	_on_invalid_server_confirmed()
-	set_process(false)
+	_on_confirm_button()
+
 
 func updateTimer():
 	var time_left = int(timer.get_time_left())
 	timer_label.set_text(str(time_left))
+
+
+func _on_confirm_button():
+	global_client.disconnectFromServer()
+	set_process(false)
+	control_node.set_hidden(true)
+	connecting_popup.set_hidden(true)
+	invalid_popup.set_hidden(true)
+	timer.stop()
+
+
+func _on_connecting_to_server_draw():
+	timer.start()
+	set_process(true)
