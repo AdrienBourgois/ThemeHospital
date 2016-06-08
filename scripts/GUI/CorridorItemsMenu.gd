@@ -51,16 +51,16 @@ func countString(value):
 func _on_Accept_pressed():
 	var max_count = panel.get_child_count() - number_of_buttons
 	var count = 0
-	var checkout = 0
 	updateValues()
+
 	while (count < max_count):
 		while (items_count_array[count] > 0):
 			var node = object_resources.array_scn[count].instance()
-			checkout += node.price
 			
-			if (checkout >= gamescn.player.money):
+			if (node.price >= gamescn.player.money):
 				game.feedback.display("FEEDBACK_ENOUGH_MONEY")
 				return false
+			gamescn.player.money -= node.price
 			
 			gamescn.add_child(node)
 			var node_info = []
@@ -71,7 +71,6 @@ func _on_Accept_pressed():
 			node.set_process_input(true)
 			items_count_array[count] -= 1
 		count += 1
-	gamescn.player.money -= checkout
 
 	if (!temp_array.empty()):
 		temp_array[0].hideOtherObjects()
