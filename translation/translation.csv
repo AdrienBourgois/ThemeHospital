@@ -199,6 +199,7 @@ TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_SELL_ERROR, You cannot sell this furniture, Vous ne pouvez pas vendre ce meuble
 TOOLTIP_TREATMENT,Select General Treatment Room,Sélectionne les salles de Traitement
 TOOLTIP_FACILITIES,Select Special Facility room,Sélectionne les Locaux
 TOOLTIP_CLINICS,Select Specialist Clinics room,Sélectionne les Cliniques
