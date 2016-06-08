@@ -65,19 +65,20 @@ func _on_Accept_pressed():
 		while (items_count_array[count] > 0):
 			var node = object_resources.array_scn[count].instance()
 			
-			if (node.price >= gamescn.player.money):
+			if (gamescn.player.money >= node.price):
+				gamescn.player.money -= node.price
+			
+				gamescn.add_child(node)
+				var node_info = []
+				temp_array.append(node)
+				node.available.on()
+				node.is_selected = true
+				node.can_selected = true
+				node.set_process_input(true)
+				items_count_array[count] -= 1
+			else:
 				game.feedback.display("FEEDBACK_ENOUGH_MONEY")
 				return false
-			gamescn.player.money -= node.price
-			
-			gamescn.add_child(node)
-			var node_info = []
-			temp_array.append(node)
-			node.available.on()
-			node.is_selected = true
-			node.can_selected = true
-			node.set_process_input(true)
-			items_count_array[count] -= 1
 		count += 1
 
 	if (!temp_array.empty()):

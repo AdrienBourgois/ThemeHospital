@@ -23,6 +23,9 @@ func _on_Accept_pressed():
 	else:
 		if  (map.new_room("create", null)):
 			player.money -= node_rooms_menu.price
+			
+			#temp_array.append(object_resources.createObject("Door"))
+			
 			temp_array.append(object_resources.createRoomObject(map.getActualRoomTypeName()))
 			temp_array[0].is_selected = true
 			temp_array[0].can_selected = true

@@ -21,6 +21,7 @@ var tile
 var entity_interaction_tile setget, getEntityInteractionTile
 var entity = null setget setEntity, getEntity
 export var big_object = false
+var map_object = false
 
 func _ready():
 	timer.set_autostart(false)
@@ -29,7 +30,7 @@ func _ready():
 	gamescn.objects_nodes_array.append(self)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
-	if (is_selected and can_selected):
+	if (is_selected and can_selected and !map_object):
 		checkAvailableProcess()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
@@ -45,7 +46,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
-		if (in_room_object or gamescn.getHaveObject()):
+		if (in_room_object or gamescn.getHaveObject() or map_object):
 			return
 		available.on()
 		is_selected = true
