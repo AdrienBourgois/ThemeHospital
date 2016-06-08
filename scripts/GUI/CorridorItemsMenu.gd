@@ -17,6 +17,8 @@ onready var plant_label = plant.get_node("Label")
 onready var radiator_label = radiator.get_node("Label")
 onready var drink_label = drink.get_node("Label")
 onready var fire_label = fire.get_node("Label")
+onready var price_label = get_node("Informations/VBoxContainer/Price")
+onready var total_label = get_node("Informations/VBoxContainer/Total")
 onready var reception_desk_label = reception_desk.get_node("Label")
 onready var label_array = [bench_label, plant_label, radiator_label, drink_label, fire_label, reception_desk_label]
 onready var object_resources = gamescn.getObjectResources()
@@ -24,6 +26,11 @@ onready var temp_array = gamescn.getTempObjectsNodesArray()
 
 var items_count_array = []
 var number_of_buttons = 2
+var price = 0
+var total = 0
+
+func _ready():
+	setTextInformations(price, total)
 
 func updateValues():
 	items_count_array.clear()
@@ -42,6 +49,7 @@ func resetvalues():
 	drink.setValue(0)
 	fire.setValue(0)
 	reception_desk.setValue(0)
+	setTextInformations(price, total)
 	for current in label_array:
 		current.set_text(default_text)
 
@@ -86,3 +94,7 @@ func hideOtherObjects():
 
 func _on_Close_pressed():
 	self.hide()
+
+func setTextInformations(price, total):
+	price_label.set_text(tr("PRICE_LABEL") + str(price))
+	total_label.set_text("Total : " + str(total))
