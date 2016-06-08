@@ -133,9 +133,9 @@ func checkNicknamePacket(): #Packet 3
 	var nickname_is_ok = bool(tmpData[2].to_int())
 	var current_scene = get_tree().get_current_scene()
 	
-	if ( current_scene.get_name() == "lobby" ):
+	if ( current_scene != null && current_scene.get_name() == "lobby" ):
 		current_scene.displayNicknameMenu(nickname_is_ok)
-	else:
+	elif ( current_scene != null && current_scene.get_name() == "GameScene" ):
 		client_packets_list.insert(1, client_packets_list[0])
 
 
@@ -152,35 +152,79 @@ func updateLobbyData(): #Packet 4
 			scene.clearReadyPlayersLabel()
 			for ready_client in range (3, tmpData.size()):
 				scene.addReadyPlayer("- " + tmpData[ready_client] + "\n")
-	else:
-		client_packets_list.insert(1, client_packets_list[0])
+	elif (scene != null && scene.get_name() != "GameScene"):
+		client_packets_list.push_back(client_packets_list[0])
+
 
 func updateMapRoom(): #Packet 5
 	var room_from = Vector2(tmpData[2].to_int(), tmpData[3].to_int())
 	var room_to = Vector2(tmpData[4].to_int(), tmpData[5].to_int())
 	var room_id = tmpData[6].to_int()
 	
+	var root = get_tree().get_current_scene()
+	var map = null
+	
+	if (root != null && root.get_name() == "GameScene"):
+		map = root.get_node("Map")
+	else:
+		return
+	
 	if (current_parsing.server):
-		global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
+		if ( server_data_base.removeMoney( map.getResources().getCostFromId(room_id), current_player_id  )):
+			global_server.addPacket("/game 5 " + tmpData[2] + " " + tmpData[3] + " " + tmpData[4] + " " + tmpData[5] + " " + tmpData[6])
 	elif (current_parsing.client):
-		var root = get_tree().get_current_scene()
-		if (root != null && root.get_name() == "GameScene"):
-			var map = root.get_node("Map")
-			if (map.get_name() != null):
-				map.new_room("new", map.getResources().getRoomFromId(room_id))
-				map.new_room("from", room_from)
-				map.new_room("current", room_to)
-				map.new_room("to", room_to)
-				map.new_room("create", null)
+		if ( map.get_name() != null ):
+			map.new_room("new", map.getResources().getRoomFromId(room_id))
+			map.new_room("from", room_from)
+			map.new_room("current", room_to)
+			map.new_room("to", room_to)
+			map.new_room("create", null)
+
 
 func updateMapItems(): #Packet 6
-	if (current_parsing.server):
-		global_server.addPacket("/game 6 " + tmpData[2] + " " + tmpData[3])
-	else:
-		var corridor = get_tree().get_current_scene().get_node("./In_game_gui/HUD/CorridorItemsMenu")
-		var node = ResourceLoader.load("res://scenes/Entities/Objects/Object.scn").instance()
-		corridor.add_child(node)
-		node.setMultiplayer(tmpData[2].to_int(), tmpData[3].to_int())
+	if ( current_parsing.server ):
+		updateMapItemsFromServer()
+	elif ( current_parsing.client ):
+		updateMapItemsFromClient()
+
+func updateMapItemsFromServer():
+	var update_type = tmpData[2]
+	var item_name = tmpData[3]
+	var rotation = tmpData[4].to_float()
+	var position = Vector3(tmpData[5].to_int(), 0,  tmpData[6].to_int())
+	var packet = "/game 6 "
+	
+	if (update_type == "0"):
+		server_data_base.addItemInList(item_name, current_player_id, rotation, position)
+		packet += "0 " + str(current_player_id) + " " + item_name + " " + server_data_base.getLastItemName() + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
+	elif (update_type == "1"):
+		if ( server_data_base.moveItem( item_name, current_player_id, rotation, position) ):
+			packet += "1 " + item_name + " " + str(rotation) + " " + str(position.x) + " " + str(position.z)
+		else:
+			return
+	
+	global_server.addPacket(packet)
+
+func updateMapItemsFromClient():
+	var root = get_tree().get_current_scene()
+	
+	if (root != null && root.get_name() == "GameScene"):
+		var update_type = tmpData[2].to_int()
+		var item_from = tmpData[3].to_int()
+		
+		if (update_type == 0):
+			if ( item_from == global_client.getClientId() ):
+				root.setNameFirstItemTempArray(tmpData[5])
+				root.setUpFirstItemTempArray()
+			else:
+				var node = root.getObjectResources().createObject(tmpData[4])
+				root.add_child(node)
+				node.setObjectStats(tmpData[4], tmpData[6], tmpData[7], tmpData[8])
+				node.set_name(tmpData[5])
+				node.setUpNetworkItem()
+		elif (update_type == 1):
+			root.moveItem(tmpData[3], tmpData[4], Vector3(tmpData[5], 0, tmpData[6]))
+
 
 func kickedFromServer(): #Packet 7
 	if ( current_parsing.client ):
@@ -188,6 +232,7 @@ func kickedFromServer(): #Packet 7
 		var scene = load("res://scenes/network/WarningServerDisconnected.scn").instance()
 		scene.displayKickedFromServer()
 		get_tree().get_current_scene().add_child(scene, true)
+
 
 func updatePlayerContainer(): #Packet 8
 	if ( current_parsing.client ):

@@ -1,7 +1,7 @@
 
 onready var game = get_node("/root/Game")
 onready var player = game.scene.get_node("Player")
-var money = 0
+var last_money = 0
 
 func _ready():
 	set_process(true)
@@ -10,7 +10,7 @@ func _process( delta ):
 	checkPlayerMoney()
 
 func checkPlayerMoney():
-	if ( money != player.money ):
+	if ( last_money != player.money ):
 		updateMoney()
 
 func updateMoney():
@@ -18,12 +18,16 @@ func updateMoney():
 	splitMoney()
 
 func splitMoney():
-	money = int(player.money)
+	var money = int(player.money)
+	last_money = money
 	var money_array = Array()
 	
-	while (money != 0):
-		money_array.push_back(money%10)
-		money = money/10
+	if (money == 0):
+		money_array.push_back(0)
+	else:
+		while (money != 0):
+			money_array.push_back(money%10)
+			money = money/10
 	
 	if (money_array.size() > 7):
 		return

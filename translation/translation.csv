@@ -224,6 +224,7 @@ TOOLTIP_PREVIOUS,View previous person,Personne précédante
 TOOLTIP_HIRE,Hire person,Engager la personne
 TOOLTIP_EXIT,Cancel,Annuler
 TOOLTIP_NEXT,View next person,Personne suivante
+TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cette objet avec la touche 'Supprimer'
 TAB_DOCTOR,Doctor,Docteur
 TAB_NURSE,Nurse,Infirmière
 TAB_HANDYMEN,Handymen,Concierge
@@ -302,3 +303,4 @@ TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
 TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
 TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
 TOOLTIP_CASEBOOK_DOWN,Scroll up,Defile vers le bas
+FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
