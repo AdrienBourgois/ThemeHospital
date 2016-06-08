@@ -57,6 +57,8 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 
 func _input(event):
 	if (event.is_action_released("delete")):
+		gamescn.player.money += self.price
+		gamescn.setHaveObject(false)
 		self.queue_free()
 
 func hideOtherObjects():
