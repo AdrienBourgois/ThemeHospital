@@ -51,7 +51,6 @@ var is_pressed = true
 
 func _ready():
 	getElementsPositions()
-	
 	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
 	
 	connectDiseasesButtons()
