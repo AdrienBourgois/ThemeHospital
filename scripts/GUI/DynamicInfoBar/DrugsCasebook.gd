@@ -50,18 +50,29 @@ var is_timer_finish = true
 var is_pressed = true
 
 func _ready():
+	getElementsPositions()
+	
+	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
+	
+	connectDiseasesButtons()
+	
+	calculateButtonsGap()
+	
+	set_process(true)
+
+func getElementsPositions():
 	pos_container = node_container.get_pos()
 	pos_selector = node_selector.get_pos()
 	size_container = node_container.get_size()
 	
 	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
 	selector_pos = pos_selector.y + selector_border_size - pos_container.y
+
+func calculateButtonsGap():
+	first_button_pos = node_container.get_child(0).get_pos()
+	second_button_pos = node_container.get_child(1).get_pos()
 	
-	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
-	
-	connectDiseasesButtons()
-	
-	set_process(true)
+	button_gap = second_button_pos.y - first_button_pos.y
 
 func _on_Quit_pressed():
 	self.hide()
@@ -134,7 +145,6 @@ func diseasePressed(button):
 				if button_pos.y == selector_pos:
 					setButtonPressed(buttons)
 				else:
-					print(buttons.get_name())
 					setPressedFalse(buttons)
 		else:
 			setPressedFalse(button)
@@ -176,12 +186,6 @@ func configDiseasesButtons(button, disease_name):
 func _on_Up_pressed():
 	is_timer_finish = false
 	
-	first_button_pos = node_container.get_child(0).get_pos()
-	second_button_pos = node_container.get_child(1).get_pos()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
-	button_gap = second_button_pos.y - first_button_pos.y
-	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
 		
@@ -216,12 +220,6 @@ func _on_Up_pressed():
 
 func _on_Down_pressed():
 	is_timer_finish = false
-	
-	first_button_pos = node_container.get_child(0).get_pos()
-	second_button_pos = node_container.get_child(1).get_pos()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
-	button_gap = second_button_pos.y - first_button_pos.y
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
@@ -300,8 +298,5 @@ func setPressedFalse(button):
 	button.set_toggle_mode(false)
 
 func refreshVariablesIfSizeChange():
-	pos_container = node_container.get_pos()
-	pos_selector = node_selector.get_pos()
-	size_container = node_container.get_size()
-	
-	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
+	getElementsPositions()
+	calculateButtonsGap()
