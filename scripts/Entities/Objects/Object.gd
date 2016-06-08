@@ -43,18 +43,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			return
 		
 		setUpItem()
-		can_selected = false
-		set_process_input(false)
-		gamescn.setHaveObject(false)
-		setAvailableTile(true)
-		available.hide()
-		available.timer.stop()
-		put()
-		nextObject()
-		if (object_stats.empty()):
-			addToArray()
-		else:
-			gamescn.updateObjectsArray()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object or gamescn.getHaveObject()):
@@ -288,7 +276,6 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))
 	set_translation(Vector3(position_x, 0.5, position_z))
-	print("new position for ", get_name(), " x: ", position_x, "  z: ", position_z)
 
 
 func setUpItem():
@@ -298,6 +285,7 @@ func setUpItem():
 	setAvailableTile(true)
 	available.hide()
 	available.timer.stop()
+	put()
 	nextObject()
 	
 	if (object_stats.empty()):
