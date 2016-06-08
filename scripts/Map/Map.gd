@@ -220,7 +220,7 @@ func new_room(state, parameters):
 			new_room_type = {}
 			return true
 		else:
-			game.feedback.display("Room is not valid !")
+			game.feedback.display("ROOM_NOT_VALID")
 			new_room("cancel", null)
 		return false
 

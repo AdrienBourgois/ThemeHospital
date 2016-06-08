@@ -76,26 +76,12 @@ TXT_CONTROL_ACTIVATED,Window's control activated,Controle de la fenetre active
 TXT_SCREENSHOT_NAME,Enter screenshot name : ,Entrez le nom de la capture d'ecran : 
 TXT_CONFIRM,Please confirm,Confirmation
 SAVE, Save, Sauvegarder
-SAVE_AUTO, Autosave, Sauvegarde Automatique
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
-SAVE_1, Save 1, Sauvegarde 1
-SAVE_2, Save 2, Sauvegarde 2
-SAVE_3, Save 3, Sauvegarde 3
-SAVE_4, Save 4, Sauvegarde 4
-SAVE_5, Save 5, Sauvegarde 5
-SAVE_6, Save 6, Sauvegarde 6
-SAVE_7, Save 7, Sauvegarde 7
-SAVE_8, Save 8, Sauvegarde 8
+BTN_SAVE,Save ,Sauvegarde 
+BTN_AUTOSAVE,Autosave ,Sauvegarde Automatique
 LOAD, Load, Charger
-LOAD_1, Save 1, Sauvegarde 1
-LOAD_2, Save 2, Sauvegarde 2
-LOAD_3, Save 3, Sauvegarde 3
-LOAD_4, Save 4, Sauvegarde 4
-LOAD_5, Save 5, Sauvegarde 5
-LOAD_6, Save 6, Sauvegarde 6
-LOAD_7, Save 7, Sauvegarde 7
-LOAD_8, Save 8, Sauvegarde 8
-LOAD_AUTO, Auto save, Sauv. auto
+BTN_LOAD,Save ,Sauvegarde 
+BTN_AUTOLOAD,Auto save ,Sauv. auto 
 MENU_NEW_GAME,New game,Nouvelle partie
 MENU_LOAD_GAME,Load game,Charger partie
 MENU_MULTIPLAYER,Multiplayer,Multijoueur
@@ -306,3 +292,4 @@ TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
 TOOLTIP_CASEBOOK_DOWN,Scroll up,Defile vers le bas
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
 PRICE_LABEL,Price : ,Prix : 
+ROOM_NOT_VALID,New room is not valid !,La salle n'est pas correcte !
