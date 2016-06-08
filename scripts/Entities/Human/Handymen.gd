@@ -15,6 +15,7 @@ var plant_pos
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
+		pathfinding.free()
 		checkWork()
 
 func checkPlant():
