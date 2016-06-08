@@ -183,12 +183,12 @@ func checkAvailableProcess():
 func checkAvailable():
 	updateTilePosition()
 	var node = map.getTile(vector_pos)
+	if (big_object):
+		if (!checkAvailableBigObjectTile()):
+			error()
+			return false
 	type = node.room_type
 	if (in_room_object):
-		if (big_object):
-			if (!checkAvailableBigObjectTile()):
-				error()
-				return false
 		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
 			error()
 			return false
