@@ -20,14 +20,14 @@ func splitMoney():
 	var money = int(player.money)
 	last_money = money
 	var money_array = Array()
+	var is_money_negative = false
 	
 	if (money == 0):
 		money_array.push_back(0)
 	else:
 		if (money < 0):
-			money_array.push_back(money%10)
+			is_money_negative = true
 			money *= -1
-			money = money/10
 		
 		while (money != 0):
 			money_array.push_back(money%10)
@@ -35,6 +35,9 @@ func splitMoney():
 	
 	if (money_array.size() > 7):
 		return
+	
+	if (is_money_negative):
+		money_array[money_array.size()-1] *= -1
 	
 	displayMoney(money_array)
 
