@@ -57,9 +57,20 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 
 func _input(event):
 	if (event.is_action_released("delete")):
+		if (in_room_object):
+			game.feedback.display("TOOLTIP_SELL_ERROR")
+			return
+	
 		gamescn.player.money += self.price
 		gamescn.setHaveObject(false)
-		self.queue_free()
+		for current in gamescn.getObjectsNodesArray():
+			var index = gamescn.getObjectsNodesArray().find(current)
+			if (self == gamescn.getObjectsNodesArray()[index]):
+				var text = "+" + str(self.price) + "$"
+				game.feedback.display(text)
+				gamescn.getObjectsNodesArray().remove(index)
+				self.queue_free()
+		gamescn.updateObjectsArray()
 
 func hideOtherObjects():
 	for current in temp_array:
@@ -172,12 +183,12 @@ func checkAvailableProcess():
 func checkAvailable():
 	updateTilePosition()
 	var node = map.getTile(vector_pos)
+	if (big_object):
+		if (!checkAvailableBigObjectTile()):
+			error()
+			return false
 	type = node.room_type
 	if (in_room_object):
-		if (big_object):
-			if (!checkAvailableBigObjectTile()):
-				error()
-				return false
 		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
 			error()
 			return false

@@ -14,6 +14,7 @@ go_to_reception = get_node("GoToReceptionist")
 }
 
 var state_machine
+var pathfinding
 var happiness
 var thirsty
 var warmth
@@ -24,8 +25,11 @@ func _ready():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.go_to_reception)
-	print("TAMER")
 	count = 0
+	set_process(true)
+
+func process(delta):
+	state_machine.update()
 
 func calculateHappiness(is_increase):
 	if count == 5:
@@ -51,6 +55,7 @@ func checkWarmth():
 		calculateHappiness(true)
 
 func _on_Timer_timeout():
+	checkGPOffice()
 	count += 1
 	entity_manager.checkGlobalTemperature(self)
 	checkThirsty()
@@ -63,6 +68,20 @@ func goToReception():
 	if object_array.size() != 0:
 		for desk in object_array:
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
-				print("desk pos[", desk.vector_pos, "] | self pos[", self.get_translation(), "]")
-				var pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
 				add_child(pathfinding)
+
+func moveTo():
+	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+	add_child(pathfinding)
+
+func checkGPOffice():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["ID"] != 2:
+				print("Hey")
+				moveTo()
+			else:
+				print("Going to GP Office")
+	pass

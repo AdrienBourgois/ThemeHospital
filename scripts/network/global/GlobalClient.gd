@@ -79,6 +79,7 @@ func checkForPacketToSend():
 		if ( sendPacket(packet_list[0]) ):
 			packet_list.remove(0)
 
+
 func sendPacket(packet):
 	if ( client_states.is_connected ):
 		peer_stream.put_var(packet)
@@ -86,26 +87,33 @@ func sendPacket(packet):
 	else:
 		return false
 
+
 func addMessage(message):
 	messages_list.push_back(message)
+
 
 func getMessagesList():
 	return messages_list
 
+
 func setHostClient(boolean):
 	client_states.is_host = boolean
 
+
 func getClientStates():
 	return client_states
+
 
 func disconnectServer():
 	if (client_states.is_host):
 		var global_server = get_node("/root/GlobalServer").stopServer()
 
+
 func resetClientStates():
 	client_states.is_connected = false
 	client_states.is_connecting = false
 	client_states.is_host = false
+
 
 func disconnectFromServer():
 	if (socket != null):
@@ -113,11 +121,11 @@ func disconnectFromServer():
 	
 	messages_list.clear()
 	packet_list.clear()
+	players_list.clear()
 	
 	disconnectServer()
 	resetClientStates()
 	
-	players_list.clear()
 	client_id = null
 	peer_stream = null
 	socket = null
@@ -141,6 +149,7 @@ func mutePlayer(player_id):
 
 func unmutePlayer(player_id):
 	addPacket("/game 9 0 " + str(player_id))
+
 
 func addPlayerInList( player_name, player_id ):
 	var player = Array()

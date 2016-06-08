@@ -1,6 +1,7 @@
 
 extends "Staff.gd"
 
+var reception_desk_pos
 var desk_occuped
 export var x = 0
 export var y = 0
@@ -33,7 +34,9 @@ func checkDesk():
 		for desk in object_array:
 			if desk.object_name == "ReceptionDesk" && !desk.is_occuped:
 				desk_occuped = desk
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.2, map)
+				var tile_ro_reach_trans = desk.getEntityInteractionTile().get_translation()
+				reception_desk_pos = Vector2(tile_ro_reach_trans.x, tile_ro_reach_trans.z)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self, 0.2, map)
 				add_child(pathfinding)
 				return
 	state_machine.changeState(states.wandering)

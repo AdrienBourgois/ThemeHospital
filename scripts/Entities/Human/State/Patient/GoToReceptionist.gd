@@ -2,11 +2,12 @@
 extends State
 
 func enter(owner):
-	print("TAMER2")
 	owner.goToReception()
 
 func execute(owner):
-	pass
+	print("Hey")
+	if owner.pathfinding.animation_completed:
+		owner.checkGPOffice()
 
 func exit(owner):
 	pass
