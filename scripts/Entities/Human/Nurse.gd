@@ -24,8 +24,6 @@ func put():
 func take():
 	pathfinding.stop()
 	pathfinding.free()
-#	state_machine = get_node("StateMachine")
-#	state_machine.changeState(states.looking_for_room)
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:

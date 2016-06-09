@@ -12,7 +12,8 @@ onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
 random_movement = get_node("RandomMovement"),
-looking_for_a_bench = get_node("LookingForABench")
+looking_for_a_bench = get_node("LookingForABench"),
+go_to_gp_office = get_node("GoToGPOffice")
 }
 
 var state_machine
@@ -73,6 +74,7 @@ func goToReception():
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
 				add_child(pathfinding)
+				is_go_to_reception = true
 			else:
 				state_machine.changeState(states.random_movement)
 	else:
@@ -84,7 +86,8 @@ func checkEndPath():
 		if is_go_to_reception == false:
 			state_machine.changeState(states.go_to_reception)
 		else:
-			state_machine.changeState(states.random_movement)
+			print("CheckEndPath for GoToGPOffice")
+			state_machine.changeState(states.go_to_gp_office)
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
@@ -92,12 +95,15 @@ func moveTo():
 	add_child(pathfinding)
 
 func checkGPOffice():
-	pathfinding.free()
+	print(map.rooms.size())
 	if map.rooms.size() != 0:
 		for room in map.rooms:
-			if room.type["ID"] != 2:
-				state_machine.changeState(states.random_movement)
+			print(room.type["ID"])
+			if room.type["ID"] == 2:
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, 0.2, map)
+				add_child(pathfinding)
 			else:
-				print("Going to GP Office")
+				state_machine.changeState(states.random_movement)
 	else:
+		print("change state to random movement")
 		state_machine.changeState(states.random_movement)
