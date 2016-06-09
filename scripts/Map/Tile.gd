@@ -78,8 +78,6 @@ func change_wall(wall, type):
 		location = Vector3(0.5,0,0)
 		rotation = Vector3(0,-90,0)
 	
-	#print(x, " - ", y, " (", wall, ") : ", location, " - ", rotation)
-	
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] != enum_wall_type.WALL):
 			var new_wall = wall_res.instance()
@@ -88,7 +86,6 @@ func change_wall(wall, type):
 			quad.add_child(new_wall)
 			new_wall.set_translation(location)
 			new_wall.set_rotation(rotation)
-			#print("Rotation : ", new_wall.get_rotation())
 	if (type == enum_wall_type.VOID):
 		if (walls_types[wall] == enum_wall_type.VOID):
 			quad.remove_child(wall)
