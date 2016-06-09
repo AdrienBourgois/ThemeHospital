@@ -7,7 +7,7 @@ onready var states = {
 	wandering = get_node("Wandering"),
 	looking_for_room = get_node("LookingForRoom"),
 	looking_for_staff_room = get_node("LookingForStaffRoom"),
-	looking_for_patient = get_node("LookingForPatient")
+	waiting_for_patient = get_node("WaitingForPatient")
 }
 
 var seniority
@@ -27,8 +27,8 @@ func put():
 	state_machine.setCurrentState(states.looking_for_room)
 
 func take():
-	state_machine = get_node("StateMachine")
-	state_machine.changeState(states.looking_for_room)
+	pathfinding.stop()
+	pathfinding.free()
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
