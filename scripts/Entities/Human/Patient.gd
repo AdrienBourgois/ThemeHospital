@@ -11,7 +11,8 @@ onready var child_count = entity_manager.get_child_count()
 onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
-random_movement = get_node("RandomMovement")
+random_movement = get_node("RandomMovement"),
+looking_for_a_bench = get_node("LookingForABench")
 }
 
 var state_machine

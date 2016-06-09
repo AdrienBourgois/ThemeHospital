@@ -70,7 +70,6 @@ func create_curve():
 
 func animate():
 	create_curve()
-	
 	var size_node = node.get_scale()
 	
 	next_point_number = 1
@@ -127,3 +126,6 @@ func can_go(from, direction):
 			return false
 	
 	return true
+
+func stop():
+	set_fixed_process(false)

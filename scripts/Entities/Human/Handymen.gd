@@ -30,13 +30,19 @@ func checkPlant():
 
 func _fixed_process(delta):
 	if state_machine:
-		state_machine.update()
+		if is_taken == false:
+			state_machine.update()
 
 func put():
 	get_node("Timer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(get_node("RandomMovement"))
+	is_taken = false
+
+func take():
+	pathfinding.stop()
+	pathfinding.free()
 
 func checkWork():
 	if checkPlantThirsty():
