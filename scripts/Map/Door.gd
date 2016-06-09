@@ -34,22 +34,22 @@ func checkWalls():
 	if (tile.walls_types.Up == 1):
 		tile.walls_types.Up = 3
 		set_rotation(Vector3(0,0,0))
+		trans.z -= 0.5
 		poseDoor()
-		trans.z += 0.5
 		return true
-	if (tile.walls_types.Down == 1):
+	elif (tile.walls_types.Down == 1):
 		tile.walls_types.Down = 3
 		set_rotation(Vector3(0,0,0))
+		trans.z += 0.6
 		poseDoor()
-		trans.z -= 0.5
 		return true
-	if (tile.walls_types.Left == 1):
+	elif (tile.walls_types.Left == 1):
 		tile.walls_types.Left = 3
 		set_rotation(Vector3(0,deg2rad(90),0))
 		trans.x -= 0.5
 		poseDoor()
 		return true
-	if (tile.walls_types.Right == 1):
+	elif (tile.walls_types.Right == 1):
 		tile.walls_types.Right = 3
 		set_rotation(Vector3(0,deg2rad(90),0))
 		trans.x += 0.5
