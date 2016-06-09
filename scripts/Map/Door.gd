@@ -22,11 +22,9 @@ func _input(event):
 	if (event.is_action_released("left_click")):
 		updateTilePosition()
 		checkWalls()
-		return tile
 
 func poseDoor():
-	deleteFromArray()
-	nextObject()
+	setUpItem()
 	game.feedback.display("TOOLTIP_POSEDOOR_POSED")
 
 func checkWalls():
