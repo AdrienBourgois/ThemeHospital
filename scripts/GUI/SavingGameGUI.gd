@@ -10,10 +10,12 @@ func _ready():
 	timer.connect("timeout", self, "timerOut")
 
 func showSaving():
+	self.show()
 	saving_game.show()
 	save_complete.hide()
 
 func showComplete():
+	self.show()
 	saving_game.hide()
 	save_complete.show()
 	timer.start()

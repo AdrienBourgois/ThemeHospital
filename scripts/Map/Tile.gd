@@ -2,6 +2,8 @@ extends Spatial
 
 onready var game = get_node("/root/Game")
 onready var wall_res = preload("res://scenes/Map/Wall.scn")
+onready var window_res = preload("res://scenes/Map/Window.scn")
+onready var door_res = preload("res://scenes/Map/Door.scn")
 
 const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 
@@ -21,6 +23,7 @@ var signals_enabled = false
 var currently_create_room = false
 
 onready var staticBody = get_node("StaticBody")
+onready var quad = get_node("StaticBody/Quad")
 onready var hover = get_node("Hover")
 onready var stats = {}
 
@@ -34,8 +37,7 @@ func createStatsDict():
 	stats = {
 	X = x,
 	Y = y,
-	ROOM_TYPE = room_type
-	}
+	ROOM_TYPE = room_type }
 	return stats
 
 func resetStatsDict():
@@ -60,14 +62,36 @@ func update_walls(direction):
 			change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
+	var location = Vector3(0,0,0)
+	var rotation = Vector3(0,0,0)
+	
+	if (wall == "Up"):
+		location = Vector3(0,0,-0.5)
+		rotation = Vector3(0,0,0)
+	elif (wall == "Down"):
+		location = Vector3(0,0,0.5)
+		rotation = Vector3(0,180,0)
+	elif (wall == "Left"):
+		location = Vector3(-0.5,0,0)
+		rotation = Vector3(0,90,0)
+	elif (wall == "Right"):
+		location = Vector3(0.5,0,0)
+		rotation = Vector3(0,-90,0)
+	
+	#print(x, " - ", y, " (", wall, ") : ", location, " - ", rotation)
+	
 	if (type == enum_wall_type.WALL):
-		if (walls_types[wall] == enum_wall_type.VOID):
+		if (walls_types[wall] != enum_wall_type.WALL):
 			var new_wall = wall_res.instance()
 			new_wall.set_material_override(wall_material)
-			get_node("StaticBody/Quad/" + wall + "_Wall").add_child(new_wall)
+			new_wall.set_name(wall)
+			quad.add_child(new_wall)
+			new_wall.set_translation(location)
+			new_wall.set_rotation(rotation)
+			#print("Rotation : ", new_wall.get_rotation())
 	if (type == enum_wall_type.VOID):
-		if (walls_types[wall] == enum_wall_type.WALL):
-			get_node("StaticBody/Quad/" + wall + "_Wall").remove_child("Wall")
+		if (walls_types[wall] == enum_wall_type.VOID):
+			quad.remove_child(wall)
 	walls_types[wall] = type
 
 func update_cursor_pos():

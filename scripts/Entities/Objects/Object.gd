@@ -21,6 +21,7 @@ var tile
 var entity_interaction_tile setget, getEntityInteractionTile
 var entity = null setget setEntity, getEntity
 export var big_object = false
+var map_object = false
 
 func _ready():
 	timer.set_autostart(false)
@@ -29,7 +30,7 @@ func _ready():
 	gamescn.objects_nodes_array.append(self)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
-	if (is_selected and can_selected):
+	if (is_selected and can_selected and !map_object):
 		checkAvailableProcess()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
@@ -42,21 +43,10 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 			sendItemDataToServer("move")
 			return
 		
-		can_selected = false
-		set_process_input(false)
-		gamescn.setHaveObject(false)
-		setAvailableTile(true)
-		available.hide()
-		available.timer.stop()
-		put()
-		nextObject()
-		if (object_stats.empty()):
-			addToArray()
-		else:
-			gamescn.updateObjectsArray()
+		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
-		if (in_room_object or gamescn.getHaveObject()):
+		if (in_room_object or gamescn.getHaveObject() or map_object):
 			return
 		available.on()
 		is_selected = true
@@ -68,7 +58,20 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 
 func _input(event):
 	if (event.is_action_released("delete")):
-		self.queue_free()
+		if (in_room_object):
+			game.feedback.display("TOOLTIP_SELL_ERROR")
+			return
+	
+		gamescn.player.money += self.price
+		gamescn.setHaveObject(false)
+		for current in gamescn.getObjectsNodesArray():
+			var index = gamescn.getObjectsNodesArray().find(current)
+			if (self == gamescn.getObjectsNodesArray()[index]):
+				var text = "+" + str(self.price) + "$"
+				game.feedback.display(text)
+				gamescn.getObjectsNodesArray().remove(index)
+				self.queue_free()
+		gamescn.updateObjectsArray()
 
 func hideOtherObjects():
 	for current in temp_array:
@@ -181,12 +184,12 @@ func checkAvailableProcess():
 func checkAvailable():
 	updateTilePosition()
 	var node = map.getTile(vector_pos)
+	if (big_object):
+		if (!checkAvailableBigObjectTile()):
+			error()
+			return false
 	type = node.room_type
 	if (in_room_object):
-		if (big_object):
-			if (!checkAvailableBigObjectTile()):
-				error()
-				return false
 		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
 			error()
 			return false
@@ -291,7 +294,6 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))
 	set_translation(Vector3(position_x, 0.5, position_z))
-	print("new position for ", get_name(), " x: ", position_x, "  z: ", position_z)
 
 
 func setUpItem():
@@ -301,6 +303,7 @@ func setUpItem():
 	setAvailableTile(true)
 	available.hide()
 	available.timer.stop()
+	put()
 	nextObject()
 	
 	if (object_stats.empty()):

@@ -8,10 +8,8 @@ onready var load_button = get_node("LoadButton")
 
 func _ready():
 	if !game.multiplayer:
+		createButtons()
 		enableButtons()
-		for idx in load_location.get_children():
-			idx.connect("mouse_enter", self, "_on_mouse_enter")
-			idx.connect("mouse_exit", self, "_on_mouse_exit")
 
 func enableButtons():
 	var count = 1
@@ -47,3 +45,19 @@ func _on_Load_pressed():
 
 func _on_Load_auto_pressed():
 	loadGame(10)
+
+func createButtons():
+	for index in range ( 9 ):
+		var button = Button.new()
+		button.set_h_size_flags(SIZE_EXPAND_FILL)
+		
+		button.connect("mouse_enter", self, "_on_mouse_enter")
+		button.connect("mouse_exit", self, "_on_mouse_exit")
+		button.connect("pressed", self, "_on_Load_pressed")
+		
+		if (index != 8):
+			button.set_text(tr("BTN_LOAD") + str(index + 1))
+		else:
+			button.set_text(tr("BTN_AUTOLOAD"))
+		
+		load_location.add_child(button)

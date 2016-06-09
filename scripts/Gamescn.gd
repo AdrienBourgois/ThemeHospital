@@ -126,4 +126,12 @@ func setNameFirstItemTempArray( item_name ):
 func setUpFirstItemTempArray():
 	var node = temp_objects_nodes_array[0]
 	
-	node.setUpItem()
+	node.setUpNetworkItem()
+	node.nextObject()
+
+func moveItem(item_name, rotation, position):
+	for item in range ( get_child_count() ):
+		var node = get_child(item)
+		if ( node.get_name() == item_name ):
+			node.setObjectStats(item_name, rotation, position.x, position.z)
+			node.setUpNetworkItem()

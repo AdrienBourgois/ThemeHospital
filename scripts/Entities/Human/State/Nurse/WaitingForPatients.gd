@@ -9,4 +9,5 @@ func execute(owner):
 		owner.moveIntoRoom()
 
 func exit(owner):
-	pass
+	owner.room_occuped.is_occuped = false
+	owner.room_occuped = false

@@ -6,6 +6,7 @@ onready var thirsty_timer = get_node("ThirstyTimer")
 export var radius = 5
 export var thirst = 100 setget getThirst, setThirst
 export var decrease_when_timout = 10
+export var is_occuped = false
 
 func _ready():
 	thirsty_timer.connect("timeout", self, "decrease")
