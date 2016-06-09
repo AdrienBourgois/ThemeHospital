@@ -15,11 +15,14 @@ func _process(delta):
 		var translate = map.tile_on_cursor
 		set_translation(Vector3(translate.x, cube_scale.y, translate.y))
 		set_process_input(true)
+		
+		game.feedback.display("TOOLTIP_DOOR_CREATION")
 
 func _input(event):
 	if (event.is_action_released("left_click")):
 		updateTilePosition()
 		checkWalls()
+		return tile
 
 func poseDoor():
 	deleteFromArray()

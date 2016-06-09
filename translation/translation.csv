@@ -185,6 +185,7 @@ TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_DOOR_CREATION, Please pose the door on the wall, Placez la porte sur un mur
 TOOLTIP_POSEDOOR_POSED, Door posed, Porte posee
 TOOLTIP_POSEDOOR_ERROR, You cannot pose the door here, Vous ne pouvez pas poser cette porte ici
 TOOLTIP_SELL_ERROR, You cannot sell this furniture, Vous ne pouvez pas vendre ce meuble
