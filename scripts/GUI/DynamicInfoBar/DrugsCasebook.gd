@@ -129,6 +129,12 @@ func diseasePressed(button):
 	fatalities = array_diseases[button.get_meta("button_number")].FATALITIES
 	turned_away = array_diseases[button.get_meta("button_number")].TURNED_AWAY
 	
+	moveButtonsIfClick(button)
+	
+	is_pressed = false
+	disease_selected = true
+
+func moveButtonsIfClick(button):
 	if is_pressed == false:
 		var idx = 0
 		
@@ -147,9 +153,8 @@ func diseasePressed(button):
 					setPressedFalse(buttons)
 		else:
 			setPressedFalse(button)
-	
-	is_pressed = false
-	disease_selected = true
+	else:
+		 return
 
 func disconnectDecreaseAndIncrease():
 	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
