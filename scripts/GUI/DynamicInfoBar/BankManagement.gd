@@ -16,6 +16,7 @@ export var loan_step = 5000
 var current_loan = 0
 var current_interest = 0
 var player_money = 0
+var hospital_value = 0
 
 func _ready():
 	initializeVar()
@@ -25,27 +26,33 @@ func _process(delta):
 	if ( player_money != player.money ):
 		player_money = player.money
 		balance_line_edit.set_text( str(player_money) )
+	
+	if ( hospital_value != player.hospital_value ):
+		hospital_value = player.hospital_value
+		hospital_value_line_edit.set_text( str(hospital_value) )
+
 
 func initializeVar():
 	current_loan = player.getLoan()
 	player_money = player.getMoney()
+	current_interest = player.getInterest()
+	hospital_value = player.getHospitalValue()
 	
-	hospital_value_line_edit.set_text(str(player.getHospitalValue()))
-	balance_line_edit.set_text(str(player_money))
-	current_loan_line_edit.set_text(str(current_loan))
+	hospital_value_line_edit.set_text( str(hospital_value) )
+	balance_line_edit.set_text( str(player_money) )
+	current_loan_line_edit.set_text( str(current_loan) )
 	calculateInterestPayment()
 
 func calculateInterestPayment():
-	player.expense = player.expense - current_interest
 	current_interest = int( (interest_rate * current_loan)/100 )
-	player.expense = player.expense + current_interest
+	player.loan_interest = current_interest
 	
-	interest_payment_line_edit.set_text(str(current_interest))
+	interest_payment_line_edit.set_text( str(current_interest) )
 
 func _on_RepayLoanButton_pressed():
 	if ( current_loan > 0 && player_money >= loan_step):
 		current_loan -= loan_step
-		current_loan_line_edit.set_text(str(current_loan))
+		current_loan_line_edit.set_text( str(current_loan) )
 		player.money = player_money - loan_step
 		player.setLoan(current_loan)
 		
@@ -53,9 +60,9 @@ func _on_RepayLoanButton_pressed():
 
 
 func _on_BorrowButton_pressed():
-	if ( current_loan < maximum_loan ):
+	if ( current_loan + loan_step <= maximum_loan ):
 		current_loan += loan_step
-		current_loan_line_edit.set_text(str(current_loan))
+		current_loan_line_edit.set_text( str(current_loan) )
 		player.money = player_money + loan_step
 		player.setLoan(current_loan)
 		
