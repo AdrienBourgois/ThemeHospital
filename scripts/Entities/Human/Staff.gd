@@ -19,6 +19,8 @@ onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
 var state_machine
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 
+var prev_rand_tile = 100
+
 var pathfinding
 
 func _ready():

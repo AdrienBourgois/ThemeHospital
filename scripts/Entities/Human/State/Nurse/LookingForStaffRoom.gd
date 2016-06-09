@@ -2,7 +2,7 @@
 extends State
 
 func enter(owner):
-	owner.checkWorkRoom()
+	owner.checkStaffRoom()
 
 func execute(owner):
 	pass

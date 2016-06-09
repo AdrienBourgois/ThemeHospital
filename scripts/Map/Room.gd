@@ -8,6 +8,7 @@ var type = 0
 var construted = 0
 var present_staff = []
 var present_patient = []
+var is_occuped = false
 
 var map_reference = null
 
