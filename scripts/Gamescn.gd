@@ -27,6 +27,10 @@ var objects_nodes_array = [] setget, getObjectsNodesArray
 var temp_objects_nodes_array = [] setget, getTempObjectsNodesArray
 var have_object = false setget setHaveObject, getHaveObject
 
+var staff_nodes_array = [] setget, getStaffNodesArray
+var staff_data_array = [] setget, getStaffDataArray
+var staff_dict  = {}
+
 export var map_size = Vector2(0, 0)
 
 func _ready():
@@ -42,6 +46,12 @@ func createObjectsDict():
 	OBJECTS = objects_array
 	}
 	return objects
+
+func createStaffDict():
+	staff_dict = {
+	STAFF = staff_data_array
+	}
+	return staff_dict
 
 func loadObjects():
 	for current in objects.OBJECTS: 
@@ -59,10 +69,21 @@ func loadObjects():
 				node.setAvailableTile(true)
 			
 
+func updateStaffDataArray():
+	staff_data_array.clear()
+	for current in staff_nodes_array:
+		current.addToArray()
+
 func updateObjectsArray():
 	objects_array.clear()
 	for current in objects_nodes_array:
 		current.addToArray()
+
+func getStaffDataArray():
+	return staff_data_array
+
+func getStaffNodesArray():
+	return staff_nodes_array
 
 func setHaveObject(boolean):
 	have_object = boolean
