@@ -15,7 +15,8 @@ export var pharmacy_discover = []
 export var psychatric_discover = []
 export var clinics_discover = []
 
-
+var loan = 0 setget setLoan,getLoan
+var loan_interest = 0 setget setInterest,getInterest
 var stats = {}
 var savename = "default"
 
@@ -177,4 +178,16 @@ func decreaseHospitalValue(val):
 	emit_signal("hospital_value_change", hospital_value)
 
 func _on_end_month():
-	decreaseMoney(expense)
+	decreaseMoney(expense + loan_interest)
+
+func setLoan(new_loan):
+	loan = new_loan
+
+func getLoan():
+	return loan
+
+func setInterest(new_interest):
+	loan_interest = new_interest
+
+func getInterest():
+	return loan_interest
