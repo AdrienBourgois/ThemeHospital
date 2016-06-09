@@ -14,7 +14,7 @@ export var hospital_value = 0 setget setHospitalValue,getHospitalValue
 export var pharmacy_discover = []
 export var psychatric_discover = []
 export var clinics_discover = []
-
+var loan = 0 setget setLoan,getLoan
 
 var stats = {}
 var savename = "default"
@@ -178,3 +178,9 @@ func decreaseHospitalValue(val):
 
 func _on_end_month():
 	decreaseMoney(expense)
+
+func setLoan(new_loan):
+	loan = new_loan
+
+func getLoan():
+	return loan
