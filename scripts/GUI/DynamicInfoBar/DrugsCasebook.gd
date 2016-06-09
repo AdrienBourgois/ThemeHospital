@@ -48,6 +48,8 @@ var concentrate_research = false
 var disease_selected = false
 var is_timer_finish = true
 var is_pressed = true
+var is_at_top = true
+var is_at_bottom = false
 
 func _ready():
 	getElementsPositions()
@@ -149,6 +151,11 @@ func moveButtonsIfClick(button):
 				
 				if button_pos.y == selector_pos:
 					setButtonPressed(buttons)
+					if ( buttons == node_container.get_child(0) ):
+						is_at_top = true
+						is_at_bottom = false
+					elif ( buttons == node_container.get_child( node_container.get_child_count()-1 ) ):
+						is_at_bottom = true
 				else:
 					setPressedFalse(buttons)
 		else:
@@ -229,6 +236,12 @@ func updateValues():
 
 func _on_Up_pressed():
 	is_timer_finish = false
+	is_at_bottom = false
+	
+	print("Up dis: ", dis_idx)
+	
+	if (is_at_top):
+		return
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
@@ -247,6 +260,10 @@ func _on_Up_pressed():
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if (dis_idx > 0):
 				dis_idx -= 1
+				if ( dis_idx <= 0):
+					is_at_top = true
+				else:
+					is_at_top = false
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
@@ -264,6 +281,10 @@ func _on_Up_pressed():
 
 func _on_Down_pressed():
 	is_timer_finish = false
+	is_at_top = false
+	
+	if (is_at_bottom):
+		return
 	
 	for button in node_container.get_children():
 		button_pos = button.get_pos()
@@ -282,6 +303,13 @@ func _on_Down_pressed():
 		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
 			if dis_idx < array_diseases.size() - 1:
 				dis_idx += 1
+				if ( dis_idx >= array_diseases.size() - 1):
+					is_at_bottom = true
+				else:
+					is_at_bottom = false
+			
+			print("array size: ", array_diseases.size())
+			print(dis_idx)
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
