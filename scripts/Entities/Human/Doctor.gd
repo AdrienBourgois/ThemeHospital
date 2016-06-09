@@ -2,6 +2,7 @@
 extends "Staff.gd"
 
 onready var rooms = game.scene.map.rooms
+var room_occuped
 
 onready var states = {
 	wandering = get_node("Wandering"),
@@ -36,8 +37,10 @@ func checkEndPath():
 		pathfinding.free()
 		state_machine.changeState(states.wandering)
 
-func checkRoom():
+func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			return
+			if (room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM"):
+				room_occuped = room
+				
 	state_machine.changeState(states.wandering)
