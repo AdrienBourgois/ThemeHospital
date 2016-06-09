@@ -1,11 +1,12 @@
-
 extends State
 
 func enter(owner):
-	owner.goToReception()
+	owner.checkRoom()
 
 func execute(owner):
-	owner.checkEndPath()
+	pass
 
 func exit(owner):
 	pass
+
+
