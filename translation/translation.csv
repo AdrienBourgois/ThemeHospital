@@ -185,6 +185,7 @@ TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_POSEDOOR_ERROR, You cannot pose the door here, Vous ne pouvez pas poser cette porte ici
 TOOLTIP_SELL_ERROR, You cannot sell this furniture, Vous ne pouvez pas vendre ce meuble
 TOOLTIP_TREATMENT,Select General Treatment Room,Sélectionne les salles de Traitement
 TOOLTIP_FACILITIES,Select Special Facility room,Sélectionne les Locaux
@@ -211,7 +212,7 @@ TOOLTIP_PREVIOUS,View previous person,Personne précédante
 TOOLTIP_HIRE,Hire person,Engager la personne
 TOOLTIP_EXIT,Cancel,Annuler
 TOOLTIP_NEXT,View next person,Personne suivante
-TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cette objet avec la touche 'Supprimer'
+TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cet objet avec la touche 'Supprimer'
 TAB_DOCTOR,Doctor,Docteur
 TAB_NURSE,Nurse,Infirmière
 TAB_HANDYMEN,Handymen,Concierge
