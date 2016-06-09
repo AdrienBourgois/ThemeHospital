@@ -217,7 +217,6 @@ var decorations = {
 }
 
 var type_rooms = {
-
 	"TYPE_TREATMENT": treatment_rooms,
 	"TYPE_DIAGNOSIS": diagnosis_rooms,
 	"TYPE_CLINICS": clinics,

@@ -79,7 +79,6 @@ func change_wall(wall, type):
 		rotation = Vector3(0,-90,0)
 	
 	#print(x, " - ", y, " (", wall, ") : ", location, " - ", rotation)
-	
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] != enum_wall_type.WALL):
 			var new_wall = wall_res.instance()
