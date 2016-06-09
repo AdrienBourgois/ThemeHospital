@@ -28,7 +28,7 @@ func put():
 
 func take():
 	pathfinding.stop()
-	pathfinding.free()
+#	pathfinding.free()
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
@@ -38,5 +38,5 @@ func checkEndPath():
 func checkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			pass
+			return
 	state_machine.changeState(states.wandering)

@@ -117,7 +117,7 @@ func configDiseasesButtons(button, disease_name):
 
 func diseasePressed(button):
 	disconnectDecreaseAndIncrease()
-	if node_timer.is_connected("timeout", self, "timerTimeout", dis_idx):
+	if node_timer.is_connected("timeout", self, "timerTimeout"):
 		node_timer.disconnect("timeout", self, "timerTimeout")
 	
 	node_timer.connect("timeout", self, "timerTimeout", [array_diseases[button.get_meta("button_number")]])
