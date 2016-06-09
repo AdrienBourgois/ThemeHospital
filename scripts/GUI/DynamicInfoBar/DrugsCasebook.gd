@@ -117,7 +117,7 @@ func configDiseasesButtons(button, disease_name):
 
 func diseasePressed(button):
 	disconnectDecreaseAndIncrease()
-	if node_timer.is_connected("timeout", self, "timerTimeout"):
+	if node_timer.is_connected("timeout", self, "timerTimeout", dis_idx):
 		node_timer.disconnect("timeout", self, "timerTimeout")
 	
 	node_timer.connect("timeout", self, "timerTimeout", [array_diseases[button.get_meta("button_number")]])
@@ -138,30 +138,47 @@ func diseasePressed(button):
 
 func moveButtonsIfClick(button):
 	if is_pressed == false:
-		var idx = 0
+#		var idx = 0
 		
 		button_pos = button.get_pos()
 		var gap_button_selector = selector_pos - button_pos.y
 		
 		if button_pos.y != selector_pos:
-			for buttons in node_container.get_children():
-				button_pos = buttons.get_pos()
+			for buttons in range ( node_container.get_child_count() ):
+				var node_button = node_container.get_child(buttons)
+				button_pos = node_button.get_pos()
 				button_pos.y += gap_button_selector
-				buttons.set_pos(button_pos)
+				node_button.set_pos(button_pos)
 				
 				if button_pos.y == selector_pos:
-					setButtonPressed(buttons)
-					if ( buttons == node_container.get_child(0) ):
-						is_at_top = true
-						is_at_bottom = false
-					elif ( buttons == node_container.get_child( node_container.get_child_count()-1 ) ):
-						is_at_bottom = true
+					dis_idx = buttons
+					setButtonPressed(node_button)
+					
+					if ( buttons == 0 ):
+						setIsAtTop()
+					elif ( buttons == node_container.get_child_count() - 1 ):
+						setIsAtBottom()
+					else:
+						setTopAndBottomFalse()
+					
 				else:
-					setPressedFalse(buttons)
+					setPressedFalse(node_button)
 		else:
 			setPressedFalse(button)
 	else:
 		 return
+
+func setIsAtTop():
+	is_at_top = true
+	is_at_bottom = false
+
+func setIsAtBottom():
+	is_at_bottom = true
+	is_at_top = false
+
+func setTopAndBottomFalse():
+	is_at_bottom = false
+	is_at_top = false
 
 func disconnectDecreaseAndIncrease():
 	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
@@ -238,8 +255,6 @@ func _on_Up_pressed():
 	is_timer_finish = false
 	is_at_bottom = false
 	
-	print("Up dis: ", dis_idx)
-	
 	if (is_at_top):
 		return
 	
@@ -261,7 +276,7 @@ func _on_Up_pressed():
 			if (dis_idx > 0):
 				dis_idx -= 1
 				if ( dis_idx <= 0):
-					is_at_top = true
+					setIsAtTop()
 				else:
 					is_at_top = false
 			
@@ -304,12 +319,9 @@ func _on_Down_pressed():
 			if dis_idx < array_diseases.size() - 1:
 				dis_idx += 1
 				if ( dis_idx >= array_diseases.size() - 1):
-					is_at_bottom = true
+					setIsAtBottom()
 				else:
 					is_at_bottom = false
-			
-			print("array size: ", array_diseases.size())
-			print(dis_idx)
 			
 			if node_timer.is_connected("timeout", self, "timerTimeout"):
 				node_timer.disconnect("timeout", self, "timerTimeout")
