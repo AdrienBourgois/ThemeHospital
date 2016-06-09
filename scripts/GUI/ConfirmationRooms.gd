@@ -42,4 +42,3 @@ func _on_Accept_pressed():
 	self.hide()
 	
 	node_rooms_menu.is_type_selected = false
-	

@@ -78,7 +78,7 @@ func change_wall(wall, type):
 		location = Vector3(0.5,0,0)
 		rotation = Vector3(0,-90,0)
 	
-	print(x, " - ", y, " (", wall, ") : ", location, " - ", rotation)
+#	print(x, " - ", y, " (", wall, ") : ", location, " - ", rotation)
 	
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] != enum_wall_type.WALL):
