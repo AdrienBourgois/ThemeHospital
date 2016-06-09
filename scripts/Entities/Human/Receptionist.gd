@@ -14,20 +14,23 @@ onready var states = {
 }
 
 func _ready():
-	set_fixed_process(true)
+	set_process(true)
 
 func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.looking_for_desk)
+	is_taken = false
 
 func take():
-	state_machine = get_node("StateMachine")
-	state_machine.changeState(states.looking_for_desk)
+	print("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+	pathfinding.stop()
+	pathfinding.free()
 
-func _fixed_process(delta):
+func _process(delta):
 	if state_machine:
-		state_machine.update()
+		if is_taken == false:
+			state_machine.update()
 
 func checkDesk():
 	if object_array.size() != 0:
