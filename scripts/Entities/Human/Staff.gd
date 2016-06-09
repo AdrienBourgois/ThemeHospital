@@ -30,7 +30,7 @@ func _ready():
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text(get_name() + " : " + state_machine.getCurrentStateName())
+		info_bar.set_text(get_name() + " : " + tr(state_machine.getCurrentStateName()))
 
 func take():
 	pass

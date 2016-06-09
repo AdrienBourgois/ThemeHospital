@@ -2,10 +2,11 @@
 extends State
 
 func enter(owner):
-	owner.goToReception()
+	print("est ce que tu m'entends eho")
+	pass
 
 func execute(owner):
-	owner.checkEndPath()
+	pass
 
 func exit(owner):
 	pass

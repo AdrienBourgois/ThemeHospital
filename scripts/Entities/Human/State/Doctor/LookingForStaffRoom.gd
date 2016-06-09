@@ -2,10 +2,12 @@
 extends State
 
 func enter(owner):
-	owner.goToReception()
+	owner.isTired()
+	pass
 
 func execute(owner):
-	owner.checkEndPath()
+	pass
 
 func exit(owner):
 	pass
+

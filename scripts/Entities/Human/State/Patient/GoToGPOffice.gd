@@ -2,10 +2,10 @@
 extends State
 
 func enter(owner):
-	owner.goToReception()
+	pass
 
 func execute(owner):
-	owner.checkEndPath()
+	pass
 
 func exit(owner):
 	pass

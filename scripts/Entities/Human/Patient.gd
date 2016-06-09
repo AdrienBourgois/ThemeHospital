@@ -10,7 +10,9 @@ onready var entity_manager = get_parent()
 onready var child_count = entity_manager.get_child_count()
 onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var states = {
-go_to_reception = get_node("GoToReceptionist")
+go_to_reception = get_node("GoToReceptionist"),
+random_movement = get_node("RandomMovement"),
+looking_for_a_bench = get_node("LookingForABench")
 }
 
 var state_machine
@@ -19,6 +21,7 @@ var happiness
 var thirsty
 var warmth
 var count
+var is_go_to_reception = false
 
 func _ready():
 	get_node("CheckStatsTimer").start()
@@ -28,8 +31,9 @@ func _ready():
 	count = 0
 	set_process(true)
 
-func process(delta):
-	state_machine.update()
+func _process(delta):
+	if state_machine:
+		state_machine.update()
 
 func calculateHappiness(is_increase):
 	if count == 5:
@@ -55,7 +59,6 @@ func checkWarmth():
 		calculateHappiness(true)
 
 func _on_Timer_timeout():
-	checkGPOffice()
 	count += 1
 	entity_manager.checkGlobalTemperature(self)
 	checkThirsty()
@@ -70,6 +73,18 @@ func goToReception():
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
 				add_child(pathfinding)
+			else:
+				state_machine.changeState(states.random_movement)
+	else:
+		state_machine.changeState(states.random_movement)
+
+func checkEndPath():
+	if pathfinding.animation_completed:
+		pathfinding.free()
+		if is_go_to_reception == false:
+			state_machine.changeState(states.go_to_reception)
+		else:
+			state_machine.changeState(states.random_movement)
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
@@ -77,11 +92,12 @@ func moveTo():
 	add_child(pathfinding)
 
 func checkGPOffice():
+	pathfinding.free()
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["ID"] != 2:
-				print("Hey")
-				moveTo()
+				state_machine.changeState(states.random_movement)
 			else:
 				print("Going to GP Office")
-	pass
+	else:
+		state_machine.changeState(states.random_movement)

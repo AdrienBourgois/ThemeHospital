@@ -185,6 +185,9 @@ TYPE_CLINICS,Clinics,Cliniques
 TYPE_FACILITIES,Facilities,Locaux
 PICK_ROOM,Pick Room Type,Choisir une salle
 PICK_DPT,Pick Department,Choisir un type de salle
+TOOLTIP_DOOR_CREATION, Please pose the door on the wall, Placez la porte sur un mur
+TOOLTIP_POSEDOOR_POSED, Door posed, Porte posee
+TOOLTIP_POSEDOOR_ERROR, You cannot pose the door here, Vous ne pouvez pas poser cette porte ici
 TOOLTIP_SELL_ERROR, You cannot sell this furniture, Vous ne pouvez pas vendre ce meuble
 TOOLTIP_TREATMENT,Select General Treatment Room,Sélectionne les salles de Traitement
 TOOLTIP_FACILITIES,Select Special Facility room,Sélectionne les Locaux
@@ -211,7 +214,7 @@ TOOLTIP_PREVIOUS,View previous person,Personne précédante
 TOOLTIP_HIRE,Hire person,Engager la personne
 TOOLTIP_EXIT,Cancel,Annuler
 TOOLTIP_NEXT,View next person,Personne suivante
-TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cette objet avec la touche 'Supprimer'
+TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cet objet avec la touche 'Supprimer'
 TAB_DOCTOR,Doctor,Docteur
 TAB_NURSE,Nurse,Infirmière
 TAB_HANDYMEN,Handymen,Concierge
@@ -289,7 +292,11 @@ TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
 TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
 TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
 TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
-TOOLTIP_CASEBOOK_DOWN,Scroll up,Defile vers le bas
+TOOLTIP_CASEBOOK_DOWN,Scroll down,Defile vers le bas
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
 PRICE_LABEL,Price : ,Prix : 
 ROOM_NOT_VALID,New room is not valid !,La salle n'est pas correcte !
+LOOKING_FOR_ROOM,Looking for a room,Cherche une salle
+LOOKING_STAFF_ROOM,Looking for staff room,Cherche une salle de repos
+LOOKING_FOR_PATIENT,Looking for a patient,Attend un patient
+WANDERING,Wandering,Deambule

@@ -20,7 +20,8 @@ func _ready():
 
 func _fixed_process(delta):
 	if state_machine:
-		state_machine.update()
+		if is_taken == false:
+			state_machine.update()
 
 func put():
 	first_pos = get_translation()
@@ -30,9 +31,12 @@ func put():
 #	get_node("Timer").start()
 
 func take():
-	state_machine = get_node("StateMachine")
-	state_machine.changeState(states.looking_for_room)
 #	get_node("Timer").stop()
+	pathfinding.stop()
+	pathfinding.free()
+#	state_machine = get_node("StateMachine")
+#	state_machine.changeState(states.looking_for_room)
+
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
