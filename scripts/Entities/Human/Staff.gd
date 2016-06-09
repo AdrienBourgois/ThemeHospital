@@ -75,5 +75,3 @@ func getSalary():
 
 func setSalary(val):
 	salary = val
-	
-	
