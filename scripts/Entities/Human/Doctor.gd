@@ -19,7 +19,8 @@ func _ready():
 
 func _process(delta):
 	if state_machine:
-		state_machine.update()
+		if is_taken == false:
+			state_machine.update()
 
 func put():
 	state_machine = get_node("StateMachine")
@@ -28,7 +29,7 @@ func put():
 
 func take():
 	pathfinding.stop()
-#	pathfinding.free()
+	pathfinding.free()
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
