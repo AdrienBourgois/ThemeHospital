@@ -24,6 +24,7 @@ func _input(event):
 func poseDoor():
 	deleteFromArray()
 	nextObject()
+	game.feedback.display("TOOLTIP_POSEDOOR_POSED")
 
 func checkWalls():
 	if (tile.walls_types.Up == 1):
