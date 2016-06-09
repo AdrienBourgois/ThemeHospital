@@ -30,7 +30,9 @@ func _ready():
 	gamescn.objects_nodes_array.append(self)
 
 func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx ):
-	if (is_selected and can_selected and !map_object):
+	if (map_object):
+		return
+	if (is_selected and can_selected):
 		checkAvailableProcess()
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
@@ -58,7 +60,7 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 
 func _input(event):
 	if (event.is_action_released("delete")):
-		if (in_room_object):
+		if (in_room_object or map_object):
 			game.feedback.display("TOOLTIP_SELL_ERROR")
 			return
 	
@@ -73,6 +75,14 @@ func _input(event):
 				self.queue_free()
 		gamescn.updateObjectsArray()
 
+func deleteFromArray():
+	for current in gamescn.getObjectsNodesArray():
+			var index = gamescn.getObjectsNodesArray().find(current)
+			if (self == gamescn.getObjectsNodesArray()[index]):
+				gamescn.getObjectsNodesArray().remove(index)
+				self.queue_free()
+	gamescn.updateObjectsArray()
+			
 func hideOtherObjects():
 	for current in temp_array:
 		current.hide()
