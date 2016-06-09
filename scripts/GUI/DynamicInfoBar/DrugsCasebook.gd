@@ -67,33 +67,9 @@ func getElementsPositions():
 	selector_border_size = node_selector.get("custom_styles/panel").get_border_size()
 	selector_pos = pos_selector.y + selector_border_size - pos_container.y
 
-func calculateButtonsGap():
-	first_button_pos = node_container.get_child(0).get_pos()
-	second_button_pos = node_container.get_child(1).get_pos()
-	
-	button_gap = second_button_pos.y - first_button_pos.y
-
-func _on_Quit_pressed():
-	self.hide()
-	hud.show()
-	camera.pause = false
-
-func update():
-	if (self.is_visible()):
-		node_reputation.set_text(str(reputation_value))
-		
-		if (is_timer_finish == true):
-			node_treatment.set_text(str(treatment_charge))
-		else:
-			node_treatment.set_text(str(percent) + "%")
-		node_money.set_text(str(money_earned))
-		
-		node_recoveries.set_text(str(recoveries))
-		node_fatalities.set_text(str(fatalities))
-		node_turned.set_text(str(turned_away))
-
-func _process(delta):
-	update()
+func refreshVariablesIfSizeChange():
+	getElementsPositions()
+	calculateButtonsGap()
 
 func connectDiseasesButtons():
 	var button
@@ -112,6 +88,30 @@ func connectDiseasesButtons():
 			array_diseases.push_back(diseases_list[disease])
 			
 			configDiseasesButtons(button, diseases_list[disease].NAME)
+
+func configDiseasesButtons(button, disease_name):
+	button.set_margin(MARGIN_LEFT, 0)
+	button.set_margin(MARGIN_TOP, 0)
+	button.set_margin(MARGIN_BOTTOM, button.get_size().y)
+	button.set_margin(MARGIN_RIGHT, size_container.x)
+	
+	button.set_anchor(MARGIN_LEFT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_BOTTOM, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_RIGHT, ANCHOR_RATIO)
+	button.set_anchor(MARGIN_TOP, ANCHOR_RATIO)
+	
+	button.set_size(Vector2(node_selector.get_size().x, node_selector.get_size().y - selector_border_size))
+	button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + selector_border_size) + basic_pos_button - pos_container.y))
+	
+	button.set_text(disease_name)
+	button.connect("pressed", self, "diseasePressed", [button])
+	
+	basic_pos_button += node_selector.get_size().y + selector_border_size
+	
+	button_pos = button.get_pos()
+	
+	if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
+		setButtonPressed(button)
 
 func diseasePressed(button):
 	disconnectDecreaseAndIncrease()
@@ -151,36 +151,76 @@ func diseasePressed(button):
 	is_pressed = false
 	disease_selected = true
 
+func disconnectDecreaseAndIncrease():
+	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
+	disconnectFunc("pressed", node_increase, "increaseCostPressed")
+
+func disconnectFunc(type, button, method):
+	if button.is_connected(type, self, method):
+		button.disconnect(type, self, method)
+
+func timerTimeout(disease):
+	disease.NEW_COST = percentageCalculation(disease.DEFAULT_COST, percent)
+	treatment_charge = disease.NEW_COST
+	
+	is_timer_finish = true
+
 func percentageCalculation(value, percent):
 	var new_value = value * (percent / 100.0)
 	return int(new_value)
 
-func _on_Concentrate_research_pressed():
-	concentrate_research = true
+func connectDecreaseAndIncrease(array_dis):
+	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_dis])
+	node_increase.connect("pressed", self, "increaseCostPressed", [array_dis])
 
-func configDiseasesButtons(button, disease_name):
-	button.set_margin(MARGIN_LEFT, 0)
-	button.set_margin(MARGIN_TOP, 0)
-	button.set_margin(MARGIN_BOTTOM, button.get_size().y)
-	button.set_margin(MARGIN_RIGHT, size_container.x)
+func increaseCostPressed(disease_selected):
+	is_timer_finish = false
 	
-	button.set_anchor(MARGIN_LEFT, ANCHOR_RATIO)
-	button.set_anchor(MARGIN_BOTTOM, ANCHOR_RATIO)
-	button.set_anchor(MARGIN_RIGHT, ANCHOR_RATIO)
-	button.set_anchor(MARGIN_TOP, ANCHOR_RATIO)
+	disease_selected.PERCENT += 1
+	percent = disease_selected.PERCENT
 	
-	button.set_size(Vector2(node_selector.get_size().x, node_selector.get_size().y - selector_border_size))
-	button.set_pos(Vector2(button.get_margin(MARGIN_LEFT), (pos_selector.y + selector_border_size) + basic_pos_button - pos_container.y))
+	node_timer.start()
+
+func decreaseCostPressed(disease_selected):
+	is_timer_finish = false
 	
-	button.set_text(disease_name)
-	button.connect("pressed", self, "diseasePressed", [button])
+	if (disease_selected.PERCENT > 0):
+		disease_selected.PERCENT -= 1
+		percent = disease_selected.PERCENT
+		
+		node_timer.start()
+
+func setButtonPressed(button):
+	button.emit_signal("pressed")
+	button.set_toggle_mode(true)
+	button.set_pressed(true)
+
+func setPressedFalse(button):
+	button.set_pressed(false)
+	button.set_toggle_mode(false)
+
+func calculateButtonsGap():
+	first_button_pos = node_container.get_child(0).get_pos()
+	second_button_pos = node_container.get_child(1).get_pos()
 	
-	basic_pos_button += node_selector.get_size().y + selector_border_size
-	
-	button_pos = button.get_pos()
-	
-	if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
-		setButtonPressed(button)
+	button_gap = second_button_pos.y - first_button_pos.y
+
+func _process(delta):
+	updateValues()
+
+func updateValues():
+	if (self.is_visible()):
+		node_reputation.set_text(str(reputation_value))
+		
+		if (is_timer_finish == true):
+			node_treatment.set_text(str(treatment_charge))
+		else:
+			node_treatment.set_text(str(percent) + "%")
+		node_money.set_text(str(money_earned))
+		
+		node_recoveries.set_text(str(recoveries))
+		node_fatalities.set_text(str(fatalities))
+		node_turned.set_text(str(turned_away))
 
 func _on_Up_pressed():
 	is_timer_finish = false
@@ -252,50 +292,10 @@ func _on_Down_pressed():
 	 
 	node_timer.start()
 
-func disconnectFunc(type, button, method):
-	if button.is_connected(type, self, method):
-		button.disconnect(type, self, method)
+func _on_Concentrate_research_pressed():
+	concentrate_research = true
 
-func timerTimeout(disease):
-	disease.NEW_COST = percentageCalculation(disease.DEFAULT_COST, percent)
-	treatment_charge = disease.NEW_COST
-	
-	is_timer_finish = true
-
-func increaseCostPressed(disease_selected):
-	is_timer_finish = false
-	
-	disease_selected.PERCENT += 1
-	percent = disease_selected.PERCENT
-	
-	node_timer.start()
-
-func decreaseCostPressed(disease_selected):
-	is_timer_finish = false
-	
-	if (disease_selected.PERCENT > 0):
-		disease_selected.PERCENT -= 1
-		percent = disease_selected.PERCENT
-		
-		node_timer.start()
-
-func disconnectDecreaseAndIncrease():
-	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
-	disconnectFunc("pressed", node_increase, "increaseCostPressed")
-
-func connectDecreaseAndIncrease(array_dis):
-	node_decrease.connect("pressed", self, "decreaseCostPressed", [array_dis])
-	node_increase.connect("pressed", self, "increaseCostPressed", [array_dis])
-
-func setButtonPressed(button):
-	button.emit_signal("pressed")
-	button.set_toggle_mode(true)
-	button.set_pressed(true)
-
-func setPressedFalse(button):
-	button.set_pressed(false)
-	button.set_toggle_mode(false)
-
-func refreshVariablesIfSizeChange():
-	getElementsPositions()
-	calculateButtonsGap()
+func _on_Quit_pressed():
+	self.hide()
+	hud.show()
+	camera.pause = false
