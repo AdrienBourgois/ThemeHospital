@@ -5,7 +5,8 @@ func enter(owner):
 	owner.moveTo()
 
 func execute(owner):
-	owner.checkEndPath()
+	if owner.pathfinding.animation_completed == true:
+		owner.checkEndPath()
 
 func exit(owner):
 	pass
