@@ -82,6 +82,10 @@ TXT_HOSPITAL_VALUE,Hospital value,Valeur de l'hopital
 TXT_BALANCE,Balance,Argent
 TXT_CURRENT_LOAN,Current loan,Pret actuel
 TXT_INTEREST_PAYMENT,Interest rate,Taux d'interet
+TXT_PLOT_NUMBER,Plot number: ,Numero du terrain: 
+TXT_PLOT_OWNER,Plot owner: ,Proprietaire du terrain: 
+TXT_PLOT_AREA,Plot area: ,Aire du terrain: 
+TXT_PLOT_PRICE,Plot price: ,Prix du terrain: 
 SAVE, Save, Sauvegarder
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
 BTN_SAVE,Save ,Sauvegarde 
