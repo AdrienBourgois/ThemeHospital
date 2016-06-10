@@ -70,13 +70,13 @@ func change_wall(wall, type):
 		rotation = Vector3(0,0,0)
 	elif (wall == "Down"):
 		location = Vector3(0,0,0.5)
-		rotation = Vector3(0,180,0)
+		rotation = Vector3(0,deg2rad(180),0)
 	elif (wall == "Left"):
 		location = Vector3(-0.5,0,0)
-		rotation = Vector3(0,90,0)
+		rotation = Vector3(0,deg2rad(90),0)
 	elif (wall == "Right"):
 		location = Vector3(0.5,0,0)
-		rotation = Vector3(0,-90,0)
+		rotation = Vector3(0,deg2rad(-90),0)
 	
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] != enum_wall_type.WALL):
