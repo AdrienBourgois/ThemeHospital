@@ -25,7 +25,3 @@ func _on_Bank_pressed():
 
 func _on_Bank_mouse_enter():
 	game.feedback.display("TUTO_BANK")
-
-
-func _on_DynamicMoney_mouse_enter():
-	print("tamer")
