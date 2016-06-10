@@ -60,4 +60,5 @@ func createButtons():
 		else:
 			button.set_text(tr("BTN_AUTOLOAD"))
 		
+		button.set_disabled(true)
 		load_location.add_child(button)
