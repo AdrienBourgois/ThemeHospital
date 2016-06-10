@@ -26,7 +26,11 @@ func _ready():
 	connect("input_event", self, "_on_Staff_input_event")
 	get_node("Timer").start()
 	set_fixed_process(true)
-	gamescn
+	gamescn.getStaffNodesArray().append(self)
+
+func addToArray():
+	updateStats()
+	gamescn.getStaffDataArray().append(staff_stats)
 
 func displayInfo():
 	if state_machine:
@@ -42,7 +46,10 @@ func updateStats():
 	X = position.x,
 	Y = position.y,
 	Z = position.z,
-	ROTATION = rotation
+	ID = id,
+	ROTATION = rotation,
+	SKILL = skill,
+	SALARY = salary
 	}
 	return staff_stats
 
@@ -67,6 +74,11 @@ func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
 	add_child(pathfinding)
+	
+	if (staff_stats.empty()):
+		addToArray()
+	else:
+		gamescn.updateStaffDataArray()
 
 func getName():
 	return name
