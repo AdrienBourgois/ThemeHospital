@@ -4,9 +4,11 @@ extends Control
 onready var control_panel = get_parent()
 onready var buttons = get_node("Buttons")
 
+onready var game = get_node("/root/Game")
 onready var rooms_menu = get_node("../../RoomsMenu")
 onready var corridor_items_menu = get_node("../../CorridorItemsMenu")
 onready var staff_gui = get_node("../../Staff_gui")
+onready var shop_menu = preload("res://scenes/GUI/ShopMenu.scn")
 
 var window_opened = false
 
@@ -21,6 +23,7 @@ func _on_Build_pressed():
 	rooms_menu.set_hidden(not rooms_menu.is_hidden())
 
 func _on_Corridor_items_pressed():
-	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
-	if (!corridor_items_menu.is_hidden()):
-		window_opened = true
+	game.scene.add_child(shop_menu.instance())
+#	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
+#	if (!corridor_items_menu.is_hidden()):
+#		window_opened = true

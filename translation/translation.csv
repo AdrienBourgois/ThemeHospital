@@ -75,6 +75,13 @@ TXT_EMPTY, --Empty--, --Vide--
 TXT_CONTROL_ACTIVATED,Window's control activated,Controle de la fenetre active
 TXT_SCREENSHOT_NAME,Enter screenshot name : ,Entrez le nom de la capture d'ecran : 
 TXT_CONFIRM,Please confirm,Confirmation
+TXT_PRICE,Price: ,Prix: 
+TXT_TOTAL,Total: ,Total: 
+TXT_CHOOSE_ITEMS,Choose items,Choisissez des objets
+TXT_HOSPITAL_VALUE,Hospital value,Valeur de l'hopital
+TXT_BALANCE,Balance,Argent
+TXT_CURRENT_LOAN,Current loan,Pret actuel
+TXT_INTEREST_PAYMENT,Interest rate,Taux d'interet
 SAVE, Save, Sauvegarder
 SAVE_QUICK, Quicksave, Sauvegarde Rapide
 BTN_SAVE,Save ,Sauvegarde 
@@ -132,6 +139,14 @@ BTN_BANK,Bank,Banque
 BTN_RESET_CHAT,Reset chat,Par defaut
 BTN_PREV,Previous,Précédent
 BTN_NEXT,Next,Suivant
+BTN_RECEPTION_DESK,Reception desk,Accueil
+BTN_BENCH,Bench,Banc
+BTN_DRINKS_MACHINE,Drinks machine,Distributeur de boissons
+BTN_FIRE_EXTINGUISHER,Fire extinguisher,Extincteur
+BTN_RADIATOR,Radiator,Radiateur
+BTN_PLANT,Plant,Plante
+BTN_BUY,Buy,Acheter
+BTN_QUIT,Quit,Quitter
 TIP_BUILD_ROOM,Build room,Construire salle
 TIP_CORRIDOR_ITEMS,Place corridor items,Placer un objets dans le couloir
 TIP_EDIT,Edit rooms/items,Modifier salles/objets
