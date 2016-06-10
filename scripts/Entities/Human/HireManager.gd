@@ -30,6 +30,3 @@ func sackStaff():
 	for i in range(get_child_count()):
 		if get_child(i).is_selected == true:
 			remove_child(get_child(i))
-
-func setStaff():
-	pass
