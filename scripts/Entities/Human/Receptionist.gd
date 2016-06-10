@@ -46,4 +46,4 @@ func checkDesk():
 func checkEndPath():
 	if pathfinding.animation_completed:
 		pathfinding.free()
-		state_machine.changeState(states.wandering)
+		state_machine.changeState(states.looking_for_desk)

@@ -301,3 +301,9 @@ LOOKING_STAFF_ROOM,Looking for staff room,Cherche une salle de repos
 LOOKING_FOR_PATIENT,Looking for a patient,Attend un patient
 WANDERING,Wandering,Deambule
 REST,Rest,Repos
+GO_TO_SWEEP,Go to sweep,Va nettoyer
+GO_TO_WATER,Go to water,Va arroser
+GO_TO_REPARE,Go to repare,Va reparer
+SWEEPING,Sweeping,Nettoie
+WATERING,Watering,Arrose
+REPARING,Reparing,Repare 
