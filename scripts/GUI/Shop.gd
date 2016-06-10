@@ -1,5 +1,6 @@
 
 onready var game = get_node("/root/Game")
+onready var control_panel = game.scene.get_node("./In_game_gui/HUD/Control_panel/Build_hire_controls")
 onready var object_resources = game.scene.getObjectResources()
 onready var shop_info = get_node("./Panel/ShopInfo")
 onready var available_items = get_node("./Panel/Shop/AvailableItems")
@@ -26,7 +27,7 @@ func updateTotalPrice():
 	total_label.set_text( tr("TXT_TOTAL") + str(total_price) )
 
 func _on_QuitButton_pressed():
-	queue_free()
+	control_panel.hideCurrentWindow()
 
 
 func _on_BuyButton_pressed():
@@ -51,4 +52,4 @@ func _on_BuyButton_pressed():
 		temp_array[0].hideOtherObjects()
 		game.scene.setHaveObject(true)
 	
-	queue_free()
+	control_panel.hideCurrentWindow()

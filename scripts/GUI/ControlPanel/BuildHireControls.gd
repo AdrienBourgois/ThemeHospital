@@ -6,10 +6,17 @@ onready var buttons = get_node("Buttons")
 
 onready var game = get_node("/root/Game")
 onready var rooms_menu = get_node("../../RoomsMenu")
-onready var corridor_items_menu = get_node("../../CorridorItemsMenu")
 onready var staff_gui = get_node("../../Staff_gui")
 onready var shop_menu = preload("res://scenes/GUI/ShopMenu.scn")
 
+var last_button_pressed = {
+build = false,
+corridor_items = false,
+edit = false,
+hire = false
+}
+
+var current_window_open = null
 var window_opened = false
 
 func _ready():
@@ -17,16 +24,36 @@ func _ready():
 		control_panel.initConnect(idx)
 
 func _on_Hire_pressed():
-	staff_gui.set_hidden(not staff_gui.is_hidden())
+	if ( last_button_pressed.hire ):
+		hideCurrentWindow()
+	else:
+		hideCurrentWindow()
+		last_button_pressed.hire = true
+		current_window_open = staff_gui
+		staff_gui.set_hidden(not staff_gui.is_hidden())
 
 func _on_Build_pressed():
-	rooms_menu.set_hidden(not rooms_menu.is_hidden())
+	if ( last_button_pressed.build ):
+		hideCurrentWindow()
+	else:
+		hideCurrentWindow()
+		current_window_open = rooms_menu
+		last_button_pressed.build = true
+		rooms_menu.set_hidden(not rooms_menu.is_hidden())
 
 func _on_Corridor_items_pressed():
-	game.scene.add_child(shop_menu.instance())
+	if ( !last_button_pressed.corridor_items ):
+		hideCurrentWindow()
+		current_window_open = shop_menu.instance()
+		game.scene.add_child(current_window_open)
+		last_button_pressed.corridor_items = true
+	else:
+		hideCurrentWindow()
+
 
 func _on_Build_mouse_enter():
-	game.feedback.display("TUTO_BUILD_ROOMS")
+	if ( !last_button_pressed.build ):
+		game.feedback.display("TUTO_BUILD_ROOMS")
 
 
 func _on_Corridor_items_mouse_enter():
@@ -35,3 +62,19 @@ func _on_Corridor_items_mouse_enter():
 
 func _on_Hire_mouse_enter():
 	game.feedback.display("TUTO_HIRE")
+
+func resetLastButtonPressed():
+	last_button_pressed.build = false
+	last_button_pressed.corridor_items = false
+	last_button_pressed.edit = false
+	last_button_pressed.hire = false
+
+func hideCurrentWindow():
+	if ( current_window_open != null ):
+		if ( last_button_pressed.corridor_items ):
+			current_window_open.queue_free()
+		else:
+			current_window_open.set_hidden(true)
+		current_window_open = null
+		
+		resetLastButtonPressed()
