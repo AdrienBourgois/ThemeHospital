@@ -2,11 +2,12 @@
 extends State
 
 func enter(owner):
-	print("est ce que tu m'entends eho")
-	pass
+	owner.moveIntoRoom()
 
 func execute(owner):
-	pass
+	if owner.pathfinding.animation_completed == true:
+		owner.moveIntoRoom()
 
 func exit(owner):
-	pass
+	owner.room_occuped.is_occuped = false
+	owner.room_occuped = null
