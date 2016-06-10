@@ -160,6 +160,9 @@ TUTO_TOWN_MAP,button [Map] allows to see map and manage heat,Le bouton [Carte] p
 TUTO_STATUS,button [Status] allows to consult objectives and player progress,Le bouton [Statut] permet de consulter les objectifs et la progression du joueur
 TUTO_GO,button [go] or timeout allow to start patient spawn,Le bouton [prêt] ou la fin du chrono permettent l'apparition des patients
 TUTO_SPEED,button [speed] allows to change game speed from [slowest] to [and then some more],Le bouton [vitesse] permet de changer la vitesse du jeu de [la plus lente] a [et toujours plus]
+TUTO_RESEARCH,button[research] allows to change research priorities,Le bouton [recherche] permet de modifier les priorites de recherche
+TUTO_CASEBOOK,button[drugs casebook] allows to see discover diseases and treatment cost,Le bouton [Medicaments] permet de voir les maladies decouvertes et le cout des traitements
+TUTO_BANK,button[bank] allows to take out loan,Le bouton [banque] permet de prendre pret
 CMD_UP,[camera] up : ,[camera] haut : 
 CMD_DOWN,[camera] down : ,[camera] bas :
 CMD_LEFT,[camera] left : ,[camera] gauche : 

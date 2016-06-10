@@ -1,6 +1,7 @@
 
 extends Control
 
+onready var game = get_node("/root/Game")
 onready var control_panel = get_parent()
 onready var buttons = get_node("Buttons")
 
@@ -24,3 +25,14 @@ func _on_Corridor_items_pressed():
 	corridor_items_menu.set_hidden(not corridor_items_menu.is_hidden())
 	if (!corridor_items_menu.is_hidden()):
 		window_opened = true
+
+func _on_Build_mouse_enter():
+	game.feedback.display("TUTO_BUILD_ROOMS")
+
+
+func _on_Corridor_items_mouse_enter():
+	game.feedback.display("TUTO_CORRIDOR_ITEMS")
+
+
+func _on_Hire_mouse_enter():
+	game.feedback.display("TUTO_HIRE")
