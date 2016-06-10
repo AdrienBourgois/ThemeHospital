@@ -92,6 +92,8 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+	
+	file.close()
 
 func getTile(vector2):
 	return columns[vector2.x][vector2.y]
