@@ -41,7 +41,6 @@ func checkEndPath():
 func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			print(room.type)
 			if (room.is_occuped == false && (room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM" || room.type.NAME == "ROOM_PSYCHIATRIC" || room.type.NAME == "ROOM_OPERATING" || room.type.NAME == "ROOM_RESEARCH")):
 				room_occuped = room
 				room_occuped.is_occuped = true

@@ -138,7 +138,6 @@ func diseasePressed(button):
 
 func moveButtonsIfClick(button):
 	if is_pressed == false:
-#		var idx = 0
 		
 		button_pos = button.get_pos()
 		var gap_button_selector = selector_pos - button_pos.y
