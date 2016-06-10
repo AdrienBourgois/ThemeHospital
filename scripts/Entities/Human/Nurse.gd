@@ -28,10 +28,8 @@ func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.looking_for_room)
-#	get_node("Timer").start()
 
 func take():
-#	get_node("Timer").stop()
 	pathfinding.stop()
 	pathfinding.free()
 
@@ -67,21 +65,6 @@ func checkStaffRoom():
 	state_machine.changeState(states.looking_for_room)
 
 func moveIntoRoom():
-	var rand = randi()%(room_occuped.tiles.size())
-	var tile_to_go = room_occuped.tiles[rand]
+	var tile_to_go = room_occuped.tiles[randi()%room_occuped.tiles.size()]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
 	add_child(pathfinding)
-
-func _on_Timer_timeout():
-	pass
-#	tireness -= tire
-#	#print(tireness)
-#	
-#	if tireness <= 50 && !is_resting:
-#		pathfinding.free()
-#		state_machine.changeState(states.looking_for_staff_room)
-#		return
-#	if tireness < 0:
-#		tireness = 0
-#	elif tireness > 100:
-#		tireness = 100

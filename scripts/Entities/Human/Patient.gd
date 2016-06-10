@@ -98,7 +98,6 @@ func checkGPOffice():
 	print(map.rooms.size())
 	if map.rooms.size() != 0:
 		for room in map.rooms:
-			print(room.type["ID"])
 			if room.type["ID"] == 2:
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, 0.2, map)
 				add_child(pathfinding)

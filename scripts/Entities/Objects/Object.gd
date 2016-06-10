@@ -288,8 +288,6 @@ func sendItemDataToServer(action):
 	else:
 		return
 	
-	print(packet)
-	
 	global_client.addPacket(packet)
 
 

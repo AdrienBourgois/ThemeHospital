@@ -132,8 +132,6 @@ func buyPlot( tile ):
 	if ( tile.type == "Lobby" ):
 		if ( game.getMultiplayer() ):
 			global_client.addPacket("/game 10")
-		else:
-			print("Buying plot")
 
 func toggleAuctionMenuVisibility( value ):
 	auction_menu.set_hidden(get_node("AuctionMenu").is_visible())
