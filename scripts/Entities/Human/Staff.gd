@@ -20,15 +20,31 @@ var state_machine
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 
 var pathfinding
+var staff_stats = {}
 
 func _ready():
 	connect("input_event", self, "_on_Staff_input_event")
 	get_node("Timer").start()
 	set_fixed_process(true)
+	gamescn
 
 func displayInfo():
 	if state_machine:
 		info_bar.set_text(get_name() + " : " + tr(state_machine.getCurrentStateName()))
+
+func updateStats():
+	position.x = self.get_translation().x 
+	position.y = self.get_translation().y
+	position.z = self.get_translation().z
+	rotation = self.get_rotation().y
+	staff_stats = {
+	NAME = name,
+	X = position.x,
+	Y = position.y,
+	Z = position.z,
+	ROTATION = rotation
+	}
+	return staff_stats
 
 func take():
 	pass

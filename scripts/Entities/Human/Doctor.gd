@@ -41,21 +41,17 @@ func checkEndPath():
 func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			if (room.is_occuped == false && (room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM")):
+			print(room.type)
+			if (room.is_occuped == false && (room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM" || room.type.NAME == "ROOM_PSYCHIATRIC" || room.type.NAME == "ROOM_OPERATING" || room.type.NAME == "ROOM_RESEARCH")):
 				room_occuped = room
 				room_occuped.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[5].x, room.tiles[5].y), self, 0.2, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[10].x, room.tiles[10].y), self, 0.2, map)
 				add_child(pathfinding)
 				return
 	state_machine.changeState(states.wandering)
 
 func moveIntoRoom():
-	var rand = randi()%(room_occuped.tiles.size() - 1)
-	var tile_to_go
-	if rand != prev_rand_tile:
-		tile_to_go = room_occuped.tiles[rand]
-	else:
-		tile_to_go = room_occuped.tiles[rand + 1]
-	prev_rand_tile = rand
+	var rand = randi()%(room_occuped.tiles.size())
+	var tile_to_go = room_occuped.tiles[rand]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
 	add_child(pathfinding)
