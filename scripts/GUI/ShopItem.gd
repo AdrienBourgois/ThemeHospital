@@ -1,7 +1,7 @@
 
 extends Control
 
-onready var shop = get_tree().get_current_scene()
+onready var shop = get_tree().get_current_scene().get_node("./Shop")
 onready var counter_item_label = get_node("./CounterItemLabel")
 onready var item_description_button = get_node("./ItemDescriptionButton")
 onready var items_list = load("res://scripts/Entities/Objects/ShopItemsInfo.gd")
@@ -12,7 +12,7 @@ export var item_id = -1
 var count = 0 setget ,getCount
 var left_click_pressed = false
 var right_click_pressed = false
-var item_info = null
+var item_info = null setget ,getItemInfo
 
 func _ready():
 	setItemInfo()
@@ -27,7 +27,7 @@ func setItemInfo():
 	if ( item_cost == -1):
 		item_cost = item_info.item_price
 	
-	item_description_button.set_text( tr(item_info.item_name) )
+	item_description_button.set_text( tr(item_info.display_name) )
 
 func updateCount():
 	if ( left_click_pressed ):
@@ -52,8 +52,6 @@ func decreaseCount():
 func updateLabel():
 	counter_item_label.set_text( str(count) )
 
-func getCount():
-	return count
 
 func _on_ItemDescriptionButton_input_event( ev ):
 	if ( ev.type != 3):
@@ -63,15 +61,21 @@ func _on_ItemDescriptionButton_input_event( ev ):
 		decreaseCount()
 
 
+func getCount():
+	return count
+
 func resetCount():
 	count = 0
-
 
 func getItemCost():
 	return item_cost
 
-func updatePriceLabel():
-	shop.updatePriceLabel(item_cost)
-
 func getTotalCost():
 	return (item_cost*count)
+
+func getItemInfo():
+	return item_info
+
+
+func updatePriceLabel():
+	shop.updatePriceLabel(item_cost)
