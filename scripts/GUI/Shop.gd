@@ -50,3 +50,5 @@ func _on_BuyButton_pressed():
 	if (!temp_array.empty()):
 		temp_array[0].hideOtherObjects()
 		game.scene.setHaveObject(true)
+	
+	queue_free()
