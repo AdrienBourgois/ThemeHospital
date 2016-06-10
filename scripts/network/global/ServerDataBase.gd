@@ -35,15 +35,8 @@ func addPlayer( player_name, player_id ):
 func getPlayerArray():
 	return players_array
 
-func addEmployee():
-	pass
-
 func getEmployeeArray():
 	return employee_data
-
-
-func setMapObjectives():
-	pass
 
 func getMapObjectives():
 	return map_objectives
