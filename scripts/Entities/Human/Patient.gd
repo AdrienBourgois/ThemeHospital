@@ -97,7 +97,5 @@ func checkGPOffice():
 		for room in map.rooms:
 			if room.type["ID"] != 2:
 				state_machine.changeState(states.random_movement)
-			else:
-				print("Going to GP Office")
 	else:
 		state_machine.changeState(states.random_movement)
