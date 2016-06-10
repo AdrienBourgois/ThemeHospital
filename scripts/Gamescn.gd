@@ -131,6 +131,7 @@ func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
 	add_child(in_game_gui)
 	initObjectives()
+	game.feedback.display("TUTO_MOVE_CAM")
 
 func initObjectives():
 	objectives.linkToGui()
