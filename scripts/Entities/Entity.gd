@@ -65,12 +65,14 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		position.x = self.get_translation().x
 		position.y = self.get_translation().y
 		put()
+		game.feedback.display("TUTO_ENTITY")
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		is_selected = true
 		can_selected = true
 		is_taken = true
 		take()
 		set_process_input(true)
+		game.feedback.display("TUTO_TURN")
 
 func _input(event):
 	if (event.is_action_released("right_click")):

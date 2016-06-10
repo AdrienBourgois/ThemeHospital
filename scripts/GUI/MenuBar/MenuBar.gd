@@ -32,6 +32,7 @@ func _on_Back_pressed():
 	loader.gamescn = null
 	saver.gamescn = null
 	checkForMultiplayerGame()
+	queue_free()
 	game.goToScene("res://scenes/GUI/MainMenu.scn")
 
 func checkForMultiplayerGame():

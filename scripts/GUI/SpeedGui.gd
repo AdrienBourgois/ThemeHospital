@@ -16,3 +16,7 @@ func _ready():
 
 func _on_SpeedSelector_item_selected( ID ):
 	game.speed = game.speed_array[ID]
+
+
+func _on_SpeedSelector_mouse_enter():
+	game.feedback.display("TUTO_SPEED")

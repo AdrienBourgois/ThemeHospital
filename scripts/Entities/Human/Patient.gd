@@ -79,11 +79,12 @@ func goToReception():
 		state_machine.changeState(states.random_movement)
 
 func checkEndPath():
-	pathfinding.free()
-	if is_go_to_reception == false:
-		state_machine.changeState(states.go_to_reception)
-	else:
-		state_machine.changeState(states.random_movement)
+	if pathfinding.animation_completed:
+		pathfinding.free()
+		if is_go_to_reception == false:
+			state_machine.changeState(states.go_to_reception)
+		else:
+			state_machine.changeState(states.random_movement)
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]

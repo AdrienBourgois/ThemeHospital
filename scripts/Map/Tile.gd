@@ -28,7 +28,7 @@ onready var hover = get_node("Hover")
 onready var stats = {}
 
 func _ready():
-	get_node("StaticBody/Quad").set_material_override(room_material)
+	quad.set_material_override(room_material)
 	staticBody.connect("mouse_enter", self, "update_cursor_pos")
 	hover.set_material_override(hover_material)
 	hover.hide()
@@ -50,7 +50,7 @@ func create(_x, _y, _type):
 	update(_type)
 
 func update(_room_type):
-	get_node("StaticBody/Quad").set_material_override(room_material)
+	quad.set_material_override(room_material)
 	room_type = _room_type
 	room_material.set_flag(1, true)
 	wall_material.set_flag(1, true)
@@ -70,13 +70,13 @@ func change_wall(wall, type):
 		rotation = Vector3(0,0,0)
 	elif (wall == "Down"):
 		location = Vector3(0,0,0.5)
-		rotation = Vector3(0,180,0)
+		rotation = Vector3(0,deg2rad(180),0)
 	elif (wall == "Left"):
 		location = Vector3(-0.5,0,0)
-		rotation = Vector3(0,90,0)
+		rotation = Vector3(0,deg2rad(90),0)
 	elif (wall == "Right"):
 		location = Vector3(0.5,0,0)
-		rotation = Vector3(0,-90,0)
+		rotation = Vector3(0,deg2rad(-90),0)
 	
 	if (type == enum_wall_type.WALL):
 		if (walls_types[wall] != enum_wall_type.WALL):
@@ -95,7 +95,7 @@ func change_wall(wall, type):
 func update_cursor_pos():
 	get_parent().tile_on_cursor = Vector2(x, y)
 	var translation = get_translation()
-	var quad_size = get_node("StaticBody/Quad").get_size()
+	var quad_size = quad.get_size()
 	get_parent().center_tile_on_cursor = Vector2((quad_size.x / 2) + translation.x, (quad_size.y / 2) + translation.z)
 	if (currently_create_room):
 		get_parent().new_room("current", get_parent().tile_on_cursor)
