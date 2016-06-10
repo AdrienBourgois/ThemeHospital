@@ -27,6 +27,10 @@ var objects_nodes_array = [] setget, getObjectsNodesArray
 var temp_objects_nodes_array = [] setget, getTempObjectsNodesArray
 var have_object = false setget setHaveObject, getHaveObject
 
+var staff_nodes_array = [] setget, getStaffNodesArray
+var staff_data_array = [] setget, getStaffDataArray
+var staff_dict  = {}
+
 export var map_size = Vector2(0, 0)
 
 func _ready():
@@ -43,6 +47,12 @@ func createObjectsDict():
 	}
 	return objects
 
+func createStaffDict():
+	staff_dict = {
+	STAFF = staff_data_array
+	}
+	return staff_dict
+
 func loadObjects():
 	for current in objects.OBJECTS: 
 		var node = object_ressources.createObject(current.NAME)
@@ -57,12 +67,26 @@ func loadObjects():
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
 				node.setAvailableTile(true)
-			
+
+func loadStaff():
+	for current in staff_dict.STAFF:
+		pass
+
+func updateStaffDataArray():
+	staff_data_array.clear()
+	for current in staff_nodes_array:
+		current.addToArray()
 
 func updateObjectsArray():
 	objects_array.clear()
 	for current in objects_nodes_array:
 		current.addToArray()
+
+func getStaffDataArray():
+	return staff_data_array
+
+func getStaffNodesArray():
+	return staff_nodes_array
 
 func setHaveObject(boolean):
 	have_object = boolean
@@ -87,10 +111,6 @@ func _input(event):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
-	if (event.is_action_released("info")):
-		print("Map : ", map.rooms)
-		print("TAMERE : ", map.tile_on_cursor)
-		print("TONPERE :", map.getTileOnCursorNode().getObject())
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
  

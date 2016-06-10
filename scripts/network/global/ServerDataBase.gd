@@ -5,8 +5,8 @@ onready var global_server = get_node("/root/GlobalServer")
 onready var entity_manager = ResourceLoader.load("res://scripts/Entities/EntityManager.gd")
 
 var players_array = Array() setget addPlayer,getPlayerArray
-var employee_data = Array() setget addEmployee,getEmployeeArray
-var map_objectives = Array() setget setMapObjectives,getMapObjectives
+var employee_data = Array() setget ,getEmployeeArray
+var map_objectives = Array() setget ,getMapObjectives
 var auction_sale = Array() setget setAuctionSale,getAuctionSale
 var items_list = Array() setget addItemInList,getItemsList
 var current_item_id = 0
@@ -35,15 +35,8 @@ func addPlayer( player_name, player_id ):
 func getPlayerArray():
 	return players_array
 
-func addEmployee():
-	pass
-
 func getEmployeeArray():
 	return employee_data
-
-
-func setMapObjectives():
-	pass
 
 func getMapObjectives():
 	return map_objectives

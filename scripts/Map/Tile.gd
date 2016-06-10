@@ -86,6 +86,7 @@ func change_wall(wall, type):
 			quad.add_child(new_wall)
 			new_wall.set_translation(location)
 			new_wall.set_rotation(rotation)
+
 	if (type == enum_wall_type.VOID):
 		if (walls_types[wall] == enum_wall_type.VOID):
 			quad.remove_child(wall)

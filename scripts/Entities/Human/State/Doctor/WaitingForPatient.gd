@@ -2,12 +2,13 @@
 extends State
 
 func enter(owner):
-	owner.checkWorkRoom()
+	owner.moveIntoRoom()
 
 func execute(owner):
 	if owner.pathfinding.animation_completed == true || owner.pathfinding.found == false:
 		owner.pathfinding.free()
-		owner.state_machine.changeState(owner.states.waiting_for_patients)
+		owner.moveIntoRoom()
 
 func exit(owner):
-	pass
+	owner.room_occuped.is_occuped = false
+	owner.room_occuped = null
