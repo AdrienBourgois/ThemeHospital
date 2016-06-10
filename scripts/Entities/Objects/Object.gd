@@ -21,7 +21,7 @@ var tile
 var entity_interaction_tile setget, getEntityInteractionTile
 var entity = null setget setEntity, getEntity
 export var big_object = false
-var map_object = false
+var map_object = false setget, getMapObject
 
 func _ready():
 	timer.set_autostart(false)
@@ -243,13 +243,17 @@ func updateStats():
 	X = position.x,
 	Y = position.y,
 	Z = position.z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	MAP_OBJECT = map_object
 	}
 	return object_stats
 
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getMapObject():
+	return map_object
 
 func getEntity():
 	return entity

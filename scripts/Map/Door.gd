@@ -26,7 +26,7 @@ func _input(event):
 
 func poseDoor():
 	setUpItem()
-	game.feedback.display("TOOLTIP_POSEDOOR_POSED")
+	#game.feedback.display("TOOLTIP_POSEDOOR_POSED")
 	set_translation(trans)
 
 func checkWalls():
@@ -55,5 +55,5 @@ func checkWalls():
 		trans.x += 0.5
 		poseDoor()
 		return true
-	game.feedback.display("TOOLTIP_POSEDOOR_ERROR")
+	#game.feedback.display("TOOLTIP_POSEDOOR_ERROR")
 	return false

@@ -42,11 +42,11 @@ func loadPlayerData():
 	gamescn.map.stats = load_dict.MAP
 	gamescn.staff_dict = load_dict.STAFF
 
+	gamescn.map.loadData()
 	gamescn.player.loadData()
 	gamescn.calendar.loadData()
 	gamescn.loadObjects()
 	gamescn.loadStaff()
-	gamescn.map.loadData()
 	resetStatsDict()
 	game.file.close()
 
