@@ -125,6 +125,9 @@ BTN_ROOMS,Rooms,Salles
 BTN_ITEMS,Items,Objets
 BTN_EDIT,Edit,Éditer
 BTN_HIRE,Hire,Engager
+BTN_SWEEPING, Sweeping, Nettoyage
+BTN_WATERING, Watering, Arrosage
+BTN_FIXING, Repare, Reparer
 BTN_STAFF,Staff, Personnel
 BTN_MAP,Map,Carte
 BTN_DRUGS,Drugs,Médicament
