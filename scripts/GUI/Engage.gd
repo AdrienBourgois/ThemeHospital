@@ -28,7 +28,6 @@ func _on_Hire_pressed():
 	for i in range(buttons_array.size()):
 		if buttons_array[i].is_pressed() && hire_manager.staff_array[i].size() != 0:
 			if game.scene.player.money >= hire_manager.staff_array[i][get_parent().idx].salary:
-				print(i)
 				waitToAdd(i, get_parent().idx)
 			else:
 				game.feedback.display("FEEDBACK_ENOUGH_MONEY")

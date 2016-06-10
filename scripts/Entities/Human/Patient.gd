@@ -86,7 +86,6 @@ func checkEndPath():
 		if is_go_to_reception == false:
 			state_machine.changeState(states.go_to_reception)
 		else:
-			print("CheckEndPath for GoToGPOffice")
 			state_machine.changeState(states.go_to_gp_office)
 
 func moveTo():
@@ -95,7 +94,6 @@ func moveTo():
 	add_child(pathfinding)
 
 func checkGPOffice():
-	print(map.rooms.size())
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["ID"] == 2:
@@ -104,5 +102,4 @@ func checkGPOffice():
 			else:
 				state_machine.changeState(states.random_movement)
 	else:
-		print("change state to random movement")
 		state_machine.changeState(states.random_movement)
