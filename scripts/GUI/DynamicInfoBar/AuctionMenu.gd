@@ -53,16 +53,12 @@ func updateNextBid( player_id ):
 			player_bid_data[player][2] = next_bid_value
 			best_offer_panel.get_node("PlayerNameLabel").set_text(player_bid_data[player][0])
 			best_offer_panel.get_node("PlayerBidLabel").set_text(str(next_bid_value))
-			pass
 	
 	setLabels()
 	timer.stop()
 	timer.start()
 	next_bid_value = next_bid_value + ( plot_value * 10 )/100
 	next_bid_label.set_text(str(next_bid_value))
-	
-	
-
 
 
 func setPlotValue( value ):
