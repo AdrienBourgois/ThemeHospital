@@ -49,6 +49,7 @@ func loadData():
 	pharmacy_discover = stats.PHARMACY_DISCOVER
 	psychatric_discover = stats.PSYCHATRIC_DISCOVER
 	clinics_discover = stats.CLINICS_DISCOVER
+	loan = stats.LOAN
 	resetStatsDict()
 
 func createStatsDict():
@@ -66,7 +67,8 @@ func createStatsDict():
 	PHARMACY_DISCOVER = pharmacy_discover,
 	PSYCHATRIC_DISCOVER = psychatric_discover,
 	CLINICS_DISCOVER = clinics_discover,
-	SAVENAME = game.username + " -" + date
+	SAVENAME = game.username + " -" + date,
+	LOAN = loan
 	}
 	return stats
 

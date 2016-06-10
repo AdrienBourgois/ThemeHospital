@@ -8,6 +8,12 @@ export var hospital_sanity = 100
 export var engine_broken = 100
 
 onready var object_array = game.scene.getObjectsNodesArray()
+onready var states = {
+	wandering = get_node("RandomMovement"),
+	go_to_water = get_node("GoToWater"),
+	go_to_sweep = get_node("GoToSweep"),
+	go_to_repare = get_node("GoToRepare")
+}
 
 var delta = 5.0
 var max_value = 100.0
@@ -37,7 +43,7 @@ func put():
 	get_node("Timer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
-	state_machine.setCurrentState(get_node("RandomMovement"))
+	state_machine.setCurrentState(states.wandering)
 	is_taken = false
 
 func take():
@@ -46,13 +52,13 @@ func take():
 
 func checkWork():
 	if checkPlantThirsty():
-		state_machine.changeState(get_node("GoToWater"))
+		state_machine.changeState(states.go_to_water)
 	elif hospital_sanity <= 50:
-		state_machine.changeState(get_node("GoToSweep"))
+		state_machine.changeState(states.go_to_sweep)
 	elif engine_broken <= 50:
-		state_machine.changeState(get_node("GoToRepare"))
+		state_machine.changeState(states.go_to_repare)
 	else:
-		state_machine.changeState(get_node("RandomMovement"))
+		state_machine.changeState(states.wandering)
 
 func checkPlantThirsty():
 	if object_array.size() != 0:

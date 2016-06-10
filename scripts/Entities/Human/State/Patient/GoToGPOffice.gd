@@ -2,10 +2,12 @@
 extends State
 
 func enter(owner):
-	pass
+	print("Enter GoToGPOffice State")
+	owner.checkGPOffice()
 
 func execute(owner):
-	pass
+	print("Execute GoToGPOffice State")
+	owner.checkEndPath()
 
 func exit(owner):
 	pass

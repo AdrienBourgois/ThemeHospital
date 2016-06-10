@@ -1,6 +1,7 @@
 extends Panel
 
-onready var gamescn = get_node("/root/Game").scene
+onready var root = get_node("/root")
+onready var gamescn = root.get_node("Game").scene
 onready var camera = gamescn.camera
 onready var reputation_value = gamescn.player.reputation
 onready var diseases_list = gamescn.diseases.list_diseases
@@ -53,7 +54,7 @@ var is_at_bottom = false
 
 func _ready():
 	getElementsPositions()
-	get_node("/root").connect("size_changed", self, "refreshVariablesIfSizeChange")
+	root.connect("size_changed", self, "refreshVariablesIfSizeChange")
 	
 	connectDiseasesButtons()
 	

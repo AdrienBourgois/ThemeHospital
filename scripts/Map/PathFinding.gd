@@ -32,9 +32,9 @@ func _init(_from, _to, _node, _speed, _map):
 		to = map.columns[_to.x][_to.y]
 		node = _node
 		speed = _speed
-		path_finding()
+		pathFinding()
 
-func path_finding():
+func pathFinding():
 	open_list.append(from)
 	
 	while(open_list.size() && !found):
@@ -47,7 +47,7 @@ func path_finding():
 				continue
 			else:
 				for neighbour in current.neighbours:
-					if (can_go(current, neighbour)):
+					if (canGo(current, neighbour)):
 						if(open_list.find(current.neighbours[neighbour]) == -1 and closed_list.find(current.neighbours[neighbour]) == -1):
 							open_list.append(current.neighbours[neighbour])
 							came_from[current.neighbours[neighbour]] = current
@@ -63,14 +63,14 @@ func reconstruct():
 		previous = came_from[previous]
 		path_nodes.push_front(previous)
 
-func create_curve():
+func createCurve():
 	curve = Curve3D.new()
 	
 	for node in path_nodes:
 		curve.add_point(node.get_translation())
 
 func animate():
-	create_curve()
+	createCurve()
 	var size_node = node.get_scale()
 	
 	next_point_number = 1
@@ -99,7 +99,7 @@ func _fixed_process(delta):
 			set_fixed_process(false)
 			animation_completed = true
 
-func can_go(from, direction):
+func canGo(from, direction):
 	var tile_from = map.columns[from.x][from.y]
 	if (direction == "Up"):
 		var tile_to = tile_from.neighbours.Up

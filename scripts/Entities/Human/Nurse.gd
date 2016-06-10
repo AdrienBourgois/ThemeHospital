@@ -68,6 +68,3 @@ func moveIntoRoom():
 	var tile_to_go = room_occuped.tiles[randi()%room_occuped.tiles.size()]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
 	add_child(pathfinding)
-
-func _on_Timer_timeout():
-	pass
