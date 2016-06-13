@@ -5,13 +5,13 @@ onready var game = get_node("/root/Game")
 onready var loader = get_node("/root/Load")
 onready var save = get_node("/root/Save")
 onready var apply_button = get_node("./Panel/ApplyButton")
-onready var language_node = get_node("./Panel/General/LanguageOptionsBox/LanguageOptionButton")
+onready var language_node = get_node("./Panel/GeneralSettings/LanguageOptionsBox/LanguageOptionButton")
 
 var has_changed = false
 onready var menu_button = get_node("Panel/BackToMenuButton")
 onready var game_button = get_node("Panel/BackToGameButton")
 
-onready var general_options = get_node("Panel/General")
+onready var general_options = get_node("Panel/GeneralSettings")
 onready var general_button = get_node("Panel/GeneralButton")
 onready var commands_options = get_node("Panel/CommandsMenu")
 onready var commands_button = get_node("Panel/CommandButton")
