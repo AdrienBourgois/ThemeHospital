@@ -74,7 +74,7 @@ func resetLastButtonPressed():
 func hideCurrentWindow():
 	if ( current_window_open != null ):
 		if ( last_button_pressed.corridor_items || last_button_pressed.hire):
-			current_window_open.queue_free()
+			current_window_open.freeScene()
 		else:
 			current_window_open.set_hidden(true)
 		current_window_open = null
