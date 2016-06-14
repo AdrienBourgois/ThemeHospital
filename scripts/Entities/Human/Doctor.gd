@@ -41,7 +41,7 @@ func checkEndPath():
 func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			if (room.is_occuped == false && (room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM" || room.type.NAME == "ROOM_PSYCHIATRIC" || room.type.NAME == "ROOM_OPERATING" || room.type.NAME == "ROOM_RESEARCH")):
+			if checkRoomValidity(room):
 				room_occuped = room
 				room_occuped.is_occuped = true
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[10].x, room.tiles[10].y), self, 0.2, map)
@@ -59,6 +59,18 @@ func diagnose():
 		present_patient_disease.type = "psychiatric"
 	else:
 		present_patient_disease.type = "unknow"
+
+func checkRoomValidity(room):
+	if !room.is_occuped:
+		if room.type.NAME == "ROOM_PSYCHIATRIC" && specialities == 1:
+			return true
+		elif room.type.NAME == "ROOM_RESEARCH" && specialities == 2:
+			return true
+		elif room.type.NAME == "ROOM_OPERATING" && specialities == 3:
+			return true
+		elif room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM":
+			return true
+	return false
 
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())

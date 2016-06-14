@@ -319,6 +319,7 @@ TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoy
 TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
 TOOLTIP_CASEBOOK_DOWN,Scroll down,Defile vers le bas
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
+FEEDBACK_BLUEPRINT,That Blueprint is not valid !,Cette salle n'est pas valide !
 PRICE_LABEL,Price : ,Prix : 
 ROOM_NOT_VALID,New room is not valid !,La salle n'est pas correcte !
 LOOKING_FOR_ROOM,Looking for a room,Cherche une salle

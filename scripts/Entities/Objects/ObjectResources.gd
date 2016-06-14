@@ -53,7 +53,7 @@ func createObject(name):
 		node = locker_scn.instance()
 	elif (name == "Bed"):
 		node = bedscn.instance()
-	elif (node == "WardDesk"):
+	elif (name == "WardDesk"):
 		node = ward_desk_scn.instance()
 	elif (name == "GeneralDiagnosisScreen"):
 		node = general_diagnosis_screen_scn.instance()

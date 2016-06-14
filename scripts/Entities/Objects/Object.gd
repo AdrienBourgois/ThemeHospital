@@ -11,6 +11,7 @@ export var expense_per_month = 0
 export var in_room_object = false
 export var room_id = 0
 
+var unique_id = 0 setget getUniqueID, setUniqueID
 var object_stats = {}
 var blink_number = 10
 var idx = 0
@@ -243,6 +244,12 @@ func updateStats():
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getUniqueID():
+	return unique_id
+
+func setUniqueID(new_ID):
+	unique_id = new_ID
 
 func getEntity():
 	return entity
