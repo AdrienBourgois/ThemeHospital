@@ -28,8 +28,6 @@ func updateTotalPrice():
 	total_label.set_text( tr("TXT_TOTAL") + str(total_price) )
 
 func _on_QuitButton_pressed():
-	for index in range ( available_items.get_child_count() ):
-		available_items.get_child(index).freeMemory()
 	control_panel.hideCurrentWindow()
 
 
@@ -49,8 +47,6 @@ func _on_BuyButton_pressed():
 	if (!temp_array.empty()):
 		game.scene.setHaveObject(true)
 	
-	for index in range ( available_items.get_child_count() ):
-		available_items.get_child(index).freeMemory()
 	control_panel.hideCurrentWindow()
 
 func addItemNameToArray(item_name):
@@ -65,3 +61,9 @@ func addItemNameToArray(item_name):
 		node.can_selected = true
 	else:
 		temp_array.push_back(item_name)
+
+func freeScene():
+	for index in range ( available_items.get_child_count() ):
+		available_items.get_child(index).freeMemory()
+	
+	queue_free()
