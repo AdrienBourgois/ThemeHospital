@@ -181,7 +181,7 @@ func new_room(state, parameters):
 			if (is_new_room_valid()):
 				tile.hover_on(colors.blue)
 			else:
-				if tile.getObject() || !is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN):
+				if tile.getObject() || tile.room_type.ID != ressources.lobby.ID || !is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN):
 					tile.hover_on(colors.red)
 				else:
 					tile.hover_on(colors.blue)

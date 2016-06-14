@@ -114,7 +114,14 @@ func _input(event):
 		saving_game.showComplete()
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
- 
+#	if event.is_action_pressed("pause"):
+#		if get_pause_mode() == true:
+#			set_pause(false)
+#			print("try2")
+#		else:
+#			set_pause(true)
+#			print("try")
+
 func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
