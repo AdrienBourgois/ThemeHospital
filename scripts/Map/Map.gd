@@ -17,7 +17,6 @@ onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
 onready var stats = {}
-onready var path
 
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
@@ -59,24 +58,35 @@ func loadData():
 	resetStatsDict()
 
 func create_map(file_path):
-	path = file_path
 	var file = File.new()
 	file.open(file_path, File.READ)
 	
-	size_x = file.get_line().to_int()
-	size_y = file.get_line().to_int()
-	
 	var lines_str = []
-	for i in range(size_y):
+	while(!file.eof_reached()):
 		lines_str.append(file.get_line())
 	
+	var x = 0
+	var numbers = []
+	var tiles_lines = []
+	var doors = []
+	
+	for line in lines_str:
+		numbers = getNumbersFormString(line)
+		if(line.begins_with("S")):
+			size_x = numbers[0]
+			size_y = numbers[1]
+		elif(line.begins_with("T")):
+			tiles_lines.append(numbers)
+		elif(line.begins_with("D")):
+			doors.append(numbers)
+
 	for x in range(size_x):
 		var column = []
 		for y in range(size_y):
 			var tile = tile_res.instance()
 			add_child(tile)
 			position = tile.get_translation()
-			var tile_type = lines_str[y].substr(x, 1).to_int()
+			var tile_type = numbers[y]
 			if (tile_type == 0):
 				tile.create(x, y, ressources.grass)
 			elif (tile_type == 1):
@@ -86,6 +96,7 @@ func create_map(file_path):
 			tiles.append(tile)
 			column.append(tile)
 		columns.append(column)
+
 	for tile in tiles:
 		tile.get_all_neighbour()
 		tile.update_walls("Up")
@@ -94,6 +105,23 @@ func create_map(file_path):
 		tile.update_walls("Down")
 	
 	file.close()
+
+func getNumbersFormString(string):
+	var numbers = []
+	var number = ""
+	var previous_was_digit = false
+	
+	for i in range(string.length()):
+		if (string[i] >= '0' and string[i] <= '9'):
+			number += string[i]
+			previous_was_digit = true
+		elif(previous_was_digit):
+			previous_was_digit = false
+			numbers.append(number.to_int())
+			number = ""
+	if(number != ""):
+		numbers.append(number.to_int())
+	return numbers
 
 func getTile(vector2):
 	if (vector2.x < 0 or vector2.y < 0):
