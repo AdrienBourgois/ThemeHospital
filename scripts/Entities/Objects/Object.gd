@@ -140,7 +140,7 @@ func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
 		var current_tile = map.getTile(current_position)
-		if (!current_tile or !current_tile.getObject() or current_tile.room_type.ID != room_id):
+		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id):
 			return false
 	return true
 
