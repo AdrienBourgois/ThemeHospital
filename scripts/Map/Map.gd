@@ -12,7 +12,6 @@ var occupied_tiles = []
 var corridor_tiles = []
 
 onready var game = get_node("/root/Game/")
-onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
@@ -92,14 +91,8 @@ func create_map(file_path):
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
-	
-	file.close()
 
 func getTile(vector2):
-	if (vector2.x < 0 or vector2.y < 0):
-		return null
-	if (vector2.x >= columns[0].size() or vector2.y >= columns[1].size()):
-		return null
 	return columns[vector2.x][vector2.y]
 
 func getTileOnCursorNode():
@@ -243,9 +236,9 @@ func createRoomData():
 	print(room.getID())
 	rooms_save.append(room_data)
 
-func sendRoomToServer():
-	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
-	global_client.addPacket(packet)
+#func sendRoomToServer():
+#	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
+#	global_client.addPacket(packet)
 
 func getOccupiedTiles():
 	occupied_tiles.clear()

@@ -6,6 +6,7 @@ onready var shop_info = get_node("./Panel/ShopInfo")
 onready var available_items = get_node("./Panel/Shop/AvailableItems")
 onready var price_label = shop_info.get_node("./PriceLabel")
 onready var total_label = shop_info.get_node("./TotalLabel")
+onready var temp_array = game.scene.getTempObjectsNodesArray()
 
 var total_price = 0
 
@@ -40,16 +41,23 @@ func _on_BuyButton_pressed():
 	for index_panel in range ( available_items.get_child_count() ):
 		for count in range ( available_items.get_child(index_panel).getCount() ):
 			var item_name = available_items.get_child(index_panel).getItemInfo().item_name
-			var node = object_resources.createObject(item_name)
 			
-			game.scene.add_child(node)
-			temp_array.push_back(node)
-			node.available.on()
-			node.is_selected = true
-			node.can_selected = true
+			addItemNameToArray(item_name)
 	
 	if (!temp_array.empty()):
-		temp_array[0].hideOtherObjects()
 		game.scene.setHaveObject(true)
 	
 	control_panel.hideCurrentWindow()
+
+func addItemNameToArray(item_name):
+	if (temp_array.size() == 0 ):
+		var node = object_resources.createObject(item_name)
+		
+		game.scene.add_child(node)
+		
+		temp_array.push_back(node)
+		node.available.on()
+		node.is_selected = true
+		node.can_selected = true
+	else:
+		temp_array.push_back(item_name)

@@ -1,7 +1,6 @@
 
 extends "../Entity.gd"
 
-onready var global_client = get_node("/root/GlobalClient")
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
 onready var temp_array = gamescn.getTempObjectsNodesArray()
@@ -21,7 +20,7 @@ var tile
 var entity_interaction_tile setget, getEntityInteractionTile
 var entity = null setget setEntity, getEntity
 export var big_object = false
-var map_object = false setget, getMapObject
+var map_object = false
 
 func _ready():
 	timer.set_autostart(false)
@@ -38,28 +37,18 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 		if (!checkAvailable()):
 			return
 		
-		if ( game.getMultiplayer() && object_stats.empty()):
-			sendItemDataToServer("new")
-			return
-		elif ( game.getMultiplayer() && !object_stats.empty()):
-			sendItemDataToServer("move")
-			return
-		
 		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
 		if (in_room_object or gamescn.getHaveObject() or map_object):
 			return
-		takeItem()
-
-func takeItem():
-	available.on()
-	is_selected = true
-	can_selected = true
-	gamescn.setHaveObject(true)
-	setAvailableTile(false)
-	set_process_input(true)
-	game.feedback.display("TOOLTIP_OBJECT_DESTROY")
+		available.on()
+		is_selected = true
+		can_selected = true
+		gamescn.setHaveObject(true)
+		setAvailableTile(false)
+		set_process_input(true)
+		game.feedback.display("TOOLTIP_OBJECT_DESTROY")
 
 func _input(event):
 	if (event.is_action_released("delete")):
@@ -85,17 +74,21 @@ func deleteFromArray():
 				gamescn.getObjectsNodesArray().remove(index)
 				self.queue_free()
 	gamescn.updateObjectsArray()
-			
-func hideOtherObjects():
-	for current in temp_array:
-		current.hide()
-	if (!temp_array.empty()):
-		temp_array[0].show()
+
+
+#func hideOtherObjects():
+#	for current in temp_array:
+#		current.hide()
+#	if (!temp_array.empty()):
+#		temp_array[0].show()
 
 func nextObject():
 	if (!temp_array.empty()):
 		temp_array.pop_front()
 		if (!temp_array.empty()):
+			temp_array[0] = game.scene.object_ressources.createObject(temp_array[0])
+			game.scene.add_child(temp_array[0])
+			
 			temp_array[0].show()
 			temp_array[0].available.on()
 			temp_array[0].is_selected = true
@@ -140,7 +133,7 @@ func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
 		var current_tile = map.getTile(current_position)
-		if (!current_tile or !current_tile.getObject() or current_tile.room_type.ID != room_id):
+		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id):
 			return false
 	return true
 
@@ -243,17 +236,13 @@ func updateStats():
 	X = position.x,
 	Y = position.y,
 	Z = position.z,
-	ROTATION = rotation,
-	MAP_OBJECT = map_object
+	ROTATION = rotation
 	}
 	return object_stats
 
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
-
-func getMapObject():
-	return map_object
 
 func getEntity():
 	return entity
@@ -279,23 +268,23 @@ func setPrice(value):
 func getPrice():
 	return price
 
-func sendItemDataToServer(action):
-	updateStats()
-	
-	var rotation = str(object_stats.ROTATION)
-	var x = str(object_stats.X)
-	var z = str(object_stats.Z)
-	
-	var packet = "/game 6 "
-	
-	if ( action == "new" ):
-		packet += "0 " + object_name + " " + rotation + " " + x + " " + z
-	elif ( action == "move" ):
-		packet += "1 " + get_name() + " " + rotation + " " + x + " " + z
-	else:
-		return
-	
-	global_client.addPacket(packet)
+#func sendItemDataToServer(action):
+#	updateStats()
+#	
+#	var rotation = str(object_stats.ROTATION)
+#	var x = str(object_stats.X)
+#	var z = str(object_stats.Z)
+#	
+#	var packet = "/game 6 "
+#	
+#	if ( action == "new" ):
+#		packet += "0 " + object_name + " " + rotation + " " + x + " " + z
+#	elif ( action == "move" ):
+#		packet += "1 " + get_name() + " " + rotation + " " + x + " " + z
+#	else:
+#		return
+#	
+#	print(packet)
 
 
 func setObjectStats(object_name, rotation, position_x, position_z):

@@ -3,7 +3,6 @@ extends Control
 
 onready var game = get_node("/root/Game")
 onready var camera = game.scene.camera
-onready var global_client = get_node("/root/GlobalClient")
 onready var heat_manager = game.scene.heat_manager
 onready var money_container = get_node("./Panel/MoneyBox/DynamicMoney/MoneyBox/MoneyContainer")
 onready var increase_heat_button = get_node("./Panel/HospitalManager/IncreaseHeatButton")
@@ -29,6 +28,7 @@ func _ready ():
 	node2d.connect("draw", self, "drawMap")
 	plot_manager.add_child(node2d)
 	optimizeMapSize()
+	setHeatLevel()
 
 func checkFile():
 	file_map.open("res://Maps/map1.lvl", 1)
@@ -62,6 +62,7 @@ func createMapFromFile():
 		x = 0
 		y += 1
 
+
 func drawMap():
 	for tile in tiles:
 		if(tile.type == "Decoration"):
@@ -69,12 +70,17 @@ func drawMap():
 		if(tile.type == "Lobby"):
 			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.498, 0.549, 0.553))
 
+
+func setHeatLevel():
+	heat_level_progress_bar.set_val(heat_manager.heat_ray * 10)
+
+
 func _on_IncreaseHeatButton_pressed():
 	if heat_manager.heat_ray < 10:
 		heat_manager.heat_ray += 1
-		heat_level_progress_bar.set_val(heat_manager.heat_ray * 10)
+		heat_level_progress_bar.set_val( heat_manager.heat_ray * 10 )
 		heat_manager.increaseHeatCost()
-		heating_bill_label.set_text(str(heat_manager.heat_cost))
+		heating_bill_label.set_text( str(heat_manager.heat_cost) )
 
 
 func _on_DecreaseHeatButton_pressed():
@@ -113,9 +119,11 @@ func optimizeMapSize():
 		
 		scale += 1
 
+
 func _on_PlotManager_input_event( ev ):
 	if ( Input.is_action_pressed("left_click") ):
 		checkMousePos( ev.pos )
+
 
 func checkMousePos( pos ):
 	var size = Vector2(test_x * node2d.get_scale().x, test_y * node2d.get_scale().y)
@@ -131,10 +139,9 @@ func checkMousePos( pos ):
 
 func buyPlot( tile ):
 	if ( tile.type == "Lobby" ):
-		if ( game.getMultiplayer() ):
-			global_client.addPacket("/game 10")
+		pass
+
 
 func toggleAuctionMenuVisibility( value ):
 	auction_menu.set_hidden(get_node("AuctionMenu").is_visible())
 	auction_menu.setPlotValue( value )
-	
