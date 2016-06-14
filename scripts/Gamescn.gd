@@ -16,6 +16,7 @@ onready var hire_manager = get_node("HireManager")
 onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
+onready var pause_menu = preload("res://scenes/GUI/Pause.scn")
 
 onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
@@ -114,13 +115,9 @@ func _input(event):
 		saving_game.showComplete()
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
-#	if event.is_action_pressed("pause"):
-#		if get_pause_mode() == true:
-#			set_pause(false)
-#			print("try2")
-#		else:
-#			set_pause(true)
-#			print("try")
+	if event.is_action_pressed("pause"):
+		add_child(pause_menu.instance())
+		set_process_input(false)
 
 func init():
 	if !game.new_game:
