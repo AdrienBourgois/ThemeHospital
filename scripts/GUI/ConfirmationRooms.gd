@@ -33,9 +33,13 @@ func _on_Accept_pressed():
 		door.setUniqueID(room.getUniqueID())
 		
 		object_resources.createRoomObject(map.getActualRoomTypeName())
-		
+		self.hide()
+	else:
+		game.feedback.display("FEEDBACK_BLUEPRINT")
+		self.hide()
+		return
+	
 	if (!temp_array.empty()):
 		gamescn.setHaveObject(true)
-	self.hide()
 	
 	node_rooms_menu.is_type_selected = false
