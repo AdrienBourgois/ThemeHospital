@@ -26,12 +26,14 @@ func new_map(x, y):
 	
 	window = Window.new(self)
 	window.set_map(map)
+	map.control = window.controls
 	add_child(window)
 	
 	see_map()
 
 func see_map():
 	window.show()
+	map.set_process_input(true)
 
 func change_brush(type):
 	current_brush = type

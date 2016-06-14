@@ -3,6 +3,7 @@ tool
 extends Control
 
 var editor = null
+var control = null
 
 var tiles = []
 var zoom = 10
@@ -33,6 +34,7 @@ func _init(_x, _y, _editor):
 	size_x = _x
 	size_y = _y
 	editor = _editor
+	
 	print("[MAP EDITOR] Create new Map of ", size_x, "X", size_y, " tiles")
 	
 	for y in range(size_y):
@@ -61,8 +63,10 @@ func _input(event):
 		if(is_inside):
 			var pos_mouse_in_node = Vector2(event.pos.x - pos.x, event.pos.y - pos.y)
 			current_tile = Vector2(floor(pos_mouse_in_node.x / size.x), floor(pos_mouse_in_node.y / size.y))
+			control.currentLabel.set_text("X: " + str(current_tile.x) + " - Y: " + str(current_tile.y))
 		else:
 			current_tile = Vector2(-1,-1)
+		
 		if (event.is_action_pressed("left_click")):
 			painting = true
 		elif (event.is_action_released("left_click")):
