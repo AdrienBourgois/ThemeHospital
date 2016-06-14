@@ -139,7 +139,6 @@ func diseasePressed(button):
 
 func moveButtonsIfClick(button):
 	if is_pressed == false:
-		
 		button_pos = button.get_pos()
 		var gap_button_selector = selector_pos - button_pos.y
 		
@@ -272,7 +271,7 @@ func _on_Up_pressed():
 		else:
 			button.show() 
 		
-		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
+		if button_pos.y == selector_pos:
 			if (dis_idx > 0):
 				dis_idx -= 1
 				if ( dis_idx <= 0):
@@ -315,7 +314,7 @@ func _on_Down_pressed():
 		else:
 			button.show() 
 		
-		if button_pos.y == (pos_selector.y + selector_border_size) - pos_container.y:
+		if button_pos.y == selector_pos:
 			if dis_idx < array_diseases.size() - 1:
 				dis_idx += 1
 				if ( dis_idx >= array_diseases.size() - 1):

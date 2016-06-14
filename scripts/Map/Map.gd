@@ -96,6 +96,10 @@ func create_map(file_path):
 	file.close()
 
 func getTile(vector2):
+	if (vector2.x < 0 or vector2.y < 0):
+		return null
+	if (vector2.x >= columns[0].size() or vector2.y >= columns[1].size()):
+		return null
 	return columns[vector2.x][vector2.y]
 
 func getTileOnCursorNode():
