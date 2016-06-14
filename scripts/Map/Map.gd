@@ -52,7 +52,7 @@ func loadData():
 		new_room_from = Vector2(current.FROM_X, current.FROM_Y)
 		new_room_to = Vector2(current.TO_X, current.TO_Y)
 		new_room_type = ressources.getRoomFromId(current.ID)
-#		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
 		createRoomData()
 
@@ -170,6 +170,7 @@ func new_room(state, parameters):
 		for tile in tiles:
 			tile.currently_create_room = true
 			tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
+		new_room("current", parameters)
 
 	elif (state == "current"):
 		new_room_to = parameters
@@ -180,8 +181,11 @@ func new_room(state, parameters):
 			if (is_new_room_valid()):
 				tile.hover_on(colors.blue)
 			else:
-				tile.hover_on(colors.red)
-
+				if tile.getObject() || tile.room_type.ID != ressources.lobby.ID || !is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN):
+					tile.hover_on(colors.red)
+				else:
+					tile.hover_on(colors.blue)
+	
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
 		for tile in tiles:
@@ -209,10 +213,10 @@ func new_room(state, parameters):
 		if (is_new_room_valid()):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
-			room.setID(rooms.size())
+			room.setUniqueID(rooms.size())
 			for tile in previous_current_selection:
 				tile.hover_off()
-				tile.unique_id = room.getID()
+				tile.unique_id = room.getUniqueID()
 				removeTileFormCorridor(tile)
 			createRoomData()
 			actual_room_type_name = new_room_type.NAME
@@ -220,11 +224,11 @@ func new_room(state, parameters):
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)
 			new_room_type = {}
-			return true
+			return room
 		else:
 			game.feedback.display("ROOM_NOT_VALID")
 			new_room("cancel", null)
-		return false
+		return null
 
 func createRoomData():
 	var room_data = {

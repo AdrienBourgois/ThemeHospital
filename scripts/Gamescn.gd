@@ -16,6 +16,7 @@ onready var hire_manager = get_node("HireManager")
 onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
+onready var pause_menu = preload("res://scenes/GUI/Pause.scn")
 
 onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
@@ -66,8 +67,8 @@ func loadObjects():
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
 				node.setAvailableTile(true)
-		if (current.MAP_OBJECT):
-			node.checkWalls()
+#		if (current.MAP_OBJECT):
+#			node.checkWalls()
 
 func loadStaff():
 	for current in staff_dict.STAFF:
@@ -114,7 +115,10 @@ func _input(event):
 		saving_game.showComplete()
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
- 
+	if event.is_action_pressed("pause"):
+		add_child(pause_menu.instance())
+		set_process_input(false)
+
 func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
