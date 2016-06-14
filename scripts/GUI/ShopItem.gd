@@ -19,6 +19,7 @@ func _ready():
 
 func setItemInfo():
 	items_list = items_list.new()
+	get_tree().get_current_scene().add_child(items_list)
 	item_info = items_list.getItemFromId( item_id )
 	
 	if (item_info == null):
@@ -79,3 +80,7 @@ func getItemInfo():
 
 func updatePriceLabel():
 	shop.updatePriceLabel(item_cost)
+
+
+func freeMemory():
+	items_list.queue_free()
