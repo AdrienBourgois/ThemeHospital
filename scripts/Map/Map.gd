@@ -12,7 +12,6 @@ var occupied_tiles = []
 var corridor_tiles = []
 
 onready var game = get_node("/root/Game/")
-onready var global_client = get_node("/root/GlobalClient")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
@@ -239,10 +238,6 @@ func createRoomData():
 		ID = new_room_type.ID
 		}
 	rooms_save.append(room_data)
-
-func sendRoomToServer():
-	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
-	global_client.addPacket(packet)
 
 func getOccupiedTiles():
 	occupied_tiles.clear()

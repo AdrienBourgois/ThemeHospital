@@ -5,7 +5,6 @@ onready var game = get_node("/root/Game")
 onready var loader = get_node("/root/Load")
 onready var saver = get_node("/root/Save")
 
-onready var global_client = get_node("/root/GlobalClient")
 onready var chat_settings_button = get_node("./Chat_settings_button")
 onready var chat_settings_control = chat_settings_button.get_node("Control")
 onready var chat_visibility_checkbox = get_node("./Chat_settings_button/Control/Chat_settings_box/Hide_chat_checkbox")
@@ -31,13 +30,9 @@ func getInGameChat():
 func _on_Back_pressed():
 	loader.gamescn = null
 	saver.gamescn = null
-	checkForMultiplayerGame()
 	queue_free()
 	game.goToScene("res://scenes/GUI/MainMenu.scn")
 
-func checkForMultiplayerGame():
-	if (game.multiplayer):
-		global_client.disconnectFromServer()
 
 func initChatSettings():
 	if ( game.getMultiplayer() ):
@@ -79,20 +74,3 @@ func addPlayerInPlayerContainer(player_name, player_id):
 	button.connect("toggled", self, "mutePlayer", [player_id])
 	
 	player_container.add_child(button)
-
-
-func mutePlayer(boolean, player_id):
-	if ( boolean ):
-		global_client.mutePlayer(player_id)
-	else:
-		global_client.unmutePlayer(player_id)
-
-func _on_Mute_button_toggled( pressed ):
-	player_container.set_hidden(!pressed)
-
-func _on_Move_chat_button_toggled( pressed ):
-	in_game_chat.setControlsVisibility( pressed )
-
-
-func _on_Reset_chat_button_pressed():
-	in_game_chat.resetChatPos()

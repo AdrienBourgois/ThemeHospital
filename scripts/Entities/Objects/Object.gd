@@ -1,7 +1,6 @@
 
 extends "../Entity.gd"
 
-onready var global_client = get_node("/root/GlobalClient")
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
 onready var temp_array = gamescn.getTempObjectsNodesArray()

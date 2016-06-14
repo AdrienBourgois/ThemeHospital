@@ -16,7 +16,6 @@ onready var hire_manager = get_node("HireManager")
 onready var heat_manager = get_node("HeatManager")
 onready var saving_game = get_node("SavingGameGUI")
 onready var in_game_chat = preload("res://scenes/network/InGameChat.scn")
-onready var global_server = get_node("/root/GlobalServer")
 
 onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectResources.gd").new() setget, getObjectResources
 onready var objects_array = [] setget getObjectArray
@@ -122,10 +121,6 @@ func init():
 		game.new_game = true
 	
 	hire_manager.setStaffArray(entity_manager.staff_array)
-	
-	if ( game.getMultiplayer() ):
-		initInGameChat()
-		global_server.sendMutablePlayers()
 	
 	initInGameGui()
 
