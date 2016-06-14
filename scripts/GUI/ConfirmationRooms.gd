@@ -31,7 +31,6 @@ func _on_Accept_pressed():
 		door.can_selected = true
 		door.set_process_input(true)
 		door.setUniqueID(room.getUniqueID())
-		print(room.getUniqueID())
 		
 		object_resources.createRoomObject(map.getActualRoomTypeName())
 		

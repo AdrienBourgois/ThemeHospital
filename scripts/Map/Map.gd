@@ -170,6 +170,7 @@ func new_room(state, parameters):
 		for tile in tiles:
 			tile.currently_create_room = true
 			tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
+		new_room("current", parameters)
 
 	elif (state == "current"):
 		new_room_to = parameters
