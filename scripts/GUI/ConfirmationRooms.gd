@@ -32,6 +32,7 @@ func _on_Accept_pressed():
 		door.set_process_input(true)
 		door.setUniqueID(room.getUniqueID())
 		
+		object_resources.setUniqueID(room.getUniqueID())
 		object_resources.createRoomObject(map.getActualRoomTypeName())
 		self.hide()
 	else:

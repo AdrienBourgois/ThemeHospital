@@ -96,6 +96,7 @@ func nextObject():
 			temp_array[0].can_selected = true
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
+			temp_array[0].setUniqueID(map.getActualUniqueID())
 
 func setAvailableTile(boolean):
 	var node = null
@@ -237,7 +238,8 @@ func updateStats():
 	X = position.x,
 	Y = position.y,
 	Z = position.z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	UNIQUE_ID = unique_id
 	}
 	return object_stats
 
