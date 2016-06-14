@@ -2,10 +2,10 @@
 extends State
 
 func enter(owner):
-	owner.checkGPOffice()
+	owner.checkBench()
 
 func execute(owner):
-	print("GoToAdaptedRoom")
+	pass
 
 func exit(owner):
 	pass

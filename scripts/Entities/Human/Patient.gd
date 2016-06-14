@@ -12,7 +12,8 @@ onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
 random_movement = get_node("RandomMovement"),
-go_to_gp_office = get_node("GoToGpOffice")
+go_to_gp_office = get_node("GoToGpOffice"),
+check_bench = get_node("CheckBench")
 }
 
 var state_machine
@@ -99,4 +100,20 @@ func checkGPOffice():
 				add_child(pathfinding)
 				room.present_patient.append(self)
 				return
+	state_machine.changeState(states.check_bench)
+
+func checkBench():
+	if object_array.size() != 0:
+		for bench in object_array:
+			print(bench.object_name)
+			if bench.object_name == "Bench" && bench.is_occuped == false:
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().y), bench.vector_pos, self, speed, map)
+				add_child(pathfinding)
+				return
 	state_machine.changeState(states.random_movement)
+
+func goToAdaptedRoom():
+	if disease.type == "pharmacy":
+		pass
+	elif disease.type == "psychiatric":
+		pass

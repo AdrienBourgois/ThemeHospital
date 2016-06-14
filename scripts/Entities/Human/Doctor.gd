@@ -51,7 +51,7 @@ func checkWorkRoom():
 
 func diagnose():
 	var present_patient = room_occuped.present_patient[0]
-	var present_patient_disease = present_patient.get_node("Disease")
+	var present_patient_disease = present_patient.disease
 	present_patient.is_diagnosed = true
 	if present_patient_disease.disease_type["TREATMENT_ROOM"] == "ROOM_PHARMACY":
 		present_patient_disease.type = "pharmacy"
