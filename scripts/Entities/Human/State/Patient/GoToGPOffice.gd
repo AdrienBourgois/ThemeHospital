@@ -5,8 +5,8 @@ func enter(owner):
 	owner.checkGPOffice()
 
 func execute(owner):
-	if owner.pathfinding.animation_completed == true:
-		owner.checkEndPath()
+	print(owner.get_node("Disease").type)
+	pass
 
 func exit(owner):
 	pass

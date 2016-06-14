@@ -23,6 +23,8 @@ var warmth
 var count
 var desk_ptr
 var is_go_to_reception = false
+var speed = 0.2
+var is_diagnosed = false
 
 func _ready():
 	get_node("CheckStatsTimer").start()
@@ -73,13 +75,10 @@ func goToReception():
 		for desk in object_array:
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
 				desk_ptr = desk
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, speed, map)
 				add_child(pathfinding)
 				return
-			else:
-				state_machine.changeState(states.random_movement)
-	else:
-		state_machine.changeState(states.random_movement)
+	state_machine.changeState(states.random_movement)
 
 func checkEndPath():
 	if pathfinding.animation_completed:
@@ -87,6 +86,17 @@ func checkEndPath():
 		return true
 
 func moveTo():
+	print(get_translation())
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
-	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
 	add_child(pathfinding)
+
+func checkGPOffice():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["ID"] == 1 && room.is_occuped == true && room.present_patient.size() == 0:
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
+				room.present_patient.append(self)
+				return
+	state_machine.changeState(states.random_movement)

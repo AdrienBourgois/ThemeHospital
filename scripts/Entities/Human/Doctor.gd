@@ -49,6 +49,17 @@ func checkWorkRoom():
 				return
 	state_machine.changeState(states.wandering)
 
+func diagnose():
+	var present_patient = room_occuped.present_patient[0]
+	var present_patient_disease = present_patient.get_node("Disease")
+	present_patient.is_diagnosed = true
+	if present_patient_disease.disease_type["TREATMENT_ROOM"] == "ROOM_PHARMACY":
+		present_patient_disease.type = "pharmacy"
+	elif present_patient_disease.disease_type["TREATMENT_ROOM"] == "ROOM_PSYCHIATRIC":
+		present_patient_disease.type = "psychiatric"
+	else:
+		present_patient_disease.type = "unknow"
+
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
 	var tile_to_go = room_occuped.tiles[rand]
