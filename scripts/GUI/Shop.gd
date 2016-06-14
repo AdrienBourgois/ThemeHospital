@@ -36,6 +36,7 @@ func _on_BuyButton_pressed():
 		return
 	
 	game.scene.player.money -= total_price
+	var temp_array = game.scene.getTempObjectsNodesArray()
 	
 	for index_panel in range ( available_items.get_child_count() ):
 		for count in range ( available_items.get_child(index_panel).getCount() ):
