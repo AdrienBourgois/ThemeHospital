@@ -9,7 +9,7 @@ var construted = 0
 var present_staff = []
 var present_patient = []
 var is_occuped = false
-var id = 0 setget setID, getID
+var unique_id = 0 setget setUniqueID, getUniqueID
 
 var map_reference = null
 
@@ -28,8 +28,8 @@ func _init(from, to, _type, _map_reference):
 		tile.update_walls("Right")
 		tile.update_walls("Down")
 
-func getID():
-	return id
+func getUniqueID():
+	return unique_id
 
-func setID(rooms_size):
-	id = rooms_size
+func setUniqueID(rooms_size):
+	unique_id = rooms_size
