@@ -11,7 +11,7 @@ export var happiness = 100.0
 export var tireness = 100.0
 export var count = 0
 
-onready var tile = map.columns[get_translation().x/1][get_translation().z/1]
+onready var tile = map.columns[int(get_translation().x/1)][int(get_translation().z/1)]
 
 onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
 onready var entity_manager = game.scene.entity_manager
@@ -69,6 +69,7 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			get_parent().staff_selected = self
 			staff_information_gui._ready()
 			staff_information_gui.show()
+			staff_information_gui.initViewport(self)
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
