@@ -78,18 +78,21 @@ func change_wall(wall, type):
 		location = Vector3(0.5,0,0)
 		rotation = Vector3(0,deg2rad(-90),0)
 	
-	if (type == enum_wall_type.WALL):
-		if (walls_types[wall] != enum_wall_type.WALL):
-			var new_wall = wall_res.instance()
-			new_wall.set_material_override(wall_material)
+	if(type != walls_types[wall]):
+		if (walls_types[wall] != enum_wall_type.VOID):
+			quad.remove_child(wall)
+		if (type != enum_wall_type.VOID):
+			var new_wall = null
+			if (type == enum_wall_type.WALL):
+				new_wall = wall_res.instance()
+				new_wall.set_material_override(wall_material)
+			elif (type == enum_wall_type.DOOR):
+				new_wall = door_res.instance()
 			new_wall.set_name(wall)
 			quad.add_child(new_wall)
 			new_wall.set_translation(location)
 			new_wall.set_rotation(rotation)
-
-	if (type == enum_wall_type.VOID):
-		if (walls_types[wall] == enum_wall_type.VOID):
-			quad.remove_child(wall)
+	
 	walls_types[wall] = type
 
 func update_cursor_pos():
