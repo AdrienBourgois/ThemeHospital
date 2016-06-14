@@ -18,7 +18,7 @@ func _on_Cancel_pressed():
 	node_rooms_menu.is_type_selected = false
 
 func _on_Accept_pressed():
-	if  (map.new_room("create", null)):
+	if map.new_room("create", null):
 		player.money -= node_rooms_menu.price
 		
 		var door = object_resources.createObject("Door")

@@ -52,7 +52,6 @@ func loadData():
 		new_room_from = Vector2(current.FROM_X, current.FROM_Y)
 		new_room_to = Vector2(current.TO_X, current.TO_Y)
 		new_room_type = ressources.getRoomFromId(current.ID)
-#		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
 		createRoomData()
 
@@ -170,6 +169,7 @@ func new_room(state, parameters):
 		for tile in tiles:
 			tile.currently_create_room = true
 			tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
+		new_room("current", parameters)
 
 	elif (state == "current"):
 		new_room_to = parameters
