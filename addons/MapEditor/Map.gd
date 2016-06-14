@@ -108,11 +108,11 @@ func draw_map():
 func change_tile(x, y):
 	var tile = tiles[coord_to_index(x, y)]
 	if(editor.current_brush == tile_type.Door):
-		tile.door = !tile.door
 		if(!tile.door):
 			tiles_with_doors.append(tile)
 		else:
 			tiles_with_doors.erase(tile)
+		tile.door = !tile.door
 	else:
 		tile.type = editor.current_brush
 	node2d.update()

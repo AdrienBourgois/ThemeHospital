@@ -66,7 +66,11 @@ func save():
 		for tile in tiles:
 			if(tile.x == 0):
 				file.store_string("\n")
-			file.store_string(str(map.tile_type[tile.type]))
+			file.store_string(str(tile.type))
+		
+		if(map.tiles_with_doors.size()):
+			for door in map.tiles_with_doors:
+				file.store_string("\nx:" + str(door.x) + "-y:" + str(door.y))
 		
 		file.close()
 		print("[MAP EDITOR] Map saved : res://Maps/", control.path_lineedit.get_text(), ".lvl")

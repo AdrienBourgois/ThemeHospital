@@ -24,7 +24,6 @@ func _init(_editor):
 	lobby_brush.connect("pressed", editor, "change_brush", [1])
 	door_brush.set_text("Door")
 	door_brush.connect("pressed", editor, "change_brush", [2])
-	#display_doors_button.set_text("Display Doors")
 	display_doors_button.connect("toggled", editor.map, "display_doors")
 	currentLabel.set_text("X: 0 - Y: 0")
 	
