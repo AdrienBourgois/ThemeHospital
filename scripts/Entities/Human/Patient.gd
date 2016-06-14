@@ -12,6 +12,7 @@ onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
 random_movement = get_node("RandomMovement"),
+go_to_gp_office = get_node("GoToGpOffice")
 }
 
 var state_machine
@@ -20,6 +21,7 @@ var happiness
 var thirsty
 var warmth
 var count
+var desk_ptr
 var is_go_to_reception = false
 
 func _ready():
@@ -70,6 +72,7 @@ func goToReception():
 	if object_array.size() != 0:
 		for desk in object_array:
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
+				desk_ptr = desk
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, 0.5, map)
 				add_child(pathfinding)
 				return
@@ -81,10 +84,7 @@ func goToReception():
 func checkEndPath():
 	if pathfinding.animation_completed:
 		pathfinding.free()
-		if is_go_to_reception == false:
-			state_machine.changeState(states.go_to_reception)
-		else:
-			state_machine.changeState(states.random_movement)
+		return true
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
