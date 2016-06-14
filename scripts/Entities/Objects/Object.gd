@@ -5,6 +5,7 @@ onready var global_client = get_node("/root/GlobalClient")
 onready var timer = get_node("Timer")
 onready var available = get_node("Available") setget, getAvailable
 onready var temp_array = gamescn.getTempObjectsNodesArray()
+onready var object_resources = game.scene.getObjectResources()
 
 export var object_name = " " setget setName, getName
 export var price = 100 setget getPrice, setPrice
@@ -85,23 +86,29 @@ func deleteFromArray():
 				gamescn.getObjectsNodesArray().remove(index)
 				self.queue_free()
 	gamescn.updateObjectsArray()
-			
+
+
 func hideOtherObjects():
 	for current in temp_array:
 		current.hide()
 	if (!temp_array.empty()):
 		temp_array[0].show()
 
+
 func nextObject():
 	if (!temp_array.empty()):
 		temp_array.pop_front()
 		if (!temp_array.empty()):
+			temp_array[0] = object_resources.createObject(temp_array[0])
+			game.scene.add_child(temp_array[0])
+			
 			temp_array[0].show()
 			temp_array[0].available.on()
 			temp_array[0].is_selected = true
 			temp_array[0].can_selected = true
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
+
 
 func setAvailableTile(boolean):
 	var node = null

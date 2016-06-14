@@ -26,18 +26,20 @@ func _on_Accept_pressed():
 			
 			var door = object_resources.createObject("Door")
 			temp_array.append(door)
+			gamescn.add_child(door)
 			door.is_selected = true
 			door.can_selected = true
 			door.set_process_input(true)
 			
-			temp_array.append(object_resources.createRoomObject(map.getActualRoomTypeName()))
-			temp_array[0].is_selected = true
-			temp_array[0].can_selected = true
-			temp_array[0].set_process_input(true)
-			for current in temp_array:
-				gamescn.map.add_child(current)
+			object_resources.createRoomObject(map.getActualRoomTypeName())
+#			temp_array.append(object_resources.createRoomObject(map.getActualRoomTypeName()))
+#			temp_array[0].is_selected = true
+#			temp_array[0].can_selected = true
+#			temp_array[0].set_process_input(true)
+#			for current in temp_array:
+#				gamescn.map.add_child(current)
 		if (!temp_array.empty()):
-			temp_array[0].hideOtherObjects()
+#			temp_array[0].hideOtherObjects()
 			gamescn.setHaveObject(true)
 	self.hide()
 	
