@@ -9,7 +9,7 @@ var control = null
 var map = null
 var window = null
 
-var current_brush = "Lobby"
+var current_brush = 0
 
 func _enter_tree():
 	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialisation... -*\\")

@@ -17,9 +17,9 @@ func _init(_editor):
 	zoom_slider.set_val(editor.map.zoom)
 	zoom_slider.connect("value_changed", editor.map, "change_zoom")
 	decoration_brush.set_text("Decoration")
-	decoration_brush.connect("pressed", editor, "change_brush", ["Decoration"])
+	decoration_brush.connect("pressed", editor, "change_brush", [0])
 	lobby_brush.set_text("Lobby")
-	lobby_brush.connect("pressed", editor, "change_brush", ["Lobby"])
+	lobby_brush.connect("pressed", editor, "change_brush", [1])
 	currentLabel.set_text("X: 0 - Y: 0")
 	
 	add_child(zoom_slider)

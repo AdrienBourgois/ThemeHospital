@@ -6,6 +6,7 @@ var editor = null
 var control = null
 
 var tiles = []
+var doors = []
 var zoom = 10
 var node2d = null
 
@@ -19,8 +20,15 @@ var square_to = Vector2(-1,-1)
 
 const tile_type = {"Decoration":0, "Lobby":1}
 
+const color_decoration = Color(0.153, 0.682, 0.384)
+const color_lobby = Color(0.498, 0.549, 0.553)
+
 class Tile:
-	var type = "Decoration"
+	var type = tile_type.Decoration
+	var x = -1
+	var y = -1
+
+class Door:
 	var x = -1
 	var y = -1
 
@@ -89,10 +97,10 @@ func _input(event):
 
 func draw_map():
 	for tile in tiles:
-		if(tile.type == "Decoration"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.153, 0.682, 0.384))
-		if(tile.type == "Lobby"):
-			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), Color(0.498, 0.549, 0.553))
+		if(tile.type == tile_type.Decoration):
+			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), color_decoration)
+		if(tile.type == tile_type.Lobby):
+			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), color_lobby)
 
 func change_tile(x, y):
 	tiles[coord_to_index(x, y)].type = editor.current_brush
@@ -104,7 +112,7 @@ func change_zoom(_zoom):
 
 func is_valid():
 	for tile in tiles:
-		if (tile.type == "Lobby"):
+		if (tile.type == tile_type.Lobby):
 			return true
 	return false
 
