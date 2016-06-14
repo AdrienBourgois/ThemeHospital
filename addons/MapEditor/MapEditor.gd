@@ -37,6 +37,7 @@ func see_map():
 
 func change_brush(type):
 	current_brush = type
+	map.square_from = Vector2(-1,-1)
 	print("[MAP EDITOR] Change brush to ", type)
 
 func _exit_tree():
