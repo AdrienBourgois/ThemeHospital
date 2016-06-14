@@ -20,9 +20,6 @@ var diagnosis_array = []
 
 func _ready():
 	setGlobalValue()
-	
-	getClinicsLocked()
-	getDiagnosisLocked()
 
 func setGlobalValue():
 	global_value = 0
@@ -43,17 +40,3 @@ func getStaffInResearchRoom():
 		return
 	else:
 		return research_room.STAFF
-
-func getClinicsLocked():
-	for rooms in clinics:
-		if (clinics[rooms].UNLOCK == false):
-			clinics_array.append(clinics[rooms])
-	
-	return clinics_array
-
-func getDiagnosisLocked():
-	for rooms in diagnosis:
-		if (diagnosis[rooms].UNLOCK == false):
-			diagnosis_array.append(diagnosis[rooms])
-	
-	return diagnosis_array

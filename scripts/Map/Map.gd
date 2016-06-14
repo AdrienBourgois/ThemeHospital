@@ -18,6 +18,7 @@ onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() set
 onready var stats = {}
 onready var path
 
+var room
 var new_room_from = Vector2(-1,-1)
 var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
@@ -51,7 +52,7 @@ func loadData():
 		new_room_from = Vector2(current.FROM_X, current.FROM_Y)
 		new_room_to = Vector2(current.TO_X, current.TO_Y)
 		new_room_type = ressources.getRoomFromId(current.ID)
-		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+#		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 		rooms.append(room)
 		createRoomData()
 
@@ -206,11 +207,12 @@ func new_room(state, parameters):
 
 	elif (state == "create"):
 		if (is_new_room_valid()):
-			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
 			room.setID(rooms.size())
 			for tile in previous_current_selection:
 				tile.hover_off()
+				tile.unique_id = room.getID()
 				removeTileFormCorridor(tile)
 			createRoomData()
 			actual_room_type_name = new_room_type.NAME
@@ -225,15 +227,14 @@ func new_room(state, parameters):
 		return false
 
 func createRoomData():
-	var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 	var room_data = {
 		FROM_X = new_room_from.x,
 		FROM_Y = new_room_from.y,
 		TO_X = new_room_to.x,
 		TO_Y = new_room_to.y,
 		ID = new_room_type.ID
+#		ID = room.getID()
 		}
-	print(room.getID())
 	rooms_save.append(room_data)
 
 #func sendRoomToServer():

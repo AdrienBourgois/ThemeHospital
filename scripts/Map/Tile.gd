@@ -14,6 +14,7 @@ var neighbours = { "Up": null, "Left": null, "Down": null, "Right": null }
 var x = 0
 var y = 0
 var object = null setget setObject, getObject
+var unique_id = 0
 
 var room_material = FixedMaterial.new()
 var wall_material = FixedMaterial.new()
