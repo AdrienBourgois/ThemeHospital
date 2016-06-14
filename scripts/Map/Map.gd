@@ -215,6 +215,7 @@ func new_room(state, parameters):
 		if (is_new_room_valid()):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
+			room.setID(rooms.size())
 			for tile in previous_current_selection:
 				tile.hover_off()
 				removeTileFormCorridor(tile)
@@ -231,6 +232,7 @@ func new_room(state, parameters):
 		return false
 
 func createRoomData():
+	var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 	var room_data = {
 		FROM_X = new_room_from.x,
 		FROM_Y = new_room_from.y,
@@ -238,6 +240,7 @@ func createRoomData():
 		TO_Y = new_room_to.y,
 		ID = new_room_type.ID
 		}
+	print(room.getID())
 	rooms_save.append(room_data)
 
 func sendRoomToServer():
