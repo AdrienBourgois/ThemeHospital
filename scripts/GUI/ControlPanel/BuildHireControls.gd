@@ -6,7 +6,8 @@ onready var buttons = get_node("Buttons")
 
 onready var game = get_node("/root/Game")
 onready var rooms_menu = get_node("../../RoomsMenu")
-onready var staff_gui = get_node("../../Staff_gui")
+#onready var staff_gui = get_node("../../Staff_gui")
+onready var staff_gui = preload("res://scenes/GUI/InGameGUI/HUD/StaffGUI.scn")
 onready var shop_menu = preload("res://scenes/GUI/ShopMenu.scn")
 
 var last_button_pressed = {
@@ -29,8 +30,9 @@ func _on_Hire_pressed():
 	else:
 		hideCurrentWindow()
 		last_button_pressed.hire = true
-		current_window_open = staff_gui
-		staff_gui.set_hidden(not staff_gui.is_hidden())
+		current_window_open = staff_gui.instance()
+		game.scene.add_child(current_window_open)
+#		staff_gui.set_hidden(not staff_gui.is_hidden())
 
 func _on_Build_pressed():
 	if ( last_button_pressed.build ):
@@ -71,7 +73,7 @@ func resetLastButtonPressed():
 
 func hideCurrentWindow():
 	if ( current_window_open != null ):
-		if ( last_button_pressed.corridor_items ):
+		if ( last_button_pressed.corridor_items || last_button_pressed.hire):
 			current_window_open.queue_free()
 		else:
 			current_window_open.set_hidden(true)
