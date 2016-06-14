@@ -17,7 +17,6 @@ var specialities
 var patients
 
 func _ready():
-	print(specialities)
 	set_process(true)
 
 func _process(delta):
@@ -54,7 +53,11 @@ func checkRoomValidity(room):
 	if !room.is_occuped:
 		if room.type.NAME == "ROOM_PSYCHIATRIC" && specialities == 1:
 			return true
-		elif room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM" || room.type.NAME == "ROOM_OPERATING" || room.type.NAME == "ROOM_RESEARCH" :
+		elif room.type.NAME == "ROOM_RESEARCH" && specialities == 2:
+			return true
+		elif room.type.NAME == "ROOM_OPERATING" && specialities == 3:
+			return true
+		elif room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM":
 			return true
 	return false
 
