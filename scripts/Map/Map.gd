@@ -32,6 +32,7 @@ var position
 var tile_on_cursor_node = null setget, getTileOnCursorNode
 var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
+var actual_unique_id = 0 setget getActualUniqueID, setActualUniqueID
 
 func _ready():
 	create_map(map_path)
@@ -255,6 +256,12 @@ func getOccupiedTiles():
 			}
 			occupied_tiles.append(tile_data)
 	return occupied_tiles
+
+func getActualUniqueID():
+	return actual_unique_id
+
+func setActualUniqueID(new_id):
+	actual_unique_id = new_id
 
 func getResources():
 	return ressources
