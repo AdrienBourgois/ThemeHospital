@@ -9,16 +9,19 @@ onready var player = gamescn.player
 onready var object_resources = gamescn.getObjectResources()
 onready var temp_array = gamescn.getTempObjectsNodesArray()
 
+var room
+
 func _ready():
 	self.hide()
 
 func _on_Cancel_pressed():
 	self.hide() 
-	map.new_room("cancel", null)
+	room = map.new_room("cancel", null)
 	node_rooms_menu.is_type_selected = false
 
 func _on_Accept_pressed():
-	if map.new_room("create", null):
+	room = map.new_room("create", null)
+	if  (room):
 		player.money -= node_rooms_menu.price
 		
 		var door = object_resources.createObject("Door")
@@ -27,16 +30,11 @@ func _on_Accept_pressed():
 		door.is_selected = true
 		door.can_selected = true
 		door.set_process_input(true)
+		door.setUniqueID(room.getUniqueID())
 		
 		object_resources.createRoomObject(map.getActualRoomTypeName())
-#		temp_array.append(object_resources.createRoomObject(map.getActualRoomTypeName()))
-#		temp_array[0].is_selected = true
-#		temp_array[0].can_selected = true
-#		temp_array[0].set_process_input(true)
-#		for current in temp_array:
-#			gamescn.map.add_child(current)
+		
 	if (!temp_array.empty()):
-#		temp_array[0].hideOtherObjects()
 		gamescn.setHaveObject(true)
 	self.hide()
 	
