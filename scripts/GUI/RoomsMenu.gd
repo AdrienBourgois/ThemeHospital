@@ -119,7 +119,7 @@ func updateTexture(texture_path):
 	room_picture.set_texture(texture)
 
 func exitRooms():
-	cost_label.set_text("")
+	cost_label.set_text(tr("COST") + "0$")
 	room_picture.set_texture(null)
 
 
