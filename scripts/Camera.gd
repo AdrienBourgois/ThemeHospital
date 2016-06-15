@@ -11,9 +11,10 @@ var rotation_limit = Vector3(0,45,45)
 
 var position
 var rotation
+var size = 35
 var movement = Vector3(0,0,0)
 var pause = false setget setPause,getPause
-export var speed = 2.5
+export var speed = 20
 
 
 func _ready():
@@ -37,23 +38,29 @@ func _fixed_process(delta):
 
 func _input(event):
 	if !pause:
-		set_rotation(Vector3(0,0,0))
+		#set_rotation(Vector3(0,0,0))
 		if event.is_action_pressed("zoom"):
-			translate(Vector3(0, -1, 0))
+			size -= 5
+			set_orthogonal(size, 0.1, 100)
 		if event.is_action_pressed("dezoom"):
-			translate(Vector3(0, 1, 0))
+			size += 5
+			set_orthogonal(size, 0.1, 100)
 	
-		set_rotation(rotation)
+		#set_rotation(rotation)
 
 
 func checkInputMove():
 	if Input.is_action_pressed("ui_left"):
 		movement.x += 1
+		movement.z -= 1
 	if Input.is_action_pressed("ui_right"):
 		movement.x -= 1
+		movement.z += 1
 	if Input.is_action_pressed("ui_up"):
+		movement.x += 1
 		movement.z += 1
 	if Input.is_action_pressed("ui_down"):
+		movement.x -= 1
 		movement.z -= 1
 
 
@@ -62,11 +69,15 @@ func checkMouseMove():
 	var window = OS.get_window_size()
 	if mouse_pos.x >= window.x - border:
 		movement.x -= 1
+		movement.z += 1
 	elif mouse_pos.x <= border:
 		movement.x += 1
+		movement.z -= 1
 	if mouse_pos.y >= window.y - border:
+		movement.x -= 1
 		movement.z -= 1
 	elif mouse_pos.y <= border:
+		movement.x += 1
 		movement.z += 1
 
 
