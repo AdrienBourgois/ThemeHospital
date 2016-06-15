@@ -14,7 +14,7 @@ var neighbours = { "Up": null, "Left": null, "Down": null, "Right": null }
 var x = 0
 var y = 0
 var object = null setget setObject, getObject
-var unique_id = 0
+var unique_id = 0 setget setUniqueID, getUniqueID
 
 var room_material = FixedMaterial.new()
 var wall_material = FixedMaterial.new()
@@ -119,6 +119,12 @@ func _current_select():
 
 func setObject(new_object):
 	object = new_object
+
+func getUniqueID():
+	return unique_id
+
+func setUniqueID(value):
+	unique_id = value
 
 func getObject():
 	return object

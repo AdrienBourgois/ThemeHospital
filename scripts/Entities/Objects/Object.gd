@@ -37,7 +37,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
-		
 		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
@@ -135,7 +134,7 @@ func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
 		var current_tile = map.getTile(current_position)
-		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id):
+		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id or current_tile.getUniqueID() != unique_id):
 			return false
 	return true
 
@@ -176,7 +175,7 @@ func checkAvaiblableTile():
 func checkAvailableProcess():
 	updateTilePosition()
 	type = map.getTile(vector_pos).room_type
-	if (in_room_object and type.ID != room_id):
+	if (in_room_object and (type.ID != room_id or tile.unique_id != unique_id)):
 		available.off()
 	elif (big_object and !checkAvailableBigObjectTile()):
 		available.off()
@@ -198,7 +197,7 @@ func checkAvailable():
 			return false
 	type = node.room_type
 	if (in_room_object):
-		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
+		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType() or unique_id != tile.getUniqueID()):
 			error()
 			return false
 	elif (type.ID != 0):
@@ -239,7 +238,8 @@ func updateStats():
 	Y = position.y,
 	Z = position.z,
 	ROTATION = rotation,
-	UNIQUE_ID = unique_id
+	UNIQUE_ID = unique_id,
+	MAP_OBJECT = map_object
 	}
 	return object_stats
 
@@ -302,7 +302,8 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	X = position_x,
 	Y = 0,
 	Z = position_z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	UNIQUE_ID = unique_id
 	}
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))

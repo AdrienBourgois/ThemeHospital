@@ -26,7 +26,7 @@ func _input(event):
 
 func poseDoor():
 	setUpItem()
-	#game.feedback.display("TOOLTIP_POSEDOOR_POSED")
+	game.feedback.display("TOOLTIP_POSEDOOR_POSED")
 	set_translation(trans)
 
 func checkWalls():
