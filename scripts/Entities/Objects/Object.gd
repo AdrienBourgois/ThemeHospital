@@ -97,6 +97,7 @@ func nextObject():
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
 			temp_array[0].setUniqueID(map.getActualUniqueID())
+			print(temp_array[0].getUniqueID())
 
 func setAvailableTile(boolean):
 	var node = null
@@ -302,7 +303,8 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	X = position_x,
 	Y = 0,
 	Z = position_z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	UNIQUE_ID = unique_id
 	}
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))

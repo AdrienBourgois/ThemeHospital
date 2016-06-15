@@ -218,6 +218,7 @@ func new_room(state, parameters):
 			for tile in previous_current_selection:
 				tile.hover_off()
 				tile.unique_id = room.getUniqueID()
+				actual_unique_id = tile.unique_id
 				removeTileFormCorridor(tile)
 			createRoomData()
 			actual_room_type_name = new_room_type.NAME
