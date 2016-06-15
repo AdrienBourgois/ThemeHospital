@@ -24,6 +24,7 @@ func _ready():
 	var buttons = get_node("Types").get_children()
 	
 	for type in rooms_types:
+		print(type)
 		buttons[button_number].set_text(type)
 		buttons[button_number].connect("pressed", self, "typeRoomsPressed", [rooms_types[type]])
 		
