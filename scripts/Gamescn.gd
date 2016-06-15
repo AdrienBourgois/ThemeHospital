@@ -22,14 +22,15 @@ onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectRe
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
+onready var staff_resources = preload("res://scripts/Entities/Human/HumanResources.gd")
+onready var staff_nodes_array = [] setget, getStaffNodesArray
+onready var staff_data_array = [] setget, getStaffDataArray
+onready var staff_dict  = {}
+
 var in_game_gui
 var objects_nodes_array = [] setget, getObjectsNodesArray
 var temp_objects_nodes_array = [] setget, getTempObjectsNodesArray
 var have_object = false setget setHaveObject, getHaveObject
-
-var staff_nodes_array = [] setget, getStaffNodesArray
-var staff_data_array = [] setget, getStaffDataArray
-var staff_dict  = {}
 
 export var map_size = Vector2(0, 0)
 
