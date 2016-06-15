@@ -42,14 +42,8 @@ func _on_Drug_Casebook_pressed():
 func _on_Town_Map_mouse_enter():
 	game.feedback.display("TUTO_TOWN_MAP")
 
-
 func _on_Status_mouse_enter():
 	game.feedback.display("TUTO_STATUS")
-
-
-func _on_Research_mouse_enter():
-	game.feedback.display("TUTO_RESEARCH")
-
 
 func _on_Drug_Casebook_mouse_enter():
 	game.feedback.display("TUTO_CASEBOOK")
