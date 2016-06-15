@@ -115,7 +115,7 @@ func enterRooms(type):
 
 func updateTexture(texture_path):
 	var texture = ImageTexture.new()
-	texture = load(texture_path)
+	texture.load(texture_path)
 	room_picture.set_texture(texture)
 
 func exitRooms():
