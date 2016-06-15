@@ -88,7 +88,6 @@ func cleanButtons():
 		
 		disconnectButton(button)
 	
-#	node_text_label.set_text("")
 	cost_label.set_text("")
 
 func disconnectButton(button):
@@ -111,12 +110,10 @@ func mouseEnterOnRoom(type, rooms, button_number):
 
 
 func enterRooms(type):
-#	node_text_label.set_text(type.NAME)
 	cost_label.set_text(tr("COST") + str(type.COST) + "$")
 
 
 func exitRooms():
-#	node_text_label.set_text("")
 	cost_label.set_text("")
 
 
@@ -127,6 +124,7 @@ func roomsPressed(room):
 	
 	if (is_type_selected == true):
 		confirmation_build.show()
+		confirmation_build.get_node("Panel/RoomNameLabel").set_text(room.NAME)
 		build_room.hide()
 		map.new_room("new", room)
 	else:
