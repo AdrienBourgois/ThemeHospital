@@ -16,7 +16,7 @@ var gp_office = {
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_GP",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/GPdesk.png",
 	"OBJECTS": {}
 }
 
@@ -28,7 +28,7 @@ var general_diagnosis = {
 	"COST": 1000,
 	"TOOLTIP": "TOOLTIP_GENERAL_DIAGNOSIS",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/CrashTrolley.png",
 	"OBJECTS": {}
 }
 
@@ -40,7 +40,7 @@ var cardiogram = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_CARDIOGRAM",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Cardio.png",
 	"OBJECTS": {}
 }
 
@@ -52,7 +52,7 @@ var psychiatric = {
 	"COST": 2500,
 	"TOOLTIP": "TOOLTIP_PSYCHIATRIC",
 	"STAFF": [],
-	"RESSOURCES": {}, 
+	"RESSOURCES": "res://assets/Psychatric.png", 
 	"OBJECTS": {}
 }
 
@@ -64,7 +64,7 @@ var pharmacy = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_PHARMACY",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Pharmacy.png",
 	"OBJECTS": {}
 }
 
@@ -76,7 +76,7 @@ var ward = {
 	"COST": 2000,
 	"TOOLTIP": "TOOLTIP_WARD",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Bed.png",
 	"OBJECTS": {}
 }
 
@@ -88,7 +88,7 @@ var operating = {
 	"COST": 8000,
 	"TOOLTIP": "TOOLTIP_OPERATING",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Operating.png",
 	"OBJECTS": {}
 }
 
@@ -100,7 +100,7 @@ var inflation = {
 	"COST": 4000,
 	"TOOLTIP": "TOOLTIP_INFLATION",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Inflation.png",
 	"OBJECTS": {}
 }
 
@@ -112,7 +112,7 @@ var tongue = {
 	"COST": 3000,
 	"TOOLTIP": "TOOLTIP_TONGUE",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Tongue.png",
 	"OBJECTS": {}
 }
 
@@ -124,7 +124,7 @@ var staff_room = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_STAFF_ROOM",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Sofa.png",
 	"OBJECTS": {}
 }
 
@@ -136,7 +136,7 @@ var toilets = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_TOILETS",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Toilets.png",
 	"OBJECTS": {}
 }
 
@@ -148,7 +148,7 @@ var research = {
 	"COST": 5000,
 	"TOOLTIP": "TOOLTIP_RESEARCH",
 	"STAFF": [],
-	"RESSOURCES": {},
+	"RESSOURCES": "res://assets/Research.png",
 	"OBJECTS": {}
 }
 
