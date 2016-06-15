@@ -175,7 +175,7 @@ func checkAvaiblableTile():
 func checkAvailableProcess():
 	updateTilePosition()
 	type = map.getTile(vector_pos).room_type
-	if (in_room_object and type.ID != room_id):
+	if (in_room_object and (type.ID != room_id or tile.unique_id != unique_id)):
 		available.off()
 	elif (big_object and !checkAvailableBigObjectTile()):
 		available.off()
