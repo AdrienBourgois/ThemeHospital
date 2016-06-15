@@ -58,9 +58,10 @@ func update(_room_type):
 	room_material.set_parameter(0, room_type.COLOR)
 
 func update_walls(direction):
-	if (neighbours[direction] != null):
-		if (neighbours[direction].room_type != room_type):
-			change_wall(direction, enum_wall_type.WALL)
+	if(room_type.ID != 40):
+		if (neighbours[direction] != null):
+			if (neighbours[direction].room_type != room_type):
+				change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
 	var location = Vector3(0,0.5,0)
