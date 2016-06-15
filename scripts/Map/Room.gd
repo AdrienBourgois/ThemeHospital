@@ -11,6 +11,7 @@ var present_patient = []
 var is_occuped = false
 var unique_id = 0 setget setUniqueID, getUniqueID
 
+var has_door = false
 var map_reference = null
 
 func _init(from, to, _type, _map_reference):
