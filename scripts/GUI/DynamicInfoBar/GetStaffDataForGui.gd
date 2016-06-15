@@ -16,6 +16,7 @@ onready var doctor_gui = get_node("DoctorGui")
 onready var handymen_gui = get_node("HandymenGui")
 onready var seniority = doctor_gui.get_node("Seniority")
 onready var salary = get_node("Salary")
+onready var viewport = get_node("Viewport")
 
 func _ready():
 	if staff_selected != null:
@@ -42,3 +43,6 @@ func _process(delta):
 	elif staff_selected.id == 2:
 		handymen_gui.show()
 
+func initViewport(node):
+	viewport.node = node
+	viewport.set_process(true)

@@ -11,6 +11,7 @@ export var expense_per_month = 0
 export var in_room_object = false
 export var room_id = 0
 
+var unique_id = 0 setget getUniqueID, setUniqueID
 var object_stats = {}
 var blink_number = 10
 var idx = 0
@@ -36,7 +37,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
-		
 		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
@@ -95,6 +95,7 @@ func nextObject():
 			temp_array[0].can_selected = true
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
+			temp_array[0].setUniqueID(map.getActualUniqueID())
 
 func setAvailableTile(boolean):
 	var node = null
@@ -133,7 +134,7 @@ func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
 		var current_tile = map.getTile(current_position)
-		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id):
+		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id or current_tile.getUniqueID() != unique_id):
 			return false
 	return true
 
@@ -196,7 +197,7 @@ func checkAvailable():
 			return false
 	type = node.room_type
 	if (in_room_object):
-		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
+		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType() or unique_id != tile.getUniqueID()):
 			error()
 			return false
 	elif (type.ID != 0):
@@ -236,13 +237,20 @@ func updateStats():
 	X = position.x,
 	Y = position.y,
 	Z = position.z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	UNIQUE_ID = unique_id
 	}
 	return object_stats
 
 func addToArray():
 	updateStats()
 	gamescn.objects_array.append(object_stats)
+
+func getUniqueID():
+	return unique_id
+
+func setUniqueID(new_ID):
+	unique_id = new_ID
 
 func getEntity():
 	return entity
@@ -293,7 +301,8 @@ func setObjectStats(object_name, rotation, position_x, position_z):
 	X = position_x,
 	Y = 0,
 	Z = position_z,
-	ROTATION = rotation
+	ROTATION = rotation,
+	UNIQUE_ID = unique_id
 	}
 	
 	set_rotation(Vector3(0, rotation.to_float(), 0))

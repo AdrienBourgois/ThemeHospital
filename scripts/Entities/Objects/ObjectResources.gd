@@ -29,6 +29,7 @@ var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptionde
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
 var temp_array = null setget getTempArray, setTempArray
+var unique_id = 0 setget getUniqueID, setUniqueID
 
 
 func createObject(name):
@@ -83,6 +84,8 @@ func createObject(name):
 		node = research_machine_scn.instance()
 	else:
 		node = createRoomObject(name)
+	node.setUniqueID(unique_id)
+	unique_id = 0 
 	return node
 
 func createRoomObject(name):
@@ -118,6 +121,12 @@ func createRoomObject(name):
 	else:
 		node = objectscn.instance()
 	return node
+
+func getUniqueID():
+	return unique_id
+
+func setUniqueID(new_id):
+	unique_id = new_id
 
 func getTempArray():
 	return temp_array

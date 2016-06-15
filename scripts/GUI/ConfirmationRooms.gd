@@ -16,9 +16,9 @@ func _on_CancelButton_pressed():
 	map.new_room("cancel", null)
 	control_panel.hideCurrentWindow()
 
-
 func _on_AcceptButton_pressed():
-	if  (map.new_room("create", null)):
+	var room = map.new_room("create", null)
+	if  (room):
 		player.money -= rooms_menu.price
 		
 		var door = object_resources.createObject("Door")
@@ -27,8 +27,12 @@ func _on_AcceptButton_pressed():
 		door.is_selected = true
 		door.can_selected = true
 		door.set_process_input(true)
+		door.setUniqueID(room.getUniqueID())
 		
+		object_resources.setUniqueID(room.getUniqueID())
 		object_resources.createRoomObject(map.getActualRoomTypeName())
+	else:
+		game.feedback.display("FEEDBACK_BLUEPRINT")
 	
 	if (!temp_array.empty()):
 		gamescn.setHaveObject(true)

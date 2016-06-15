@@ -44,6 +44,7 @@ func pathFinding():
 			if (current == to):
 				found = true
 				reconstruct()
+				animate()
 				continue
 			else:
 				for neighbour in current.neighbours:
@@ -53,7 +54,6 @@ func pathFinding():
 							came_from[current.neighbours[neighbour]] = current
 				closed_list.append(current)
 	
-	animate()
 
 func reconstruct():
 	path_nodes.append(current)
@@ -82,7 +82,7 @@ func animate():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	delta_sum += delta
+	delta_sum += delta * Game.speed
 	node.set_translation(current_point + ((next_point - current_point) * (delta_sum / speed)))
 	
 	if (delta_sum >= speed):
