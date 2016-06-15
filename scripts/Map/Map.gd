@@ -34,6 +34,7 @@ var center_tile_on_cursor = Vector2(-1, -1)
 
 func _ready():
 	create_map(map_path)
+	position = tiles[0].get_translation()
 
 func createStatsDict():
 	stats = {
@@ -71,22 +72,23 @@ func create_map(file_path):
 	var doors = []
 	
 	for line in lines_str:
-		numbers = getNumbersFormString(line)
 		if(line.begins_with("S")):
+			numbers = getNumbersFormString(line)
 			size_x = numbers[0]
 			size_y = numbers[1]
 		elif(line.begins_with("T")):
+			numbers = getNumbersFormString(line, true)
 			tiles_lines.append(numbers)
 		elif(line.begins_with("D")):
+			numbers = getNumbersFormString(line)
 			doors.append(numbers)
-
+	
 	for x in range(size_x):
 		var column = []
 		for y in range(size_y):
 			var tile = tile_res.instance()
 			add_child(tile)
-			position = tile.get_translation()
-			var tile_type = numbers[y]
+			var tile_type = tiles_lines[y][x]
 			if (tile_type == 0):
 				tile.create(x, y, ressources.grass)
 			elif (tile_type == 1):
@@ -104,23 +106,35 @@ func create_map(file_path):
 		tile.update_walls("Right")
 		tile.update_walls("Down")
 	
+	for door in doors:
+		var tile = columns[door[0]][door[1]]
+		for wall in tile.walls_types:
+			if(tile.walls_types[wall] != 0):
+				tile.change_wall(wall, tile.enum_wall_type.DOOR)
+	
 	file.close()
 
-func getNumbersFormString(string):
+func getNumbersFormString(string, cut_as_digit = false):
 	var numbers = []
 	var number = ""
 	var previous_was_digit = false
 	
-	for i in range(string.length()):
-		if (string[i] >= '0' and string[i] <= '9'):
-			number += string[i]
-			previous_was_digit = true
-		elif(previous_was_digit):
-			previous_was_digit = false
+	if(!cut_as_digit):
+		for i in range(string.length()):
+			if (string[i] >= '0' and string[i] <= '9'):
+				number += string[i]
+				previous_was_digit = true
+			elif(previous_was_digit):
+				previous_was_digit = false
+				numbers.append(number.to_int())
+				number = ""
+		if(number != ""):
 			numbers.append(number.to_int())
-			number = ""
-	if(number != ""):
-		numbers.append(number.to_int())
+	else:
+		for i in range(string.length()):
+			if (string[i] >= '0' and string[i] <= '9'):
+				numbers.append(string[i].to_int())
+	
 	return numbers
 
 func getTile(vector2):
