@@ -1,7 +1,9 @@
 
 extends Button
 
+
 onready var game = get_node("/root/Game")
+onready var control_panel = game.scene.get_node("./In_game_gui/HUD/Control_panel/Build_hire_controls")
 onready var hire_manager = game.scene.hire_manager
 onready var staff_buttons = get_parent().get_parent().get_node("StaffButtons")
 onready var buttons_array = [staff_buttons.get_node("VBoxContainer/Doctor"),
@@ -31,3 +33,6 @@ func _on_Hire_pressed():
 				waitToAdd(i, get_parent().idx)
 			else:
 				game.feedback.display("FEEDBACK_ENOUGH_MONEY")
+				return
+	
+	control_panel.hideCurrentWindow()

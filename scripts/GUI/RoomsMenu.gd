@@ -1,107 +1,141 @@
-extends Panel
 
-var rooms_ressources
-var map
-var confirm_build
-var is_type_selected = false
-var rooms_types
-var price
+extends Control
+
 
 onready var game = get_node("/root/Game")
+onready var control_panel = game.scene.get_node("./In_game_gui/HUD/Control_panel/Build_hire_controls")
+onready var rooms_container = get_node("./BuildRoom/AvailableRooms/RoomsContainer")
+onready var cost_label = get_node("./BuildRoom/AvailableRooms/CostLabel")
+onready var rooms_types_container = get_node("./BuildRoom/RoomsTypesContainer")
 onready var player = game.scene.player
+onready var map = game.scene.map
+onready var rooms_ressources = map.ressources
+onready var rooms_type_dictionary = rooms_ressources.type_rooms
+onready var pick_room_type_label = get_node("./BuildRoom/AvailableRooms/PickRoomTypeLabel")
+onready var room_picture = get_node("./BuildRoom/RoomPicture")
+onready var confirmation_build = get_node("./ConfirmationRoom")
+onready var build_room = get_node("./BuildRoom")
 
-onready var node_label = get_node("Rooms/Label")
-onready var node_text_label = get_node("Text/Label")
-onready var node_cost_label = get_node("Rooms/Cost")
+export var max_rooms_container = 0
+export var max_rooms_type_container = 0
+
+
+var is_type_selected = false
+var price = 0
+
 
 func _ready():
-	confirm_build = get_node("../Confirmation")
-	map = get_node("/root/Game").scene.map
-	rooms_ressources = map.ressources
-	rooms_types = rooms_ressources.type_rooms
-	
+	createButtonsForRoomsContainer()
+	createButtonsForRoomsTypesContainer()
+	connectRoomsTypeButtons()
+
+
+func createButtonsForRoomsTypesContainer():
+	for index in range ( max_rooms_type_container ):
+		var button = Button.new()
+		button.set_h_size_flags(SIZE_EXPAND_FILL)
+		button.set_v_size_flags(SIZE_EXPAND_FILL)
+		rooms_types_container.add_child(button)
+
+
+func createButtonsForRoomsContainer():
+	for index in range ( max_rooms_container ):
+		var button = Button.new()
+		button.set_h_size_flags(SIZE_EXPAND_FILL)
+		button.set_v_size_flags(SIZE_EXPAND_FILL)
+		rooms_container.add_child(button)
+
+
+func connectRoomsTypeButtons():
 	var button_number = 0
-	var buttons = get_node("Types").get_children()
+	var button = null
 	
-	for type in rooms_types:
-		buttons[button_number].set_text(type)
-		buttons[button_number].connect("pressed", self, "typeRoomsPressed", [rooms_types[type]])
+	for type in rooms_type_dictionary:
+		button = rooms_types_container.get_child(button_number)
+		button.set_text(type)
+		button.connect("pressed", self, "typeRoomsPressed", [rooms_type_dictionary[type]])
 		
 		button_number += 1
 
+
 func typeRoomsPressed(type):
-	node_label.set_text("PICK_ROOM")
+	pick_room_type_label.set_text("PICK_ROOM")
 	cleanButtons()
 	
-	var number_button = 0
-	var buttons
+	var button_number = 0
+	var button
 	
 	for rooms in type:
-		buttons = get_node("Rooms/Button" + str(number_button))
-		buttons.set_text(type[rooms].NAME)
-		buttons.set_tooltip(type[rooms].TOOLTIP)
+		button = rooms_container.get_child(button_number)
+		button.set_text(type[rooms].NAME)
+		button.set_tooltip(type[rooms].TOOLTIP)
 		
-		mouseEnterOnRoom(type, rooms, number_button)
-		buttons.connect("pressed", self, "roomsPressed",[type[rooms]])
-		number_button += 1
+		mouseEnterOnRoom(type, rooms, button_number)
+		button.connect("pressed", self, "roomsPressed",[type[rooms]])
+		button_number += 1
 	
 	is_type_selected = true
 
+
 func cleanButtons():
-	var buttons
-	for number_button in range(10):
-		buttons = get_node("Rooms/Button" + str(number_button))
-		
-		buttons.set_text("")
-		buttons.set_tooltip("")
-		
-		disconnectButtons(buttons)
+	var button = null
 	
-	node_text_label.set_text("")
-	node_cost_label.set_text("")
-
-func disconnectButtons(buttons):
-	disconnectFunc(buttons, "mouse_enter", "enterRooms")
-	disconnectFunc(buttons, "mouse_exit", "exitRooms")
-	disconnectFunc(buttons, "pressed", "roomsPressed")
-	disconnectFunc(buttons, "pressed", "typeRoomsPressed")
-
-func disconnectFunc(buttons, type, method):
-	if buttons.is_connected(type, self, method):
-		buttons.disconnect(type, self, method)
-
-func mouseEnterOnRoom(type, rooms, number_button):
-	var buttons = get_node("Rooms/Button" + str(number_button))
+	for button_number in range( max_rooms_container ):
+		button = rooms_container.get_child(button_number)
+		
+		button.set_text("")
+		button.set_tooltip("")
+		
+		disconnectButton(button)
 	
-	buttons.connect("mouse_enter", self, "enterRooms", [type[rooms]])
-	buttons.connect("mouse_exit", self, "exitRooms")
+#	node_text_label.set_text("")
+	cost_label.set_text("")
+
+func disconnectButton(button):
+	disconnectFunc(button, "mouse_enter", "enterRooms")
+	disconnectFunc(button, "mouse_exit", "exitRooms")
+	disconnectFunc(button, "pressed", "roomsPressed")
+	disconnectFunc(button, "pressed", "typeRoomsPressed")
+
+
+func disconnectFunc(button, type, method):
+	if button.is_connected(type, self, method):
+		button.disconnect(type, self, method)
+
+
+func mouseEnterOnRoom(type, rooms, button_number):
+	var button = rooms_container.get_child(button_number)
+	
+	button.connect("mouse_enter", self, "enterRooms", [type[rooms]])
+	button.connect("mouse_exit", self, "exitRooms")
+
 
 func enterRooms(type):
-	node_text_label.set_text(type.NAME)
-	node_cost_label.set_text(tr("COST") + str(type.COST) + "$")
+#	node_text_label.set_text(type.NAME)
+	cost_label.set_text(tr("COST") + str(type.COST) + "$")
+
 
 func exitRooms():
-	node_text_label.set_text("")
-	node_cost_label.set_text("")
+#	node_text_label.set_text("")
+	cost_label.set_text("")
+
 
 func roomsPressed(room):
 	if player.money >= room.COST:
 		cleanButtons()
-	
 		price = room.COST
 	
-		if (is_type_selected == true):
-			confirm_build.show()
-			self.hide()
-	
-		if (is_type_selected == true):
-			map.new_room("new", room)
+	if (is_type_selected == true):
+		confirmation_build.show()
+		build_room.hide()
+		map.new_room("new", room)
 	else:
 		game.feedback.display("FEEDBACK_ENOUGH_MONEY")
 
-func _on_Cancel_pressed():
-	self.hide()
-	cleanButtons()
-	
-	is_type_selected = false
-	node_label.set_text("PICK_DPT")
+
+func _on_CancelButton_pressed():
+	control_panel.hideCurrentWindow()
+
+
+func freeScene():
+	queue_free()

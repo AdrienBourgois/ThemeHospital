@@ -61,3 +61,9 @@ func addItemNameToArray(item_name):
 		node.can_selected = true
 	else:
 		temp_array.push_back(item_name)
+
+func freeScene():
+	for index in range ( available_items.get_child_count() ):
+		available_items.get_child(index).freeMemory()
+	
+	queue_free()
