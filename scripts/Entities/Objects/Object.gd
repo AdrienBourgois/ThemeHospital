@@ -238,7 +238,8 @@ func updateStats():
 	Y = position.y,
 	Z = position.z,
 	ROTATION = rotation,
-	UNIQUE_ID = unique_id
+	UNIQUE_ID = unique_id,
+	MAP_OBJECT = map_object
 	}
 	return object_stats
 

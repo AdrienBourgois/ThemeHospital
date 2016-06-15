@@ -68,8 +68,8 @@ func loadObjects():
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
 				node.setAvailableTile(true)
-#		if (current.MAP_OBJECT):
-#			node.checkWalls()
+		if (current.MAP_OBJECT):
+			node.checkWalls()
 
 func loadStaff():
 	for current in staff_dict.STAFF:
