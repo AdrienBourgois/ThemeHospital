@@ -111,10 +111,16 @@ func mouseEnterOnRoom(type, rooms, button_number):
 
 func enterRooms(type):
 	cost_label.set_text(tr("COST") + str(type.COST) + "$")
+	updateTexture(type.RESSOURCES)
 
+func updateTexture(texture_path):
+	var texture = ImageTexture.new()
+	texture = load(texture_path)
+	room_picture.set_texture(texture)
 
 func exitRooms():
 	cost_label.set_text("")
+	room_picture.set_texture(null)
 
 
 func roomsPressed(room):
