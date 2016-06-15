@@ -34,10 +34,10 @@ func _process(delta):
 func checkDesk():
 	if object_array.size() != 0:
 		for desk in object_array:
-			if desk.object_name == "ReceptionDesk" && !desk.is_occuped:
+			if desk.object_name == "ReceptionDesk" && !desk.is_occuped && !desk.is_processing_input():
 				desk_occuped = desk
-				var tile_ro_reach_trans = desk.getEntityInteractionTile().get_translation()
-				reception_desk_pos = Vector2(tile_ro_reach_trans.x, tile_ro_reach_trans.z)
+				var tile_to_reach_trans = desk.getEntityInteractionTile().get_translation()
+				reception_desk_pos = Vector2(tile_to_reach_trans.x, tile_to_reach_trans.z)
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self, 0.2, map)
 				add_child(pathfinding)
 				return

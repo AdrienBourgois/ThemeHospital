@@ -73,17 +73,17 @@ func moveIntoRoom():
 
 func _on_Timer_timeout():
 	pass
-	tireness -= tire
-	
-	if tireness <= 50 && !is_resting:
-		pathfinding.stop()
-		pathfinding.free()
-		state_machine.changeState(states.looking_for_staff_room)
-		return
-	
-	if tireness < 0:
-		tireness = 0
-	elif tireness > 100:
-		tireness = 100
-	
-	print(tireness)
+#	tireness -= tire
+#	
+#	if tireness <= 50 && !is_resting:
+#		pathfinding.stop()
+#		pathfinding.free()
+#		state_machine.changeState(states.looking_for_staff_room)
+#		return
+#	
+#	if tireness < 0:
+#		tireness = 0
+#	elif tireness > 100:
+#		tireness = 100
+#	
+#	print(tireness)
