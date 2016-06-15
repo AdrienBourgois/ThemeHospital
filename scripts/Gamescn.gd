@@ -63,6 +63,7 @@ func loadObjects():
 		node.set_process_input(false)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
 		node.set_rotation(Vector3(0, current.ROTATION, 0))
+		node.setUniqueID(current.UNIQUE_ID)
 		node.addToArray()
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):

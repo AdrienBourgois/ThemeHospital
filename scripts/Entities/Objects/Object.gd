@@ -37,7 +37,6 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 	if event.type == InputEvent.MOUSE_BUTTON && event.is_action_pressed("left_click") && can_selected == true:
 		if (!checkAvailable()):
 			return
-		
 		setUpItem()
 		
 	elif event.type == InputEvent.MOUSE_BUTTON && event.is_action_released("right_click") && can_selected == false:
@@ -97,7 +96,6 @@ func nextObject():
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
 			temp_array[0].setUniqueID(map.getActualUniqueID())
-			print(temp_array[0].getUniqueID())
 
 func setAvailableTile(boolean):
 	var node = null
@@ -136,7 +134,7 @@ func checkAvailableBigObjectTile():
 	for current in cube.get_children():
 		var current_position = Vector2(current.get_global_transform().origin.x, current.get_global_transform().origin.z)
 		var current_tile = map.getTile(current_position)
-		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id):
+		if (!current_tile or current_tile.getObject() or current_tile.room_type.ID != room_id or current_tile.getUniqueID() != unique_id):
 			return false
 	return true
 
@@ -199,7 +197,7 @@ func checkAvailable():
 			return false
 	type = node.room_type
 	if (in_room_object):
-		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType()):
+		if (type.ID != room_id or !checkAvaiblableTile() or !checkAvailableTileType() or unique_id != tile.getUniqueID()):
 			error()
 			return false
 	elif (type.ID != 0):
