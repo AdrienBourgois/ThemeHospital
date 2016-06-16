@@ -24,6 +24,25 @@ func _process(delta):
 		if is_taken == false:
 			state_machine.update()
 
+func updateStats():
+	position.x = self.get_translation().x 
+	position.y = self.get_translation().y
+	position.z = self.get_translation().z
+	rotation = self.get_rotation().y
+	staff_stats = {
+	NAME = name,
+	X = position.x,
+	Y = position.y,
+	Z = position.z,
+	ID = id,
+	ROTATION = rotation,
+	SKILL = skill,
+	SALARY = salary,
+	SENIORITY = seniority,
+	SPECIALITIES = specialities
+	}
+	return staff_stats
+
 func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
@@ -44,7 +63,7 @@ func checkWorkRoom():
 			if checkRoomValidity(room):
 				room_occuped = room
 				room_occuped.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[10].x, room.tiles[10].y), self, 0.2, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[10].x, room.tiles[10].y), self, speed, map)
 				add_child(pathfinding)
 				return
 	state_machine.changeState(states.wandering)
@@ -75,5 +94,8 @@ func checkRoomValidity(room):
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
 	var tile_to_go = room_occuped.tiles[rand]
-	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
 	add_child(pathfinding)
+
+func _on_Timer_Timeout():
+	pass

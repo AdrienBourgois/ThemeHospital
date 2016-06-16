@@ -49,7 +49,7 @@ func checkWorkRoom():
 					room_occuped = room
 					room_occuped.is_occuped = true
 					var tile_to_go = room_occuped.tiles[5]
-					pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+					pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
 					add_child(pathfinding)
 					return
 	state_machine.changeState(states.wandering)
@@ -60,7 +60,7 @@ func checkStaffRoom():
 			if room.type.NAME == "ROOM_STAFF_ROOM":
 				room_occuped = room
 				var tile_to_go = room_occuped.tiles[5]
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
 				add_child(pathfinding)
 				is_resting = true
 				return
@@ -73,17 +73,3 @@ func moveIntoRoom():
 
 func _on_Timer_timeout():
 	pass
-#	tireness -= tire
-#	
-#	if tireness <= 50 && !is_resting:
-#		pathfinding.stop()
-#		pathfinding.free()
-#		state_machine.changeState(states.looking_for_staff_room)
-#		return
-#	
-#	if tireness < 0:
-#		tireness = 0
-#	elif tireness > 100:
-#		tireness = 100
-#	
-#	print(tireness)

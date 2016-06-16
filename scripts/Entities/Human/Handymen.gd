@@ -30,7 +30,7 @@ func checkPlant():
 			if plant.object_name == "Plant" && plant.getThirst() <= 90:
 				plant_pos = Vector2(plant.get_translation().x, plant.get_translation().z)
 				plant.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), plant_pos, self, 0.2, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), plant_pos, self, speed, map)
 				add_child(pathfinding)
 				return
 
@@ -108,3 +108,6 @@ func decreaseSweepingLitter():
 	if sweeping_litter < 0.0:
 		sweeping_litter = 0.0
 	return sweeping_litter
+
+func _on_Timer_Timeout():
+	pass

@@ -28,9 +28,18 @@ func createStaffBody(type, index):
 	staff_body.add_to_group("Staff")
 	
 func sackStaff():
-	for i in range(get_child_count()):
-		if get_child(i).is_selected == true:
-			print("t")
-			player.decreaseMoney(get_child(i).salary)
-			player.decreaseExpend(get_child(i).salary)
-			remove_child(get_child(i))
+	staff_selected.deleteFromArray()
+	remove_child(staff_selected)
+
+func loadStaffBody(name, id, skill, salary, seniority=0, speciality=0):
+	staff_body = staff_res[id].instance()
+	staff_body.setID(id)
+	staff_body.setName(name)
+	staff_body.setSkill(skill)
+	staff_body.setSalary(salary)
+	if id == 0:
+		staff_body.specialities = speciality
+		staff_body.seniority = seniority
+	add_child(staff_body)
+	staff_body.add_to_group("Staff")
+	return staff_body

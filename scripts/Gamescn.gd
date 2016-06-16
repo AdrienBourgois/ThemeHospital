@@ -22,7 +22,7 @@ onready var object_ressources = preload("res://scripts/Entities/Objects/ObjectRe
 onready var objects_array = [] setget getObjectArray
 onready var objects = {}
 
-onready var staff_resources = preload("res://scripts/Entities/Human/HumanResources.gd")
+onready var human_resources = preload("res://scripts/Entities/Human/HumanResources.gd").new()
 onready var staff_nodes_array = [] setget, getStaffNodesArray
 onready var staff_data_array = [] setget, getStaffDataArray
 onready var staff_dict  = {}
@@ -35,6 +35,7 @@ var have_object = false setget setHaveObject, getHaveObject
 export var map_size = Vector2(0, 0)
 
 func _ready():
+	initInGameGui()
 	loader.gamescn = self
 	saver.gamescn = self
 	object_ressources.setTempArray(temp_objects_nodes_array)
@@ -74,7 +75,17 @@ func loadObjects():
 
 func loadStaff():
 	for current in staff_dict.STAFF:
-		pass
+		var node
+		if (int(current.ID) == 0):
+			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY), int(current.SENIORITY), int(current.SPECIALITIES))
+		else:
+			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY))
+		add_child(node)
+		node.set_translation(Vector3(current.X, current.Y, current.Z))
+		node.is_selected = false
+		node.can_selected = false
+		node.is_taken = false
+		node.put()
 
 func updateStaffDataArray():
 	staff_data_array.clear()
@@ -127,8 +138,6 @@ func init():
 		game.new_game = true
 	
 	hire_manager.setStaffArray(entity_manager.staff_array)
-	
-	initInGameGui()
 
 func initInGameGui():
 	in_game_gui = in_game_gui_res.instance()
