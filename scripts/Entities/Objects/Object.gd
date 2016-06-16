@@ -67,7 +67,6 @@ func _input(event):
 				self.queue_free()
 		gamescn.updateObjectsArray()
 
-
 func deleteFromArray():
 	for current in gamescn.getObjectsNodesArray():
 			var index = gamescn.getObjectsNodesArray().find(current)
@@ -75,7 +74,6 @@ func deleteFromArray():
 				gamescn.getObjectsNodesArray().remove(index)
 				self.queue_free()
 	gamescn.updateObjectsArray()
-
 
 func nextObject():
 	if (!temp_array.empty()):

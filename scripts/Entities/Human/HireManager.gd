@@ -27,9 +27,8 @@ func createStaffBody(type, index):
 	staff_body.add_to_group("Staff")
 	
 func sackStaff():
-	for i in range(get_child_count()):
-		if get_child(i).is_selected == true:
-			remove_child(get_child(i))
+	staff_selected.deleteFromArray()
+	remove_child(staff_selected)
 
 func loadStaffBody(name, id, skill, salary, seniority=0, speciality=0):
 	staff_body = staff_res[id].instance()
