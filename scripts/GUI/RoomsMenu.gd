@@ -25,6 +25,7 @@ var price = 0
 
 
 func _ready():
+	rooms_ressources.loadAllTextures()
 	createButtonsForRoomsContainer()
 	createButtonsForRoomsTypesContainer()
 	connectRoomsTypeButtons()
@@ -105,18 +106,17 @@ func disconnectFunc(button, type, method):
 func mouseEnterOnRoom(type, rooms, button_number):
 	var button = rooms_container.get_child(button_number)
 	
-	button.connect("mouse_enter", self, "enterRooms", [type[rooms]])
+	button.connect("mouse_enter", self, "enterRooms", [type[rooms], type[rooms].ID])
 	button.connect("mouse_exit", self, "exitRooms")
 
 
-func enterRooms(type):
+func enterRooms(type, room_id):
 	cost_label.set_text(tr("COST") + str(type.COST) + "$")
-	updateTexture(type.RESSOURCES)
+	updateTexture(rooms_ressources.getTextureFromId(room_id))
 
-func updateTexture(texture_path):
-	var texture = ImageTexture.new()
-	texture.load(texture_path)
-	room_picture.set_texture(texture)
+func updateTexture(image_texture):
+
+	room_picture.set_texture(image_texture)
 
 func exitRooms():
 	cost_label.set_text(tr("COST") + "0$")
