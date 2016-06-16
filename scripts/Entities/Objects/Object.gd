@@ -67,6 +67,7 @@ func _input(event):
 				self.queue_free()
 		gamescn.updateObjectsArray()
 
+
 func deleteFromArray():
 	for current in gamescn.getObjectsNodesArray():
 			var index = gamescn.getObjectsNodesArray().find(current)
@@ -90,8 +91,9 @@ func nextObject():
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
 			temp_array[0].setUniqueID(map.getActualUniqueID())
-		else:
-			gamescn.setHaveObject(false)
+	
+	if (temp_array.empty()):
+		gamescn.setHaveObject(false)
 
 func setAvailableTile(boolean):
 	var node = null
