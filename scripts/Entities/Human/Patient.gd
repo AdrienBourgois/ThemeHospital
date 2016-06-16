@@ -2,6 +2,7 @@
 extends KinematicBody
 
 onready var game = get_node("/root/Game")
+onready var player = game.scene.player
 onready var map = game.scene.map
 onready var object_array = game.scene.getObjectsNodesArray()
 export var machine = false
@@ -33,6 +34,7 @@ var speed = 0.2
 var is_diagnosed = false
 
 func _ready():
+	player.increaseTotalPatients(1)
 	get_node("CheckStatsTimer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
