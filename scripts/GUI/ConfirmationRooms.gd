@@ -20,6 +20,7 @@ func _on_AcceptButton_pressed():
 	var room = map.new_room("create", null)
 	if  (room):
 		player.money -= rooms_menu.price
+		player.hospital_value += rooms_menu.price
 		
 		var door = object_resources.createObject("Door")
 		temp_array.append(door)
