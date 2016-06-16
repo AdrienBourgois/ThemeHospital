@@ -57,16 +57,18 @@ func _input(event):
 			return
 	
 		gamescn.player.money += self.price
+		gamescn.setHaveObject(false)
 		for current in gamescn.getObjectsNodesArray():
 			var index = gamescn.getObjectsNodesArray().find(current)
 			if (self == gamescn.getObjectsNodesArray()[index]):
-				var text = "+ $" + str(self.price)
-				game.feedback.display(text)
+				var text = "+" + str(self.price) + "$"
+				var label = gamescn.in_game_gui.label_3d.instance()
+				gamescn.in_game_gui.add_child(label)
+				label.setPosition(self.get_translation() + Vector3(0,2,0))
+				label.display(text)
 				gamescn.getObjectsNodesArray().remove(index)
-				nextObject()
 				self.queue_free()
 		gamescn.updateObjectsArray()
-
 
 func deleteFromArray():
 	for current in gamescn.getObjectsNodesArray():
@@ -75,7 +77,6 @@ func deleteFromArray():
 				gamescn.getObjectsNodesArray().remove(index)
 				self.queue_free()
 	gamescn.updateObjectsArray()
-
 
 func nextObject():
 	if (!temp_array.empty()):

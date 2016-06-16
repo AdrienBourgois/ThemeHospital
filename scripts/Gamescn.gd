@@ -75,19 +75,17 @@ func loadObjects():
 
 func loadStaff():
 	for current in staff_dict.STAFF:
-		var node = human_resources.createHuman(current.ID)
+		var node
+		if (int(current.ID) == 0):
+			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY), int(current.SENIORITY), int(current.SPECIALITIES))
+		else:
+			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY))
 		add_child(node)
-		if (current.ID == 4):
-			return
-		node.setName(current.NAME)
-		node.setSkill(current.SKILL)
-		node.setSalary(current.SALARY)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
 		node.is_selected = false
 		node.can_selected = false
 		node.is_taken = false
 		node.put()
-		node.set_process(true)
 
 func updateStaffDataArray():
 	staff_data_array.clear()
