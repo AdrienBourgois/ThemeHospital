@@ -2,6 +2,7 @@
 extends Spatial
 
 onready var game = get_node("/root/Game")
+onready var player = game.scene.player
 onready var staff_res = [preload("res://scenes/Entities/Human/Doctor.scn"),
 preload("res://scenes/Entities/Human/Nurse.scn"),
 preload("res://scenes/Entities/Human/Handymen.scn"),
@@ -29,4 +30,7 @@ func createStaffBody(type, index):
 func sackStaff():
 	for i in range(get_child_count()):
 		if get_child(i).is_selected == true:
+			print("t")
+			player.decreaseMoney(get_child(i).salary)
+			player.decreaseExpend(get_child(i).salary)
 			remove_child(get_child(i))
