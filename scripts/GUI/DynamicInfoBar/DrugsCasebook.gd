@@ -150,15 +150,8 @@ func moveButtonsIfClick(button):
 				node_button.set_pos(button_pos)
 				
 				if button_pos.y == selector_pos:
-					dis_idx = buttons
 					setButtonPressed(node_button)
-					
-					if ( buttons == 0 ):
-						setIsAtTop()
-					elif ( buttons == node_container.get_child_count() - 1 ):
-						setIsAtBottom()
-					else:
-						setTopAndBottomFalse()
+					dis_idx = buttons
 					
 				else:
 					setPressedFalse(node_button)
@@ -166,18 +159,6 @@ func moveButtonsIfClick(button):
 			setPressedFalse(button)
 	else:
 		 return
-
-func setIsAtTop():
-	is_at_top = true
-	is_at_bottom = false
-
-func setIsAtBottom():
-	is_at_bottom = true
-	is_at_top = false
-
-func setTopAndBottomFalse():
-	is_at_bottom = false
-	is_at_top = false
 
 func disconnectDecreaseAndIncrease():
 	disconnectFunc("pressed", node_decrease, "decreaseCostPressed")
@@ -252,89 +233,83 @@ func updateValues():
 
 func _on_Up_pressed():
 	is_timer_finish = false
-	is_at_bottom = false
 	
-	if (is_at_top):
+	if dis_idx == 0 :
 		return
-	
-	for button in node_container.get_children():
-		button_pos = button.get_pos()
+	else :
+		dis_idx -= 1
 		
-		is_pressed = true
-		
-		button_pos.y += button_gap
-		button.set_pos(button_pos)
-		
-		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
-			button.hide()
-		
-		else:
-			button.show() 
-		
-		if button_pos.y == selector_pos:
-			if (dis_idx > 0):
-				dis_idx -= 1
-				if ( dis_idx <= 0):
-					setIsAtTop()
-				else:
-					is_at_top = false
+		for button in node_container.get_children():
+			button_pos = button.get_pos()
 			
-			if node_timer.is_connected("timeout", self, "timerTimeout"):
-				node_timer.disconnect("timeout", self, "timerTimeout")
-			disconnectDecreaseAndIncrease()
+			is_pressed = true
 			
-			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
-			connectDecreaseAndIncrease(array_diseases[dis_idx])
+			button_pos.y += button_gap
+			button.set_pos(button_pos)
 			
-			setButtonPressed(button)
+			if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
+				button.hide()
+			
+			else:
+				button.show() 
+			
+			if button_pos.y == selector_pos:
+				if node_timer.is_connected("timeout", self, "timerTimeout"):
+					node_timer.disconnect("timeout", self, "timerTimeout")
+				disconnectDecreaseAndIncrease()
+				
+				node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
+				connectDecreaseAndIncrease(array_diseases[dis_idx])
+				
+				setButtonPressed(button)
+			
+			else:
+				setPressedFalse(button)
 		
-		else:
-			setPressedFalse(button)
-	
-	node_timer.start()
+		node_timer.start()
 
 func _on_Down_pressed():
-	is_timer_finish = false
-	is_at_top = false
-	
-	if (is_at_bottom):
+	print(node_container.get_child_count())
+	if dis_idx >= node_container.get_child_count() - 1:
 		return
-	
-	for button in node_container.get_children():
-		button_pos = button.get_pos()
+	else :
+		dis_idx += 1
 		
-		is_pressed = true
+		is_timer_finish = false
+		is_at_top = false
 		
-		button_pos.y -= button_gap
-		button.set_pos(button_pos)
+		if (is_at_bottom):
+			return
 		
-		if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
-			button.hide()
-		
-		else:
-			button.show() 
-		
-		if button_pos.y == selector_pos:
-			if dis_idx < array_diseases.size() - 1:
-				dis_idx += 1
-				if ( dis_idx >= array_diseases.size() - 1):
-					setIsAtBottom()
-				else:
-					is_at_bottom = false
+		for button in node_container.get_children():
+			button_pos = button.get_pos()
 			
-			if node_timer.is_connected("timeout", self, "timerTimeout"):
-				node_timer.disconnect("timeout", self, "timerTimeout")
-			disconnectDecreaseAndIncrease()
+			is_pressed = true
 			
-			node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
-			connectDecreaseAndIncrease(array_diseases[dis_idx])
+			button_pos.y -= button_gap
+			button.set_pos(button_pos)
 			
-			setButtonPressed(button)
-		
-		else:
-			setPressedFalse(button)
-	 
-	node_timer.start()
+			if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
+				button.hide()
+			
+			else:
+				button.show() 
+			
+			if button_pos.y == selector_pos:
+				
+				if node_timer.is_connected("timeout", self, "timerTimeout"):
+					node_timer.disconnect("timeout", self, "timerTimeout")
+				disconnectDecreaseAndIncrease()
+				
+				node_timer.connect("timeout", self, "timerTimeout", [array_diseases[dis_idx]])
+				connectDecreaseAndIncrease(array_diseases[dis_idx])
+				
+				setButtonPressed(button)
+			
+			else:
+				setPressedFalse(button)
+		 
+		node_timer.start()
 
 func _on_Concentrate_research_pressed():
 	concentrate_research = true
