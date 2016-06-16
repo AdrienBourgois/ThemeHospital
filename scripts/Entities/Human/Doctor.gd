@@ -24,6 +24,25 @@ func _process(delta):
 		if is_taken == false:
 			state_machine.update()
 
+func updateStats():
+	position.x = self.get_translation().x 
+	position.y = self.get_translation().y
+	position.z = self.get_translation().z
+	rotation = self.get_rotation().y
+	staff_stats = {
+	NAME = name,
+	X = position.x,
+	Y = position.y,
+	Z = position.z,
+	ID = id,
+	ROTATION = rotation,
+	SKILL = skill,
+	SALARY = salary,
+	SENIORITY = seniority,
+	SPECIALITIES = specialities
+	}
+	return staff_stats
+
 func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)

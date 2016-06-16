@@ -43,7 +43,7 @@ var cardiogram = {
 	"COST": 1500,
 	"TOOLTIP": "TOOLTIP_CARDIOGRAM",
 	"STAFF": [],
-	"RESSOURCES": "res://assets/Cardio.png",
+	"RESSOURCES": "res://assets/Treadmill.png",
 	"OBJECTS": {},
 }
 

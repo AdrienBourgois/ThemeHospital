@@ -75,7 +75,13 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 			staff_information_gui._ready()
 			staff_information_gui.show()
 			staff_information_gui.initViewport(self)
-			
+
+func deleteFromArray():
+	for current in gamescn.getStaffNodesArray():
+			var index = gamescn.getStaffNodesArray().find(current)
+			if (self == gamescn.getStaffNodesArray()[index]):
+				gamescn.getStaffNodesArray().remove(index)
+	gamescn.updateStaffDataArray()
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
