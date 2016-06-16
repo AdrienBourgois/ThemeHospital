@@ -1,25 +1,24 @@
 
 extends Node
 
-var doctor_res = load("res://scenes/Entities/Human.scn")
-var nurse_res = load("res://scenes/Entities/Nurse.scn")
-var handyman_res = load("res://scenes/Entities/Handymen.scn")
-var receptionist_res = load("res://scenes/Entities/Receptionist.scn")
-var patient_res = load("res://scenes/Entities/Patient.scn")
+var doctor_res = preload("res://scenes/Entities/Human/Doctor.scn")
+var nurse_res = preload("res://scenes/Entities/Human/Nurse.scn")
+var handyman_res = preload("res://scenes/Entities/Human/Handymen.scn")
+var receptionist_res = preload("res://scenes/Entities/Human/Receptionist.scn")
+var patient_res = preload("res://scenes/Entities/Human/Patient.scn")
 
-func getStaff(id):
-	var node
-	if (id == 1):
+func createHuman(id):
+	var node = null
+	if (id == 0):
 		node = doctor_res.instance()
-	elif (id == 2):
+	elif (id == 1):
 		node = nurse_res.instance()
-	elif (id == 3):
+	elif (id == 2):
 		node = handyman_res.instance()
-	elif (id == 4):
+	elif (id == 3):
 		node = receptionist_res.instance()
+	elif (id == 4):
+		node = patient_res.instance()
 	else:
 		node = null
 	return node
-
-func getHumand():
-	pass
