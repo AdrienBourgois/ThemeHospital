@@ -21,9 +21,12 @@ onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_lab
 
 var pathfinding
 var staff_stats = {}
+var speed = 0.2
 
 func _ready():
 	connect("input_event", self, "_on_Staff_input_event")
+	get_node("Timer").connect("timeout", self, "on_Timer_Timeout")
+	Game.connect("speed_change", self, "_on_Speed_Change")
 	get_node("Timer").start()
 	set_fixed_process(true)
 	gamescn.getStaffNodesArray().append(self)
@@ -80,6 +83,29 @@ func moveTo():
 		addToArray()
 	else:
 		gamescn.updateStaffDataArray()
+
+func _on_Speed_Change():
+	get_node("Timer").set_wait_time(get_node("Timer").get_time_left() / Game.speed)
+
+func _on_Timer_Timeout():
+	if id != 3:
+		tireness -= 2
+	
+	if tireness < 0:
+		tireness = 0
+	elif tireness > 100:
+		tireness = 100
+	
+	if tireness < 50:
+		state_machine.changeState(get_node("GoToStaffRoom"))
+
+func goToStaffRoom():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["NAME"] == "ROOM_STAFF_ROOM":
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(map.tile[0].x, map.tile[0].y), self, speed, map)
+			pass
+	pass
 
 func getName():
 	return name

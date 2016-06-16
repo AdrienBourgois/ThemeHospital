@@ -30,3 +30,17 @@ func sackStaff():
 	for i in range(get_child_count()):
 		if get_child(i).is_selected == true:
 			remove_child(get_child(i))
+
+func loadStaffBody(name, id, skill, salary, seniority=0, speciality=0):
+	staff_body = staff_res[id].instance()
+	staff_body.setID(id)
+	staff_body.setName(name)
+	staff_body.setSkill(skill)
+	staff_body.setSalary(salary)
+	if id == 0:
+		staff_body.specialities = speciality
+		staff_body.seniority = seniority
+	add_child(staff_body)
+	staff_body.add_to_group("Staff")
+	return staff_body
+	pass
