@@ -8,14 +8,18 @@ onready var items_list = load("res://scripts/Entities/Objects/ShopItemsInfo.gd")
 
 export var item_cost = -1 setget ,getItemCost
 export var item_id = -1
+export var item_picture_path = "res://"
 
 var count = 0 setget ,getCount
 var left_click_pressed = false
 var right_click_pressed = false
 var item_info = null setget ,getItemInfo
+var image_texture = null
+
 
 func _ready():
 	setItemInfo()
+	setImageTexture()
 
 func setItemInfo():
 	items_list = items_list.new()
@@ -29,6 +33,12 @@ func setItemInfo():
 		item_cost = item_info.item_price
 	
 	item_description_button.set_text( tr(item_info.display_name) )
+
+
+func setImageTexture():
+	image_texture = ImageTexture.new()
+	image_texture.load(item_picture_path)
+
 
 func updateCount():
 	if ( left_click_pressed ):
@@ -80,6 +90,7 @@ func getItemInfo():
 
 func updatePriceLabel():
 	shop.updatePriceLabel(item_cost)
+	shop.updateTextureFrame(image_texture)
 
 
 func freeMemory():

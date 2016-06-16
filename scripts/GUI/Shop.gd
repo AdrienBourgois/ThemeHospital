@@ -7,6 +7,7 @@ onready var available_items = get_node("./Panel/Shop/AvailableItems")
 onready var price_label = shop_info.get_node("./PriceLabel")
 onready var total_label = shop_info.get_node("./TotalLabel")
 onready var temp_array = game.scene.getTempObjectsNodesArray()
+onready var texture_frame = get_node("./Panel/ItemPreview/TextureFrame")
 
 var total_price = 0
 
@@ -61,6 +62,11 @@ func addItemNameToArray(item_name):
 		node.can_selected = true
 	else:
 		temp_array.push_back(item_name)
+
+
+func updateTextureFrame(texture):
+	texture_frame.set_texture(texture)
+
 
 func freeScene():
 	for index in range ( available_items.get_child_count() ):
