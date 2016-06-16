@@ -18,6 +18,8 @@ onready var entity_manager = game.scene.entity_manager
 onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
 var state_machine
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
+onready var timer = get_node("Timer")
+onready var go_to_staff_room = get_node("GoToStaffRoom")
 
 var pathfinding
 var staff_stats = {}
@@ -25,9 +27,9 @@ var speed = 0.2
 
 func _ready():
 	connect("input_event", self, "_on_Staff_input_event")
-	get_node("Timer").connect("timeout", self, "on_Timer_Timeout")
+	timer.connect("timeout", self, "_on_Timer_Timeout")
 	Game.connect("speed_change", self, "_on_Speed_Change")
-	get_node("Timer").start()
+	timer.start()
 	set_fixed_process(true)
 	gamescn.getStaffNodesArray().append(self)
 
@@ -86,27 +88,35 @@ func moveTo():
 		gamescn.updateStaffDataArray()
 
 func _on_Speed_Change():
-	get_node("Timer").set_wait_time(get_node("Timer").get_time_left() / Game.speed)
+	timer.set_wait_time(timer.get_time_left() / Game.speed)
 
 func _on_Timer_Timeout():
-	if id != 3:
+	if state_machine.getCurrentStateName() != "Go to the staff room":
 		tireness -= 2
-	
-	if tireness < 0:
-		tireness = 0
-	elif tireness > 100:
-		tireness = 100
-	
-	if tireness < 50:
-		state_machine.changeState(get_node("GoToStaffRoom"))
+		if tireness < 0:
+			tireness = 0
+		if tireness < 30:
+			if pathfinding != null:
+				pathfinding.stop()
+				pathfinding.free()
+				state_machine.changeState(go_to_staff_room)
+			else:
+				state_machine.changeState(go_to_staff_room)
+	else:
+		tireness += 2
+		if tireness > 100:
+			tireness = 100
 
 func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(map.tile[0].x, map.tile[0].y), self, speed, map)
-			pass
-	pass
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(map.tiles[0].x, map.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
+				timer.start()
+				return
+	state_machine.returnToPreviousState()
+	timer.start()
 
 func getName():
 	return name

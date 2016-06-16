@@ -2,10 +2,12 @@
 extends State
 
 func enter(owner):
-	pass
+	owner.get_node("Timer").stop()
+	owner.goToStaffRoom()
 
 func execute(owner):
-	pass
+	if owner.tireness == 100:
+		owner.state_machine.returnToPreviousState()
 
 func exit(owner):
 	pass

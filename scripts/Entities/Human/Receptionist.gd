@@ -14,6 +14,7 @@ onready var states = {
 }
 
 func _ready():
+	disconnect("timeout", self)
 	set_process(true)
 
 func put():
@@ -47,6 +48,3 @@ func checkEndPath():
 	if pathfinding.animation_completed:
 		pathfinding.free()
 		state_machine.changeState(states.looking_for_desk)
-
-func _on_Timer_Timeout():
-	pass

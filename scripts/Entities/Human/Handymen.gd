@@ -108,6 +108,3 @@ func decreaseSweepingLitter():
 	if sweeping_litter < 0.0:
 		sweeping_litter = 0.0
 	return sweeping_litter
-
-func _on_Timer_Timeout():
-	pass
