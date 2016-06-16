@@ -43,4 +43,3 @@ func loadStaffBody(name, id, skill, salary, seniority=0, speciality=0):
 	add_child(staff_body)
 	staff_body.add_to_group("Staff")
 	return staff_body
-	pass
