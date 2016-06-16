@@ -68,6 +68,7 @@ func _input(event):
 				label.display(text)
 				gamescn.getObjectsNodesArray().remove(index)
 				self.queue_free()
+				nextObject()
 		gamescn.updateObjectsArray()
 
 func deleteFromArray():
