@@ -57,13 +57,13 @@ func _input(event):
 			return
 	
 		gamescn.player.money += self.price
-		gamescn.setHaveObject(false)
 		for current in gamescn.getObjectsNodesArray():
 			var index = gamescn.getObjectsNodesArray().find(current)
 			if (self == gamescn.getObjectsNodesArray()[index]):
-				var text = "+" + str(self.price) + "$"
+				var text = "+ $" + str(self.price)
 				game.feedback.display(text)
 				gamescn.getObjectsNodesArray().remove(index)
+				nextObject()
 				self.queue_free()
 		gamescn.updateObjectsArray()
 
@@ -75,12 +75,6 @@ func deleteFromArray():
 				self.queue_free()
 	gamescn.updateObjectsArray()
 
-
-#func hideOtherObjects():
-#	for current in temp_array:
-#		current.hide()
-#	if (!temp_array.empty()):
-#		temp_array[0].show()
 
 func nextObject():
 	if (!temp_array.empty()):
@@ -96,6 +90,8 @@ func nextObject():
 			temp_array[0].gamescn.setHaveObject(true)
 			temp_array[0].set_process_input(true)
 			temp_array[0].setUniqueID(map.getActualUniqueID())
+		else:
+			gamescn.setHaveObject(false)
 
 func setAvailableTile(boolean):
 	var node = null
