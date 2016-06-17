@@ -16,10 +16,8 @@ func execute(owner):
 		gamescn.in_game_gui.add_child(label)
 		label.setPosition(owner.get_translation() + Vector3(0,2,0))
 		label.display(str(cost) + " $")
-		print("disease type : ", owner.disease.disease_type)
-		print("money b4 : ", owner.disease.disease_type.MONEY_EARNED)
 		owner.disease.disease_type.MONEY_EARNED += owner.disease.disease_type.NEW_COST
-		print("money after : ", owner.disease.disease_type.MONEY_EARNED)
+		owner.disease.disease_type.RECOVERIES += 1
 		owner.room_occuped.present_patient.clear()
 		owner.disease.queue_free()
 		owner.state_machine.changeState(owner.states.go_out)
