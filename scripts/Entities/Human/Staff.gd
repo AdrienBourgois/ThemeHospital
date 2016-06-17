@@ -36,7 +36,7 @@ func addToArray():
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text(get_name() + " : " + tr(state_machine.getCurrentStateName()))
+		info_bar.set_text(name + " : " + tr(state_machine.getCurrentStateName()))
 
 func updateStats():
 	position.x = self.get_translation().x 

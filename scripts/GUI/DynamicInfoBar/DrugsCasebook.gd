@@ -89,7 +89,6 @@ func connectDiseasesButtons():
 		button.set_meta("button_number", button_number)
 		
 		array_diseases.push_back(diseases_list[disease])
-		
 		configDiseasesButtons(button, diseases_list[disease].NAME)
 
 func configDiseasesButtons(button, disease_name):
@@ -115,8 +114,16 @@ func configDiseasesButtons(button, disease_name):
 	
 	button_pos = button.get_pos()
 	
+	checkIfVisibleOrNot(button_pos, button)
+	
 	if button_pos.y == selector_space_pos:
 		setButtonPressed(button)
+
+func checkIfVisibleOrNot(button_pos, button):
+	if button_pos.y < node_button_up.get_pos().y or button_pos.y > (size_container.y - button.get_size().y):
+			button.hide()
+	else:
+			button.show() 
 
 func diseasePressed(button):
 	disconnectDecreaseAndIncrease()
@@ -150,6 +157,8 @@ func moveButtonsIfClick(button):
 				button_pos = node_button.get_pos()
 				button_pos.y += gap_button_selector
 				node_button.set_pos(button_pos)
+				
+				checkIfVisibleOrNot(button_pos, node_button)
 				
 				if button_pos.y == selector_space_pos:
 					setButtonPressed(node_button)
@@ -249,11 +258,7 @@ func _on_Up_pressed():
 			button_pos.y += button_gap
 			button.set_pos(button_pos)
 			
-			if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
-				button.hide()
-			
-			else:
-				button.show() 
+			checkIfVisibleOrNot(button_pos, button)
 			
 			if button_pos.y == selector_space_pos:
 				if node_timer.is_connected("timeout", self, "timerTimeout"):
@@ -290,11 +295,7 @@ func _on_Down_pressed():
 			button_pos.y -= button_gap
 			button.set_pos(button_pos)
 			
-			if button_pos.y < node_button_up.get_pos().y or button_pos.y > size_container.y:
-				button.hide()
-			
-			else:
-				button.show() 
+			checkIfVisibleOrNot(button_pos, button)
 			
 			if button_pos.y == selector_space_pos:
 				
