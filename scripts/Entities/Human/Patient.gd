@@ -5,6 +5,7 @@ onready var game = get_node("/root/Game")
 onready var player = game.scene.player
 onready var map = game.scene.map
 onready var object_array = game.scene.getObjectsNodesArray()
+onready var disease_list = game.scene.diseases.list_diseases
 export var machine = false
 onready var disease = get_node("Disease")
 onready var entity_manager = get_parent()
@@ -55,7 +56,6 @@ func displayInfo():
 func calculateHappiness(is_increase):
 	if count == 5:
 		if is_increase == false && happiness > 0:
-			print("t")
 			happiness -= 2
 		elif is_increase == true && happiness < 10:
 			happiness += 2
