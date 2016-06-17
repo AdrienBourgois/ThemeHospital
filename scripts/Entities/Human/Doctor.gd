@@ -20,6 +20,7 @@ var specialities
 var patients
 
 func _ready():
+	timer.connect("timeout", self, "_on_Timer_Timeout")
 	set_process(true)
 
 func _process(delta):
@@ -49,13 +50,13 @@ func updateStats():
 func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
-	timer.connect("timeout", self, "_on_Timer_Timeout")
 	timer.start()
 	state_machine.setCurrentState(states.looking_for_room)
 
 func take():
 	pathfinding.stop()
 	pathfinding.free()
+	pathfinding = null
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
@@ -108,11 +109,11 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(map.tiles[0].x, map.tiles[0].y), self, speed, map)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
 				add_child(pathfinding)
 				timer.start()
 				return
-	state_machine.returnToPreviousState()
+	state_machine.changeState(states.looking_for_room)
 	timer.start()
 
 func moveIntoRoom():
