@@ -52,7 +52,6 @@ func _process(delta):
 
 func displayInfo():
 	if state_machine:
-<<<<<<< HEAD
 		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()) + "\nHappiness : " + str(happiness))
 
 func increaseHappiness(val):
@@ -66,20 +65,6 @@ func decreaseHappiness(val):
 	if happiness < 0:
 		happiness = 0
 	is_unhappy = true
-=======
-		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()))
-
-func calculateHappiness(is_increase):
-	if count == 5:
-		if is_increase == false && happiness > 0:
-			happiness -= 2
-		elif is_increase == true && happiness < 10:
-			happiness += 2
-	if happiness == 0:
-		pathfinding.stop()
-		pathfinding.free()
-		state_machine.changeState(states.go_out)
->>>>>>> 39eeade20f565e4360e4f8257b4afcd8ee9ec490
 
 func checkThirsty():
 	if thirsty > 0:
