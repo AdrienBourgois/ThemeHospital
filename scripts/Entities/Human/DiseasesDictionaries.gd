@@ -7,8 +7,6 @@ var invisibility = {
 	"CAUSE": "CAUSE_INVISIBILITY",
 	"TREATMENT": "TREATMENT_INVISIBILITY",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": true,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 1400,
@@ -25,8 +23,6 @@ var bloaty_head = {
 	"CAUSE": "CAUSE_BLOATY",
 	"TREATMENT": "TREATMENT_BLOATY",
 	"TREATMENT_ROOM": map_ressource.inflation["NAME"],
-	"FOUND": true,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 850,
@@ -43,8 +39,6 @@ var slack_tongue = {
 	"CAUSE": "CAUSE_TONGUE",
 	"TREATMENT": "TREATMENT_TONGUE",
 	"TREATMENT_ROOM": map_ressource.tongue["NAME"],
-	"FOUND": false,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 900,
@@ -61,8 +55,6 @@ var sleeping_illness = {
 	"CAUSE": "CAUSE_SLEEPING",
 	"TREATMENT": "TREATMENT_SLEEPING",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": false,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 750,
@@ -79,8 +71,6 @@ var uncommon_cold = {
 	"CAUSE": "CAUSE_UNCOMMON",
 	"TREATMENT": "TREATMENT_UNCOMMON",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": false,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 300,
@@ -97,8 +87,6 @@ var TV_personalities = {
 	"CAUSE": "CAUSE_TV",
 	"TREATMENT": "TREATMENT_TV",
 	"TREATMENT_ROOM": map_ressource.psychiatric["NAME"],
-	"FOUND": false,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 800,
@@ -115,8 +103,6 @@ var heaped_piles = {
 	"CAUSE": "CAUSE_HEAPED",
 	"TREATMENT": "TREATMENT_HEAPED",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": false,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 400,
@@ -133,8 +119,6 @@ var the_squits = {
 	"CAUSE": "CAUSE_SQUITS",
 	"TREATMENT": "TREATMENT_SQUITS",
 	"TREATMENT_ROOM": map_ressource.pharmacy["NAME"],
-	"FOUND": true,
-	"TREATMENT_FOUND": false,
 	"TREATMENT_EFFICIENCY": 0/100,
 	"PERCENT": 100,
 	"DEFAULT_COST": 400,
@@ -143,6 +127,61 @@ var the_squits = {
 	"RECOVERIES": 0,
 	"FATALITIES": 0,
 	"TURNED_AWAY": 0,
+}
+
+var gp_diag = {
+	"NAME": "NAME_GP_DIAGNOSIS",
+	"PERCENT": 100,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
+	"DEFAULT_COST": 100,
+	"NEW_COST": 100
+}
+
+var general_diag = {
+	"NAME": "NAME_GENERAL_DIAG",
+	"PERCENT": 100,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
+	"DEFAULT_COST": 150,
+	"NEW_COST": 150
+}
+
+var diag_ward = {
+	"NAME": "NAME_WARD",
+	"PERCENT": 100,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
+	"DEFAULT_COST": 100,
+	"NEW_COST": 100
+}
+
+var diag_psychiatric = {
+	"NAME": "NAME_PSYCHIATRIC",
+	"PERCENT": 100,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
+	"DEFAULT_COST": 200,
+	"NEW_COST": 200
+}
+
+var diag_cardio = {
+	"NAME": "NAME_CARDIO",
+	"PERCENT": 100,
+	"MONEY_EARNED": 0,
+	"RECOVERIES": 0,
+	"FATALITIES": 0,
+	"TURNED_AWAY": 0,
+	"DEFAULT_COST": 150,
+	"NEW_COST": 150
 }
 
 var list_diseases = {
@@ -154,6 +193,11 @@ var list_diseases = {
 	"TONGUE": slack_tongue,
 	"BLOATY": bloaty_head,
 	"TV": TV_personalities,
+	"DIAG_GP": gp_diag,
+	"DIAG_GENERAL": general_diag,
+	"DIAG_WARD": diag_ward,
+	"DIAG_CARDIO": diag_cardio,
+	"DIAG_PSYCHIATRIC": diag_psychiatric
 }
 
 var cure_at_pharmacy = [

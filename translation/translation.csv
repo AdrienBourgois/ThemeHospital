@@ -275,6 +275,11 @@ NAME_UNCOMMON,Uncommon Cold,Catarhume
 NAME_TV,TV Personalities,Téléincarnation
 NAME_HEAPED,Heaped Piles,Rectoïdes
 NAME_SQUITS,The Squits,Courante
+NAME_GP_DIAGNOSIS,General Practice,Medecin generaliste
+NAME_PSYCHIATRIC,Diag Psychiatric,Psychiatrie
+NAME_GENERAL_DIAG,Diag General,Diagnostique general
+NAME_CARDIO,Diag Cardio,Cardiogramme
+NAME_WARD,Diag Ward,Nuit En Observation
 DESC_INVISIBILITY,Patients suffer no discomfort. Indeed many use the condition to play practical jokes on their families,le patient ne souffre pas mais utilise son état pour faire des farces.
 DESC_BLOATY,Very uncomfortable for the sufferer,affreux maux de tête.
 DESC_TONGUE,Tongue swells to five times its original length,la langue s’étire jusqu’à cinq fois sa longueur normale.
