@@ -20,7 +20,9 @@ func setDisease():
 	var rand_type = randi()%2
 	disease_type = disease_array[rand_type]
 	disease_type = disease_type[randi()%disease_type.size()]
-	disease_type_array[rand_type]
+#	disease_type_array[rand_type]
+	name = disease_type["NAME"]
+
 
 func getName():
 	return name

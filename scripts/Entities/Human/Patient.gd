@@ -11,6 +11,12 @@ onready var entity_manager = get_parent()
 onready var child_count = entity_manager.get_child_count()
 onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var spawn_point = Vector3(15,0.5,45)
+
+onready var patient = get_node("./Patient")
+onready var body = patient.get_node("Body")
+onready var head = patient.get_node("Head")
+onready var tongue = head.get_node("Tongue")
+
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
 random_movement = get_node("RandomMovement"),
@@ -42,7 +48,42 @@ func _ready():
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.go_to_reception)
 	count = 0
+	setPhysicalDisease()
 	set_process(true)
+
+func setPhysicalDisease():
+	if (disease.name == "NAME_INVISIBILITY"):
+		setHeadDisappear()
+	elif (disease.name == "NAME_BLOATY"):
+		setBigHead()
+	elif (disease.name == "NAME_TONGUE"):
+		setBigTongue()
+	elif (disease.name == "NAME_UNCOMMON"):
+		setBluePatient()
+	else:
+		print(disease.name)
+
+func setHeadDisappear():
+	body.set_hidden(false)
+	head.set_hidden(true)
+	tongue.set_hidden(true)
+
+func setBigHead():
+	body.set_hidden(false)
+	head.set_hidden(false)
+	tongue.set_hidden(true)
+	head.set_scale(Vector3(0.8, 0.7, 0.8))
+
+func setBigTongue():
+	body.set_hidden(false)
+	head.set_hidden(false)
+	tongue.set_hidden(false)
+
+func setBluePatient():
+	var material = body.get_material_override()
+	material.set_parameter(material.PARAM_DIFFUSE, Color3(135, 255, 255))
+	body.set_material_override(material)
+
 
 func _process(delta):
 	if state_machine:
