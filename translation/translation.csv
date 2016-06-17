@@ -332,10 +332,18 @@ LOOKING_STAFF_ROOM,Looking for staff room,Cherche une salle de repos
 LOOKING_FOR_PATIENT,Looking for a patient,Attend un patient
 WANDERING,Wandering,Deambule
 REST,Rest,Repos
+GO_TO_STAFF_ROOM,go to staff room,va a la salle de repos
 GO_TO_SWEEP,Go to sweep,Va nettoyer
 GO_TO_WATER,Go to water,Va arroser
 GO_TO_REPARE,Go to repare,Va reparer
 SWEEPING,Sweeping,Nettoie
 WATERING,Watering,Arrose
-REPARING,Reparing,Repare 
+REPARING,Reparing,Repare
+GO_TO_DESK,go to desk,va au bureau
+AT_DESK,at desk,a la reception 
 LABEL_CONFIRMATION,Drag out the blueprint until you're happy with its size,Relacher quand vous etes satisfais de la taille
+GO_TO_RECEPTIONIST,go to receptionist,va a la reception
+GO_TO_GP_OFFICE,go to gp office,va a la medecine generale
+GO_TO_HEAL,go to heal,va se soigner
+GO_OUT,go out,s'en va
+CHECK_BENCH,check bench,cherche un banc

@@ -20,6 +20,8 @@ go_to_adapted_heal_room = get_node("GoToAdaptedHealRoom"),
 go_out = get_node("GoOut")
 }
 
+onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
+
 var state_machine
 var pathfinding
 var happiness
@@ -46,12 +48,21 @@ func _process(delta):
 	if state_machine:
 		state_machine.update()
 
+func displayInfo():
+	if state_machine:
+		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()))
+
 func calculateHappiness(is_increase):
 	if count == 5:
-		if is_increase == false:
+		if is_increase == false && happiness > 0:
+			print("t")
 			happiness -= 2
-		elif is_increase == true && happiness < 100:
+		elif is_increase == true && happiness < 10:
 			happiness += 2
+	if happiness == 0:
+		pathfinding.stop()
+		pathfinding.free()
+		state_machine.changeState(states.go_out)
 
 func checkThirsty():
 	if thirsty > 0:
@@ -138,3 +149,6 @@ func goToAdaptedHealRoom():
 				room.present_patient.append(self)
 				return
 	state_machine.changeState(states.check_bench)
+
+func _on_Patient_input_event( camera, event, click_pos, click_normal, shape_idx ):
+	displayInfo()

@@ -66,9 +66,9 @@ func generateStaffIdAndDataArray(nb_staff):
 func generatePatientData():
 	var patient_data = {}
 	patient_data["entity_id"] = 1
-	patient_data["happiness"] = 100
+	patient_data["happiness"] = 10
 	patient_data["thirsty"] = 100
-	patient_data["warmth"] = 50
+	patient_data["warmth"] = 30
 	return patient_data
 
 func createPatientBody():
