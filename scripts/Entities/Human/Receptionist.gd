@@ -14,7 +14,7 @@ onready var states = {
 }
 
 func _ready():
-	disconnect("timeout", self)
+	disconnect("timeout", self, "_on_Timer_Timeout")
 	set_process(true)
 
 func put():
