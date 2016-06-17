@@ -4,15 +4,12 @@ extends "Staff.gd"
 export var fixing_machinery = 50.0
 export var watering_plants = 50.0
 export var sweeping_litter = 50.0
-export var hospital_sanity = 100
-export var engine_broken = 100
 
 onready var object_array = game.scene.getObjectsNodesArray()
 onready var states = {
 	wandering = get_node("RandomMovement"),
 	go_to_water = get_node("GoToWater"),
-	go_to_sweep = get_node("GoToSweep"),
-	go_to_repare = get_node("GoToRepare")
+	go_to_staff_room = get_node("GoToStaffRoom")
 }
 
 var delta = 5.0
@@ -40,7 +37,8 @@ func _fixed_process(delta):
 			state_machine.update()
 
 func put():
-	get_node("Timer").start()
+	timer.connect("timeout", self, "_on_Timer_Timeout")
+	timer.start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.wandering)
@@ -53,10 +51,6 @@ func take():
 func checkWork():
 	if checkPlantThirsty():
 		state_machine.changeState(states.go_to_water)
-	elif hospital_sanity <= 50:
-		state_machine.changeState(states.go_to_sweep)
-	elif engine_broken <= 50:
-		state_machine.changeState(states.go_to_repare)
 	else:
 		state_machine.changeState(states.wandering)
 
@@ -108,3 +102,32 @@ func decreaseSweepingLitter():
 	if sweeping_litter < 0.0:
 		sweeping_litter = 0.0
 	return sweeping_litter
+
+func goToStaffRoom():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["NAME"] == "ROOM_STAFF_ROOM":
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(map.tiles[0].x, map.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
+				timer.start()
+				return
+	state_machine.returnToPreviousState()
+	timer.start()
+
+func _on_Timer_Timeout():
+	if state_machine.getCurrentStateName() != "Go to the staff room":
+		tireness -= 2
+		if tireness < 0:
+			tireness = 0
+		if tireness < 30:
+			if pathfinding != null:
+				pathfinding.stop()
+				pathfinding.free()
+				state_machine.changeState(states.go_to_staff_room)
+			else:
+				state_machine.changeState(states.go_to_staff_room)
+	else:
+		tireness += 2
+		if tireness > 100:
+			tireness = 100
+
