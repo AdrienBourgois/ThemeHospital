@@ -14,6 +14,7 @@ onready var spawn_point = Vector3(15,0.5,45)
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
 random_movement = get_node("RandomMovement"),
+go_to_drinking_machine = get_node("GoToDrinkingMachine"),
 go_to_gp_office = get_node("GoToGpOffice"),
 check_bench = get_node("CheckBench"),
 go_to_adapted_heal_room = get_node("GoToAdaptedHealRoom"),
@@ -27,7 +28,6 @@ var pathfinding
 var happiness
 var thirsty
 var warmth
-var count
 var room_occuped
 var desk_ptr
 var bench_ptr
@@ -35,13 +35,14 @@ var is_go_to_reception = false
 var speed = 0.2
 var is_diagnosed = false
 
+var is_unhappy = false
+
 func _ready():
 	player.increaseTotalPatients(1)
 	get_node("CheckStatsTimer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.go_to_reception)
-	count = 0
 	set_process(true)
 
 func _process(delta):
@@ -50,44 +51,47 @@ func _process(delta):
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()))
+		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()) + "\nHappiness : " + str(happiness))
 
-func calculateHappiness(is_increase):
-	if count == 5:
-		if is_increase == false && happiness > 0:
-			print("t")
-			happiness -= 2
-		elif is_increase == true && happiness < 10:
-			happiness += 2
-	if happiness == 0:
-		pathfinding.stop()
-		pathfinding.free()
-		state_machine.changeState(states.go_out)
+func increaseHappiness(val):
+	if !is_unhappy:
+		happiness += val
+	if happiness > 100:
+		happiness = 100
+
+func decreaseHappiness(val):
+	happiness -= val
+	if happiness < 0:
+		happiness = 0
+	is_unhappy = true
 
 func checkThirsty():
 	if thirsty > 0:
 		thirsty -= 2
 	if thirsty <= 20:
-		calculateHappiness(false)
-		if machine == true:
-			thirsty += 50
-	else:
-		calculateHappiness(true)
+		decreaseHappiness(2)
+		if state_machine.getCurrentStateName() == "WANDERING" || state_machine.getCurrentStateName() == "CHECK_BENCH":
+			pathfinding.stop()
+			pathfinding.free()
+			state_machine.changeState(states.go_to_drinking_machine)
 
 func checkWarmth():
 	if warmth <= 40 || warmth >= 60:
-		calculateHappiness(false)
-	else:
-		calculateHappiness(true)
+		decreaseHappiness(2)
 
 func _on_Timer_timeout():
-	count += 1
 	entity_manager.checkGlobalTemperature(self)
 	checkThirsty()
 	checkWarmth()
 	
-	if count == 5:
-		count = 0
+	increaseHappiness(4)
+	is_unhappy = false
+	
+	if happiness == 0:
+		if state_machine.getCurrentStateName() == "WANDERING" || state_machine.getCurrentStateName() == "CHECK_BENCH":
+			pathfinding.stop()
+			pathfinding.free()
+			state_machine.changeState(states.go_out)
 
 func goToReception():
 	if object_array.size() != 0:
@@ -98,6 +102,15 @@ func goToReception():
 				add_child(pathfinding)
 				return
 	state_machine.changeState(states.random_movement)
+
+func goToDrinkingMachine():
+	if object_array.size() != 0:
+		for drinking in object_array:
+			if drinking.object_name == "DrinkMachine":
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), drinking.vector_pos, self, speed, map)
+				add_child(pathfinding)
+				return
+	state_machine.returnToPreviousState()
 
 func checkEndPath():
 	if pathfinding.animation_completed:
