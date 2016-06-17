@@ -4,7 +4,7 @@ extends Control
 onready var viewport = get_node("Viewport")
 onready var area = get_node("Area")
 onready var quad = area.get_node("Quad")
-onready var label = viewport.get_node("Panel/Label")
+onready var label = viewport.get_node("Label")
 
 func _ready():
 	quad.get_material_override().set_texture(FixedMaterial.PARAM_DIFFUSE, viewport.get_render_target_texture())
