@@ -6,6 +6,8 @@ var room_occuped = null
 var first_pos
 var is_resting = false
 
+export var work_rooms = ["ROOM_PHARMACY", "ROOM_WARD"]
+
 export var tire = 10
 
 onready var states = {
@@ -47,14 +49,16 @@ func checkEndPath():
 func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
-			if room.type.NAME == "ROOM_PHARMACY" || room.type.NAME == "ROOM_WARD":
+			if work_rooms.find(room.type.NAME) != -1:
 				if !room.is_occuped:
-					room_occuped = room
-					room_occuped.is_occuped = true
-					var tile_to_go = room_occuped.tiles[5]
-					pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
-					add_child(pathfinding)
-					return
+					checkDistanceToRoom(room)
+		
+		if room_occuped:
+			room_occuped.is_occuped = true
+			var tile_to_go = room_occuped.tiles[5]
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
+			add_child(pathfinding)
+			return
 	state_machine.changeState(states.wandering)
 
 func checkStaffRoom():
@@ -79,6 +83,13 @@ func goToStaffRoom():
 				return
 	state_machine.returnToPreviousState()
 	timer.start()
+
+func checkDistanceToRoom(room):
+	var position = get_translation()
+	if !room_occuped:
+		room_occuped = room
+	elif position.distance_to(room.tiles[5].get_translation()) < position.distance_to(room_occuped.tiles[5].get_translation()):
+		room_occuped = room
 
 func moveIntoRoom():
 	var tile_to_go = room_occuped.tiles[randi()%room_occuped.tiles.size()]

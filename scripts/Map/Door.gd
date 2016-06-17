@@ -54,5 +54,5 @@ func checkWalls():
 		trans.x += 0.5
 		poseDoor()
 		return true
-	#game.feedback.display("TOOLTIP_POSEDOOR_ERROR")
+	game.feedback.display("TOOLTIP_POSEDOOR_ERROR")
 	return false
