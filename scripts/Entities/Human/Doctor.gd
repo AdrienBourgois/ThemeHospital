@@ -3,6 +3,8 @@ extends "Staff.gd"
 
 onready var rooms = game.scene.map.rooms
 
+export var work_rooms = ["ROOM_TONGUE", "ROOM_GENERAL_DIAGNOSIS", "ROOM_INFLATION", "ROOM_GP", "ROOM_CARDIOGRAM"]
+
 var room_occuped = null
 
 onready var states = {
@@ -61,12 +63,20 @@ func checkWorkRoom():
 	if rooms.size() != 0:
 		for room in rooms:
 			if checkRoomValidity(room):
-				room_occuped = room
-				room_occuped.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[10].x, room.tiles[10].y), self, speed, map)
-				add_child(pathfinding)
-				return
+				checkDistanceToRoom(room)
+		if room_occuped:
+			room_occuped.is_occuped = true
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[10].x, room_occuped.tiles[10].y), self, speed, map)
+			add_child(pathfinding)
+			return
 	state_machine.changeState(states.wandering)
+
+func checkDistanceToRoom(room):
+	var position = get_translation()
+	if !room_occuped:
+		room_occuped = room
+	elif position.distance_to(room.tiles[5].get_translation()) < position.distance_to(room_occuped.tiles[5].get_translation()):
+		room_occuped = room
 
 func diagnose():
 	var present_patient = room_occuped.present_patient[0]
@@ -87,7 +97,7 @@ func checkRoomValidity(room):
 			return true
 		elif room.type.NAME == "ROOM_OPERATING" && specialities == 3:
 			return true
-		elif room.type.NAME == "ROOM_TONGUE" || room.type.NAME == "ROOM_GENERAL_DIAGNOSIS" || room.type.NAME == "ROOM_INFLATION" || room.type.NAME == "ROOM_GP" || room.type.NAME == "ROOM_CARDIOGRAM":
+		elif work_rooms.find(room.type.NAME) != -1:
 			return true
 	return false
 
