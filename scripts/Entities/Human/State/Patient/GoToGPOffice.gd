@@ -21,4 +21,5 @@ func execute(owner):
 		owner.state_machine.changeState(owner.states.go_to_adapted_heal_room)
 
 func exit(owner):
-	pass
+	if owner.room_occuped:
+		owner.room_occuped = null

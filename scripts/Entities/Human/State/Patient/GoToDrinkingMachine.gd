@@ -20,4 +20,5 @@ func execute(owner):
 		owner.state_machine.returnToPreviousState()
 
 func exit(owner):
-	pass
+	if owner.object_ptr:
+		owner.object_ptr = null

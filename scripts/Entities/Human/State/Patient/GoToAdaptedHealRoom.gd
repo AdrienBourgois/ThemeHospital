@@ -24,4 +24,5 @@ func execute(owner):
 		owner.state_machine.changeState(owner.states.go_out)
 
 func exit(owner):
-	pass
+	if owner.room_occuped:
+		owner.room_occuped = null

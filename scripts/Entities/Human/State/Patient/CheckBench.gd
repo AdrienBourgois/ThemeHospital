@@ -15,4 +15,5 @@ func execute(owner):
 			owner.bench_ptr.is_occuped = false
 
 func exit(owner):
-	pass
+	if owner.object_ptr:
+		owner.object_ptr = null
