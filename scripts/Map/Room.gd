@@ -70,7 +70,6 @@ func place_objects():
 	
 	var temp_array = game.scene.getTempObjectsNodesArray()
 	var object = temp_array[0]
-	print("Object : ", object)
 	object = object_resources.createObject(object)
 	temp_array[0] = object
 	game.scene.add_child(object)
