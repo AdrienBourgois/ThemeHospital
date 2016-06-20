@@ -142,4 +142,8 @@ func _on_CancelButton_pressed():
 
 
 func freeScene():
+	for index in range ( max_rooms_type_container ):
+		rooms_types_container.get_child(index).queue_free()
+	for index in range ( max_rooms_container ):
+		rooms_container.get_child(index).queue_free()
 	queue_free()
