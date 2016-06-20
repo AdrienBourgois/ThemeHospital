@@ -347,5 +347,6 @@ LABEL_CONFIRMATION,Drag out the blueprint until you're happy with its size,Relac
 GO_TO_RECEPTIONIST,go to receptionist,va a la reception
 GO_TO_GP_OFFICE,go to gp office,va a la medecine generale
 GO_TO_HEAL,go to heal,va se soigner
+GO_DRINK,go to drink,va boire
 GO_OUT,go out,s'en va
 CHECK_BENCH,check bench,cherche un banc

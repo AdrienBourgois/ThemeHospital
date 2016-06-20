@@ -6,7 +6,8 @@ func enter(owner):
 	owner.add_child(owner.pathfinding)
 
 func execute(owner):
-	if owner.checkEndPath():
+	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
+		owner.pathfinding.free()
 		owner.queue_free()
 
 func exit(owner):

@@ -7,7 +7,8 @@ func enter(owner):
 	owner.checkGPOffice()
 
 func execute(owner):
-	if owner.checkEndPath():
+	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
+		owner.pathfinding.free()
 		var cost = owner.disease_list.DIAG_GP.NEW_COST
 		player.increaseMoney(cost)
 		var label = gamescn.in_game_gui.label_3d.instance()
@@ -20,4 +21,5 @@ func execute(owner):
 		owner.state_machine.changeState(owner.states.go_to_adapted_heal_room)
 
 func exit(owner):
-	pass
+	if owner.room_occuped:
+		owner.room_occuped = null

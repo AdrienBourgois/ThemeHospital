@@ -9,6 +9,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed == true || owner.pathfinding.found == false:
+		owner.pathfinding.free()
 		var cost = 20
 		player.increaseMoney(cost)
 		var label = gamescn.in_game_gui.label_3d.instance()
@@ -19,4 +20,5 @@ func execute(owner):
 		owner.state_machine.returnToPreviousState()
 
 func exit(owner):
-	pass
+	if owner.object_ptr:
+		owner.object_ptr = null

@@ -8,7 +8,8 @@ func enter(owner):
 	owner.goToAdaptedHealRoom()
 
 func execute(owner):
-	if owner.checkEndPath():
+	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
+		owner.pathfinding.free()
 		player.increaseHealPatients(1)
 		var cost = owner.disease.disease_type.NEW_COST
 		player.increaseMoney(cost)
@@ -23,4 +24,5 @@ func execute(owner):
 		owner.state_machine.changeState(owner.states.go_out)
 
 func exit(owner):
-	pass
+	if owner.room_occuped:
+		owner.room_occuped = null

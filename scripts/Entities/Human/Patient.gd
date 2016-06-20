@@ -62,8 +62,8 @@ func setPhysicalDisease():
 		setBigTongue()
 	elif (disease.name == "NAME_UNCOMMON"):
 		setBluePatient()
-	else:
-		print(disease.name)
+	elif (disease.name == "NAME_SQUITS"):
+		setBrownPant()
 
 func setHeadDisappear():
 	body.set_hidden(false)
@@ -83,11 +83,16 @@ func setBigTongue():
 
 func setBluePatient():
 	var material = head.get_material_override()
-#	print(material.get_parameter(0))
-#	var material = body.get_material_override()
-#	material.set_parameter(material.PARAM_DIFFUSE, Color3(135, 255, 255))
-#	body.set_material_override(material)
+	material.set_parameter(0, Color("2799ed"))
+	head.set_material_override(material)
 
+func setBrownPant():
+	var leftleg = body.get_node("LeftLeg")
+	var rightleg = body.get_node("RightLeg")
+	var material = leftleg.get_material_override()
+	material.set_parameter(material.PARAM_DIFFUSE, Color("411616"))
+	leftleg.set_material_override(material)
+	rightleg.set_material_override(material)
 
 func _process(delta):
 	if state_machine:
@@ -139,27 +144,29 @@ func goToReception():
 	if object_array.size() != 0:
 		for desk in object_array:
 			if desk.object_name == "ReceptionDesk" && desk.is_occuped == true:
-				desk_ptr = desk
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), desk.vector_pos, self, speed, map)
-				add_child(pathfinding)
-				return
+				checkDistanceToObject(desk)
+		if object_ptr:
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
+			add_child(pathfinding)
+			return
 	state_machine.changeState(states.random_movement)
 
 func goToDrinkingMachine():
 	if object_array.size() != 0:
 		for drinking in object_array:
 			if drinking.object_name == "DrinkMachine":
-				pathfinding.stop()
-				pathfinding.free()
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), drinking.vector_pos, self, speed, map)
-				add_child(pathfinding)
-				return
+				checkDistanceToObject(drinking)
+		if object_ptr:
+			pathfinding.stop()
+			pathfinding.free()
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
+			add_child(pathfinding)
+			return
 	state_machine.returnToPreviousState()
 
 func checkEndPath():
-	if pathfinding.animation_completed:
-#		pathfinding.free()
-		return true
+	pathfinding.free()
+	state_machine.returnToPreviousState()
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
@@ -183,10 +190,11 @@ func checkBench():
 	if object_array.size() != 0:
 		for bench in object_array:
 			if bench.object_name == "Bench" && bench.is_occuped == false:
-				bench_ptr = bench
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), bench.vector_pos, self, speed, map)
+				checkDistanceToObject(bench)
+			if object_ptr:
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
 				add_child(pathfinding)
-				bench.is_occuped = true
+				object_ptr.is_occuped = true
 				return
 	state_machine.changeState(states.random_movement)
 
@@ -194,19 +202,21 @@ func goToAdaptedHealRoom():
 	if disease.type == "pharmacy" && map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_PHARMACY" && room.is_occuped == true && room.present_patient.size() == 0:
-				room_occuped = room
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
-				add_child(pathfinding)
-				room.present_patient.append(self)
-				return
+				checkDistanceToRoom(room)
+		if room_occuped:
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
+			add_child(pathfinding)
+			room_occuped.present_patient.append(self)
+			return
 	elif disease.type == "psychiatric" && map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_PSYCHIATRIC" && room.is_occuped == true && room.present_patient.size() == 0:
-				room_occuped = room
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
-				add_child(pathfinding)
-				room.present_patient.append(self)
-				return
+				checkDistanceToRoom(room)
+		if room_occuped:
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
+			add_child(pathfinding)
+			room_occuped.present_patient.append(self)
+			return
 	state_machine.changeState(states.check_bench)
 
 func _on_Patient_input_event( camera, event, click_pos, click_normal, shape_idx ):

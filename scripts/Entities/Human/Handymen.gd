@@ -17,9 +17,8 @@ var max_value = 100.0
 var plant_pos
 
 func checkEndPath():
-	if pathfinding.animation_completed == true:
-		pathfinding.free()
-		checkWork()
+	pathfinding.free()
+	checkWork()
 
 func checkPlant():
 	if object_array.size() != 0:
