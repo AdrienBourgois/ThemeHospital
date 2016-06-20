@@ -39,7 +39,7 @@ func checkDesk():
 		if desk_occuped:
 			var tile_to_reach_trans = desk_occuped.getEntityInteractionTile().get_translation()
 			reception_desk_pos = Vector2(tile_to_reach_trans.x, tile_to_reach_trans.z)
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self, speed, map)
+			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), reception_desk_pos, self)
 			add_child(pathfinding)
 			return
 	state_machine.changeState(states.wandering)

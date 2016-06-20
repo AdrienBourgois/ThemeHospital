@@ -27,7 +27,7 @@ func checkPlant():
 			if plant.object_name == "Plant" && plant.getThirst() <= 90:
 				plant_pos = Vector2(plant.get_translation().x, plant.get_translation().z)
 				plant.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), plant_pos, self, speed, map)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), plant_pos, self)
 				add_child(pathfinding)
 				return
 
@@ -107,7 +107,7 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self)
 				add_child(pathfinding)
 				timer.start()
 				return

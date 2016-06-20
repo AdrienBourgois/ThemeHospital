@@ -70,7 +70,7 @@ func checkWorkRoom():
 				checkDistanceToRoom(room)
 		if room_occuped:
 			room_occuped.is_occuped = true
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[10].x, room_occuped.tiles[10].y), self, speed, map)
+			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[10].x, room_occuped.tiles[10].y), self)
 			add_child(pathfinding)
 			return
 	state_machine.changeState(states.wandering)
@@ -109,7 +109,7 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self)
 				add_child(pathfinding)
 				timer.start()
 				return
@@ -119,7 +119,7 @@ func goToStaffRoom():
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
 	var tile_to_go = room_occuped.tiles[rand]
-	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
+	pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
 	add_child(pathfinding)
 
 func _on_Timer_Timeout():
