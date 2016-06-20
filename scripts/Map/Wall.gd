@@ -1,5 +1,5 @@
 
-extends Quad
+extends MeshInstance
 
 var static_body = null
 var room = null

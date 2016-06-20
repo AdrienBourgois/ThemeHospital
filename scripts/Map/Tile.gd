@@ -69,16 +69,16 @@ func change_wall(wall, type):
 	var rotation = Vector3(0,0,0)
 	
 	if (wall == "Up"):
-		location = Vector3(0,0.5,-0.5)
+		location = Vector3(0,0,-0.5)
 		rotation = Vector3(0,0,0)
 	elif (wall == "Down"):
-		location = Vector3(0,0.5,0.5)
+		location = Vector3(0,0,0.5)
 		rotation = Vector3(0,deg2rad(180),0)
 	elif (wall == "Left"):
-		location = Vector3(-0.5,0.5,0)
+		location = Vector3(-0.5,0,0)
 		rotation = Vector3(0,deg2rad(90),0)
 	elif (wall == "Right"):
-		location = Vector3(0.5,0.5,0)
+		location = Vector3(0.5,0,0)
 		rotation = Vector3(0,deg2rad(-90),0)
 	
 	if(type != walls_types[wall]):
