@@ -16,7 +16,6 @@ onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
 onready var stats = {}
-onready var path
 
 var room
 var new_room_from = Vector2(-1,-1)
@@ -36,6 +35,7 @@ var actual_unique_id = 0 setget getActualUniqueID, setActualUniqueID
 
 func _ready():
 	create_map(map_path)
+	position = tiles[0].get_translation()
 
 func createStatsDict():
 	stats = {
@@ -60,24 +60,36 @@ func loadData():
 	resetStatsDict()
 
 func create_map(file_path):
-	path = file_path
 	var file = File.new()
 	file.open(file_path, File.READ)
 	
-	size_x = file.get_line().to_int()
-	size_y = file.get_line().to_int()
-	
 	var lines_str = []
-	for i in range(size_y):
+	while(!file.eof_reached()):
 		lines_str.append(file.get_line())
+	
+	var x = 0
+	var numbers = []
+	var tiles_lines = []
+	var doors = []
+	
+	for line in lines_str:
+		if(line.begins_with("S")):
+			numbers = getNumbersFormString(line)
+			size_x = numbers[0]
+			size_y = numbers[1]
+		elif(line.begins_with("T")):
+			numbers = getNumbersFormString(line, true)
+			tiles_lines.append(numbers)
+		elif(line.begins_with("D")):
+			numbers = getNumbersFormString(line)
+			doors.append(numbers)
 	
 	for x in range(size_x):
 		var column = []
 		for y in range(size_y):
 			var tile = tile_res.instance()
 			add_child(tile)
-			position = tile.get_translation()
-			var tile_type = lines_str[y].substr(x, 1).to_int()
+			var tile_type = tiles_lines[y][x]
 			if (tile_type == 0):
 				tile.create(x, y, ressources.grass)
 			elif (tile_type == 1):
@@ -87,12 +99,44 @@ func create_map(file_path):
 			tiles.append(tile)
 			column.append(tile)
 		columns.append(column)
+
 	for tile in tiles:
 		tile.get_all_neighbour()
 		tile.update_walls("Up")
 		tile.update_walls("Left")
 		tile.update_walls("Right")
 		tile.update_walls("Down")
+	
+	for door in doors:
+		var tile = columns[door[0]][door[1]]
+		for wall in tile.walls_types:
+			if(tile.walls_types[wall] != 0):
+				tile.change_wall(wall, tile.enum_wall_type.DOOR)
+	
+	file.close()
+
+func getNumbersFormString(string, cut_as_digit = false):
+	var numbers = []
+	var number = ""
+	var previous_was_digit = false
+	
+	if(!cut_as_digit):
+		for i in range(string.length()):
+			if (string[i] >= '0' and string[i] <= '9'):
+				number += string[i]
+				previous_was_digit = true
+			elif(previous_was_digit):
+				previous_was_digit = false
+				numbers.append(number.to_int())
+				number = ""
+		if(number != ""):
+			numbers.append(number.to_int())
+	else:
+		for i in range(string.length()):
+			if (string[i] >= '0' and string[i] <= '9'):
+				numbers.append(string[i].to_int())
+	
+	return numbers
 
 func getTile(vector2):
 	return columns[vector2.x][vector2.y]
@@ -215,6 +259,7 @@ func new_room(state, parameters):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
 			room.setUniqueID(rooms.size())
+			room.enable_place_door()
 			for tile in previous_current_selection:
 				tile.hover_off()
 				tile.unique_id = room.getUniqueID()

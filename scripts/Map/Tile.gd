@@ -9,6 +9,7 @@ const enum_wall_type = { "VOID": 0, "WALL": 1, "WINDOW": 2, "DOOR": 3 }
 
 var room_type = {}
 var walls_types = { "Up": 0, "Left": 0, "Down": 0, "Right": 0 }
+var walls = { "Up": null, "Left": null, "Down": null, "Right": null }
 var neighbours = { "Up": null, "Left": null, "Down": null, "Right": null }
 
 var x = 0
@@ -58,39 +59,46 @@ func update(_room_type):
 	room_material.set_parameter(0, room_type.COLOR)
 
 func update_walls(direction):
-	if (neighbours[direction] != null):
-		if (neighbours[direction].room_type != room_type):
-			change_wall(direction, enum_wall_type.WALL)
+	if(room_type.ID != 40):
+		if (neighbours[direction] != null):
+			if (neighbours[direction].room_type != room_type):
+				change_wall(direction, enum_wall_type.WALL)
 
 func change_wall(wall, type):
-	var location = Vector3(0,0,0)
+	var location = Vector3(0,0.5,0)
 	var rotation = Vector3(0,0,0)
 	
 	if (wall == "Up"):
-		location = Vector3(0,0,-0.5)
+		location = Vector3(0,0.5,-0.5)
 		rotation = Vector3(0,0,0)
 	elif (wall == "Down"):
-		location = Vector3(0,0,0.5)
+		location = Vector3(0,0.5,0.5)
 		rotation = Vector3(0,deg2rad(180),0)
 	elif (wall == "Left"):
-		location = Vector3(-0.5,0,0)
+		location = Vector3(-0.5,0.5,0)
 		rotation = Vector3(0,deg2rad(90),0)
 	elif (wall == "Right"):
-		location = Vector3(0.5,0,0)
+		location = Vector3(0.5,0.5,0)
 		rotation = Vector3(0,deg2rad(-90),0)
 	
-	if (type == enum_wall_type.WALL):
-		if (walls_types[wall] != enum_wall_type.WALL):
-			var new_wall = wall_res.instance()
-			new_wall.set_material_override(wall_material)
+	if(type != walls_types[wall]):
+		if (walls_types[wall] != enum_wall_type.VOID):
+			if(walls[wall]):
+				quad.remove_child(walls[wall])
+				walls[wall] = null
+		if (type != enum_wall_type.VOID):
+			var new_wall = null
+			if (type == enum_wall_type.WALL):
+				new_wall = wall_res.instance()
+				new_wall.set_material_override(wall_material)
+			elif (type == enum_wall_type.DOOR):
+				new_wall = door_res.instance()
 			new_wall.set_name(wall)
 			quad.add_child(new_wall)
 			new_wall.set_translation(location)
 			new_wall.set_rotation(rotation)
-
-	if (type == enum_wall_type.VOID):
-		if (walls_types[wall] == enum_wall_type.VOID):
-			quad.remove_child(wall)
+			walls[wall] = new_wall
+	
 	walls_types[wall] = type
 
 func update_cursor_pos():

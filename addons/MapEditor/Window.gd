@@ -24,6 +24,9 @@ func _ready():
 func set_map(_map):
 	map = _map
 	container.add_child(map)
+	connect("hide", self, "window_hide")
 	set_title("Map Editor - " + str(map.size_x) + "X" + str(map.size_y))
 
+func window_hide():
+	map.set_process_input(false)
 

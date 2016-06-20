@@ -9,7 +9,7 @@ var control = null
 var map = null
 var window = null
 
-var current_brush = "Lobby"
+var current_brush = 0
 
 func _enter_tree():
 	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialisation... -*\\")
@@ -26,15 +26,18 @@ func new_map(x, y):
 	
 	window = Window.new(self)
 	window.set_map(map)
+	map.control = window.controls
 	add_child(window)
 	
 	see_map()
 
 func see_map():
 	window.show()
+	map.set_process_input(true)
 
 func change_brush(type):
 	current_brush = type
+	map.square_from = Vector2(-1,-1)
 	print("[MAP EDITOR] Change brush to ", type)
 
 func _exit_tree():
@@ -59,11 +62,15 @@ func save():
 		file.open("res://Maps/" + control.path_lineedit.get_text() + ".lvl", file.WRITE)
 		var tiles = map.tiles
 		
-		file.store_string(str(map.size_x) + "\n" + str(map.size_y))
+		file.store_string("S x:" + str(map.size_x) + " y:" + str(map.size_y))
 		for tile in tiles:
 			if(tile.x == 0):
-				file.store_string("\n")
-			file.store_string(str(map.tile_type[tile.type]))
+				file.store_string("\nT ")
+			file.store_string(str(tile.type))
+		
+		if(map.tiles_with_doors.size()):
+			for door in map.tiles_with_doors:
+				file.store_string("\nD x:" + str(door.x) + " y:" + str(door.y))
 		
 		file.close()
 		print("[MAP EDITOR] Map saved : res://Maps/", control.path_lineedit.get_text(), ".lvl")

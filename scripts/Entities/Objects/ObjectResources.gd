@@ -23,7 +23,6 @@ var locker_scn = preload("res://scenes/Entities/Objects/Locker.scn")
 var gp_chair_scn = preload("res://scenes/Entities/Objects/GPChair.scn")
 var ward_desk_scn = preload("res://scenes/Entities/Objects/WardDesk.scn")
 var general_diagnosis_screen_scn = preload("res://scenes/Entities/Objects/GeneralDiagnosisScreen.scn")
-var doorscn = preload("res://scenes/Map/Door.scn")
 var windowscn = preload("res://scenes/Map/Window.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptiondeskscn]
 
@@ -60,8 +59,6 @@ func createObject(name):
 		node = general_diagnosis_screen_scn.instance()
 	elif (name == "CrashTrolley"):
 		node = crash_trolley_scn.instance()
-	elif (name == "Door"):
-		node = doorscn.instance()
 	elif (name == "Window"):
 		node = windowscn.instance()
 	elif (name == "Toilet"):
