@@ -89,6 +89,10 @@ func diagnose():
 		present_patient_disease.type = "pharmacy"
 	elif present_patient_disease.disease_type["TREATMENT_ROOM"] == "ROOM_PSYCHIATRIC":
 		present_patient_disease.type = "psychiatric"
+	elif present_patient_disease.name == "NAME_BLOATY":
+		present_patient_disease.type = "bloaty_head"
+	elif present_patient_disease.name == "NAME_TONGUE":
+		present_patient_disease.type = "tongue"
 	else:
 		present_patient_disease.type = "unknow"
 

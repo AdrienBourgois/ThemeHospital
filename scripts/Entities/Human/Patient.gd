@@ -36,11 +36,10 @@ var thirsty
 var warmth
 var room_occuped
 var object_ptr
-var desk_ptr
-var bench_ptr
 var is_go_to_reception = false
-var speed = 0.2
+export var speed = 0.2
 var is_diagnosed = false
+export var diagnosis_progress = 0
 
 var is_unhappy = false
 
@@ -100,7 +99,7 @@ func _process(delta):
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text("Patient : " + tr(state_machine.getCurrentStateName()) + "\nHappiness : " + str(happiness))
+		info_bar.set_text("Patient : " + str(diagnosis_progress) + " / 1000")
 
 func increaseHappiness(val):
 	if !is_unhappy:
@@ -200,24 +199,30 @@ func checkBench():
 
 func goToAdaptedHealRoom():
 	if disease.type == "pharmacy" && map.rooms.size() != 0:
-		for room in map.rooms:
-			if room.type["NAME"] == "ROOM_PHARMACY" && room.is_occuped == true && room.present_patient.size() == 0:
-				checkDistanceToRoom(room)
-		if room_occuped:
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
-			add_child(pathfinding)
-			room_occuped.present_patient.append(self)
+		if goToHealRoom("ROOM_PHARMACY"):
 			return
 	elif disease.type == "psychiatric" && map.rooms.size() != 0:
-		for room in map.rooms:
-			if room.type["NAME"] == "ROOM_PSYCHIATRIC" && room.is_occuped == true && room.present_patient.size() == 0:
-				checkDistanceToRoom(room)
-		if room_occuped:
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
-			add_child(pathfinding)
-			room_occuped.present_patient.append(self)
+		if goToHealRoom("ROOM_PSYCHIATRIC"):
+			return
+	elif disease.type == "bloaty_head" && map.rooms.size() != 0:
+		if goToHealRoom("ROOM_INFLATION"):
+			return
+	elif disease.type == "tongue" && map.rooms.size() != 0:
+		if goToHealRoom("ROOM_TONGUE"):
 			return
 	state_machine.changeState(states.check_bench)
+
+func goToHealRoom(room_name):
+	for room in map.rooms:
+		if room.type["NAME"] == room_name && room.is_occuped == true && room.present_patient.size() == 0:
+			checkDistanceToRoom(room)
+	if room_occuped:
+		pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
+		add_child(pathfinding)
+		room_occuped.present_patient.append(self)
+		return true
+	else:
+		return false
 
 func _on_Patient_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	displayInfo()

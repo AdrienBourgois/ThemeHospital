@@ -2,6 +2,7 @@
 extends State
 
 func enter(owner):
+	owner.room_occuped.present_staff.append(owner)
 	owner.moveIntoRoom()
 
 func execute(owner):
@@ -12,5 +13,6 @@ func execute(owner):
 		owner.moveIntoRoom()
 
 func exit(owner):
+	owner.room_occuped.present_staff.clear()
 	owner.room_occuped.is_occuped = false
 	owner.room_occuped = null

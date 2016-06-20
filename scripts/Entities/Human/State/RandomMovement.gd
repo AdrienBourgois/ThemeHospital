@@ -2,6 +2,7 @@
 extends State
 
 func enter(owner):
+	owner.happiness -= 2
 	owner.moveTo()
 
 func execute(owner):

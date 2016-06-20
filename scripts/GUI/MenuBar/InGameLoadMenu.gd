@@ -4,6 +4,7 @@ extends Control
 onready var game = get_node("/root/Game")
 onready var load_location = get_node("LoadLocation")
 onready var loader = get_node("/root/Load")
+onready var saver = get_node("/root/Save")
 onready var load_button = get_node("LoadButton")
 
 func _ready():
@@ -21,6 +22,8 @@ func enableButtons():
 			count += 1
 
 func loadGame(idx):
+	loader.gamescn = null
+	saver.gamescn = null
 	game.save_to_load = idx
 	game.new_game = false
 	loader.loadPlayer(idx)
