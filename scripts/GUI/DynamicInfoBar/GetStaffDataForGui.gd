@@ -32,7 +32,7 @@ func _process(delta):
 	happiness.set_val(staff_selected.happiness)
 	tireness.set_val(staff_selected.tireness)
 	skill.set_val(staff_selected.skill)
-	salary.set_text(str(staff_selected.salary))
+	salary.set_text(str(staff_selected.salary) + "$")
 	if staff_selected.id == 0:
 		doctor_gui.show()
 		for i in speciality_selected:

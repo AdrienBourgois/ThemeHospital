@@ -240,17 +240,6 @@ TOOLTIP_HIRE,Hire person,Engager la personne
 TOOLTIP_EXIT,Cancel,Annuler
 TOOLTIP_NEXT,View next person,Personne suivante
 TOOLTIP_OBJECT_DESTROY, You can sell the object by pressing 'Delete', Vous pouvez vendre cet objet avec la touche 'Supprimer'
-TAB_DOCTOR,Doctor,Docteur
-TAB_NURSE,Nurse,Infirmière
-TAB_HANDYMEN,Handymen,Concierge
-TAB_RECEPTIONIST,Receptionist,Récéptioniste
-COST,Cost : ,Cout : 
-QUIT_RESEARCH,Close Research screen,Ferme l'ecran des Recherches
-LABEL_RESEARCH_TOTAL,Allocated Amount :,Total Alloue :
-LABEL_RESEARCH_CURE,Cure Equipment :,Machines de Soin :
-LABEL_RESEARCH_DIAGNOSIS,Diagnosis Equipment :,Diagnostics :
-LABEL_RESEARCH_DRUGS,Drug Research :,Medicaments :
-LABEL_RESEARCH_IMPROVEMENTS,Improvements :,Amelioration des Machines :
 TOOLTIP_RESEARCH_TOTAL,Amount of budget allocated,Total du budget alloue
 TOOLTIP_RESEARCH_CURE_LESS,Decrease Cure percentage,Reduit la recherche sur les machines de soin
 TOOLTIP_RESEARCH_DIAGNOSIS_LESS,Decrease Diagnosis percentage,Reduit la recherche sur les diagnostics
@@ -267,6 +256,29 @@ TOOLTIP_SKILL,Staff ability,Compétence du staff
 TOOLTIP_DOCTOR_SPECIALITIES,Doctor's Extra Qualifications,Spécialité du docteur
 TOOLTIP_SALARY,Salary,Salaire
 TOOLTIP_OBJECT_ERROR, You can't put this object here !, Vous ne pouvez pas placer un objet ici
+TOOLTIP_REPUTATION_CASEBOOK,Cure or Diagnosis Reputation,Reputation de l'hopital
+TOOLTIP_TREATMENT_CASEBOOK,Cost,Cout
+TOOLTIP_CASEBOOK_BUTTON_LESS,Decrease amount,Diminue le cout
+TOOLTIP_CASEBOOK_BUTTON_MORE,Increase amount,Augmente le cout
+TOOLTIP_CASEBOOK_MONEY,Total earned to date,Total des gains a ce jour
+TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
+TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
+TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
+TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
+TOOLTIP_CASEBOOK_DOWN,Scroll down,Defile vers le bas
+TOOLTIP_CASEBOOK_CHECK_TEXTURE,You can handle this treatment,Vous avez acces a ce traitement
+TOOLTIP_PSYCHIATRIST,Psychiatrist,Psychiatre
+TAB_DOCTOR,Doctor,Docteur
+TAB_NURSE,Nurse,Infirmière
+TAB_HANDYMEN,Handymen,Concierge
+TAB_RECEPTIONIST,Receptionist,Récéptioniste
+COST,Cost : ,Cout : 
+QUIT_RESEARCH,Close Research screen,Ferme l'ecran des Recherches
+LABEL_RESEARCH_TOTAL,Allocated Amount :,Total Alloue :
+LABEL_RESEARCH_CURE,Cure Equipment :,Machines de Soin :
+LABEL_RESEARCH_DIAGNOSIS,Diagnosis Equipment :,Diagnostics :
+LABEL_RESEARCH_DRUGS,Drug Research :,Medicaments :
+LABEL_RESEARCH_IMPROVEMENTS,Improvements :,Amelioration des Machines :
 NAME_INVISIBILITY,Invisibility,Invisibilitee
 NAME_BLOATY,Bloaty Head,Encéphalantiasis
 NAME_TONGUE,Slack Tongue,Hyperlangue
@@ -313,16 +325,6 @@ CURE,Cure,Traitement
 BUTTON_UP_NAME,Up,Haut
 BUTTON_DOWN_NAME,Down,Bas
 CONCENTRATE_RESEARCH,Concentrate Research,Focus sur la recherche
-TOOLTIP_REPUTATION_CASEBOOK,Cure or Diagnosis Reputation,Reputation de l'hopital
-TOOLTIP_TREATMENT_CASEBOOK,Cost,Cout
-TOOLTIP_CASEBOOK_BUTTON_LESS,Decrease amount,Diminue le cout
-TOOLTIP_CASEBOOK_BUTTON_MORE,Increase amount,Augmente le cout
-TOOLTIP_CASEBOOK_MONEY,Total earned to date,Total des gains a ce jour
-TOOLTIP_CASEBOOK_RECOVERIES,Number of recoveries,Patients soignes
-TOOLTIP_CASEBOOK_FATALITIES,Number of fatalities,Patients decedes
-TOOLTIP_CASEBOOK_TURNED,Number of patients turned away,Nombre de patients renvoyes chez eux
-TOOLTIP_CASEBOOK_UP,Scroll up,Defile vers le haut
-TOOLTIP_CASEBOOK_DOWN,Scroll down,Defile vers le bas
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
 FEEDBACK_BLUEPRINT,That Blueprint is not valid !,Cette salle n'est pas valide !
 PRICE_LABEL,Price : ,Prix : 

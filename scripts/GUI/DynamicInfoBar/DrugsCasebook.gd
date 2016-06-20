@@ -16,6 +16,7 @@ onready var node_money = node_informations.get_node("MoneyEarned/values")
 onready var node_recoveries = node_informations.get_node("Recoveries/values")
 onready var node_fatalities = node_informations.get_node("Fatalities/values")
 onready var node_turned = node_informations.get_node("TurnedAway/values")
+onready var node_texture_check = node_informations.get_node("check")
 onready var node_selector = get_node("Book/Buttons/Selector")
 
 onready var node_button_up = get_node("Book/Buttons/Up")
@@ -60,6 +61,10 @@ func _ready():
 	connectDiseasesButtons()
 	
 	calculateButtonsGap()
+	
+	var check_texture = ImageTexture.new()
+	check_texture.load("res://assets/validate_drugs.png")
+	node_texture_check.set_texture(check_texture)
 	
 	set_process(true)
 
