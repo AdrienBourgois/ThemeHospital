@@ -61,8 +61,8 @@ func setPhysicalDisease():
 		setBigTongue()
 	elif (disease.name == "NAME_UNCOMMON"):
 		setBluePatient()
-	else:
-		print(disease.name)
+	elif (disease.name == "NAME_SQUITS"):
+		setBrownPant()
 
 func setHeadDisappear():
 	body.set_hidden(false)
@@ -82,11 +82,16 @@ func setBigTongue():
 
 func setBluePatient():
 	var material = head.get_material_override()
-#	print(material.get_parameter(0))
-#	var material = body.get_material_override()
-#	material.set_parameter(material.PARAM_DIFFUSE, Color3(135, 255, 255))
-#	body.set_material_override(material)
+	material.set_parameter(0, Color("2799ed"))
+	head.set_material_override(material)
 
+func setBrownPant():
+	var leftleg = body.get_node("LeftLeg")
+	var rightleg = body.get_node("RightLeg")
+	var material = leftleg.get_material_override()
+	material.set_parameter(material.PARAM_DIFFUSE, Color("411616"))
+	leftleg.set_material_override(material)
+	rightleg.set_material_override(material)
 
 func _process(delta):
 	if state_machine:
@@ -156,9 +161,8 @@ func goToDrinkingMachine():
 	state_machine.returnToPreviousState()
 
 func checkEndPath():
-	if pathfinding.animation_completed:
-#		pathfinding.free()
-		return true
+	pathfinding.free()
+	state_machine.returnToPreviousState()
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
