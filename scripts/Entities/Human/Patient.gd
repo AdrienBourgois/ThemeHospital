@@ -81,9 +81,10 @@ func setBigTongue():
 	tongue.set_hidden(false)
 
 func setBluePatient():
-	var material = body.get_material_override()
-	material.set_parameter(material.PARAM_DIFFUSE, Color3(135, 255, 255))
-	body.set_material_override(material)
+	var material = head.get_material_override()
+	print(material.get_parameter(0))
+#	material.set_parameter(material.PARAM_DIFFUSE, )
+#	body.set_material_override(material)
 
 
 func _process(delta):
@@ -155,7 +156,7 @@ func goToDrinkingMachine():
 
 func checkEndPath():
 	if pathfinding.animation_completed:
-		pathfinding.free()
+#		pathfinding.free()
 		return true
 
 func moveTo():
