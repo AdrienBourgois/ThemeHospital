@@ -1,4 +1,3 @@
-
 extends KinematicBody
 
 onready var game = get_node("/root/Game")
