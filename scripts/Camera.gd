@@ -8,23 +8,24 @@ export var border = 10
 var inferior_limit = Vector3(0,5,0)
 var superior_limit = Vector3(9,20,9)
 var rotation_limit = Vector3(0,45,45)
+const size_min = 10
+const size_max = 30
 
 var position
-var rotation
-var size = 35
+var size = 20
 var movement = Vector3(0,0,0)
 var pause = false setget setPause,getPause
-export var speed = 20
+export var speed = 10
 
 
 func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
-	rotation = get_rotation()
 	map = game.scene.get_node("Map")
 	if map:
 		inferior_limit += map.getPosition()
 		superior_limit += map.getSize()
+	set_orthogonal(size, 0.1, 100)
 
 
 func _fixed_process(delta):
@@ -33,20 +34,17 @@ func _fixed_process(delta):
 			checkMouseMove()
 		checkInputMove()
 		move()
-		checkLimit()
 
 
 func _input(event):
 	if !pause:
-		#set_rotation(Vector3(0,0,0))
 		if event.is_action_pressed("zoom"):
 			size -= 5
 			set_orthogonal(size, 0.1, 100)
 		if event.is_action_pressed("dezoom"):
 			size += 5
 			set_orthogonal(size, 0.1, 100)
-	
-		#set_rotation(rotation)
+		checkLimit()
 
 
 func checkInputMove():
@@ -86,6 +84,7 @@ func checkLimit():
 	checkXLimit()
 	checkYLimit()
 	checkZLimit()
+	checkSize()
 	set_translation(position)
 
 
@@ -109,6 +108,11 @@ func checkZLimit():
 	elif position.z > superior_limit.z:
 		position.z = superior_limit.z
 
+func checkSize():
+	if size > size_max:
+		size = size_max
+	elif size < size_min:
+		size = size_min
 
 func move():
 	var delta = get_process_delta_time()
