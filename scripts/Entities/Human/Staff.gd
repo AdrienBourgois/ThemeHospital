@@ -13,7 +13,7 @@ export var count = 0
 
 onready var tile = map.columns[floor(abs(get_translation().x/1))][floor(abs(get_translation().z/1))]
 
-onready var staff_information_gui = game.scene.in_game_gui.get_node("StaffInformationGUI/StaffGui")
+onready var staff_information_gui = preload("res://scenes/GUI/InGameGUI/StaffInformationGUI.scn")
 onready var entity_manager = game.scene.entity_manager
 onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
 var state_machine
@@ -69,9 +69,9 @@ func _on_Staff_input_event( camera, event, click_pos, click_normal, shape_idx ):
 		count += 1
 		if count >= 2:
 			get_parent().staff_selected = self
-			staff_information_gui._ready()
-			staff_information_gui.show()
-			staff_information_gui.initViewport(self)
+			var node = staff_information_gui.instance()
+			game.scene.add_child(node)
+			node.get_child(0).initViewport(self)
 
 func deleteFromArray():
 	for current in gamescn.getStaffNodesArray():

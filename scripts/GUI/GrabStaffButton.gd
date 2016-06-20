@@ -8,5 +8,6 @@ func _on_GrabButton_pressed():
 	game.scene.hire_manager.staff_selected.pathfinding.animation_completed = true
 	game.scene.hire_manager.staff_selected.is_taken = true
 	game.scene.hire_manager.staff_selected.take()
+	print(game.scene.hire_manager.staff_selected)
 	
-	get_parent().hide()
+	get_parent().get_parent().queue_free()

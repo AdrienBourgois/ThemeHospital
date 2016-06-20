@@ -81,7 +81,9 @@ func setBigTongue():
 	tongue.set_hidden(false)
 
 func setBluePatient():
-	var material = body.get_material_override()
+	var material = head.get_material_override()
+#	print(material.get_parameter(0))
+#	var material = body.get_material_override()
 #	material.set_parameter(material.PARAM_DIFFUSE, Color3(135, 255, 255))
 #	body.set_material_override(material)
 
