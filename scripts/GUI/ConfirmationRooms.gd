@@ -8,8 +8,6 @@ onready var control_panel = game.scene.get_node("./In_game_gui/HUD/Control_panel
 onready var gamescn = game.scene
 onready var map = gamescn.map
 onready var player = gamescn.player
-onready var object_resources = gamescn.getObjectResources()
-onready var temp_array = gamescn.getTempObjectsNodesArray()
 
 
 func _on_CancelButton_pressed():
@@ -21,21 +19,9 @@ func _on_AcceptButton_pressed():
 	if  (room):
 		player.money -= rooms_menu.price
 		player.hospital_value += rooms_menu.price
-		
-		var door = object_resources.createObject("Door")
-		temp_array.append(door)
-		gamescn.add_child(door)
-		door.is_selected = true
-		door.can_selected = true
-		door.set_process_input(true)
-		door.setUniqueID(room.getUniqueID())
-		
-		object_resources.setUniqueID(room.getUniqueID())
-		object_resources.createRoomObject(map.getActualRoomTypeName())
 	else:
 		game.feedback.display("FEEDBACK_BLUEPRINT")
-	
-	if (!temp_array.empty()):
-		gamescn.setHaveObject(true)
+		
+	self.hide()
 	
 	control_panel.hideCurrentWindow()
