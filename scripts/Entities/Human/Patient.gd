@@ -81,14 +81,14 @@ func setBigTongue():
 	tongue.set_hidden(false)
 
 func setBluePatient():
-	var material = head.get_material_override()
+	var material = FixedMaterial.new()
 	material.set_parameter(0, Color("2799ed"))
 	head.set_material_override(material)
 
 func setBrownPant():
 	var leftleg = body.get_node("LeftLeg")
 	var rightleg = body.get_node("RightLeg")
-	var material = leftleg.get_material_override()
+	var material = FixedMaterial.new()
 	material.set_parameter(material.PARAM_DIFFUSE, Color("411616"))
 	leftleg.set_material_override(material)
 	rightleg.set_material_override(material)

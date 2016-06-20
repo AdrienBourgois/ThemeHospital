@@ -1,7 +1,7 @@
 extends Node
 
 var image_texture_array = Array()
-
+var texture_loaded = false
 
 var lobby = {
 	"ID": 0,
@@ -217,15 +217,17 @@ var type_rooms = {
 var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, operating, inflation, tongue, staff_room, toilets, research, grass, pavement, plot] 
 
 func loadAllTextures():
-	for current in rooms_array:
-		var texture = ImageTexture.new()
-		var array = Array()
-		
-		if (current.RESSOURCES != ""):
-			texture.load(current.RESSOURCES)
-			array.push_back(current.ID)
-			array.push_back(texture)
-			image_texture_array.push_back(array)
+	if (!texture_loaded):
+		for current in rooms_array:
+			var texture = ImageTexture.new()
+			var array = Array()
+			
+			if (current.RESSOURCES != ""):
+				texture.load(current.RESSOURCES)
+				array.push_back(current.ID)
+				array.push_back(texture)
+				image_texture_array.push_back(array)
+		texture_loaded = true
 
 func getRoomFromId(room_id):
 	for current in rooms_array:
