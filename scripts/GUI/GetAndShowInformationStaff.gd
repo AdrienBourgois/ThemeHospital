@@ -29,5 +29,5 @@ func getAndShowInformation(type, idx):
 			doctor_seniority.get_node("SenioritySelector").set_val(entity_manager.staff_array[type][idx]["seniority"])
 		name.set_text(entity_manager.staff_array[type][idx]["name"])
 		skill_bar.set_val(entity_manager.staff_array[type][idx]["skill"])
-		salary.set_text(str(entity_manager.staff_array[type][idx]["salary"]))
+		salary.set_text(str(entity_manager.staff_array[type][idx]["salary"]) + "$")
 		showing_staff_information.show()
