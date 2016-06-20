@@ -15,9 +15,12 @@ onready var states = {
 	looking_for_room = get_node("LookingForRoom"),
 	waiting_for_patients = get_node("WaitingForPatients"), 
 	looking_for_staff_room = get_node("LookingForStaffRoom"),
-	rest = get_node("Rest") }
+	rest = get_node("Rest"),
+	go_to_staff_room = get_node("GoToStaffRoom")
+	}
 
 func _ready():
+	timer.connect("timeout", self, "_on_Timer_Timeout")
 	set_process(true)
 
 func _fixed_process(delta):
@@ -30,7 +33,7 @@ func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.looking_for_room)
-	get_node("Timer").start()
+	timer.start()
 
 func take():
 	pathfinding.stop()
@@ -70,6 +73,17 @@ func checkStaffRoom():
 				return
 	state_machine.changeState(states.looking_for_room)
 
+func goToStaffRoom():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["NAME"] == "ROOM_STAFF_ROOM":
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
+				timer.start()
+				return
+	state_machine.changeState(states.looking_for_room)
+	timer.start()
+
 func checkDistanceToRoom(room):
 	var position = get_translation()
 	if !room_occuped:
@@ -81,3 +95,20 @@ func moveIntoRoom():
 	var tile_to_go = room_occuped.tiles[randi()%room_occuped.tiles.size()]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
 	add_child(pathfinding)
+
+func _on_Timer_Timeout():
+	if state_machine.getCurrentStateName() != "Go to the staff room":
+		tireness -= 2
+		if tireness < 0:
+			tireness = 0
+		if tireness < 30:
+			if pathfinding != null:
+				pathfinding.stop()
+				pathfinding.free()
+				state_machine.changeState(states.go_to_staff_room)
+			else:
+				state_machine.changeState(states.go_to_staff_room)
+	else:
+		tireness += 2
+		if tireness > 100:
+			tireness = 100

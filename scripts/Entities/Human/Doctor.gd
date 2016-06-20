@@ -11,7 +11,8 @@ onready var states = {
 	wandering = get_node("Wandering"),
 	looking_for_room = get_node("LookingForRoom"),
 	looking_for_staff_room = get_node("LookingForStaffRoom"),
-	waiting_for_patient = get_node("WaitingForPatient")
+	waiting_for_patient = get_node("WaitingForPatient"),
+	go_to_staff_room = get_node("GoToStaffRoom")
 }
 
 var seniority
@@ -19,6 +20,7 @@ var specialities
 var patients
 
 func _ready():
+	timer.connect("timeout", self, "_on_Timer_Timeout")
 	set_process(true)
 
 func _process(delta):
@@ -48,11 +50,13 @@ func updateStats():
 func put():
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
+	timer.start()
 	state_machine.setCurrentState(states.looking_for_room)
 
 func take():
 	pathfinding.stop()
 	pathfinding.free()
+	pathfinding = null
 
 func checkEndPath():
 	if pathfinding.animation_completed == true:
@@ -101,8 +105,36 @@ func checkRoomValidity(room):
 			return true
 	return false
 
+func goToStaffRoom():
+	if map.rooms.size() != 0:
+		for room in map.rooms:
+			if room.type["NAME"] == "ROOM_STAFF_ROOM":
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
+				timer.start()
+				return
+	state_machine.changeState(states.looking_for_room)
+	timer.start()
+
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
 	var tile_to_go = room_occuped.tiles[rand]
 	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
 	add_child(pathfinding)
+
+func _on_Timer_Timeout():
+	if state_machine.getCurrentStateName() != "Go to the staff room":
+		tireness -= 2
+		if tireness < 0:
+			tireness = 0
+		if tireness < 30:
+			if pathfinding != null:
+				pathfinding.stop()
+				pathfinding.free()
+				state_machine.changeState(states.go_to_staff_room)
+			else:
+				state_machine.changeState(states.go_to_staff_room)
+	else:
+		tireness += 2
+		if tireness > 100:
+			tireness = 100
