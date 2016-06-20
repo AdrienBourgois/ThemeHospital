@@ -35,6 +35,7 @@ var happiness
 var thirsty
 var warmth
 var room_occuped
+var object_ptr
 var desk_ptr
 var bench_ptr
 var is_go_to_reception = false
@@ -114,8 +115,6 @@ func checkThirsty():
 	if thirsty <= 20:
 		decreaseHappiness(2)
 		if state_machine.getCurrentStateName() == "WANDERING" || state_machine.getCurrentStateName() == "CHECK_BENCH":
-			pathfinding.stop()
-			pathfinding.free()
 			state_machine.changeState(states.go_to_drinking_machine)
 
 func checkWarmth():
@@ -150,6 +149,8 @@ func goToDrinkingMachine():
 	if object_array.size() != 0:
 		for drinking in object_array:
 			if drinking.object_name == "DrinkMachine":
+				pathfinding.stop()
+				pathfinding.free()
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), drinking.vector_pos, self, speed, map)
 				add_child(pathfinding)
 				return
@@ -169,11 +170,13 @@ func checkGPOffice():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_GP" && room.is_occuped == true && room.present_patient.size() == 0:
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
-				add_child(pathfinding)
-				room_occuped = room
-				room.present_patient.append(self)
-				return
+				checkDistanceToRoom(room)
+				
+		if room_occuped:
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
+			add_child(pathfinding)
+			room_occuped.present_patient.append(self)
+			return
 	state_machine.changeState(states.check_bench)
 
 func checkBench():
@@ -208,3 +211,17 @@ func goToAdaptedHealRoom():
 
 func _on_Patient_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	displayInfo()
+
+func checkDistanceToRoom(room):
+	var position = get_translation()
+	if !room_occuped:
+		room_occuped = room
+	elif position.distance_to(room.tiles[5].get_translation()) < position.distance_to(room_occuped.tiles[5].get_translation()):
+		room_occuped = room
+
+func checkDistanceToObject(object):
+	var position = get_translation()
+	if !object_ptr:
+		object_ptr = object
+	elif position.distance_to(object.get_translation()) < position.distance_to(object_ptr.get_translation()):
+		object_ptr = object
