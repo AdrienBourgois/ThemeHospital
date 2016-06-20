@@ -59,9 +59,8 @@ func take():
 	pathfinding = null
 
 func checkEndPath():
-	if pathfinding.animation_completed == true:
-		pathfinding.free()
-		state_machine.changeState(states.looking_for_room)
+	pathfinding.free()
+	state_machine.changeState(states.looking_for_room)
 
 func checkWorkRoom():
 	if rooms.size() != 0:

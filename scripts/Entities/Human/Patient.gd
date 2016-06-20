@@ -154,9 +154,8 @@ func goToDrinkingMachine():
 	state_machine.returnToPreviousState()
 
 func checkEndPath():
-	if pathfinding.animation_completed:
-		pathfinding.free()
-		return true
+	pathfinding.free()
+	state_machine.returnToPreviousState()
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
