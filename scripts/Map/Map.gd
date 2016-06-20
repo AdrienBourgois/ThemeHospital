@@ -257,6 +257,7 @@ func new_room(state, parameters):
 		if (is_new_room_valid()):
 			var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			rooms.append(room)
+			room.enable_place_door()
 			for tile in previous_current_selection:
 				tile.hover_off()
 				removeTileFormCorridor(tile)
