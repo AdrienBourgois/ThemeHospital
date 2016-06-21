@@ -83,18 +83,6 @@ var ward = {
 	"OBJECTS": {},
 }
 
-var operating = {
-	"ID": 13,
-	"NAME": "ROOM_OPERATING",
-	"SIZE_MIN": 6,
-	"COLOR": colors.white,
-	"COST": 8000,
-	"TOOLTIP": "TOOLTIP_OPERATING",
-	"STAFF": [],
-	"RESSOURCES": "res://assets/Operating.png",
-	"OBJECTS": {},
-}
-
 var inflation = {
 	"ID": 20,
 	"NAME": "ROOM_INFLATION",
@@ -143,18 +131,6 @@ var toilets = {
 	"OBJECTS": {},
 }
 
-var research = {
-	"ID": 32,
-	"NAME": "ROOM_RESEARCH",
-	"SIZE_MIN": 5,
-	"COLOR": colors.white,
-	"COST": 5000,
-	"TOOLTIP": "TOOLTIP_RESEARCH",
-	"STAFF": [],
-	"RESSOURCES": "res://assets/Research.png",
-	"OBJECTS": {},
-}
-
 var grass = {
 	"ID": 40,
 	"NAME": "grass",
@@ -187,8 +163,7 @@ var diagnosis_rooms = {
 var treatment_rooms = {
 	"PSYCHIATRIC": psychiatric,
 	"PHARMACY": pharmacy,
-	"WARD": ward,
-	"OPERATING": operating,
+	"WARD": ward
 }
 
 var clinics = {
@@ -198,8 +173,7 @@ var clinics = {
 
 var facilities = {
 	"STAFF_ROOM": staff_room,
-	"TOILETS": toilets,
-	"RESEARCH": research,
+	"TOILETS": toilets
 }
 
 var decorations = {
@@ -214,7 +188,7 @@ var type_rooms = {
 	"TYPE_FACILITIES": facilities
 }
 
-var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, operating, inflation, tongue, staff_room, toilets, research, grass, pavement, plot] 
+var rooms_array = [lobby, gp_office, general_diagnosis, cardiogram, psychiatric, pharmacy, ward, inflation, tongue, staff_room, toilets, grass, pavement, plot] 
 
 func loadAllTextures():
 	if (!texture_loaded):
