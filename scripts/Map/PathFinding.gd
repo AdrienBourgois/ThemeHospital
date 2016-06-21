@@ -5,10 +5,9 @@ var path_finding = preload("Path.gd")
 
 var map = null
 var speed = 0.2
-var thread1 = null
-var thread2 = null
 
-var first_thread_turn = true
+var thread = null
+var thread_used = null
 
 var to_resolve = []
 var to_animate = []
@@ -16,8 +15,7 @@ var to_free = []
 
 func _init(_map):
 	map = _map
-	thread1 = Thread.new()
-	thread2 = Thread.new()
+	thread = Thread.new()
 
 func getPath(_from, _to, _node):
 	var path = path_finding.new(_from, _to, _node, speed, map, self)
@@ -33,14 +31,6 @@ func askToAnimate(path):
 
 func _fixed_process(delta):
 	var stop = true
-	var thread = null
-	
-	if (first_thread_turn):
-		thread = thread1
-		first_thread_turn = false
-	else:
-		thread = thread2
-		first_thread_turn = true
 	
 	if(to_resolve.size()):
 		stop = false
@@ -48,8 +38,6 @@ func _fixed_process(delta):
 			var path = to_resolve[0]
 			to_resolve.pop_front()
 			thread.start(path, "pathFinding")
-		else:
-			thread.wait_to_finish()
 	
 	if(to_animate.size()):
 		stop = false
@@ -61,9 +49,9 @@ func _fixed_process(delta):
 		stop = false
 		for path in to_free:
 			if(path.ready_to_free):
-				#remove_child(path)
+				remove_child(path)
 				#path.queue_free()
-				to_free.erase(path)
+				#to_free.erase(path)
 
 func deletePath(path):
 	to_free.append(path)
