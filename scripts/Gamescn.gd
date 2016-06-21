@@ -80,7 +80,8 @@ func loadStaff():
 			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY), int(current.SENIORITY), int(current.SPECIALITIES))
 		else:
 			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY))
-		add_child(node)
+		if (!node.get_parent()):
+			add_child(node)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
 		node.is_selected = false
 		node.can_selected = false
