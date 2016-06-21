@@ -41,6 +41,7 @@ func _ready():
 	create_map(map_path)
 	position = tiles[0].get_translation()
 	path_finding = path_finding_class.new(self)
+	path_finding.startService()
 	add_child(path_finding)
 
 func createStatsDict():
