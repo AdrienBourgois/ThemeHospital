@@ -84,6 +84,8 @@ func loadStaff():
 		node.is_selected = false
 		node.can_selected = false
 		node.is_taken = false
+		node.tile = map.columns[floor(abs(node.get_translation().x/1))][floor(abs(node.get_translation().z/1))]
+		node.staff_stats = current
 		node.put()
 
 func updateStaffDataArray():
