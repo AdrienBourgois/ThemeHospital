@@ -81,6 +81,7 @@ func createObject(name):
 		node = research_machine_scn.instance()
 	else:
 		node = createRoomObject(name)
+	
 	node.setUniqueID(unique_id)
 	unique_id = 0 
 	return node

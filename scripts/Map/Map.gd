@@ -18,9 +18,10 @@ onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() set
 onready var stats = {}
 
 var room
+var special_walls = [] setget, getSpecialWalls
 var new_room_from = Vector2(-1,-1)
-var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
+var previous_current_selection = []
 var new_room_type = {}
 var actual_room_type_name = "grass" setget, getActualRoomTypeName
 
@@ -41,7 +42,8 @@ func createStatsDict():
 	stats = {
 	MAP_PATH = map_path,
 	ROOMS = rooms_save,
-	OCCUPIED_TILES = getOccupiedTiles()
+	OCCUPIED_TILES = getOccupiedTiles(),
+	SPECIAL_WALLS = special_walls
 	}
 	return stats
 
@@ -54,8 +56,13 @@ func loadData():
 		new_room_to = Vector2(current.TO_X, current.TO_Y)
 		new_room_type = ressources.getRoomFromId(current.ID)
 		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+		add_child(room)
 		rooms.append(room)
 		createRoomData()
+		
+	for data in stats.SPECIAL_WALLS:
+		var temp_tile = get_tile(Vector2(data.X, data.Y))
+		temp_tile.change_wall(data.WALL_KEY, temp_tile.enum_wall_type.DOOR)
 
 	resetStatsDict()
 
@@ -257,6 +264,7 @@ func new_room(state, parameters):
 	elif (state == "create"):
 		if (is_new_room_valid()):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+			add_child(room)
 			rooms.append(room)
 			room.setUniqueID(rooms.size())
 			room.enable_place_door()
@@ -283,7 +291,7 @@ func createRoomData():
 		FROM_Y = new_room_from.y,
 		TO_X = new_room_to.x,
 		TO_Y = new_room_to.y,
-		ID = new_room_type.ID
+		ID = new_room_type.ID,
 #		ID = room.getID()
 		}
 	rooms_save.append(room_data)
@@ -317,6 +325,9 @@ func getSize():
 
 func getPosition():
 	return position
+
+func getSpecialWalls():
+	return special_walls
 
 func removeTileFormCorridor(tiles_to_remove):
 	var idx = corridor_tiles.find(tiles_to_remove)
