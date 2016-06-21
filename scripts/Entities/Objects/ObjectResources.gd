@@ -118,6 +118,7 @@ func createRoomObject(name):
 		temp_array.push_back("ResearchMachine")
 	else:
 		node = objectscn.instance()
+	setUniqueID(unique_id)
 	return node
 
 func getUniqueID():
