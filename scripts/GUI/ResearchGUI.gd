@@ -1,6 +1,5 @@
 extends Control
 
-
 onready var container = get_node("Container")
 onready var total = get_node("Total")
 onready var hud = get_parent().get_node("HUD")

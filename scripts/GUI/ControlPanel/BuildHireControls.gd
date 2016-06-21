@@ -5,6 +5,7 @@ onready var control_panel = get_parent()
 onready var buttons = get_node("Buttons")
 
 onready var game = get_node("/root/Game")
+onready var map = game.scene.map
 onready var rooms_menu = preload("res://scenes/GUI/RoomsMenu.scn")
 onready var staff_gui = preload("res://scenes/GUI/InGameGUI/HUD/StaffGUI.scn")
 onready var shop_menu = preload("res://scenes/GUI/ShopMenu.scn")
@@ -36,6 +37,8 @@ func _on_Hire_pressed():
 
 func _on_Build_pressed():
 	if ( last_button_pressed.build ):
+		if map.creating_room == true:
+			map.new_room("cancel", null)
 		hideCurrentWindow()
 	else:
 		hideCurrentWindow()

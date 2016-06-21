@@ -28,6 +28,7 @@ var actual_room_type_name = "grass" setget, getActualRoomTypeName
 var size_x = 0
 var size_y = 0
 var position
+var creating_room = false
 
 var tile_on_cursor_node = null setget, getTileOnCursorNode
 var tile_on_cursor = Vector2(-1, -1)
@@ -207,6 +208,7 @@ func is_new_room_valid():
 
 func new_room(state, parameters):
 	if (state == "new"):
+		creating_room = true
 		new_room_from = Vector2(-1,-1)
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
@@ -260,6 +262,7 @@ func new_room(state, parameters):
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
 		new_room_type = {}
+		creating_room = false
 
 	elif (state == "create"):
 		if (is_new_room_valid()):
@@ -279,6 +282,7 @@ func new_room(state, parameters):
 			previous_current_selection = []
 			new_room_to = Vector2(-1,-1)
 			new_room_type = {}
+			creating_room = false
 			return room
 		else:
 			game.feedback.display("ROOM_NOT_VALID")
