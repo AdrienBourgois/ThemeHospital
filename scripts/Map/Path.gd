@@ -39,7 +39,7 @@ func _init(_from, _to, _node, _speed, _map, _path_finding_class):
 		node = _node
 		speed = _speed
 
-func pathFinding(userdata):
+func pathFinding():
 	open_list.append(from)
 	
 	while(open_list.size() && !found):
@@ -141,4 +141,4 @@ func canGo(from, direction):
 func stop():
 	set_fixed_process(false)
 	ask_to_free = true
-	#path_finding_class.deletePath(self)
+	path_finding_class.deletePath(self)
