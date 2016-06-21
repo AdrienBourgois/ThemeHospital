@@ -107,7 +107,6 @@ func _fixed_process(delta):
 			set_fixed_process(false)
 			animation_completed = true
 			ready_to_free = true
-			stop()
 
 func canGo(from, direction):
 	var tile_from = map.columns[from.x][from.y]
