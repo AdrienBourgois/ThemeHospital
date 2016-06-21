@@ -64,6 +64,7 @@ func loadData():
 	for data in stats.SPECIAL_WALLS:
 		var temp_tile = get_tile(Vector2(data.X, data.Y))
 		temp_tile.change_wall(data.WALL_KEY, temp_tile.enum_wall_type.DOOR)
+	special_walls = stats.SPECIAL_WALLS
 
 	resetStatsDict()
 
