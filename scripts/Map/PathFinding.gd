@@ -23,6 +23,7 @@ func startService():
 		thread.start(self, "resolve")
 
 func stopService():
+	thread_ask_to_stop = true
 	if(thread.is_active()):
 		thread.wait_to_finish()
 
@@ -51,7 +52,6 @@ func _fixed_process(delta):
 		stop = false
 		for path in to_free:
 			if(path.ready_to_free):
-				remove_child(path)
 				path.queue_free()
 				to_free.erase(path)
 
