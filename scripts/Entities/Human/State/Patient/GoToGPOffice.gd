@@ -8,7 +8,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
-		owner.pathfinding.free()
+		owner.pathfinding.stop()
 		var cost = owner.disease_list.DIAG_GP.NEW_COST
 		player.increaseMoney(cost)
 		var label = gamescn.in_game_gui.label_3d.instance()

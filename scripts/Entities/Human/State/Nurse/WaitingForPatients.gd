@@ -7,7 +7,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed == true || owner.pathfinding.found == false:
-		owner.pathfinding.free()
+		owner.pathfinding.stop()
 		owner.moveIntoRoom()
 
 func exit(owner):

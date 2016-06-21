@@ -17,8 +17,9 @@ var max_value = 100.0
 var plant_pos
 
 func checkEndPath():
-	pathfinding.free()
-	checkWork()
+	if pathfinding.animation_completed == true:
+		pathfinding.stop()
+		checkWork()
 
 func checkPlant():
 	if object_array.size() != 0:
@@ -26,8 +27,7 @@ func checkPlant():
 			if plant.object_name == "Plant" && plant.getThirst() <= 90:
 				plant_pos = Vector2(plant.get_translation().x, plant.get_translation().z)
 				plant.is_occuped = true
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), plant_pos, self, speed, map)
-				add_child(pathfinding)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), plant_pos, self)
 				return
 
 func _fixed_process(delta):
@@ -45,7 +45,6 @@ func put():
 
 func take():
 	pathfinding.stop()
-	pathfinding.free()
 
 func checkWork():
 	if checkPlantThirsty():
@@ -106,8 +105,7 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
-				add_child(pathfinding)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self)
 				timer.start()
 				return
 	state_machine.returnToPreviousState()
@@ -121,7 +119,6 @@ func _on_Timer_Timeout():
 		if tireness < 30:
 			if pathfinding != null:
 				pathfinding.stop()
-				pathfinding.free()
 				state_machine.changeState(states.go_to_staff_room)
 			else:
 				state_machine.changeState(states.go_to_staff_room)

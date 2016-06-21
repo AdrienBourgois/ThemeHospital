@@ -9,7 +9,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
-		owner.pathfinding.free()
+		owner.pathfinding.stop()
 		player.increaseHealPatients(1)
 		var cost = owner.disease.disease_type.NEW_COST
 		player.increaseMoney(cost)

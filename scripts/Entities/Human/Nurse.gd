@@ -37,13 +37,12 @@ func put():
 
 func take():
 	pathfinding.stop()
-	pathfinding.free()
 	get_node("Timer").stop()
 
 
 func checkEndPath():
 	if pathfinding.animation_completed == true || pathfinding.found == false:
-		pathfinding.free()
+		pathfinding.stop()
 		state_machine.changeState(states.looking_for_room)
 
 func checkWorkRoom():
@@ -56,8 +55,7 @@ func checkWorkRoom():
 		if room_occuped:
 			room_occuped.is_occuped = true
 			var tile_to_go = room_occuped.tiles[5]
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
-			add_child(pathfinding)
+			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
 			return
 	state_machine.changeState(states.wandering)
 
@@ -67,8 +65,7 @@ func checkStaffRoom():
 			if room.type.NAME == "ROOM_STAFF_ROOM":
 				room_occuped = room
 				var tile_to_go = room_occuped.tiles[5]
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
-				add_child(pathfinding)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
 				is_resting = true
 				return
 	state_machine.changeState(states.looking_for_room)
@@ -77,8 +74,7 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
-				add_child(pathfinding)
+				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self)
 				timer.start()
 				return
 	state_machine.changeState(states.looking_for_room)
@@ -93,8 +89,7 @@ func checkDistanceToRoom(room):
 
 func moveIntoRoom():
 	var tile_to_go = room_occuped.tiles[randi()%room_occuped.tiles.size()]
-	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, 0.2, map)
-	add_child(pathfinding)
+	pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
 
 func _on_Timer_Timeout():
 	if state_machine.getCurrentStateName() != "Go to the staff room":
@@ -104,7 +99,6 @@ func _on_Timer_Timeout():
 		if tireness < 30:
 			if pathfinding != null:
 				pathfinding.stop()
-				pathfinding.free()
 				state_machine.changeState(states.go_to_staff_room)
 			else:
 				state_machine.changeState(states.go_to_staff_room)

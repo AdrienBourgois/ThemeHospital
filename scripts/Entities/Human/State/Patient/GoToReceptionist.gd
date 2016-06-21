@@ -6,7 +6,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
-		owner.pathfinding.free()
+		owner.pathfinding.stop()
 		if Vector2(owner.get_translation().x, owner.get_translation().z) == owner.object_ptr.vector_pos:
 			owner.is_go_to_reception = true
 			owner.state_machine.changeState(owner.states.go_to_gp_office)

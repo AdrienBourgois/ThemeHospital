@@ -2,6 +2,7 @@
 extends Node
 
 export var map_path = "res://Maps/map1.lvl"
+var path_finding = null
 
 var columns = []
 var tiles = []
@@ -14,6 +15,7 @@ var corridor_tiles = []
 onready var game = get_node("/root/Game/")
 onready var tile_res = preload("res://scenes/Map/Tile.scn")
 onready var room_class = preload("res://scripts/Map/Room.gd")
+onready var path_finding_class = preload("res://scripts/Map/PathFinding.gd")
 onready var ressources = preload("res://scripts/Map/MapRessources.gd").new() setget ,getResources
 onready var stats = {}
 
@@ -37,6 +39,8 @@ var actual_unique_id = 0 setget getActualUniqueID, setActualUniqueID
 func _ready():
 	create_map(map_path)
 	position = tiles[0].get_translation()
+	path_finding = path_finding_class.new(self)
+	add_child(path_finding)
 
 func createStatsDict():
 	stats = {
