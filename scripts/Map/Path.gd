@@ -140,4 +140,5 @@ func canGo(from, direction):
 func stop():
 	set_fixed_process(false)
 	ask_to_free = true
-	path_finding_class.deletePath(self)
+	if (path_finding_class):
+		path_finding_class.deletePath(self)
