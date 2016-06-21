@@ -12,7 +12,6 @@ onready var rooms_ressources = map.ressources
 onready var rooms_type = rooms_ressources.type_rooms
 onready var clinics = rooms_type.TYPE_CLINICS
 onready var diagnosis = rooms_type.TYPE_DIAGNOSIS
-onready var research_room = rooms_type.TYPE_FACILITIES.RESEARCH
 
 var global_value = 0
 var clinics_array = []
@@ -34,9 +33,3 @@ func _on_Quit_pressed():
 	self.hide()
 	hud.show()
 	camera.pause = false
-
-func getStaffInResearchRoom():
-	if research_room.STAFF.empty():
-		return
-	else:
-		return research_room.STAFF
