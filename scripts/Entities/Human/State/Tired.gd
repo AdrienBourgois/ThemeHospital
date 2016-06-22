@@ -7,7 +7,10 @@ func enter(owner):
 
 func execute(owner):
 	if owner.tireness == 100:
-		owner.state_machine.changeState(owner.states.looking_for_room)
+		if owner.id == 2:
+			owner.state_machine.changeState(owner.states.go_to_water)
+		else:
+			owner.state_machine.changeState(owner.states.looking_for_room)
 
 func exit(owner):
 	pass
