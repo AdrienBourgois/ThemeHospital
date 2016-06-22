@@ -22,6 +22,7 @@ func execute(owner):
 		owner.room_occuped.present_patient.clear()
 		owner.disease.queue_free()
 		owner.state_machine.changeState(owner.states.go_out)
+		owner.setDefaultSkin()
 
 func exit(owner):
 	if owner.room_occuped:
