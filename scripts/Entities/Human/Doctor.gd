@@ -57,6 +57,9 @@ func take():
 	pathfinding.stop()
 	pathfinding.free()
 	pathfinding = null
+	if room_occuped:
+		room_occuped.is_occuped = false
+		room_occuped = false
 
 func checkEndPath():
 	pathfinding.free()
@@ -117,7 +120,6 @@ func goToStaffRoom():
 				timer.start()
 				return
 	state_machine.changeState(states.looking_for_room)
-	timer.start()
 
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())

@@ -132,7 +132,7 @@ func roomsPressed(room):
 		confirmation_build.show()
 		confirmation_build.get_node("Panel/RoomNameLabel").set_text(room.NAME)
 		build_room.hide()
-		map.new_room("new", room)
+		map.newRoom("new", room)
 	else:
 		game.feedback.display("FEEDBACK_ENOUGH_MONEY")
 
