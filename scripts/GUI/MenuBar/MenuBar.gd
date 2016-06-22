@@ -28,7 +28,6 @@ func getInGameChat():
 		in_game_chat = game.scene.get_node("in_game_chat")
 
 func _on_Back_pressed():
-	game.scene.map.path_finding.stopService()
 	loader.gamescn = null
 	saver.gamescn = null
 	queue_free()

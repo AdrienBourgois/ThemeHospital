@@ -50,7 +50,6 @@ func loadData():
 	psychatric_discover = stats.PSYCHATRIC_DISCOVER
 	clinics_discover = stats.CLINICS_DISCOVER
 	loan = stats.LOAN
-	game.setReady(stats.READY)
 	resetStatsDict()
 
 func createStatsDict():
@@ -69,8 +68,7 @@ func createStatsDict():
 	PSYCHATRIC_DISCOVER = psychatric_discover,
 	CLINICS_DISCOVER = clinics_discover,
 	SAVENAME = game.username + " -" + date,
-	LOAN = loan,
-	READY = game.getReady()
+	LOAN = loan
 	}
 	return stats
 

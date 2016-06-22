@@ -70,6 +70,8 @@ func loadObjects():
 		for tile in map.tiles:
 			if (tile.x == node.get_translation().x and tile.y == node.get_translation().z):
 				node.setAvailableTile(true)
+		if (current.MAP_OBJECT):
+			node.checkWalls()
 
 func loadStaff():
 	for current in staff_dict.STAFF:
@@ -78,14 +80,11 @@ func loadStaff():
 			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY), int(current.SENIORITY), int(current.SPECIALITIES))
 		else:
 			node = hire_manager.loadStaffBody(current.NAME, int(current.ID), int(current.SKILL), int(current.SALARY))
-		if (!node.get_parent()):
-			add_child(node)
+		add_child(node)
 		node.set_translation(Vector3(current.X, current.Y, current.Z))
 		node.is_selected = false
 		node.can_selected = false
 		node.is_taken = false
-		node.tile = map.columns[floor(abs(node.get_translation().x/1))][floor(abs(node.get_translation().z/1))]
-		node.staff_stats = current
 		node.put()
 
 func updateStaffDataArray():
@@ -137,8 +136,6 @@ func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
 		game.new_game = true
-		if (game.getReady()):
-			in_game_gui.getBuildTimer()._on_Button_pressed()
 	
 	hire_manager.setStaffArray(entity_manager.staff_array)
 

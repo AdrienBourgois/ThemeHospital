@@ -9,15 +9,13 @@ export var machine = false
 onready var disease = get_node("Disease")
 onready var entity_manager = get_parent()
 onready var child_count = entity_manager.get_child_count()
-onready var pathfinding_res = map.path_finding
+onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
 onready var spawn_point = Vector3(15,0.5,45)
 
 onready var patient = get_node("./Patient")
 onready var body = patient.get_node("Body")
 onready var head = patient.get_node("Head")
-onready var tv_head = patient.get_node("TvHead")
 onready var tongue = head.get_node("Tongue")
-
 
 onready var states = {
 go_to_reception = get_node("GoToReceptionist"),
@@ -45,29 +43,14 @@ export var diagnosis_progress = 0
 
 var is_unhappy = false
 
-var default_skin_material = {
-leftleg = null,
-rightleg = null,
-head = null,
-tongue = null
-}
-
 func _ready():
 	player.increaseTotalPatients(1)
 	get_node("CheckStatsTimer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.go_to_reception)
-	saveDefaultSkinMaterial()
 	setPhysicalDisease()
 	set_process(true)
-
-
-func saveDefaultSkinMaterial():
-	default_skin_material.leftleg = body.get_node("LeftLeg").get_material_override()
-	default_skin_material.rightleg = body.get_node("RightLeg").get_material_override()
-	default_skin_material.head = patient.get_node("Head").get_material_override()
-	default_skin_material.tongue = patient.get_node("Head/Tongue").get_material_override()
 
 func setPhysicalDisease():
 	if (disease.name == "NAME_INVISIBILITY"):
@@ -80,18 +63,20 @@ func setPhysicalDisease():
 		setBluePatient()
 	elif (disease.name == "NAME_SQUITS"):
 		setBrownPant()
-	elif (disease.name == "NAME_TV"):
-		setTvHead()
 
 func setHeadDisappear():
+	body.set_hidden(false)
 	head.set_hidden(true)
+	tongue.set_hidden(true)
 
 func setBigHead():
+	body.set_hidden(false)
 	head.set_hidden(false)
 	tongue.set_hidden(true)
 	head.set_scale(Vector3(0.8, 0.7, 0.8))
 
 func setBigTongue():
+	body.set_hidden(false)
 	head.set_hidden(false)
 	tongue.set_hidden(false)
 
@@ -107,10 +92,6 @@ func setBrownPant():
 	material.set_parameter(material.PARAM_DIFFUSE, Color("411616"))
 	leftleg.set_material_override(material)
 	rightleg.set_material_override(material)
-
-func setTvHead():
-	head.set_hidden(true)
-	tv_head.set_hidden(false)
 
 func _process(delta):
 	if state_machine:
@@ -155,6 +136,7 @@ func _on_Timer_timeout():
 	if happiness == 0:
 		if state_machine.getCurrentStateName() == "WANDERING" || state_machine.getCurrentStateName() == "CHECK_BENCH":
 			pathfinding.stop()
+			pathfinding.free()
 			state_machine.changeState(states.go_out)
 
 func goToReception():
@@ -164,7 +146,7 @@ func goToReception():
 				checkDistanceToObject(desk)
 		if object_ptr:
 			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
-			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self)
+			add_child(pathfinding)
 			return
 	state_machine.changeState(states.random_movement)
 
@@ -175,16 +157,20 @@ func goToDrinkingMachine():
 				checkDistanceToObject(drinking)
 		if object_ptr:
 			pathfinding.stop()
-			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self)
+			pathfinding.free()
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
+			add_child(pathfinding)
 			return
 	state_machine.returnToPreviousState()
 
 func checkEndPath():
+	pathfinding.free()
 	state_machine.returnToPreviousState()
 
 func moveTo():
 	var tile_to_go = map.corridor_tiles[randi()%map.corridor_tiles.size()]
-	pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
+	add_child(pathfinding)
 
 func checkGPOffice():
 	if map.rooms.size() != 0:
@@ -194,7 +180,7 @@ func checkGPOffice():
 				
 		if room_occuped:
 			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
-			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self)
+			add_child(pathfinding)
 			room_occuped.present_patient.append(self)
 			return
 	state_machine.changeState(states.check_bench)
@@ -206,7 +192,7 @@ func checkBench():
 				checkDistanceToObject(bench)
 			if object_ptr:
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self, speed, map)
-				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), object_ptr.vector_pos, self)
+				add_child(pathfinding)
 				object_ptr.is_occuped = true
 				return
 	state_machine.changeState(states.random_movement)
@@ -232,6 +218,7 @@ func goToHealRoom(room_name):
 			checkDistanceToRoom(room)
 	if room_occuped:
 		pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
+		add_child(pathfinding)
 		room_occuped.present_patient.append(self)
 		return true
 	else:
@@ -253,9 +240,3 @@ func checkDistanceToObject(object):
 		object_ptr = object
 	elif position.distance_to(object.get_translation()) < position.distance_to(object_ptr.get_translation()):
 		object_ptr = object
-
-func setDefaultSkin():
-	body.get_node("LeftLeg").set_material_override(default_skin_material.leftleg)
-	body.get_node("RightLeg").set_material_override(default_skin_material.rightleg)
-	patient.get_node("Head").set_material_override(default_skin_material.head) 
-	patient.get_node("Head/Tongue").set_material_override(default_skin_material.tongue)

@@ -10,7 +10,6 @@ onready var preloader = preload("res://scenes/LoadingScreen.scn")
 onready var screenshot_preloader = preload("res://scenes/ScreenshotManager.scn")
 var screenshot_manager
 var loader
-var ready = false setget getReady, setReady
 
 onready var default_config = {
 username = "Default",
@@ -108,12 +107,6 @@ func setMultiplayer(state):
 
 func getMultiplayer():
 	return multiplayer
-
-func getReady():
-	return ready
-
-func setReady(boolean):
-	ready = boolean
 
 func goToScene(scene):
 	loader = preloader.instance()

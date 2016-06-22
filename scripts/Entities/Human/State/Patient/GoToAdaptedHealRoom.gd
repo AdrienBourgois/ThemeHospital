@@ -9,7 +9,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
-		owner.pathfinding.stop()
+		owner.pathfinding.free()
 		player.increaseHealPatients(1)
 		var cost = owner.disease.disease_type.NEW_COST
 		player.increaseMoney(cost)
@@ -22,7 +22,6 @@ func execute(owner):
 		owner.room_occuped.present_patient.clear()
 		owner.disease.queue_free()
 		owner.state_machine.changeState(owner.states.go_out)
-		owner.setDefaultSkin()
 
 func exit(owner):
 	if owner.room_occuped:

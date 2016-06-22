@@ -16,10 +16,6 @@ var map_reference = null
 var game = null
 
 var reference_wall_tile = {}
-var special_wall = {
-	DOOR = null,
-	WINDOWS = []
-	}
 
 func _init(from, to, _type, _map_reference):
 	map_reference = _map_reference
@@ -63,8 +59,6 @@ func place_door(wall):
 	for wall_key in tile.walls:
 		if (tile.walls[wall_key] == wall):
 			tile.change_wall(wall_key, tile.enum_wall_type.DOOR)
-			var door = createSpecialWall(tile.x, tile.y, wall_key, tile.enum_wall_type.DOOR)
-			get_parent().getSpecialWalls().append(door)
 	
 	reference_wall_tile.clear()
 	place_objects()
@@ -83,12 +77,3 @@ func place_objects():
 	object.can_selected = true
 	object.set_process_input(true)
 	object.setUniqueID(getUniqueID())
-
-func createSpecialWall(tile_x, tile_y, wall_key, type):
-	var special_wall = {
-	X = tile_x,
-	Y = tile_y,
-	WALL_KEY = wall_key,
-	TYPE = type
-	}
-	return special_wall
