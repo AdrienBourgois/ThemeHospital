@@ -1,9 +1,7 @@
 
 extends "Staff.gd"
 
-export var fixing_machinery = 50.0
 export var watering_plants = 50.0
-export var sweeping_litter = 50.0
 
 onready var object_array = game.scene.getObjectsNodesArray()
 onready var states = {
@@ -29,6 +27,7 @@ func checkPlant():
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), plant_pos, self, speed, map)
 				add_child(pathfinding)
 				return
+	state_machine.changeState(states.wandering)
 
 func _fixed_process(delta):
 	if state_machine:
@@ -66,41 +65,17 @@ func watering():
 				plant.setThirst(100)
 				plant.is_occuped = false
 
-func increaseFixingMachinery():
-	fixing_machinery += delta
-	if fixing_machinery > max_value:
-		fixing_machinery = max_value
-	return fixing_machinery
-
 func increaseWateringPlants():
 	watering_plants += delta
 	if watering_plants > max_value:
 		watering_plants = max_value
 	return watering_plants
 
-func increaseSweepingLitter():
-	sweeping_litter += delta
-	if sweeping_litter > max_value:
-		sweeping_litter = max_value
-	return sweeping_litter
-
-func decreaseFixingMachinery():
-	fixing_machinery -= delta
-	if fixing_machinery < 0.0:
-		fixing_machinery = 0.0
-	return fixing_machinery
-
 func decreaseWateringPlants():
 	watering_plants -= delta
 	if watering_plants < 0.0:
 		watering_plants = 0.0
 	return watering_plants
-
-func decreaseSweepingLitter():
-	sweeping_litter -= delta
-	if sweeping_litter < 0.0:
-		sweeping_litter = 0.0
-	return sweeping_litter
 
 func goToStaffRoom():
 	if map.rooms.size() != 0:
@@ -114,7 +89,7 @@ func goToStaffRoom():
 	timer.start()
 
 func _on_Timer_Timeout():
-	if state_machine.getCurrentStateName() != "Go to the staff room":
+	if state_machine.getCurrentStateName() != states.go_to_staff_room.name:
 		tireness -= 2
 		if tireness < 0:
 			tireness = 0

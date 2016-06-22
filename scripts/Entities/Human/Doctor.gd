@@ -128,12 +128,17 @@ func moveIntoRoom():
 	add_child(pathfinding)
 
 func _on_Timer_Timeout():
-	tireness -= 2
-	if tireness < 0:
-		tireness = 0
-	if tireness < 30:
-		if pathfinding != null:
-			pathfinding.stop()
-			pathfinding.free()
-		state_machine.changeState(states.go_to_staff_room)
-		timer.stop()
+	if state_machine.getCurrentStateName() != states.go_to_staff_room.name:
+		tireness -= 2
+		if tireness < 0:
+			tireness = 0
+		if tireness < 30:
+			if pathfinding != null:
+				pathfinding.stop()
+				pathfinding.free()
+			state_machine.changeState(states.go_to_staff_room)
+
+	else:
+		tireness += 2
+		if tireness > 100:
+			tireness = 100
