@@ -49,6 +49,7 @@ func _ready():
 	nb_staff = 28
 	generateStaffIdAndDataArray(nb_staff)
 	timer.set_wait_time(spawn_time/game.speed)
+	game.connect("end_month", self, "_on_end_month")
 	game.connect("speed_change", self, "_speed_change")
 
 func generateStaffData(id):
@@ -118,12 +119,6 @@ func checkGlobalTemperature(node):
 	else:
 		node.warmth -= 2
 
-
-func _on_CreateStaff_timeout():
-	if staff_array[0].size() + staff_array[1].size() + staff_array[2].size() + staff_array[3].size() <= 20:
-		nb_staff = randi()%8
-		generateStaffIdAndDataArray(nb_staff)
-
 func _on_Timer_timeout():
 	if count < 3:
 		var spawn_time = rand_range(1, 20)
@@ -135,3 +130,8 @@ func _speed_change():
 	if game.speed > 0:
 		timer.set_wait_time(spawn_time/game.speed)
 		timer.start()
+
+func _on_end_month():
+	for id in staff_array:
+		id.clear()
+	generateStaffIdAndDataArray(nb_staff)
