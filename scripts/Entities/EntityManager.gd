@@ -1,12 +1,18 @@
 
 extends Spatial
 
+export var spawn_time = 12
+
+
+onready var game = get_node("/root/Game")
 onready var salary_tab = [[75, 105, 205], 60, 25, 20]
 onready var speciality_bonus_salary = [0, 20, 30, 40]
 onready var last_name = ["CRAMBLIN", "WARMOND", "CRABINGTON", "SCOTE", "WRIGHTSON", "HIGHTON", "BURMORE", "BANE", "KINGSMITH", "PETCLIFFE", "PODMAN", "FENTON", "GOLDBERRY", "BYSON", "WATERS", "WRIGHTMORE", "BYTON", "BINNWICK", "WYERS", "CURLAN", "BOYBAUM", "CRABELTON", "WATERSON", "HIGHLEY", "PODINGTON"]
 onready var first_name = ["A. ", "B. ", "C. ", "D. ", "E. ", "F. ", "G. ", "H. ", "I. ", "J. ", "K. ", "L. ", "M. ", "N. ", "O. ", "P. ", "Q. ", "R. ", "S. ", "T. ", "U. ", "V. ", "W. ", "X. ", "Y. ", "Z. "]
 var heats = []
 var nb_staff = 0
+onready var timer = get_node("SpawnTimerPatient")
+var count = 0
 
 onready var staff_id = {
 DOCTOR = 0,
@@ -42,6 +48,8 @@ func _ready():
 	randomize()
 	nb_staff = 28
 	generateStaffIdAndDataArray(nb_staff)
+	timer.set_wait_time(spawn_time/game.speed)
+	game.connect("speed_change", self, "_speed_change")
 
 func generateStaffData(id):
 	var staff_data = {}
@@ -115,3 +123,15 @@ func _on_CreateStaff_timeout():
 	if staff_array[0].size() + staff_array[1].size() + staff_array[2].size() + staff_array[3].size() <= 20:
 		nb_staff = randi()%8
 		generateStaffIdAndDataArray(nb_staff)
+
+func _on_Timer_timeout():
+	if count < 3:
+		var spawn_time = rand_range(1, 20)
+		patient_array.push_back(generatePatientData())
+		createPatientBody()
+		count += 1
+
+func _speed_change():
+	if game.speed > 0:
+		timer.set_wait_time(spawn_time/game.speed)
+		timer.start()
