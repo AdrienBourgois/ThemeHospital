@@ -22,18 +22,8 @@ func setDisease():
 	disease_type = disease_type[randi()%disease_type.size()]
 	name = disease_type["NAME"]
 
-
 func getName():
 	return name
 
 func getType():
 	return type
-
-func get_pharmacy_disease():
-	return pharmacy
-
-func get_psychatric_disease():
-	return psychatric
-
-func get_clinics_disease():
-	return clinics
