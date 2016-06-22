@@ -6,7 +6,7 @@ func enter(owner):
 
 func execute(owner):
 	if owner.pathfinding.animation_completed == true || owner.pathfinding.found == false:
-		owner.pathfinding.stop()
+		owner.pathfinding.free()
 		owner.state_machine.changeState(owner.states.waiting_for_patients)
 
 func exit(owner):

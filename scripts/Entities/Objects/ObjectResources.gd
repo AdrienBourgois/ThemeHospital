@@ -81,10 +81,8 @@ func createObject(name):
 		node = research_machine_scn.instance()
 	else:
 		node = createRoomObject(name)
-	
-	if (node):
-		node.setUniqueID(unique_id)
-		unique_id = 0 
+	node.setUniqueID(unique_id)
+	unique_id = 0 
 	return node
 
 func createRoomObject(name):
@@ -119,10 +117,6 @@ func createRoomObject(name):
 		temp_array.push_back("ResearchMachine")
 	else:
 		node = objectscn.instance()
-		
-	if (node):
-		node.setUniqueID(unique_id)
-		unique_id = 0 
 	return node
 
 func getUniqueID():

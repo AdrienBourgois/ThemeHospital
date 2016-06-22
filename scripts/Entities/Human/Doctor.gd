@@ -55,12 +55,12 @@ func put():
 
 func take():
 	pathfinding.stop()
+	pathfinding.free()
 	pathfinding = null
 
 func checkEndPath():
-	if pathfinding.animation_completed == true:
-		pathfinding.stop()
-		state_machine.changeState(states.looking_for_room)
+	pathfinding.free()
+	state_machine.changeState(states.looking_for_room)
 
 func checkWorkRoom():
 	if rooms.size() != 0:
@@ -69,7 +69,8 @@ func checkWorkRoom():
 				checkDistanceToRoom(room)
 		if room_occuped:
 			room_occuped.is_occuped = true
-			pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[10].x, room_occuped.tiles[10].y), self)
+			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[10].x, room_occuped.tiles[10].y), self, speed, map)
+			add_child(pathfinding)
 			return
 	state_machine.changeState(states.wandering)
 
@@ -111,7 +112,8 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
-				pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self)
+				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
+				add_child(pathfinding)
 				timer.start()
 				return
 	state_machine.changeState(states.looking_for_room)
@@ -120,7 +122,8 @@ func goToStaffRoom():
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
 	var tile_to_go = room_occuped.tiles[rand]
-	pathfinding = pathfinding_res.getPath(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self)
+	pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
+	add_child(pathfinding)
 
 func _on_Timer_Timeout():
 	if state_machine.getCurrentStateName() != "Go to the staff room":
@@ -130,6 +133,7 @@ func _on_Timer_Timeout():
 		if tireness < 30:
 			if pathfinding != null:
 				pathfinding.stop()
+				pathfinding.free()
 				state_machine.changeState(states.go_to_staff_room)
 			else:
 				state_machine.changeState(states.go_to_staff_room)

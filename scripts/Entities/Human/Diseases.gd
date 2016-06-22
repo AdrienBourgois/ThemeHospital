@@ -21,7 +21,6 @@ func setDisease():
 	disease_type = disease_array[rand_type]
 	disease_type = disease_type[randi()%disease_type.size()]
 	name = disease_type["NAME"]
-	print(name)
 
 
 func getName():
