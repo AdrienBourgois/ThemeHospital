@@ -137,6 +137,8 @@ func init():
 	if !game.new_game:
 		loader.loadPlayer(game.save_to_load)
 		game.new_game = true
+		if (game.getReady()):
+			in_game_gui.getBuildTimer()._on_Button_pressed()
 	
 	hire_manager.setStaffArray(entity_manager.staff_array)
 
