@@ -173,17 +173,10 @@ func moveTo():
 	add_child(pathfinding)
 
 func checkGPOffice():
-	if map.rooms.size() != 0:
-		for room in map.rooms:
-			if room.type["NAME"] == "ROOM_GP" && room.is_occuped == true && room.present_patient.size() == 0:
-				checkDistanceToRoom(room)
-				
-		if room_occuped:
-			pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room_occuped.tiles[0].x, room_occuped.tiles[0].y), self, speed, map)
-			add_child(pathfinding)
-			room_occuped.present_patient.append(self)
+	if goToRoom("ROOM_GP"):
 			return
-	state_machine.changeState(states.check_bench)
+	else:
+		state_machine.changeState(states.check_bench)
 
 func checkBench():
 	if object_array.size() != 0:
@@ -199,20 +192,20 @@ func checkBench():
 
 func goToAdaptedHealRoom():
 	if disease.type == "pharmacy" && map.rooms.size() != 0:
-		if goToHealRoom("ROOM_PHARMACY"):
+		if goToRoom("ROOM_PHARMACY"):
 			return
 	elif disease.type == "psychiatric" && map.rooms.size() != 0:
-		if goToHealRoom("ROOM_PSYCHIATRIC"):
+		if goToRoom("ROOM_PSYCHIATRIC"):
 			return
 	elif disease.type == "bloaty_head" && map.rooms.size() != 0:
-		if goToHealRoom("ROOM_INFLATION"):
+		if goToRoom("ROOM_INFLATION"):
 			return
 	elif disease.type == "tongue" && map.rooms.size() != 0:
-		if goToHealRoom("ROOM_TONGUE"):
+		if goToRoom("ROOM_TONGUE"):
 			return
 	state_machine.changeState(states.check_bench)
 
-func goToHealRoom(room_name):
+func goToRoom(room_name):
 	for room in map.rooms:
 		if room.type["NAME"] == room_name && room.is_occuped == true && room.present_patient.size() == 0:
 			checkDistanceToRoom(room)
