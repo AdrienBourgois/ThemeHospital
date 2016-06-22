@@ -11,11 +11,11 @@ onready var player = gamescn.player
 
 
 func _on_CancelButton_pressed():
-	map.new_room("cancel", null)
+	map.newRoom("cancel", null)
 	control_panel.hideCurrentWindow()
 
 func _on_AcceptButton_pressed():
-	var room = map.new_room("create", null)
+	var room = map.newRoom("create", null)
 	if  (room):
 		player.money -= rooms_menu.price
 		player.hospital_value += rooms_menu.price

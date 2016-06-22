@@ -26,16 +26,16 @@ func _init(from, to, _type, _map_reference):
 	game = map_reference.game
 	type = _type
 	
-	tiles = map_reference.get_list(from, to)
+	tiles = map_reference.getList(from, to)
 	
 	for tile in tiles:
 		tile.update(type)
 	
 	for tile in tiles:
-		tile.update_walls("Up")
-		tile.update_walls("Left")
-		tile.update_walls("Right")
-		tile.update_walls("Down")
+		tile.updateWalls("Up")
+		tile.updateWalls("Left")
+		tile.updateWalls("Right")
+		tile.updateWalls("Down")
 
 func getUniqueID():
 	return unique_id
@@ -43,33 +43,33 @@ func getUniqueID():
 func setUniqueID(rooms_size):
 	unique_id = rooms_size
 
-func enable_place_door():
+func enablePlaceDoor():
 	for tile in tiles:
 		for wall_key in tile.walls:
 			var wall = tile.walls[wall_key]
 			if(wall):
-				wall.static_body.connect("input_event", wall, "place_door")
+				wall.static_body.connect("input_event", wall, "placeDoor")
 				wall.room = self
 				reference_wall_tile[wall] = tile
 
-func place_door(wall):
+func placeDoor(wall):
 	for tile in tiles:
 		for wall_key in tile.walls:
 			var wall = tile.walls[wall_key]
 			if(wall):
-				wall.static_body.disconnect("input_event", wall, "place_door")
+				wall.static_body.disconnect("input_event", wall, "placeDoor")
 	
 	var tile = reference_wall_tile[wall]
 	for wall_key in tile.walls:
 		if (tile.walls[wall_key] == wall):
-			tile.change_wall(wall_key, tile.enum_wall_type.DOOR)
+			tile.changeWall(wall_key, tile.enum_wall_type.DOOR)
 			var door = createSpecialWall(tile.x, tile.y, wall_key, tile.enum_wall_type.DOOR)
 			get_parent().getSpecialWalls().append(door)
 	
 	reference_wall_tile.clear()
-	place_objects()
+	placeObjects()
 
-func place_objects():
+func placeObjects():
 	var object_resources = game.scene.getObjectResources()
 	object_resources.setUniqueID(getUniqueID())
 	object_resources.createRoomObject(map_reference.getActualRoomTypeName())

@@ -21,14 +21,14 @@ func _process(delta):
 		waiting_frame -= 1
 		return
 
-	load_resources()
+	loadResources()
 
-func load_resources():
+func loadResources():
 	if update_ready:
 		status = loader.poll()
 	
 	if status == ERR_FILE_EOF:
-		set_scene(loader.get_resource())
+		setScene(loader.get_resource())
 		set_process(false)
 	elif status == OK:
 		update()
@@ -56,7 +56,7 @@ func goToScene(scene_path):
 		if current_scene != null:
 			current_scene.queue_free()
 
-func set_scene(scene):
+func setScene(scene):
 	var new_scene = scene.instance()
 	root.add_child(new_scene)
 	get_tree().set_current_scene(new_scene)
