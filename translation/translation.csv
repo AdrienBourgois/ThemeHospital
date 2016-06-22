@@ -327,6 +327,7 @@ BUTTON_DOWN_NAME,Down,Bas
 CONCENTRATE_RESEARCH,Concentrate Research,Focus sur la recherche
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
 FEEDBACK_BLUEPRINT,That Blueprint is not valid !,Cette salle n'est pas valide !
+FEEDBACK_PLACE_DOORS,You must put a door. To put a door you need to click on a wall of the room,Vous devez placer une porte. Pour placer une porte vous devez cliquer sur un mur de la salle
 PRICE_LABEL,Price : ,Prix : 
 ROOM_NOT_VALID,New room is not valid !,La salle n'est pas correcte !
 LOOKING_FOR_ROOM,Looking for a room,Cherche une salle
