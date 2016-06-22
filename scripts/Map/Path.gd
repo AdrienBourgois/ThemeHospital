@@ -52,7 +52,8 @@ func pathFinding():
 			if (current == to):
 				found = true
 				reconstruct()
-				path_finding_class.askToAnimate(self)
+				if (path_finding_class):
+					path_finding_class.askToAnimate(self)
 				continue
 			else:
 				for neighbour in current.neighbours:
