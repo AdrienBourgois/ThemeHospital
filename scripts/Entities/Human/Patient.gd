@@ -15,6 +15,7 @@ onready var spawn_point = Vector3(15,0.5,45)
 onready var patient = get_node("./Patient")
 onready var body = patient.get_node("Body")
 onready var head = patient.get_node("Head")
+onready var tv_head = patient.get_node("TvHead")
 onready var tongue = head.get_node("Tongue")
 
 onready var states = {
@@ -43,14 +44,28 @@ export var diagnosis_progress = 0
 
 var is_unhappy = false
 
+var default_skin_material = {
+leftleg = null,
+rightleg = null,
+head = null,
+tongue = null
+}
+
 func _ready():
 	player.increaseTotalPatients(1)
 	get_node("CheckStatsTimer").start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)
 	state_machine.setCurrentState(states.go_to_reception)
+	saveDefaultSkinMaterial()
 	setPhysicalDisease()
 	set_process(true)
+
+func saveDefaultSkinMaterial():
+	default_skin_material.leftleg = body.get_node("LeftLeg").get_material_override()
+	default_skin_material.rightleg = body.get_node("RightLeg").get_material_override()
+	default_skin_material.head = patient.get_node("Head").get_material_override()
+	default_skin_material.tongue = patient.get_node("Head/Tongue").get_material_override()
 
 func setPhysicalDisease():
 	if (disease.name == "NAME_INVISIBILITY"):
@@ -63,20 +78,18 @@ func setPhysicalDisease():
 		setBluePatient()
 	elif (disease.name == "NAME_SQUITS"):
 		setBrownPant()
+	elif (disease.name == "NAME_TV"):
+		setTvHead()
 
 func setHeadDisappear():
-	body.set_hidden(false)
 	head.set_hidden(true)
-	tongue.set_hidden(true)
 
 func setBigHead():
-	body.set_hidden(false)
 	head.set_hidden(false)
 	tongue.set_hidden(true)
 	head.set_scale(Vector3(0.8, 0.7, 0.8))
 
 func setBigTongue():
-	body.set_hidden(false)
 	head.set_hidden(false)
 	tongue.set_hidden(false)
 
@@ -92,6 +105,11 @@ func setBrownPant():
 	material.set_parameter(material.PARAM_DIFFUSE, Color("411616"))
 	leftleg.set_material_override(material)
 	rightleg.set_material_override(material)
+
+func setTvHead():
+	head.set_hidden(true)
+	tv_head.set_hidden(false)
+
 
 func _process(delta):
 	if state_machine:
@@ -240,3 +258,12 @@ func checkDistanceToObject(object):
 		object_ptr = object
 	elif position.distance_to(object.get_translation()) < position.distance_to(object_ptr.get_translation()):
 		object_ptr = object
+
+func setDefaultSkin():
+	body.get_node("LeftLeg").set_material_override(default_skin_material.leftleg)
+	body.get_node("RightLeg").set_material_override(default_skin_material.rightleg)
+	patient.get_node("Head").set_material_override(default_skin_material.head) 
+	tongue.set_hidden(true)
+	head.set_scale(Vector3(0.5, 0.5, 0.5))
+	head.set_hidden(false)
+	tv_head.set_hidden(true)

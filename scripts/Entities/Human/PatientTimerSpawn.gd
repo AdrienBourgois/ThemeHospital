@@ -7,7 +7,7 @@ func _ready():
 	randomize()
 
 func _on_Timer_timeout():
-	if count == 3:
+	if count == 100:
 		disconnect("timeout", self, "_on_Timer_timeout")
 	else:
 		var spawn_time = rand_range(1, 20)
