@@ -23,6 +23,7 @@ var previous_current_selection = []
 var new_room_to = Vector2(-1,-1)
 var new_room_type = {}
 var actual_room_type_name = "grass" setget, getActualRoomTypeName
+var special_walls = [] setget, getSpecialWalls
 
 var size_x = 0
 var size_y = 0
@@ -42,7 +43,8 @@ func createStatsDict():
 	stats = {
 	MAP_PATH = map_path,
 	ROOMS = rooms_save,
-	OCCUPIED_TILES = getOccupiedTiles()
+	OCCUPIED_TILES = getOccupiedTiles(),
+	SPECIAL_WALLS = special_walls
 	}
 	return stats
 
@@ -55,8 +57,13 @@ func loadData():
 		new_room_to = Vector2(current.TO_X, current.TO_Y)
 		new_room_type = ressources.getRoomFromId(current.ID)
 		var room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+		add_child(room)
 		rooms.append(room)
 		createRoomData()
+	for data in stats.SPECIAL_WALLS:
+		var temp_tile = get_tile(Vector2(data.X, data.Y))
+		temp_tile.change_wall(data.WALL_KEY, temp_tile.enum_wall_type.DOOR)
+	special_walls = stats.SPECIAL_WALLS
 
 	resetStatsDict()
 
@@ -260,6 +267,7 @@ func new_room(state, parameters):
 	elif (state == "create"):
 		if (is_new_room_valid()):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
+			add_child(room)
 			rooms.append(room)
 			room.setUniqueID(rooms.size())
 			room.enable_place_door()
@@ -288,13 +296,8 @@ func createRoomData():
 		TO_X = new_room_to.x,
 		TO_Y = new_room_to.y,
 		ID = new_room_type.ID
-#		ID = room.getID()
 		}
 	rooms_save.append(room_data)
-
-#func sendRoomToServer():
-#	var packet = "/game 5 " + str(new_room_from.x) + " " + str(new_room_from.y) + " " + str(new_room_to.x) + " " + str(new_room_to.y) + " " + str(new_room_type.ID)
-#	global_client.addPacket(packet)
 
 func getOccupiedTiles():
 	occupied_tiles.clear()
@@ -321,6 +324,11 @@ func getSize():
 
 func getPosition():
 	return position
+
+func getSpecialWalls():
+	return special_walls
+
+
 
 func removeTileFormCorridor(tiles_to_remove):
 	var idx = corridor_tiles.find(tiles_to_remove)
