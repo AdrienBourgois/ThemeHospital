@@ -35,7 +35,7 @@ class Tile:
 var size_x = 0
 var size_y = 0
 
-func coord_to_index(x, y):
+func coordToIndex(x, y):
 	return (y*size_y)+x
 
 func _init(_x, _y, _editor):
@@ -56,7 +56,7 @@ func _init(_x, _y, _editor):
 	node2d = Node2D.new()
 	node2d.set_scale(Vector2(zoom,zoom))
 	add_child(node2d)
-	node2d.connect("draw", self, "draw_map")
+	node2d.connect("draw", self, "drawMap")
 	
 	set_process_input(true)
 	print("[MAP EDITOR] Node for map initialized !")
@@ -85,17 +85,17 @@ func _input(event):
 					square_from = current_tile
 				else:
 					square_to = current_tile
-					for tile in get_list(square_from, square_to):
+					for tile in getList(square_from, square_to):
 						tile.type = editor.current_brush
 					node2d.update()
 					square_from = Vector2(-1,-1)
 					square_to = Vector2(-1,-1)
 		if(painting or (editor.current_brush == tile_type.Door and event.is_action_pressed("left_click"))):
 			if(current_tile != Vector2(-1,-1)):
-					change_tile(current_tile.x, current_tile.y)
+					changeTile(current_tile.x, current_tile.y)
 					node2d.update()
 
-func draw_map():
+func drawMap():
 	for tile in tiles:
 		if(tile.type == tile_type.Decoration):
 			node2d.draw_rect(Rect2(tile.x,tile.y,1,1), color_decoration)
@@ -105,8 +105,8 @@ func draw_map():
 			if(display_doors):
 				node2d.draw_rect(Rect2(tile.x,tile.y,1,1), color_door)
 
-func change_tile(x, y):
-	var tile = tiles[coord_to_index(x, y)]
+func changeTile(x, y):
+	var tile = tiles[coordToIndex(x, y)]
 	if(editor.current_brush == tile_type.Door):
 		if(!tile.door):
 			tiles_with_doors.append(tile)
@@ -117,17 +117,17 @@ func change_tile(x, y):
 		tile.type = editor.current_brush
 	node2d.update()
 
-func change_zoom(_zoom):
+func changeZoom(_zoom):
 	zoom = _zoom
 	node2d.set_scale(Vector2(zoom,zoom))
 
-func is_valid():
+func isValid():
 	for tile in tiles:
 		if (tile.type == tile_type.Lobby):
 			return true
 	return false
 
-func get_list(from, to):
+func getList(from, to):
 	if (from > to):
 		var swap_tmp = from
 		from = to
@@ -145,7 +145,7 @@ func get_list(from, to):
 	
 	return selection
 
-func display_doors(pressed):
+func displayDoors(pressed):
 	print("[MAP EDITOR] Display doors : " + str(pressed))
 	display_doors = pressed
 	node2d.update()
