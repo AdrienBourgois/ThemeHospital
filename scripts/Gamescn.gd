@@ -50,6 +50,7 @@ func createObjectsDict():
 	return objects
 
 func createStaffDict():
+	updateStaffDataArray()
 	staff_dict = {
 	STAFF = staff_data_array
 	}
