@@ -263,6 +263,7 @@ func new_room(state, parameters):
 			rooms.append(room)
 			room.setUniqueID(rooms.size())
 			room.enable_place_door()
+			game.feedback.display("FEEDBACK_PLACE_DOORS")
 			for tile in previous_current_selection:
 				tile.hover_off()
 				tile.unique_id = room.getUniqueID()
