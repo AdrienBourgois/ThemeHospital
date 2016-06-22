@@ -8,6 +8,7 @@ func enter(owner):
 func execute(owner):
 	if owner.pathfinding.animation_completed || !owner.pathfinding.found:
 		owner.pathfinding.free()
+		owner.entity_manager.count -= 1
 		owner.queue_free()
 
 func exit(owner):

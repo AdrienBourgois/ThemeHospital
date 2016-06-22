@@ -25,10 +25,12 @@ var staff_stats = {}
 var speed = 0.2
 
 func _ready():
+	gamescn.getStaffNodesArray().append(self)
+	updateStats()
+	gamescn.updateStaffDataArray()
 	connect("input_event", self, "_on_Staff_input_event")
 	Game.connect("speed_change", self, "_on_Speed_Change")
 	set_fixed_process(true)
-	gamescn.getStaffNodesArray().append(self)
 
 func addToArray():
 	updateStats()
