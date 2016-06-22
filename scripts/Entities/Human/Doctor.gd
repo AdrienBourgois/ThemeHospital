@@ -57,6 +57,9 @@ func take():
 	pathfinding.stop()
 	pathfinding.free()
 	pathfinding = null
+	if room_occuped:
+		room_occuped.is_occuped = false
+		room_occuped = false
 
 func checkEndPath():
 	pathfinding.free()
@@ -117,7 +120,6 @@ func goToStaffRoom():
 				timer.start()
 				return
 	state_machine.changeState(states.looking_for_room)
-	timer.start()
 
 func moveIntoRoom():
 	var rand = randi()%(room_occuped.tiles.size())
@@ -126,18 +128,12 @@ func moveIntoRoom():
 	add_child(pathfinding)
 
 func _on_Timer_Timeout():
-	if state_machine.getCurrentStateName() != "Go to the staff room":
-		tireness -= 2
-		if tireness < 0:
-			tireness = 0
-		if tireness < 30:
-			if pathfinding != null:
-				pathfinding.stop()
-				pathfinding.free()
-				state_machine.changeState(states.go_to_staff_room)
-			else:
-				state_machine.changeState(states.go_to_staff_room)
-	else:
-		tireness += 2
-		if tireness > 100:
-			tireness = 100
+	tireness -= 2
+	if tireness < 0:
+		tireness = 0
+	if tireness < 30:
+		if pathfinding != null:
+			pathfinding.stop()
+			pathfinding.free()
+		state_machine.changeState(states.go_to_staff_room)
+		timer.stop()
