@@ -17,7 +17,7 @@ func _enter_tree():
 	add_control_to_dock(DOCK_SLOT_LEFT_UR, control)
 	print("[MAP EDITOR]  /*- Theme Hospital Editor - Initialized ! -*\\")
 
-func new_map(x, y):
+func newMap(x, y):
 	if (map):
 		print("[MAP EDITOR] Delete previous Map")
 		map.free()
@@ -25,17 +25,17 @@ func new_map(x, y):
 	map = Map.new(x, y, self)
 	
 	window = Window.new(self)
-	window.set_map(map)
+	window.setMap(map)
 	map.control = window.controls
 	add_child(window)
 	
-	see_map()
+	seeMap()
 
-func see_map():
+func seeMap():
 	window.show()
 	map.set_process_input(true)
 
-func change_brush(type):
+func changeBrush(type):
 	current_brush = type
 	map.square_from = Vector2(-1,-1)
 	print("[MAP EDITOR] Change brush to ", type)
@@ -53,7 +53,7 @@ func _exit_tree():
 	queue_free()
 
 func save():
-	if (!map.is_valid()):
+	if (!map.isValid()):
 		print("[MAP EDITOR] Can't save map, map is invalid !")
 	elif (control.path_lineedit.get_text() == ""):
 		print("[MAP EDITOR] Please name the map !")
