@@ -41,10 +41,10 @@ func displayInfo():
 		info_bar.set_text(name + " : " + tr(state_machine.getCurrentStateName()))
 
 func updateStats():
-	position.x = self.get_translation().x 
-	position.y = self.get_translation().y
-	position.z = self.get_translation().z
-	rotation = self.get_rotation().y
+	position.x = get_translation().x 
+	position.y = get_translation().y
+	position.z = get_translation().z
+	rotation = get_rotation().y
 	staff_stats = {
 	NAME = name,
 	X = position.x,
