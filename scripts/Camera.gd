@@ -3,19 +3,20 @@ extends Camera
 
 onready var root = get_tree().get_root()
 onready var game = get_node("/root/Game")
-var map
-export var border = 10
-var inferior_limit = Vector3(0,5,0)
-var superior_limit = Vector3(9,20,9)
-var rotation_limit = Vector3(0,45,45)
 const size_min = 10
 const size_max = 30
 
+var inferior_limit = Vector3(0,5,0)
+var superior_limit = Vector3(9,20,9)
+var rotation_limit = Vector3(0,45,45)
+var map
 var position
 var size = 20
 var movement = Vector3(0,0,0)
-var pause = false setget setPause,getPause
+var pause = false
+
 export var speed = 10
+export var border = 10
 
 
 func _ready():
@@ -119,9 +120,3 @@ func move():
 	var new_pos = get_translation() - movement * speed * delta
 	set_translation(new_pos)
 	movement = Vector3(0,0,0)
-
-func setPause(state):
-	pause = state
-
-func getPause():
-	return pause

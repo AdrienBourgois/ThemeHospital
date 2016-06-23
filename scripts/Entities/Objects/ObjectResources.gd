@@ -27,7 +27,7 @@ var windowscn = preload("res://scenes/Map/Window.scn")
 var array_scn = [benchscn, plantscn, radiatorscn, drinkscn, firescn, receptiondeskscn]
 
 var toiletsscn = preload("res://scenes/Entities/Objects/Toilets.scn")
-var temp_array = null setget getTempArray, setTempArray
+var temp_array = null setget setTempArray
 var unique_id = 0 setget getUniqueID, setUniqueID
 
 
@@ -131,12 +131,5 @@ func getUniqueID():
 func setUniqueID(new_id):
 	unique_id = new_id
 
-func getTempArray():
-	return temp_array
-
 func setTempArray(array):
 	temp_array = array
-
-func returnPlant():
-	var node = plantscn.instance()
-	return node
