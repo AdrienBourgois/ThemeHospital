@@ -124,8 +124,8 @@ func goToStaffRoom():
 					room_occuped.is_occuped = false
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
 				add_child(pathfinding)
-				timer.start()
 				return
+	timer.start()
 	state_machine.changeState(states.looking_for_room)
 
 func moveIntoRoom():
@@ -139,7 +139,7 @@ func _on_Timer_Timeout():
 		tireness -= 2
 		if tireness < 0:
 			tireness = 0
-		if tireness < 30:
+		if tireness < 95:
 			if pathfinding != null:
 				pathfinding.stop()
 				pathfinding.free()
