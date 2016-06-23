@@ -3,7 +3,7 @@ extends Node
 
 onready var game = get_node("/root/Game")
 
-export var name = "default" setget setName,getName
+export var name = "default" setget setName
 export var money = 0 setget setMoney,getMoney
 export var expense = 0 setget setExpense,getExpense
 export var heal_patients = 0.0 setget setHealPatients,getHealPatients
@@ -79,9 +79,6 @@ func resetStatsDict():
 
 func setName(new_name):
 	name = name
-
-func getName():
-	return name
 
 func setMoney(val):
 	money = val
