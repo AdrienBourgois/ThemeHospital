@@ -2,12 +2,13 @@
 extends "../Entity.gd"
 
 onready var timer = get_node("Timer")
-onready var available = get_node("Available") setget, getAvailable
+onready var available = get_node("Available")
 onready var temp_array = gamescn.getTempObjectsNodesArray()
 
-export var object_name = " " setget setName, getName
-export var price = 100 setget getPrice, setPrice
+export var object_name = " "
+export var price = 100
 export var expense_per_month = 0
+export var big_object = false
 export var in_room_object = false
 export var room_id = 0
 
@@ -19,8 +20,7 @@ var type = {}
 var vector_pos
 var tile
 var entity_interaction_tile setget, getEntityInteractionTile
-var entity = null setget setEntity, getEntity
-export var big_object = false
+var entity = null
 var map_object = false
 
 func _ready():
@@ -253,29 +253,8 @@ func getUniqueID():
 func setUniqueID(new_ID):
 	unique_id = new_ID
 
-func getEntity():
-	return entity
-
-func setEntity(pointer):
-	entity = pointer
-
 func getEntityInteractionTile():
 	return entity_interaction_tile
-
-func getAvailable():
-	return available
-
-func setName(value):
-	object_name = value
-
-func getName(): 
-	return object_name
-
-func setPrice(value):
-	price = value
-
-func getPrice():
-	return price
 
 
 func setObjectStats(object_name, rotation, position_x, position_z):
