@@ -1,5 +1,5 @@
 
-extends "../Entity.gd"
+extends "../../Entity.gd"
 
 export var id = 0 setget setID
 export var name = "" setget setName

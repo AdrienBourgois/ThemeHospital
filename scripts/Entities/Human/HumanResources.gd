@@ -1,10 +1,10 @@
 
 extends Node
 
-var doctor_res = preload("res://scenes/Entities/Human/Doctor.scn")
-var nurse_res = preload("res://scenes/Entities/Human/Nurse.scn")
-var handyman_res = preload("res://scenes/Entities/Human/Handymen.scn")
-var receptionist_res = preload("res://scenes/Entities/Human/Receptionist.scn")
+var doctor_res = preload("res://scenes/Entities/Human/Staff/Doctor.scn")
+var nurse_res = preload("res://scenes/Entities/Human/Staff/Nurse.scn")
+var handyman_res = preload("res://scenes/Entities/Human/Staff/Handymen.scn")
+var receptionist_res = preload("res://scenes/Entities/Human/Staff/Receptionist.scn")
 var patient_res = preload("res://scenes/Entities/Human/Patient.scn")
 
 func createHuman(id):
