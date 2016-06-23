@@ -139,7 +139,7 @@ func _on_Timer_Timeout():
 		tireness -= 2
 		if tireness < 0:
 			tireness = 0
-		if tireness < 95:
+		if tireness < 30:
 			if pathfinding != null:
 				pathfinding.stop()
 				pathfinding.free()

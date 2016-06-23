@@ -62,28 +62,14 @@ func checkWorkRoom():
 			return
 	state_machine.changeState(states.wandering)
 
-func checkStaffRoom():
-	if rooms.size() != 0:
-		for room in rooms:
-			if room.type.NAME == "ROOM_STAFF_ROOM":
-				room_occuped = room
-				var tile_to_go = room_occuped.tiles[5]
-				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(tile_to_go.x, tile_to_go.y), self, speed, map)
-				add_child(pathfinding)
-				is_resting = true
-				return
-	state_machine.changeState(states.looking_for_room)
-
 func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
 				if room_occuped != null:
-					print(room_occuped)
 					room_occuped.is_occuped = false
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
 				add_child(pathfinding)
-				timer.start()
 				return
 	state_machine.changeState(states.looking_for_room)
 	timer.start()
