@@ -1,7 +1,7 @@
 extends Node
 
-onready var name = "" setget ,getName
-onready var type = "" setget ,getType
+onready var name = ""
+onready var type = ""
 
 onready var disease = get_node("/root/Game").scene.diseases
 onready var pharmacy = disease.cure_at_pharmacy
@@ -21,9 +21,3 @@ func setDisease():
 	disease_type = disease_array[rand_type]
 	disease_type = disease_type[randi()%disease_type.size()]
 	name = disease_type["NAME"]
-
-func getName():
-	return name
-
-func getType():
-	return type

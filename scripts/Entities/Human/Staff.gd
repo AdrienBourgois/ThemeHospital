@@ -1,10 +1,10 @@
 
 extends "../Entity.gd"
 
-export var id = 0 setget getID, setID
-export var name = "" setget getName, setName
-export var skill = 0 setget getSkill, setSkill
-export var salary = 0 setget getSalary, setSalary
+export var id = 0 setget setID
+export var name = "" setget setName
+export var skill = 0 setget setSkill
+export var salary = 0 setget setSalary
 
 export var warmth = 50.0
 export var happiness = 100.0
@@ -99,26 +99,14 @@ func _on_Speed_Change():
 		if new_set_time > 0:
 			timer.set_wait_time(timer.get_time_left() / Game.speed)
 
-func getName():
-	return name
- 
 func setName(val):
 	name = val
-
-func getID():
-	return id
 
 func setID(val):
 	id = val
 
-func getSkill():
-	return skill
-
 func setSkill(val):
 	skill = val
-
-func getSalary():
-	return salary
 
 func setSalary(val):
 	salary = val

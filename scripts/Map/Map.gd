@@ -33,7 +33,7 @@ var creating_room = false
 var tile_on_cursor_node = null setget, getTileOnCursorNode
 var tile_on_cursor = Vector2(-1, -1)
 var center_tile_on_cursor = Vector2(-1, -1)
-var actual_unique_id = 0 setget getActualUniqueID, setActualUniqueID
+var actual_unique_id = 0 setget, getActualUniqueID
 
 func _ready():
 	createMap(map_path)
@@ -313,9 +313,6 @@ func getOccupiedTiles():
 
 func getActualUniqueID():
 	return actual_unique_id
-
-func setActualUniqueID(new_id):
-	actual_unique_id = new_id
 
 func getResources():
 	return ressources
