@@ -330,6 +330,8 @@ CONCENTRATE_RESEARCH,Concentrate Research,Focus sur la recherche
 FEEDBACK_ENOUGH_MONEY,Not Enough Money !,Pas assez d'argent !
 FEEDBACK_BLUEPRINT,That Blueprint is not valid !,Cette salle n'est pas valide !
 FEEDBACK_PLACE_DOORS,You must put a door. To put a door you need to click on a wall of the room,Vous devez placer une porte. Pour placer une porte vous devez cliquer sur un mur de la salle
+FEEDBACK_PATIENT,A patient go to the reception then to the GP office. After this he go to the adapted heal room. If one of this element is already occuped he look for a bench.,Un patient va a la reception puis a la medecine generale. Apres ca il va a la salle de soin adaptee a sa maladie. Si un de ces elements est deja occupe il cherche un banc.
+FEEDBACK_THIRSTY,If a patient is thirsty he look for a drinkmachine.,Si un patient est assoife il cherche un distributeur.
 PRICE_LABEL,Price : ,Prix : 
 ROOM_NOT_VALID,New room is not valid !,La salle n'est pas correcte !
 LOOKING_FOR_ROOM,Looking for a room,Cherche une salle
