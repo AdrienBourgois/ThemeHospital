@@ -9,7 +9,7 @@ export var machine = false
 onready var disease = get_node("Disease")
 onready var entity_manager = get_parent()
 onready var child_count = entity_manager.get_child_count()
-onready var pathfinding_res = load("res://scripts/Map/PathFinding.gd")
+onready var pathfinding_res = load("res://scripts/Map/PathFinding/PathFinding.gd")
 onready var spawn_point = Vector3(15,0.5,45)
 
 onready var patient = get_node("./Patient")
