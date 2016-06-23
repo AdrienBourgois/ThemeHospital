@@ -40,7 +40,6 @@ var object_ptr
 var is_go_to_reception = false
 export var speed = 0.2
 var is_diagnosed = false
-export var diagnosis_progress = 0
 
 var is_unhappy = false
 
@@ -117,7 +116,7 @@ func _process(delta):
 
 func displayInfo():
 	if state_machine:
-		info_bar.set_text("Patient : " + str(diagnosis_progress) + " / 1000")
+		info_bar.set_text("Patient : " + str(tr(state_machine.getCurrentStateName())))
 
 func increaseHappiness(val):
 	if !is_unhappy:
@@ -237,6 +236,13 @@ func goToRoom(room_name):
 
 func _on_Patient_input_event( camera, event, click_pos, click_normal, shape_idx ):
 	displayInfo()
+	displayFeedback()
+
+func displayFeedback():
+	if thirsty <= 20 :
+		game.feedback.display("FEEDBACK_THIRSTY")
+	else:
+		game.feedback.display("FEEDBACK_PATIENT")
 
 func checkDistanceToRoom(room):
 	var position = get_translation()
