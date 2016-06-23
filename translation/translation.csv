@@ -193,6 +193,8 @@ CMD_CHAT,[chat] show : ,[chat] afficher :
 ROOM_GP,GP's Office,Médecine Générale
 CMD_FULLSCREEN,[screen] fullscreen : ,[ecran] plein ecran : 
 CMD_SCREENSHOT,[screen] screenshot : ,[ecran] capture d'ecran : 
+CMD_SAVE,[save/load] quicksave : ,[sauver/charger] sauvegarde rapide : 
+CMD_LOAD,[save/load] quickload : ,[sauver/charger] chargement rapide :
 ROOM_GENERAL_DIAGNOSIS,General Diagnosis,Diagnostic General
 ROOM_CARDIOGRAM,Cardiogram,Cardiogramme
 ROOM_INFLATION,Inflation,Gonflage
