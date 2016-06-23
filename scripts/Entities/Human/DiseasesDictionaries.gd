@@ -1,4 +1,5 @@
 extends Node
+
 var map_ressource = preload("res://scripts/Map/MapRessources.gd").new()
 
 var invisibility = {
