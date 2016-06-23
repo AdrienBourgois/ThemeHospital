@@ -37,6 +37,7 @@ func _on_Research_pressed():
 func _on_Drug_Casebook_pressed():
 	hud.hide()
 	casebook.show()
+	casebook.updateStats()
 	camera.pause = true
 
 func _on_Town_Map_mouse_enter():
