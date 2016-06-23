@@ -151,6 +151,9 @@ func diseasePressed(button):
 	is_pressed = false
 	disease_selected = true
 
+func updateStats():
+	node_container.get_child(dis_idx).emit_signal("pressed")
+
 func moveButtonsIfClick(button):
 	if is_pressed == false:
 		button_pos = button.get_pos()
