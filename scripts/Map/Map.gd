@@ -204,7 +204,22 @@ func isNewRoomValid():
 			return false
 		if (tile.getObject()):
 			return false
+		for wall in tile.walls_types:
+			if (tile.walls_types[wall] == 3):
+				return false
+			if (tile.neighbours[wall].walls_types[getInverseDirection(wall)] == 3):
+				return false
 	return true
+
+func getInverseDirection(direction):
+	if(direction == "Up"):
+		return "Down"
+	if(direction == "Down"):
+		return "Up"
+	if(direction == "Left"):
+		return "Right"
+	if(direction == "Right"):
+		return "Left"
 
 func newRoom(state, parameters):
 	if (state == "new"):
