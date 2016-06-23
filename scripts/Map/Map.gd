@@ -268,7 +268,6 @@ func newRoom(state, parameters):
 		if (isNewRoomValid()):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			add_child(room)
-			rooms.append(room)
 			room.setUniqueID(rooms.size())
 			room.enablePlaceDoor()
 			game.feedback.display("FEEDBACK_PLACE_DOORS")

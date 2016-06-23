@@ -67,6 +67,7 @@ func placeDoor(wall):
 			get_parent().getSpecialWalls().append(door)
 	
 	reference_wall_tile.clear()
+	map_reference.rooms.append(self)
 	placeObjects()
 
 func placeObjects():
