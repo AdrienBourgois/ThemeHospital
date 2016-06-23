@@ -12,7 +12,7 @@ onready var stats = {}
 var cube_scale
 var i = 0
 
-export var position = Vector3(0,0,0) setget setPosition, getPosition 
+export var position = Vector3(0,0,0)
 export var rotation = 0
 
 var is_selected = false
@@ -76,9 +76,3 @@ func _on_Entity_input_event( camera, event, click_pos, click_normal, shape_idx )
 func _input(event):
 	if (event.is_action_released("right_click")):
 		rotate()
-
-func setPosition(value):
-	position = value
-
-func getPosition():
-	return position
