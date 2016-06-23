@@ -128,6 +128,13 @@ func _input(event):
 		saving_game.show()
 		saver.quicksave()
 		saving_game.showComplete()
+	if (event.is_action_released("load") and !game.getMultiplayer()):
+		loader.gamescn = null
+		saver.gamescn = null
+		game.save_to_load = 0
+		game.new_game = false
+		loader.loadPlayer(0)
+		game.goToScene("res://scenes/gamescn.scn")
 	if ( game.getMultiplayer() && event.is_action_pressed("show_chat") ):
 		in_game_chat.toggleVisibility()
 	if event.is_action_pressed("pause"):
