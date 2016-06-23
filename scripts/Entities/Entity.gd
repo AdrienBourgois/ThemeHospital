@@ -4,7 +4,7 @@ extends KinematicBody
 onready var game = get_node("/root/Game")
 onready var gamescn = game.scene
 onready var map = game.scene.map
-onready var mouse_pos_3d #= map.center_tile_on_cursor
+onready var mouse_pos_3d
 onready var cube = get_node("TestCube")
 
 onready var stats = {}
@@ -28,7 +28,6 @@ func take():
 func _ready():
 	connect("input_event", self, "_on_Entity_input_event")
 	cube_scale = cube.get_scale()
-	#set_translation(Vector3(mouse_pos_3d.x - cube_scale.x, cube_scale.y, mouse_pos_3d.y - cube_scale.z))
 	set_process(true)
 	set_process_input(true)
 

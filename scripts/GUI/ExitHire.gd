@@ -5,4 +5,3 @@ onready var control_panel = game.scene.get_node("./In_game_gui/HUD/Control_panel
 
 func _on_ExitHire_pressed():
 	control_panel.hideCurrentWindow()
-#	get_parent().get_parent().hide()
