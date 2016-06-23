@@ -111,6 +111,6 @@ func _on_Timer_Timeout():
 				pathfinding.free()
 			state_machine.changeState(states.go_to_staff_room)
 	else:
-		tireness += 10
+		tireness += 5
 		if tireness > 100:
 			tireness = 100
