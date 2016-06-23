@@ -8,14 +8,11 @@ var is_resting = false
 
 export var work_rooms = ["ROOM_PHARMACY", "ROOM_WARD"]
 
-export var tire = 10
-
 onready var states = {
 	wandering = get_node("Wandering"),
 	looking_for_room = get_node("LookingForRoom"),
 	waiting_for_patients = get_node("WaitingForPatients"), 
 	looking_for_staff_room = get_node("LookingForStaffRoom"),
-	rest = get_node("Rest"),
 	go_to_staff_room = get_node("GoToStaffRoom")
 	}
 
@@ -109,9 +106,7 @@ func _on_Timer_Timeout():
 			if pathfinding != null:
 				pathfinding.stop()
 				pathfinding.free()
-				state_machine.changeState(states.go_to_staff_room)
-			else:
-				state_machine.changeState(states.go_to_staff_room)
+			state_machine.changeState(states.go_to_staff_room)
 	else:
 		tireness += 2
 		if tireness > 100:
