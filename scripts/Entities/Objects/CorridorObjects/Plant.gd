@@ -1,5 +1,5 @@
 
-extends "./Object.gd" 
+extends "../Object.gd" 
 
 onready var thirsty_timer = get_node("ThirstyTimer")
 

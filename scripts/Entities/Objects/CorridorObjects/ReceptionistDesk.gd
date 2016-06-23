@@ -1,5 +1,5 @@
 
-extends "Object.gd"
+extends "../Object.gd"
 
 export var is_occuped = false
 

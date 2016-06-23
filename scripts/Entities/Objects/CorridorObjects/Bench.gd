@@ -1,4 +1,4 @@
 
-extends "Object.gd"
+extends "../Object.gd"
 
 var is_occuped = false

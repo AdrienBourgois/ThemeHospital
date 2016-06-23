@@ -15,7 +15,7 @@ onready var tile = map.columns[floor(abs(get_translation().x/1))][floor(abs(get_
 
 onready var staff_information_gui = preload("res://scenes/GUI/InGameGUI/StaffInformationGUI.scn")
 onready var entity_manager = game.scene.entity_manager
-onready var pathfinding_res = preload("res://scripts/Map/PathFinding.gd")
+onready var pathfinding_res = preload("res://scripts/Map/PathFinding/PathFinding.gd")
 var state_machine
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 onready var timer = get_node("Timer")
