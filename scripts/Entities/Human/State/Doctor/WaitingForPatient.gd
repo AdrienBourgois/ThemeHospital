@@ -13,6 +13,7 @@ func execute(owner):
 		owner.moveIntoRoom()
 
 func exit(owner):
-	owner.room_occuped.present_staff.clear()
-	owner.room_occuped.is_occuped = false
-	owner.room_occuped = null
+	if !owner.room_occuped:
+		owner.room_occuped.present_staff.clear()
+		owner.room_occuped.is_occuped = false
+		owner.room_occuped = null
