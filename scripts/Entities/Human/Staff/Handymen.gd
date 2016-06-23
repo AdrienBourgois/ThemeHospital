@@ -35,7 +35,6 @@ func _fixed_process(delta):
 			state_machine.update()
 
 func put():
-	timer.connect("timeout", self, "_on_Timer_Timeout")
 	timer.start()
 	state_machine = get_node("StateMachine")
 	state_machine.setOwner(self)

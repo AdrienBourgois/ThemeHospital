@@ -18,5 +18,4 @@ func _on_ConfirmationDialog_confirmed():
 	
 
 func _on_CancelButton_pressed():
-	get_parent().get_parent().show()
-	hide()
+	get_parent().get_parent().get_parent().queue_free()
