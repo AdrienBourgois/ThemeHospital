@@ -25,6 +25,14 @@ func put():
 func take():
 	pathfinding.stop()
 	pathfinding.free()
+	if desk_occuped:
+		desk_occuped.is_occuped = false
+		desk_occuped = null
+
+func sack():
+	if desk_occuped:
+		desk_occuped.is_occuped = false
+		desk_occuped = null
 
 func _process(delta):
 	if state_machine:

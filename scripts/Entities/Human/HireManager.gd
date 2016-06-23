@@ -29,6 +29,7 @@ func createStaffBody(type, index):
 	
 func sackStaff():
 	staff_selected.deleteFromArray()
+	staff_selected.sack()
 	remove_child(staff_selected)
 
 func loadStaffBody(name, id, skill, salary, seniority=0, speciality=0):

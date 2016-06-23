@@ -39,10 +39,11 @@ func take():
 	pathfinding.stop()
 	pathfinding.free()
 	get_node("Timer").stop()
+
+func sack():
 	if room_occuped:
 		room_occuped.is_occuped = false
 		room_occuped = false
-
 
 func checkEndPath():
 	if pathfinding.animation_completed == true || pathfinding.found == false:

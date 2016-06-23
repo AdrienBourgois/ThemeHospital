@@ -61,6 +61,11 @@ func take():
 		room_occuped.is_occuped = false
 		room_occuped = false
 
+func sack():
+	if room_occuped:
+		room_occuped.is_occuped = false
+		room_occuped = false
+
 func checkEndPath():
 	pathfinding.free()
 	state_machine.changeState(states.looking_for_room)

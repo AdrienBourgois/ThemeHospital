@@ -61,6 +61,9 @@ func take():
 func put():
 	pass
 
+func sack():
+	pass
+
 func checkEndPath():
 	pass
 
