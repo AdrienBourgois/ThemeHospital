@@ -277,24 +277,6 @@ func setPrice(value):
 func getPrice():
 	return price
 
-#func sendItemDataToServer(action):
-#	updateStats()
-#	
-#	var rotation = str(object_stats.ROTATION)
-#	var x = str(object_stats.X)
-#	var z = str(object_stats.Z)
-#	
-#	var packet = "/game 6 "
-#	
-#	if ( action == "new" ):
-#		packet += "0 " + object_name + " " + rotation + " " + x + " " + z
-#	elif ( action == "move" ):
-#		packet += "1 " + get_name() + " " + rotation + " " + x + " " + z
-#	else:
-#		return
-#	
-#	print(packet)
-
 
 func setObjectStats(object_name, rotation, position_x, position_z):
 	object_stats = {
