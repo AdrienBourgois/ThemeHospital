@@ -40,7 +40,7 @@ func take():
 func sack():
 	if room_occuped:
 		room_occuped.is_occuped = false
-		room_occuped = false
+		room_occuped = null
 
 func checkEndPath():
 	if pathfinding.animation_completed == true || pathfinding.found == false:
@@ -78,6 +78,9 @@ func goToStaffRoom():
 	if map.rooms.size() != 0:
 		for room in map.rooms:
 			if room.type["NAME"] == "ROOM_STAFF_ROOM":
+				if room_occuped != null:
+					print(room_occuped)
+					room_occuped.is_occuped = false
 				pathfinding = pathfinding_res.new(Vector2(get_translation().x, get_translation().z), Vector2(room.tiles[0].x, room.tiles[0].y), self, speed, map)
 				add_child(pathfinding)
 				timer.start()
@@ -102,12 +105,12 @@ func _on_Timer_Timeout():
 		tireness -= 2
 		if tireness < 0:
 			tireness = 0
-		if tireness < 30:
+		if tireness < 95:
 			if pathfinding != null:
 				pathfinding.stop()
 				pathfinding.free()
 			state_machine.changeState(states.go_to_staff_room)
 	else:
-		tireness += 2
+		tireness += 5
 		if tireness > 100:
 			tireness = 100

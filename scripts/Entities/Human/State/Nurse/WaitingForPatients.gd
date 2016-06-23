@@ -13,4 +13,4 @@ func execute(owner):
 func exit(owner):
 	owner.room_occuped.present_staff.clear()
 	owner.room_occuped.is_occuped = false
-	owner.room_occuped = false
+	owner.room_occuped = null
