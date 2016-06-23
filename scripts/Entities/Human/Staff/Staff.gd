@@ -19,6 +19,7 @@ onready var pathfinding_res = preload("res://scripts/Map/PathFinding/PathFinding
 var state_machine
 onready var info_bar = game.scene.in_game_gui.control_panel.dynamic_info_bar_label
 onready var timer = get_node("Timer")
+onready var wait_time = timer.get_wait_time()
 
 var pathfinding
 var staff_stats = {}
@@ -95,9 +96,9 @@ func moveTo():
 
 func _on_Speed_Change():
 	if game.speed > 0:
-		var new_set_time = timer.get_time_left() / Game.speed
+		var new_set_time = wait_time / Game.speed
 		if new_set_time > 0:
-			timer.set_wait_time(timer.get_time_left() / Game.speed)
+			timer.set_wait_time(wait_time / Game.speed)
 
 func setName(val):
 	name = val
