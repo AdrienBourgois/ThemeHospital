@@ -25,12 +25,10 @@ var staff_stats = {}
 var speed = 0.2
 
 func _ready():
-	gamescn.getStaffNodesArray().append(self)
-	updateStats()
-	gamescn.updateStaffDataArray()
 	connect("input_event", self, "_on_Staff_input_event")
 	Game.connect("speed_change", self, "_on_Speed_Change")
 	set_fixed_process(true)
+	gamescn.getStaffNodesArray().append(self)
 
 func addToArray():
 	updateStats()
@@ -41,10 +39,10 @@ func displayInfo():
 		info_bar.set_text(name + " : " + tr(state_machine.getCurrentStateName()))
 
 func updateStats():
-	position.x = self.get_translation().x 
-	position.y = self.get_translation().y
-	position.z = self.get_translation().z
-	rotation = self.get_rotation().y
+	position.x = get_translation().x 
+	position.y = get_translation().y
+	position.z = get_translation().z
+	rotation = get_rotation().y
 	staff_stats = {
 	NAME = name,
 	X = position.x,
@@ -93,7 +91,10 @@ func moveTo():
 		gamescn.updateStaffDataArray()
 
 func _on_Speed_Change():
-	timer.set_wait_time(timer.get_time_left() / Game.speed)
+	if game.speed > 0:
+		var new_set_time = timer.get_time_left() / Game.speed
+		if new_set_time > 0:
+			timer.set_wait_time(timer.get_time_left() / Game.speed)
 
 func getName():
 	return name

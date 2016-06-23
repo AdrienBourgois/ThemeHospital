@@ -21,12 +21,12 @@ func _init(_editor):
 func _ready():
 	popup_centered()
 
-func set_map(_map):
+func setMap(_map):
 	map = _map
 	container.add_child(map)
 	connect("hide", self, "window_hide")
 	set_title("Map Editor - " + str(map.size_x) + "X" + str(map.size_y))
 
-func window_hide():
+func windowHide():
 	map.set_process_input(false)
 

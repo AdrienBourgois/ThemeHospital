@@ -38,7 +38,7 @@ func _on_Hire_pressed():
 func _on_Build_pressed():
 	if ( last_button_pressed.build ):
 		if map.creating_room == true:
-			map.new_room("cancel", null)
+			map.newRoom("cancel", null)
 		hideCurrentWindow()
 	else:
 		hideCurrentWindow()

@@ -36,7 +36,7 @@ var center_tile_on_cursor = Vector2(-1, -1)
 var actual_unique_id = 0 setget getActualUniqueID, setActualUniqueID
 
 func _ready():
-	create_map(map_path)
+	createMap(map_path)
 	position = tiles[0].get_translation()
 
 func createStatsDict():
@@ -61,13 +61,13 @@ func loadData():
 		rooms.append(room)
 		createRoomData()
 	for data in stats.SPECIAL_WALLS:
-		var temp_tile = get_tile(Vector2(data.X, data.Y))
-		temp_tile.change_wall(data.WALL_KEY, temp_tile.enum_wall_type.DOOR)
+		var temp_tile = getTiles(Vector2(data.X, data.Y))
+		temp_tile.changeWall(data.WALL_KEY, temp_tile.enum_wall_type.DOOR)
 	special_walls = stats.SPECIAL_WALLS
 
 	resetStatsDict()
 
-func create_map(file_path):
+func createMap(file_path):
 	var file = File.new()
 	file.open(file_path, File.READ)
 	
@@ -110,16 +110,16 @@ func create_map(file_path):
 
 	for tile in tiles:
 		tile.get_all_neighbour()
-		tile.update_walls("Up")
-		tile.update_walls("Left")
-		tile.update_walls("Right")
-		tile.update_walls("Down")
+		tile.updateWalls("Up")
+		tile.updateWalls("Left")
+		tile.updateWalls("Right")
+		tile.updateWalls("Down")
 	
 	for door in doors:
 		var tile = columns[door[0]][door[1]]
 		for wall in tile.walls_types:
 			if(tile.walls_types[wall] != 0):
-				tile.change_wall(wall, tile.enum_wall_type.DOOR)
+				tile.changeWall(wall, tile.enum_wall_type.DOOR)
 	
 	file.close()
 
@@ -155,13 +155,13 @@ func getTileOnCursorNode():
 func getActualRoomTypeName():
 	return actual_room_type_name
 
-func get_tile(coords):
+func getTiles(coords):
 	for tile in tiles:
 		if (tile.x == coords.x && tile.y == coords.y):
 			return tile
 	return null
 
-func get_list(from, to):
+func getList(from, to):
 	if (from > to):
 		var swap_tmp = from
 		from = to
@@ -179,7 +179,7 @@ func get_list(from, to):
 	
 	return selection
 
-func is_huge_as(from, to, size):
+func isHugeAs(from, to, size):
 	if (from > to):
 		var swap_tmp = from
 		from = to
@@ -196,8 +196,8 @@ func is_huge_as(from, to, size):
 		else:
 			return false
 
-func is_new_room_valid():
-	if(!is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN)):
+func isNewRoomValid():
+	if(!isHugeAs(new_room_from, new_room_to, new_room_type.SIZE_MIN)):
 		return false
 	for tile in previous_current_selection:
 		if (tile.room_type.ID != ressources.lobby.ID):
@@ -206,7 +206,7 @@ func is_new_room_valid():
 			return false
 	return true
 
-func new_room(state, parameters):
+func newRoom(state, parameters):
 	if (state == "new"):
 		creating_room = true
 		new_room_from = Vector2(-1,-1)
@@ -216,48 +216,48 @@ func new_room(state, parameters):
 		new_room_type = parameters
 		for tile in tiles:
 			tile.staticBody.connect("input_event", tile, "_input_event")
-			tile.staticBody.connect("mouse_enter", tile, "hover_on", [colors.brown])
-			tile.staticBody.connect("mouse_exit", tile, "hover_off")
+			tile.staticBody.connect("mouse_enter", tile, "hoverOn", [colors.brown])
+			tile.staticBody.connect("mouse_exit", tile, "hoverOff")
 
 	elif (state == "from"):
 		new_room_from = parameters
 		for tile in tiles:
 			tile.currently_create_room = true
-			tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
-		new_room("current", parameters)
+			tile.staticBody.disconnect("mouse_enter", tile, "hoverOn")
+		newRoom("current", parameters)
 
 	elif (state == "current"):
 		new_room_to = parameters
 		for tile in previous_current_selection:
-			tile.hover_off()
-		previous_current_selection = get_list(new_room_from, new_room_to)
+			tile.hoverOff()
+		previous_current_selection = getList(new_room_from, new_room_to)
 		for tile in previous_current_selection:
-			if (is_new_room_valid()):
-				tile.hover_on(colors.blue)
+			if (isNewRoomValid()):
+				tile.hoverOn(colors.blue)
 			else:
-				if tile.getObject() || tile.room_type.ID != ressources.lobby.ID || !is_huge_as(new_room_from, new_room_to, new_room_type.SIZE_MIN):
-					tile.hover_on(colors.red)
+				if tile.getObject() || tile.room_type.ID != ressources.lobby.ID || !isHugeAs(new_room_from, new_room_to, new_room_type.SIZE_MIN):
+					tile.hoverOn(colors.red)
 				else:
-					tile.hover_on(colors.blue)
+					tile.hoverOn(colors.blue)
 	
 	elif (state == "to" && new_room_from != Vector2(-1,-1)):
 		new_room_to = parameters
 		for tile in tiles:
 			tile.staticBody.disconnect("input_event", tile, "_input_event")
-			tile.staticBody.disconnect("mouse_exit", tile, "hover_off")
+			tile.staticBody.disconnect("mouse_exit", tile, "hoverOff")
 			tile.currently_create_room = false
 	
 	elif (state == "cancel"):
 		for tile in tiles:
-			tile.hover_off()
+			tile.hoverOff()
 			tile.currently_create_room = false
 		if(new_room_to == Vector2(-1,-1)):
 			for tile in tiles:
 				tile.staticBody.disconnect("input_event", tile, "_input_event")
-				tile.staticBody.disconnect("mouse_exit", tile, "hover_off")
+				tile.staticBody.disconnect("mouse_exit", tile, "hoverOff")
 		if(new_room_from == Vector2(-1,-1)):
 			for tile in tiles:
-				tile.staticBody.disconnect("mouse_enter", tile, "hover_on")
+				tile.staticBody.disconnect("mouse_enter", tile, "hoverOn")
 		new_room_from = Vector2(-1,-1)
 		previous_current_selection = []
 		new_room_to = Vector2(-1,-1)
@@ -265,15 +265,15 @@ func new_room(state, parameters):
 		creating_room = false
 
 	elif (state == "create"):
-		if (is_new_room_valid()):
+		if (isNewRoomValid()):
 			room = room_class.new(new_room_from, new_room_to, new_room_type, self)
 			add_child(room)
 			rooms.append(room)
 			room.setUniqueID(rooms.size())
-			room.enable_place_door()
+			room.enablePlaceDoor()
 			game.feedback.display("FEEDBACK_PLACE_DOORS")
 			for tile in previous_current_selection:
-				tile.hover_off()
+				tile.hoverOff()
 				tile.unique_id = room.getUniqueID()
 				actual_unique_id = tile.unique_id
 				removeTileFormCorridor(tile)
@@ -287,7 +287,7 @@ func new_room(state, parameters):
 			return room
 		else:
 			game.feedback.display("ROOM_NOT_VALID")
-			new_room("cancel", null)
+			newRoom("cancel", null)
 		return null
 
 func createRoomData():
@@ -328,8 +328,6 @@ func getPosition():
 
 func getSpecialWalls():
 	return special_walls
-
-
 
 func removeTileFormCorridor(tiles_to_remove):
 	var idx = corridor_tiles.find(tiles_to_remove)

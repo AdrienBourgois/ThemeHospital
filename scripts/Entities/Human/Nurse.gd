@@ -39,6 +39,9 @@ func take():
 	pathfinding.stop()
 	pathfinding.free()
 	get_node("Timer").stop()
+	if room_occuped:
+		room_occuped.is_occuped = false
+		room_occuped = false
 
 
 func checkEndPath():
@@ -97,7 +100,7 @@ func moveIntoRoom():
 	add_child(pathfinding)
 
 func _on_Timer_Timeout():
-	if state_machine.getCurrentStateName() != "Go to the staff room":
+	if state_machine.getCurrentStateName() != states.go_to_staff_room.name:
 		tireness -= 2
 		if tireness < 0:
 			tireness = 0

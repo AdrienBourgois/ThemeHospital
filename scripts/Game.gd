@@ -27,6 +27,7 @@ var username = "" setget setUsername,getUsername
 var new_game = true setget setNewGame,getNewGame
 var save_to_load setget setSaveToLoad,getSaveToLoad
 var multiplayer setget setMultiplayer,getMultiplayer
+var ready = false setget getReady, setReady
 
 var scene setget ,getScene
 var feedback setget ,getFeedback
@@ -107,6 +108,12 @@ func setMultiplayer(state):
 
 func getMultiplayer():
 	return multiplayer
+
+func getReady():
+	return ready
+
+func setReady(boolean):
+	ready = boolean
 
 func goToScene(scene):
 	loader = preloader.instance()
